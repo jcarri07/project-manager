@@ -1,17 +1,11 @@
-<!--
-=========================================================
-* Material Dashboard 2 - v3.0.4
-=========================================================
+<?php 
+  require_once('../databases/conexion.php');
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
+  $query = "SELECT * FROM projects";
+  $result = mysqli_query($conn,$query);
+  $num_r= mysqli_num_rows($result);
 
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -471,13 +465,15 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>
+                      <?php
+                      while ($row = mysqli_fetch_assoc($result)) {
+                      echo '<td>
                         <div class="d-flex px-2">
                           <div>
                             <img src="../assets/img/small-logos/logo-asana.svg" class="avatar avatar-sm rounded-circle me-2" alt="spotify">
                           </div>
                           <div class="my-auto">
-                            <h6 class="mb-0 text-sm">Proyecto #1</h6>
+                            <h6 class="mb-0 text-sm">'.$row["nombre"].'</h6>
                           </div>
                         </div>
                       </td>
@@ -485,11 +481,11 @@
                         <p class="text-sm font-weight-bold mb-0">3</p>
                       </td>
                       <td>
-                        <span class="text-xs font-weight-bold">En ejecucion</span>
+                        <span class="text-xs font-weight-bold">'.$row["estatus"].'</span>
                       </td>
                       <td class="align-middle text-center">
                         <div class="d-flex align-items-center justify-content-center">
-                          <span class="me-2 text-xs font-weight-bold">60%</span>
+                          <span class="me-2 text-xs font-weight-bold">'.$row["avance"].'%</span>
                           <div>
                             <div class="progress">
                               <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
@@ -666,7 +662,9 @@
                         <button class="btn btn-link text-secondary mb-0" aria-haspopup="true" aria-expanded="false">
                           <i class="fa fa-ellipsis-v text-xs"></i>
                         </button>
-                      </td>
+                      </td>';
+                      }
+                      ?>
                     </tr>
                   </tbody>
                 </table>
@@ -771,5 +769,4 @@
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/material-dashboard.min.js?v=3.0.4"></script>
 </body>
-
 </html>
