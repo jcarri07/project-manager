@@ -13,6 +13,11 @@
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
+
+<?php 
+  require_once('../databases/conexion.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -102,7 +107,7 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Cuenta:</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white active bg-gradient-primary" href="../pages/profile.html">
+          <a class="nav-link text-white active bg-gradient-primary" href="../pages/profile.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">person</i>
             </div>
@@ -253,6 +258,9 @@
       </div>-->
     </nav>
     <!-- End Navbar -->
+<?php
+if ($_GET['form']=='add') { ?>
+
     <div class="container-fluid px-2 px-md-10">
       <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
         <span class="mask  bg-gradient-primary  opacity-6"></span>
@@ -271,7 +279,29 @@
           <div class="card-body">
 
 
-                <form role="form" class="text-start">
+          <form role="form" class="form-horizontal" method="POST" action="../pages/proses_profile.php?act=insert" enctype="multipart/form-data">
+                <form role="form" class="text-start" >
+
+              
+                <label class="form-label">Proyecto Participante</label>
+                <div class="input-group input-group-outline my-2">
+                  <select class="form-select-lg" name="proyecto" data-placeholder="-- Seleccionar proyecto --" autocomplete="off" required>
+                    <option value=""></option>
+                    <?php
+                      $query_data = mysqli_query($conn, "SELECT id, estatus, nombre FROM projects")
+                                                            or die('error '.mysqli_error($conn));
+
+                      while ($data_1 = mysqli_fetch_assoc($query_data)) {
+                        echo"<option value=\"$data_1[id]\"> $data_1[estatus] | $data_1[nombre] </option>";
+                      }
+                      echo $data_1['project_id'];
+
+                    ?>
+
+
+                  </select>
+                </div>
+
                 <label class="form-label">Nombres</label>
                   <div class="input-group input-group-outline my-2">
                     <input type="text" name="nombres" class="form-control">
@@ -311,19 +341,21 @@
                     <input type="text" name="unidad" class="form-control">
                   </div>
 
-                  <div class="form-group">
+                  
+
+                 <!-- <div class="form-group">
                 <label class="col-sm-2 control-label">Foto</label>
                 <div class="col-sm-5">
                   <input type="file" name="foto">
                </div>
-              </div>
+              </div>-->
 </br>
 
                   <div class="box-footer">
                       <div class="form-group text-center">
                        <div class="col-sm-offset-4 col-sm-12">
                   <input type="submit" class="btn bg-gradient-primary w-30 my-4 mb-2" name="Guardar" value="Guardar">
-                  <a href="../pages/profile.html" class="btn btn-outline-primary w-30 my-4 mb-2">Cancelar</a>
+                  <a href="../pages/profile.php" class="btn btn-outline-primary w-30 my-4 mb-2">Cancelar</a>
 
                 </div>
               </div>
@@ -335,7 +367,9 @@
 
     </div>
   </div>
-
+<?php
+}
+?>
   
 </body>
 

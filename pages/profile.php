@@ -13,9 +13,13 @@
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
+
+<?php 
+  require_once('../databases/conexion.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -101,7 +105,7 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Cuenta:</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white active bg-gradient-primary" href="../pages/profile.html">
+          <a class="nav-link text-white active bg-gradient-primary" href="../pages/profile.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">person</i>
             </div>
@@ -141,7 +145,6 @@
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
             <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Perfil</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0">Perfil</h6>
         </nav>
        <!--<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -252,7 +255,32 @@
       </div>-->
     </nav>
     <!-- End Navbar -->
-    <div class="container-fluid px-2 px-md-10">
+<div class="container-fluid px-2 px-md-10">
+<?php
+
+if (empty($_GET['alert'])) {
+  echo "";
+} 
+
+elseif ($_GET['alert'] == 1) {
+echo "<div class='alert alert-success alert-dismissible text-white' role='alert'>
+  <span class='text-lg'>Datos agregados <a href='profile.php' class='alert-link text-white'>exitosamente</a>!</span>
+  <button type='button' class='btn-close text-lg py-3 opacity-10' data-bs-dismiss='alert' aria-label='Close'>
+    <span aria-hidden='true'><a href='profile.php' class='alert-link text-white'>x</a></span>
+  </button>
+</div>";
+}
+
+elseif ($_GET['alert'] == 2) {
+  echo "<div class='alert alert-success alert-dismissable'>
+          <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+          <h4>  <i class='icon fa fa-check-circle'></i> Exito!</h4>
+          Datos modificados correctamente
+        </div>";
+}
+
+?>
+
       <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
         <span class="mask  bg-gradient-primary  opacity-6"></span>
       </div>
@@ -289,7 +317,7 @@
                   </a>
                 </li>-->
                 <li class="nav-item">
-                  <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="../pages/agregar_miembros.php" role="tab" aria-selected="false">
+                  <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="../pages/agregar_miembros.php?form=add" role="tab" aria-selected="false">
                     <i class="material-icons text-lg position-relative">person</i>
                     <span class="ms-1">Agregar miembros</span>
                   </a>
