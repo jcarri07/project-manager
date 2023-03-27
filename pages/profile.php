@@ -113,7 +113,7 @@
           </a>
         </li>
        <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/sign-in.html">
+          <a class="nav-link text-white " href="../pages/sign-in.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">login</i>
             </div>
@@ -121,7 +121,7 @@
           </a>
         </li>
         <!--<li class="nav-item">
-          <a class="nav-link text-white " href="../pages/sign-up.html">
+          <a class="nav-link text-white " href="../pages/sign-up.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">assignment</i>
             </div>
@@ -158,7 +158,7 @@
               <a class="btn btn-outline-primary btn-sm mb-0 me-3" target="_blank" href="https://www.creative-tim.com/builder/material?ref=navbar-dashboard">Online Builder</a>
             </li>-->
             <li class="nav-item d-flex align-items-center">
-              <a href="../pages/sign-in.html" class="nav-link text-body font-weight-bold px-0">
+              <a href="../pages/sign-in.php" class="nav-link text-body font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
                 <span class="d-sm-inline d-none">Sign In</span>
               </a>
@@ -420,7 +420,7 @@ elseif ($_GET['alert'] == 2) {
             <div class="col-lg-8 col-md-6 mt-4 mb-3" style="padding-left:300px;">
               <div class="card z-index-2">
                 <div class="card-header pb-0 p-3">
-                  <h6 class="mb-2">Personal</h6>
+                  <h6 class="mb-2">Miembros:</h6>
                 </div>
                 <div class="card-body p-3">
                   <ul class="list-group">
@@ -453,8 +453,8 @@ elseif ($_GET['alert'] == 2) {
                         <p class="mb-0 text-xs">About files I can..</p>
                       </div>
                       <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto w-25 w-md-auto" href="javascript:;">Reply</a>
-                    </li>-->
-                    <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                    </li>
+                    <li class=" list-group-item border-0 d-flex align-items-center px-0 mb-2">
                       <div class="avatar me-3">
                         <img src="../assets/img/team-2.jpg" alt="kal" class="border-radius-lg shadow">
                       </div>
@@ -474,7 +474,50 @@ elseif ($_GET['alert'] == 2) {
                       </div>
                       <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto w-25 w-md-auto" href="javascript:;">...</a>
                     </li>
-                  </ul>
+                  </ul>-->
+
+                  <table class=" table table-responsive-lg">
+       
+      <tbody>
+       <?php 
+
+       $query = mysqli_query($conn, "SELECT * FROM members")
+                                       or die('error: '.mysqli_error($vonn));
+
+
+       while ($data = mysqli_fetch_assoc($query)) { 
+           
+         echo "<tr>";
+
+                 if ($data['foto']=="") { ?>
+                   <td class='center'><img class='img-user' src='../assets/img/person.jpg' width='45' class="border-radius-lg shadow"></td>
+                 <?php
+                 } else { ?>
+                   
+                   <td class='center'><img class='img-user' src='../assets/img/<?php echo $data['foto']; ?>' width='45'  class="border-radius-lg shadow"></td>
+                 <?php
+                 }
+
+               echo "  
+                 <td class='center'> <div class='d-flex align-items-start flex-column justify-content-center'>
+                 <h6 class='mb-0 text-sm'>$data[nombres] $data[apellidos]</h6>
+                 <p class='mb-0 text-xs'>$data[cargo]</p></div><div></td>
+
+                   <td> <a class='fas fa-user-edit text-secondary text-sm' data-bs-toggle='tooltip' data-bs-placement='top' title='Modificar'>
+                   </a></td>
+                   
+                   <td> <a class='fas fa-trash text-secondary text-sm' data-bs-toggle='tooltip' data-bs-placement='top' title='Eliminar'>
+                   </a></td>
+   
+                  </div>
+                 </td>
+               </tr>";
+                   }
+       ?>
+       </tbody>
+     </table>
+
+
                 </div>
               </div>
             </div>

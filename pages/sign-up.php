@@ -12,6 +12,11 @@
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
+
+<?php 
+  require_once('../databases/conexion.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,12 +41,12 @@
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
 </head>
 
-<body class="bg-gray-200">
+<body class="">
   <div class="container position-sticky z-index-sticky top-0">
     <div class="row">
       <div class="col-12">
-        <!-- Navbar -->
-        <!-- <nav class="navbar navbar-expand-lg blur border-radius-xl top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+        <!-- Navbar 
+        <nav class="navbar navbar-expand-lg blur border-radius-lg top-0 z-index-3 shadow position-absolute mt-4 py-2 start-0 end-0 mx-4">
           <div class="container-fluid ps-2 pe-0">
             <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="../pages/dashboard.html">
               Material Dashboard 2
@@ -64,19 +69,19 @@
                 <li class="nav-item">
                   <a class="nav-link me-2" href="../pages/profile.html">
                     <i class="fa fa-user opacity-6 text-dark me-1"></i>
-                    Profile
+                    Perfil
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-2" href="../pages/sign-up.html">
+                  <a class="nav-link me-2" href="../pages/sign-up.php">
                     <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
-                    Sign Up
+                    Registrarse
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-2" href="../pages/sign-in.html">
+                  <a class="nav-link me-2" href="../pages/sign-in.php">
                     <i class="fas fa-key opacity-6 text-dark me-1"></i>
-                    Sign In
+                    Iniciar sesion
                   </a>
                 </li>
               </ul>
@@ -90,100 +95,87 @@
               </ul>
             </div>
           </div>
-        </nav> -->
+        </nav>-->
         <!-- End Navbar -->
       </div>
     </div>
   </div>
   <main class="main-content  mt-0">
-    <div class="page-header align-items-start min-vh-100" style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80');">
-      <span class="mask bg-gradient-dark opacity-6"></span>
-      <div class="container my-auto">
-        <div class="row">
-          <div class="col-lg-4 col-md-8 col-12 mx-auto">
-            <div class="card z-index-0 fadeIn3 fadeInBottom">
-              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
-                  <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Inciar sesion</h4>
-                  <div class="row mt-3">
-                    <div class="col-2 text-center ms-auto">
-                      <a class="btn btn-link px-3" href="javascript:;">
-                        <i class="fa fa-facebook text-white text-lg"></i>
-                      </a>
-                    </div>
-                    <div class="col-2 text-center px-1">
-                      <a class="btn btn-link px-3" href="javascript:;">
-                        <i class="fa fa-github text-white text-lg"></i>
-                      </a>
-                    </div>
-                    <div class="col-2 text-center me-auto">
-                      <a class="btn btn-link px-3" href="javascript:;">
-                        <i class="fa fa-google text-white text-lg"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+    <section>
+      <div class="page-header min-vh-100">
+        <div class="container">
+          <div class="row">
+            <div class="col-8 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 start-20 text-center justify-content-center flex-column">
+              <div class="position-relative bg-gradient-primary h-50 w-55 border-radius-lg d-flex flex-column justify-content-center" style="background-image: url('../assets/img/illustrations/ABAE.png'); background-size: cover;">
               </div>
-              <div class="card-body">
-                <form role="form" class="text-start">
-                  <div class="input-group input-group-outline my-3">
-                    <label class="form-label">Correo</label>
-                    <input type="email" class="form-control">
-                  </div>
-                  <div class="input-group input-group-outline mb-3">
-                    <label class="form-label">Contraseña</label>
-                    <input type="password" class="form-control">
-                  </div>
-                  <div class="form-check form-switch d-flex align-items-center mb-3">
-                    <input class="form-check-input" type="checkbox" id="rememberMe" checked>
-                    <label class="form-check-label mb-0 ms-3" for="rememberMe">Recordar contraseña</label>
-                  </di>v
-                  <div class="text-center">
-                    <button type="button" class="btn bg-gradient-primary w-100 my-4 mb-2">Iniciar sesion</button>
-                  </div>
-                  <p class="mt-4 text-sm text-center">
-                    No tienes cuenta?
-                    <a href="../pages/sign-up.html" class="text-primary text-gradient font-weight-bold">Registrate</a>
+            </div>
+            <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
+              <div class="card card-plain">
+                <div class="card-header">
+                  <h4 class="font-weight-bolder">Registrarse</h4>
+                  <p class="mb-0">Ingresa tus datos:</p>
+                </div>
+                <div class="card-body">
+                <form role="form" class="form-horizontal" method="POST" action="../pages/proses_sign-up.php?act=insert" enctype="multipart/form-data">
+
+                <div class="input-group input-group-outline mb-3">
+                  <select class="form-select-lg form-control" name="proyecto" placeholder="--Seleccione proyecto participante--" autocomplete="off" required>
+                    <option class="form-control" value="">-- Seleccione Proyecto Participante --</option>
+                    <?php
+                      $query_data = mysqli_query($conn, "SELECT id, estatus, nombre FROM projects")
+                                                            or die('error '.mysqli_error($conn));
+
+                      while ($data_1 = mysqli_fetch_assoc($query_data)) {
+                        echo"<option value=\"$data_1[id]\"> $data_1[estatus] | $data_1[nombre] </option>";
+                      }
+                      echo $data_1['project_id'];
+                    ?>
+                 </select>
+                </div>
+
+                    <div class="input-group input-group-outline mb-3">
+                      <label class="form-label">Nombres</label>
+                      <input type="text" class="form-control" name="nombres">
+                    </div>
+                    <div class="input-group input-group-outline mb-3">
+                      <label class="form-label">Apellidos</label>
+                      <input type="text" class="form-control" name="apellidos">
+                    </div>
+                    <div class="input-group input-group-outline mb-3">
+                      <label class="form-label">Cargo</label>
+                      <input type="text" class="form-control" name="cargo">
+                    </div>
+                    <div class="input-group input-group-outline mb-3">
+                      <label class="form-label">Email</label>
+                      <input type="email" class="form-control">
+                    </div>
+                    <div class="input-group input-group-outline mb-3">
+                      <label class="form-label">Contraseña</label>
+                      <input type="password" class="form-control">
+                    </div>
+                    <!--<div class="form-check form-check-info text-start ps-0">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                      <label class="form-check-label" for="flexCheckDefault">
+                        Acepto <a href="javascript:;" class="text-dark font-weight-bolder">los terminos y condiciones</a>
+                      </label>
+                    </div>-->
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0" name="Guardar" value="Guardar">Registrar</button>
+                    </div>
+                  </form>
+                </div>
+                <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                  <p class="mb-2 text-sm mx-auto">
+                    Ya tienes una cuenta?
+                    <a href="../pages/sign-in.php" class="text-primary text-gradient font-weight-bold">Inicia sesion</a>
                   </p>
-                </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- <footer class="footer position-absolute bottom-2 py-2 w-100">
-        <div class="container">
-          <div class="row align-items-center justify-content-lg-between">
-            <div class="col-12 col-md-6 my-auto">
-              <div class="copyright text-center text-sm text-white text-lg-start">
-                © <script>
-                  document.write(new Date().getFullYear())
-                </script>,
-                made with <i class="fa fa-heart" aria-hidden="true"></i> by
-                <a href="https://www.creative-tim.com" class="font-weight-bold text-white" target="_blank">Creative Tim</a>
-                for a better web.
-              </div>
-            </div>
-            <div class="col-12 col-md-6">
-              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com" class="nav-link text-white" target="_blank">Creative Tim</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/presentation" class="nav-link text-white" target="_blank">About Us</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/blog" class="nav-link text-white" target="_blank">Blog</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-white" target="_blank">License</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </footer> -->
-    </div>
+    </section>
   </main>
   <!--   Core JS Files   -->
   <script src="../assets/js/core/popper.min.js"></script>
