@@ -119,8 +119,8 @@
                 <form role="form" class="form-horizontal" method="POST" action="../pages/proses_sign-up.php?act=insert" enctype="multipart/form-data">
 
                 <div class="input-group input-group-outline mb-3">
-                  <select class="form-select-lg form-control" name="proyecto" placeholder="--Seleccione proyecto participante--" autocomplete="off" required>
-                    <option class="form-control" value="">-- Seleccione Proyecto Participante --</option>
+                  <select class="form-select-lg " name="proyecto" placeholder="--Seleccione proyecto participante--" autocomplete="off" required>
+                    <option value="">-- Proyecto Participante --</option>
                     <?php
                       $query_data = mysqli_query($conn, "SELECT id, estatus, nombre FROM projects")
                                                             or die('error '.mysqli_error($conn));
@@ -147,11 +147,11 @@
                     </div>
                     <div class="input-group input-group-outline mb-3">
                       <label class="form-label">Email</label>
-                      <input type="email" class="form-control">
+                      <input type="email" class="form-control"  name="email">
                     </div>
                     <div class="input-group input-group-outline mb-3">
                       <label class="form-label">Contraseña</label>
-                      <input type="password" class="form-control">
+                      <input type="password" class="form-control"  name="password">
                     </div>
                     <!--<div class="form-check form-check-info text-start ps-0">
                       <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>

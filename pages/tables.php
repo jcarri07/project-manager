@@ -103,7 +103,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/sign-in.html">
+          <a class="nav-link text-white " href="../pages/sign-in.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">login</i>
             </div>
@@ -111,7 +111,7 @@
           </a>
         </li>
        <!-- <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/sign-up.html">
+          <a class="nav-link text-white " href="../pages/sign-up.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">assignment</i>
             </div>
@@ -149,7 +149,7 @@
                 <a class="btn btn-outline-primary btn-sm mb-0 me-3" target="_blank" href="https://www.creative-tim.com/builder/material?ref=navbar-dashboard">Online Builder</a>
               </li>-->
               <li class="nav-item d-flex align-items-center">
-                <a href="../pages/sign-in.html" class="nav-link text-body font-weight-bold px-0">
+                <a href="../pages/sign-in.php" class="nav-link text-body font-weight-bold px-0">
                   <i class="fa fa-user me-sm-1"></i>
                   <span class="d-sm-inline d-none">Sign In</span>
                 </a>

@@ -68,13 +68,13 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-2" href="../pages/sign-up.html">
+                  <a class="nav-link me-2" href="../pages/sign-up.php">
                     <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
                     Sign Up
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-2" href="../pages/sign-in.html">
+                  <a class="nav-link me-2" href="../pages/sign-in.php">
                     <i class="fas fa-key opacity-6 text-dark me-1"></i>
                     Sign In
                   </a>
@@ -143,7 +143,7 @@
                   </div>
                   <p class="mt-4 text-sm text-center">
                     Nuevo Project Manager?
-                    <a href="../pages/sign-up.html" class="text-primary text-gradient font-weight-bold">Registrate</a>
+                    <a href="../pages/sign-up.php" class="text-primary text-gradient font-weight-bold">Registrate</a>
                   </p>
                 </form>
               </div>
