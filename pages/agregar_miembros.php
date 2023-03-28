@@ -16,6 +16,7 @@
 
 <?php 
   require_once('../databases/conexion.php');
+  session_start();
 ?>
 
 <!DOCTYPE html>
@@ -334,13 +335,12 @@ if ($_GET['form']=='add') { ?>
                     <select class="form-select-lg form-control" name="jefe" data-placeholder="-- Seleccionar proyecto --" autocomplete="off" required>
                     <option value=""></option>
                     <?php
-                      $query_data = mysqli_query($conn, "SELECT id,nombres,apellidos,unidad FROM project_managers")
+                      $query_data = mysqli_query($conn, "SELECT id,nombres,apellidos,unidad FROM project_managers WHERE id='$_SESSION[id]'")
                                                             or die('error '.mysqli_error($conn));
 
                       while ($data_1 = mysqli_fetch_assoc($query_data)) {
                         echo"<option value=\"$data_1[id]\"> $data_1[nombres]  $data_1[apellidos] | $data_1[unidad]</option>";
                       }
-                      echo $data_1['project_id'];
                     ?>
                   </select>
 
