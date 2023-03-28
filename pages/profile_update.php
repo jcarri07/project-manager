@@ -16,6 +16,12 @@
 
 <?php 
   require_once('../databases/conexion.php');
+  session_start();
+
+  $query = mysqli_query($conn, "SELECT * FROM project_managers WHERE id='$_SESSION[id]'")
+                                or die('error: '.mysqli_error($conn));
+  $data = mysqli_fetch_assoc($query);
+
 ?>
 
 <!DOCTYPE html>
@@ -258,8 +264,7 @@
       </div>-->
     </nav>
     <!-- End Navbar -->
-<?php
-if ($_GET['form']=='add') { ?>
+
 
     <div class="container-fluid px-2 px-md-10">
       <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
@@ -279,78 +284,45 @@ if ($_GET['form']=='add') { ?>
           <div class="card-body">
 
 
-          <form role="form" class="form-horizontal" method="POST" action="../pages/proses_miembros.php?act=insert" enctype="multipart/form-data">
+          <form role="form" class="form-horizontal" method="POST" action="../pages/proses_profile.php?act=update" enctype="multipart/form-data">
                 <form role="form" class="text-start" >
-
-              
-                <label class="form-label">Proyecto Participante</label>
-                <div class="input-group input-group-outline my-2">
-                  <select class="form-select-lg" name="proyecto" data-placeholder="-- Seleccionar proyecto --" autocomplete="off" required>
-                    <option value=""></option>
-                    <?php
-                      $query_data = mysqli_query($conn, "SELECT id, estatus, nombre FROM projects")
-                                                            or die('error '.mysqli_error($conn));
-
-                      while ($data_1 = mysqli_fetch_assoc($query_data)) {
-                        echo"<option value=\"$data_1[id]\"> $data_1[estatus] | $data_1[nombre] </option>";
-                      }
-                      echo $data_1['project_id'];
-                    ?>
-                  </select>
-                </div>
 
                 <label class="form-label">Nombres</label>
                   <div class="input-group input-group-outline my-2">
-                    <input type="text" name="nombres" class="form-control">
+                    <input type="text" name="nombres" class="form-control" value="<?php echo $data['nombres']; ?>">
                   </div>
 
                   <label class="form-label">Apellidos</label>
                   <div class="input-group input-group-outline mb-2">
-                    <input type="text" name="apellidos" class="form-control">
+                    <input type="text" name="apellidos" class="form-control" value="<?php echo $data['apellidos']; ?>">
                   </div>
 
                   <label class="form-label">Cedula</label>
                   <div class="input-group input-group-outline mb-2">
-                    <input type="text" name="cedula" class="form-control">
+                    <input type="text" name="cedula" class="form-control" value="<?php echo $data['cedula']; ?>">
+                  </div>
+
+                  
+                  <label class="form-label">Cargo</label>
+                  <div class="input-group input-group-outline mb-2">
+                    <input type="text" name="cargo" class="form-control" value="<?php echo $data['cargo']; ?>">
+                  </div>
+
+                  
+                  <label class="form-label">Unidad</label>
+                  <div class="input-group input-group-outline mb-2">
+                    <input type="text" name="unidad" class="form-control" value="<?php echo $data['unidad']; ?>">
                   </div>
 
                   <label class="form-label">Email</label>
                   <div class="input-group input-group-outline mb-2">
-                    <input type="text" name="email" class="form-control">
+                    <input type="text" name="email" class="form-control" value="<?php echo $data['email']; ?>">
                   </div>
 
                   <label class="form-label">Movil</label>
                   <div class="input-group input-group-outline mb-2">
-                    <input type="text" name="movil" class="form-control">
-                  </div>
-
-                  <label class="form-label">Cargo</label>
-                  <div class="input-group input-group-outline mb-2">
-                    <input type="text" name="cargo" class="form-control">
-                  </div>
-
-                  <label class="form-label">Jefe</label>
-                  <div class="input-group input-group-outline mb-2">
-                    <select class="form-select-lg form-control" name="jefe" data-placeholder="-- Seleccionar proyecto --" autocomplete="off" required>
-                    <option value=""></option>
-                    <?php
-                      $query_data = mysqli_query($conn, "SELECT id,nombres,apellidos,unidad FROM project_managers")
-                                                            or die('error '.mysqli_error($conn));
-
-                      while ($data_1 = mysqli_fetch_assoc($query_data)) {
-                        echo"<option value=\"$data_1[id]\"> $data_1[nombres]  $data_1[apellidos] | $data_1[unidad]</option>";
-                      }
-                      echo $data_1['project_id'];
-                    ?>
-                  </select>
-
-                  </div>
-                  <label class="form-label">Unidad</label>
-                  <div class="input-group input-group-outline mb-2">
-                    <input type="text" name="unidad" class="form-control">
-                  </div>
-
-                  
+                    <input type="text" name="movil" class="form-control" value="<?php echo $data['movil']; ?>">
+                  </div>             
 
                  <!-- <div class="form-group">
                 <label class="col-sm-2 control-label">Foto</label>
@@ -376,9 +348,6 @@ if ($_GET['form']=='add') { ?>
 
     </div>
   </div>
-<?php
-}
-?>
   
 </body>
 

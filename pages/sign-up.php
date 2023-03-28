@@ -48,7 +48,7 @@
         <!-- Navbar 
         <nav class="navbar navbar-expand-lg blur border-radius-lg top-0 z-index-3 shadow position-absolute mt-4 py-2 start-0 end-0 mx-4">
           <div class="container-fluid ps-2 pe-0">
-            <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="../pages/dashboard.html">
+            <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="../pages/dashboard.php">
               Material Dashboard 2
             </a>
             <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +61,7 @@
             <div class="collapse navbar-collapse" id="navigation">
               <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="../pages/dashboard.html">
+                  <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="../pages/dashboard.php">
                     <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
                     Dashboard
                   </a>
@@ -142,12 +142,12 @@
                       <input type="text" class="form-control" name="apellidos">
                     </div>
                     <div class="input-group input-group-outline mb-3">
-                      <label class="form-label">Cargo</label>
-                      <input type="text" class="form-control" name="cargo">
+                      <label class="form-label">Cedula</label>
+                      <input type="text" class="form-control" name="cedula">
                     </div>
                     <div class="input-group input-group-outline mb-3">
-                      <label class="form-label">Email</label>
-                      <input type="email" class="form-control"  name="email">
+                      <label class="form-label">Cargo</label>
+                      <input type="text" class="form-control" name="cargo">
                     </div>
                     <div class="input-group input-group-outline mb-3">
                       <label class="form-label">Contraseña</label>

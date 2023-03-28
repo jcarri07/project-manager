@@ -16,6 +16,12 @@
 
 <?php 
   require_once('../databases/conexion.php');
+  session_start();
+  $query = mysqli_query($conn, "SELECT * FROM project_managers WHERE id='$_SESSION[id]'")
+                                or die('error: '.mysqli_error($conn));
+  $data = mysqli_fetch_assoc($query);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +60,7 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/dashboard.html">
+          <a class="nav-link text-white " href="../pages/dashboard.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">dashboard</i>
             </div>
@@ -62,7 +68,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/tables.html">
+          <a class="nav-link text-white " href="../pages/tables.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">table_view</i>
             </div>
@@ -255,8 +261,7 @@
       </div>-->
     </nav>
     <!-- End Navbar -->
-<div class="container-fluid px-2 px-md-10">
-<?php
+    <?php
 
 if (empty($_GET['alert'])) {
   echo "";
@@ -266,21 +271,23 @@ elseif ($_GET['alert'] == 1) {
 echo "<div class='alert alert-success alert-dismissible text-white' role='alert'>
   <span class='text-lg'>Datos agregados <a href='profile.php' class='alert-link text-white'>exitosamente</a>!</span>
   <button type='button' class='btn-close text-lg py-3 opacity-10' data-bs-dismiss='alert' aria-label='Close'>
-    <span aria-hidden='true'><a href='profile.php' class='alert-link text-white'>x</a></span>
+  <span aria-hidden='true'>&times;</span>
   </button>
 </div>";
 }
 
 elseif ($_GET['alert'] == 2) {
-  echo "<div class='alert alert-success alert-dismissable'>
-          <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
-          <h4>  <i class='icon fa fa-check-circle'></i> Exito!</h4>
-          Datos modificados correctamente
-        </div>";
+  echo "<div class='alert alert-success alert-dismissible text-white' role='alert'>
+  <span class='text-lg'>Datos modificados <a href='profile.php' class='alert-link text-white'>exitosamente</a>!</span>
+  <button type='button' class='btn-close text-lg py-3 opacity-10' data-bs-dismiss='alert' aria-label='Close'>
+  <span aria-hidden='true'>&times;</span>
+  </button>
+</div>";
 }
 
 ?>
 
+<div class="container-fluid px-2 px-md-10">
       <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
         <span class="mask  bg-gradient-primary  opacity-6"></span>
       </div>
@@ -294,10 +301,10 @@ elseif ($_GET['alert'] == 2) {
           <div class="col-auto my-auto">
             <div class="h-100">
               <h5 class="mb-1">
-                Karla Mieres
+              <?php echo $data['nombres']; ?>
               </h5>
               <p class="mb-0 font-weight-normal text-sm">
-                Admin
+              <?php echo $data['cargo']; ?>
               </p>
             </div>
           </div>
@@ -388,7 +395,7 @@ elseif ($_GET['alert'] == 2) {
                       <h6 class="mb-0">Informacion Personal</h6>
                     </div>
                     <div class="col-md-4 text-end">
-                      <a href="javascript:;">
+                      <a href="profile_update.php">
                         <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar Perfil"></i>
                       </a>
                     </div>
@@ -397,10 +404,13 @@ elseif ($_GET['alert'] == 2) {
                 <div class="card-body p-3">
                  <hr class="horizontal gray-light my-2">
                   <ul class="list-group">
-                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Nombre y Apellido:</strong> &nbsp; Karla Mieres</li>
-                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Movil:</strong> &nbsp; (44) 123 1234 123</li>
-                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; kmieres@mail.com</li>
-                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Cargo:</strong> &nbsp; Jefe (E) UDLP</li>
+                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Nombres:</strong> &nbsp; <?php echo $data['nombres'];?></li>
+                    <li class="list-group-item border-0 ps-0  text-sm"><strong class="text-dark">Apellidos:</strong> &nbsp; <?php echo $data['apellidos'];?></li>
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Cedula:</strong> &nbsp; <?php echo $data['cedula']; ?></li> 
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Movil:</strong> &nbsp; <?php echo $data['movil']; ?></li>                             
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; <?php echo $data['email']; ?></li>
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Unidad de adscripción:</strong> &nbsp; <?php echo $data['unidad']; ?></li>
+
                     <!--<li class="list-group-item border-0 ps-0 pb-0">
                       <strong class="text-dark text-sm">Social:</strong> &nbsp;
                       <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
@@ -481,8 +491,8 @@ elseif ($_GET['alert'] == 2) {
       <tbody>
        <?php 
 
-       $query = mysqli_query($conn, "SELECT * FROM members")
-                                       or die('error: '.mysqli_error($vonn));
+       $query = mysqli_query($conn, "SELECT * FROM members WHERE jefe ='$_SESSION[id]'")
+                                       or die('error: '.mysqli_error($conn));
 
 
        while ($data = mysqli_fetch_assoc($query)) { 

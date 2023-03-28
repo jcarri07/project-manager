@@ -22,28 +22,28 @@ require_once('../databases/conexion.php');
 
 	if ($_GET['act']=='insert') {
 		if (isset($_POST['Guardar'])) {
-
+			
 			$nombres  = mysqli_real_escape_string($conn, trim($_POST['nombres']));
 			$apellidos  = mysqli_real_escape_string($conn, trim($_POST['apellidos']));
 			$cargo = mysqli_real_escape_string($conn, trim($_POST['cargo']));
-			//$jefe = mysqli_real_escape_string($conn, trim($_POST['jefe']));
+			$jefe = mysqli_real_escape_string($conn, trim($_POST['jefe']));
 			//$foto = mysqli_real_escape_string($conn, trim($_POST['foto']));
-           // $unidad = mysqli_real_escape_string($conn, trim($_POST['unidad']));
-		    $cedula = mysqli_real_escape_string($conn, trim($_POST['cedula']));
-           // $movil = mysqli_real_escape_string($conn, trim($_POST['movil']));
+            $unidad = mysqli_real_escape_string($conn, trim($_POST['unidad']));
+			$cedula = mysqli_real_escape_string($conn, trim($_POST['cedula']));
+            $movil = mysqli_real_escape_string($conn, trim($_POST['movil']));
             $email = mysqli_real_escape_string($conn, trim($_POST['email']));
-            $password = mysqli_real_escape_string($conn, trim($_POST['password']));
 			$proyecto = mysqli_real_escape_string($conn, trim($_POST['proyecto']));
 
-            $query = mysqli_query($conn, "INSERT INTO project_managers(project_id,nombres,apellidos,cargo,email,password,cedula)
-                                            VALUES('$proyecto','$nombres','$apellidos','$cargo','$email','$password','$cedula')")
+            $query = mysqli_query($conn, "INSERT INTO members(project_id,nombres,apellidos,cargo,jefe,unidad,cedula,movil,email)
+                                            VALUES('$proyecto','$nombres','$apellidos','$cargo','$jefe','$unidad','$cedula','$movil','$email')")
                                             or die('error: '.mysqli_error($conn)); 
 
             if ($query) {
 				
-				header("location: ../pages/sign-in.php");
+				header("location: ../pages/profile.php?alert=1");
 
             }
+			
 		}	
 	}
 	/*

@@ -12,6 +12,15 @@
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
+
+<?php 
+  require_once('../databases/conexion.php');
+  session_start();
+  $query = mysqli_query($conn, "SELECT id, nombres, apellidos FROM project_managers WHERE id='$_SESSION[id]'")
+                                or die('error: '.mysqli_error($conn));
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,7 +57,7 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link text-white active bg-gradient-primary" href="../pages/dashboard.html">
+          <a class="nav-link text-white active bg-gradient-primary" href="../pages/dashboard.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">dashboard</i>
             </div>
@@ -157,7 +166,7 @@
                 <i class="fa fa-user me-sm-1"></i>
                 <span class="d-sm-inline d-none">Sign In</span>
               </a>
-            </li>
+            </li>    
             <!--<li class="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                 <div class="sidenav-toggler-inner">
@@ -343,6 +352,14 @@
           </div>
         </div>
       </div>-->
+      
+      <div class="alert alert-primary alert-dismissible text-white" role="alert">
+        <span class="text-sm">Bienvenid@ <a href="javascript:;" class="alert-link text-white"><?php echo $_SESSION['nombres']; ?></a>, al sistema de Gestion de Proyectos</span>
+        <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
   
         <div class="row mt-4" style="padding-left:0px;">
         <div class="col-lg-6 col-md-6 mt-4 mb-4">
