@@ -274,7 +274,30 @@
         <div class="row gx-5 mb-2">
           <div class="col-auto">
             <div class="avatar avatar-xl position-relative">
-              <img src="../assets/img/person.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            <div class="image-upload avatar avatar-xl position-relative">
+                 <label for="file-input" class='center fas fa-edit'>
+                 <?php
+                 if (empty($data['foto'])) { ?>
+                   <td class='center'><img class='img-user' src='../assets/img/person.jpg' width='45' class="border-radius-lg shadow"></td>
+                 <?php
+                 } else{?>
+                   
+                   <td class='center'><img src="../assets/img/<?php echo $data['foto']; ?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm"></td>               
+                <?php } ?>                
+              </label>
+            </div>
+            </div>
+            </div>
+
+
+          <div class="col-auto my-auto">
+            <div class="h-100">
+              <h5 class="mb-1">
+                 Modificar datos: 
+              </h5>
+              <p class="mb-0 font-weight-normal text-sm">
+                 Project Manager
+              </p>
             </div>
           </div>
 
@@ -286,6 +309,8 @@
 
           <form role="form" class="form-horizontal" method="POST" action="../pages/proses_profile.php?act=update" enctype="multipart/form-data">
                 <form role="form" class="text-start" >
+
+                <input id="file-input" type="file" name="foto" style="display:none">
 
                 <label class="form-label">Nombres</label>
                   <div class="input-group input-group-outline my-2">

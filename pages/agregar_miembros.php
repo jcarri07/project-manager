@@ -269,8 +269,24 @@ if ($_GET['form']=='add') { ?>
       <div class="card card-body mx-3 mx-md-4 mt-n6">
         <div class="row gx-5 mb-2">
           <div class="col-auto">
+
             <div class="avatar avatar-xl position-relative">
-              <img src="../assets/img/person.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            <div class="image-upload avatar avatar-xl position-relative">
+                 <label for="file-input" class='center fas fa-edit'>
+                   <img class='img-user' src='../assets/img/person.jpg' width='45' class="border-radius-lg shadow">                             
+                </label>                
+            </div>
+            </div>
+            </div>
+
+          <div class="col-auto my-auto">
+            <div class="h-100">
+              <h5 class="mb-1">
+                 Agregar datos: 
+              </h5>
+              <p class="mb-0 font-weight-normal text-sm">
+                 Miembros
+              </p>
             </div>
           </div>
 
@@ -283,6 +299,7 @@ if ($_GET['form']=='add') { ?>
           <form role="form" class="form-horizontal" method="POST" action="../pages/proses_miembros.php?act=insert" enctype="multipart/form-data">
                 <form role="form" class="text-start" >
 
+                <input id="file-input" type="file" name="foto" style="display:none">
               
                 <label class="form-label">Proyecto Participante</label>
                 <div class="input-group input-group-outline my-2">
@@ -377,9 +394,142 @@ if ($_GET['form']=='add') { ?>
     </div>
   </div>
 <?php
-}
+}elseif ($_GET['form']=='update') { 
+  	if (isset($_GET['id'])) {
+
+      $query = mysqli_query($conn, "SELECT * FROM members WHERE id='$_GET[id]'") 
+                                      or die('error: '.mysqli_error($conn));
+      $data  = mysqli_fetch_assoc($query);
+  	}	
+ ?>     
+    <div class="container-fluid px-2 px-md-10">
+      <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
+        <span class="mask  bg-gradient-primary  opacity-6"></span>
+      </div>
+      <div class="card card-body mx-3 mx-md-4 mt-n6">
+        <div class="row gx-5 mb-2">
+          <div class="col-auto">
+
+            <div class="avatar avatar-xl position-relative">
+            <div class="image-upload avatar avatar-xl position-relative">
+                 <label for="file-input" class='center fas fa-edit'>
+                  <?php
+                 if ($data['foto']=="") { ?>
+                   <td class='center'><img class='img-user' src='../assets/img/person.jpg' width='45' class="border-radius-lg shadow"></td>
+                 <?php
+                 } else{?>
+                   
+                   <td class='center'><img src="../assets/img/<?php echo $data['foto']; ?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm"></td>               
+                <?php } ?>
+                </label>
+                
+            </div>
+            </div>
+            </div>
+
+          <div class="col-auto my-auto">
+            <div class="h-100">
+              <h5 class="mb-1">
+                 Modificar datos: 
+              </h5>
+              <p class="mb-0 font-weight-normal text-sm">
+                 Miembros
+              </p>
+            </div>
+          </div>
+
+          <div class="container my-auto">
+        <div class="row">
+          <div class="col-lg-8 col-md-8 col-12 mx-auto">
+          <div class="card-body">
+
+
+          <form role="form" class="form-horizontal" method="POST" action="../pages/proses_miembros.php?act=update" enctype="multipart/form-data">
+                <form role="form" class="text-start" >
+
+                <input id="file-input" type="file" name="foto" style="display:none">
+                <input type="hidden" name="id" class="form-control" value="<?php echo $data['id']; ?>">
+
+                <label class="form-label">Nombres</label>
+                  <div class="input-group input-group-outline my-2">
+                    <input type="text" name="nombres" class="form-control" value="<?php echo $data['nombres']; ?>">
+                  </div>
+
+                  <label class="form-label">Apellidos</label>
+                  <div class="input-group input-group-outline mb-2">
+                    <input type="text" name="apellidos" class="form-control" value="<?php echo $data['apellidos']; ?>">
+                  </div>
+
+                  <label class="form-label">Cedula</label>
+                  <div class="input-group input-group-outline mb-2">
+                    <input type="text" name="cedula" class="form-control" value="<?php echo $data['cedula']; ?>">
+                  </div>
+
+                  <label class="form-label">Cargo</label>
+                  <div class="input-group input-group-outline mb-2">
+                    <input type="text" name="cargo" class="form-control" value="<?php echo $data['cargo']; ?>">
+                  </div>
+
+                  <label class="form-label">Jefe</label>
+                  <div class="input-group input-group-outline mb-2">
+                  <?php
+                      $query_data = mysqli_query($conn, "SELECT id,nombres,apellidos,unidad FROM project_managers")
+                                                            or die('error '.mysqli_error($conn));
+                                                            $data_2 = mysqli_fetch_assoc($query_data)?>
+
+                  <select class="form-select-lg form-control" name="jefe" data-placeholder="-- Seleccionar proyecto --" autocomplete="off" required>
+                    <option value="<?php echo $data['jefe']; ?>"><?php echo $data_2['nombres'],' ',$data_2['apellidos'] ,' | ', $data_2['unidad']; ?></option>
+                    <?php
+                      while ($data_2 = mysqli_fetch_assoc($query_data)) {
+                        echo"<option value=\"$data_2[id]\"> $data_2[nombres]  $data_2[apellidos] | $data_2[unidad]</option>";
+                      }
+                    ?>
+                  </select>
+                  </div>
+                  
+                  <label class="form-label">Unidad</label>
+                  <div class="input-group input-group-outline mb-2">
+                    <input type="text" name="unidad" class="form-control" value="<?php echo $data['unidad']; ?>">
+                  </div>
+
+                  <label class="form-label">Email</label>
+                  <div class="input-group input-group-outline mb-2">
+                    <input type="text" name="email" class="form-control" value="<?php echo $data['email']; ?>">
+                  </div>
+
+                  <label class="form-label">Movil</label>
+                  <div class="input-group input-group-outline mb-2">
+                    <input type="text" name="movil" class="form-control" value="<?php echo $data['movil']; ?>">
+                  </div>             
+
+                 <!-- <div class="form-group">
+                <label class="col-sm-2 control-label">Foto</label>
+                <div class="col-sm-5">
+                  <input type="file" name="foto">
+               </div>
+              </div>-->
+</br>
+
+                  <div class="box-footer">
+                      <div class="form-group text-center">
+                       <div class="col-sm-offset-4 col-sm-12">
+                  <input type="submit" class="btn bg-gradient-primary w-30 my-4 mb-2" name="Guardar" value="Guardar">
+                  <a href="../pages/profile.php" class="btn btn-outline-primary w-30 my-4 mb-2">Cancelar</a>
+
+                </div>
+              </div>
+
+                </form>
+              </div>
+              </div>
+
+
+    </div>
+  </div>
+<?php
+  }
 ?>
-  
+
 </body>
 
 </html>

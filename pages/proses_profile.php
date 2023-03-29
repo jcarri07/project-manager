@@ -61,79 +61,117 @@ session_start();
             $email = mysqli_real_escape_string($conn, trim($_POST['email']));
             $id = $_SESSION['id'];
 			//$proyecto = mysqli_real_escape_string($conn, trim($_POST['proyecto']));
-				  		
-			                    $query = mysqli_query($conn, "UPDATE project_managers SET nombres 	= '$nombres',
-			                    													      apellidos 	= '$apellidos',
-			                    													      cargo        = '$cargo', 
-			                    													      cedula = '$cedula', 
-			                    													      email       = '$email',
-			                    													      movil     = '$movil',
-			                    													      unidad 		= '$unidad'
-			                    													
-			                                                                  WHERE id='$id'")
-			                                                    or die('error : '.mysqli_error($conn));
+			
+			$name_file          = $_FILES['foto']['name'];
+									$ukuran_file        = $_FILES['foto']['size'];
+									$tipe_file          = $_FILES['foto']['type'];
+									$tmp_file           = $_FILES['foto']['tmp_name'];
+									
+							
+									$allowed_extensions = array('jpg','jpeg','png');
+									
+								
+									$path_file          = "../assets/img/".$name_file;
+							
+									$file               = explode(".", $name_file);
+									$extension          = array_pop($file);
+												                    				
+									if (empty($_FILES['foto']['name'])) {
+										
+							                   $query = mysqli_query($conn, "UPDATE project_managers SET 	nombres 	= '$nombres',
+																											apellidos 	= '$apellidos',
+																											cargo        = '$cargo', 
+																											cedula = '$cedula', 
+																											email       = '$email',
+																											movil     = '$movil',
+																											unidad 		= '$unidad'
+								  
+																									WHERE id='$id'")
+			  																				or die('error : '.mysqli_error($conn));
 
-			                    if ($query) {
-			                    
-			                        header("location: ../pages/profile.php?alert=2");
-			                    }
-                        	} else {
-	                           
-	                            //header("location: ../../main.php?module=user&alert=5");
-	                        }
-	                    } 
+																		if ($query) {
 
-    
+																			header("location: ../pages/profile.php?alert=2");
+																			}
+														}
+							
+								
+									elseif (!empty($_FILES['foto']['name'])) {
+								
+										if (in_array($extension, $allowed_extensions)) {
+										
+											if($ukuran_file <= 1000000) { 
+												
+												if(move_uploaded_file($tmp_file, $path_file)) { 
+													
+													$query = mysqli_query($conn, "UPDATE project_managers SET 	nombres 	= '$nombres',
+																											apellidos 	= '$apellidos',
+																											cargo        = '$cargo', 
+																											cedula = '$cedula', 
+																											email       = '$email',
+																											movil     = '$movil',
+																											foto      = '$name_file',
+																											unidad 		= '$unidad'
+								  
+																									WHERE id='$id'")
+			  																				or die('error : '.mysqli_error($conn));
 
+																		if ($query) {
 
-/*
+																			header("location: ../pages/profile.php?alert=2");
+																			}
+														}
+												} else {
+												   
+													header("location: ../pages/profile.php?alert=5");
+												}
+											} else {
+											   
+												header("location: ../pages/profile.php?alert=6");
+											}
+										} else {
+										   
+											header("location: ../pages/profile.php?alert=7");
+										} 
+									}
+									
+									else {
+										
+										if (in_array($extension, $allowed_extensions)) {
+										   
+											if($ukuran_file <= 1000000) { 
+											   
+												if(move_uploaded_file($tmp_file, $path_file)) { 
 
-	elseif ($_GET['act']=='delete' && $_SESSION['permisos_acceso'] == "Super Admin") {
+													$query = mysqli_query($conn, "UPDATE project_managers SET 	nombres 	= '$nombres',
+																											apellidos 	= '$apellidos',
+																											cargo        = '$cargo', 
+																											cedula = '$cedula', 
+																											email       = '$email',
+																											movil     = '$movil',
+																											foto      = '$name_file',
+																											unidad 		= '$unidad'
+								  
+																									WHERE id='$id'")
+			  																				or die('error : '.mysqli_error($conn));
 
-        if (isset($_GET['id'])) {
-            $id_user = $_GET['id'];
-      
-            $query = mysqli_query($conn, "DELETE FROM usuarios WHERE id_user =  '$id_user'")
-                                            or die('error '.mysqli_error($conn));
+																		if ($query) {
 
-            $accion = "Eliminacion de Usuario";
-
-            $query = mysqli_query($conn, "INSERT INTO history(nombre, accion, cedula, permiso, fecha, hora) 
-                                            VALUES('$NombreUser','$accion','$cedulauser', '$iduser', NOW(), DATE_FORMAT(NOW( ), '%H:%I:%S' ))")
-                                            or die('error '.mysqli_error($conn)); 
-
-
-            if ($query) {
-     
-                header("location: ../../main.php?module=user&alert=4");
-            }
-        }
-    }
-
-    elseif ($_GET['act']=='on' && $_SESSION['permisos_acceso'] != "Super Admin") {
-    	echo'<script type="text/javascript">
-    		alert("No puede desbloquear un nivel superior");
-    		</script>';
-
-    		header("location: ../../main.php?module=user");
-    }
-
-    elseif ($_GET['act']=='off' && $_SESSION['permisos_acceso'] != "Super Admin") {
-    	echo'<script type="text/javascript">
-    		alert("No puede bloquear un nivel superior");
-    		
-    		</script>';
-
-    		header("location: ../../main.php?module=user");
-    }
-
-    elseif ($_GET['act']=='delete' && $_SESSION['permisos_acceso'] != "Super Admin") {
-    		
-    		echo'<script type="text/javascript">
-    		alert("No puede eliminar un nivel superior");
-    		</script>';
-
-    		header("location: ../../main.php?module=user");
-    }
-}	*/	
+																			header("location: ../pages/profile.php?alert=2");
+																			}
+												} else {
+													
+													header("location: ../pages/profile.php?alert=5");
+												}
+											} else {
+											   
+												header("location: ../pages/profile.php?alert=6");
+											}
+										} else {
+										
+											header("location: ../pages/profile.php?alert=7");
+										} 
+									}
+								}
+										
 ?>

@@ -285,6 +285,50 @@ elseif ($_GET['alert'] == 2) {
 </div>";
 }
 
+elseif ($_GET['alert'] == 3) {
+  echo "<div class='alert alert-danger alert-dismissible text-white' role='alert'>
+  <span class='text-lg'>No se completó, <a href='profile.php' class='alert-link text-white'>falla en la operación</a>!</span>
+  <button type='button' class='btn-close text-lg py-3 opacity-10' data-bs-dismiss='alert' aria-label='Close'>
+  <span aria-hidden='true'>&times;</span>
+  </button>
+</div>";
+}
+elseif ($_GET['alert'] == 4) {
+  echo "<div class='alert alert-info alert-dismissible text-white' role='alert'>
+  <span class='text-lg'>Datos eliminados <a href='profile.php' class='alert-link text-white'>exitosamente</a>!</span>
+  <button type='button' class='btn-close text-lg py-3 opacity-10' data-bs-dismiss='alert' aria-label='Close'>
+  <span aria-hidden='true'>&times;</span>
+  </button>
+</div>";
+}
+
+elseif ($_GET['alert'] == 5) {
+  echo "<div class='alert alert-danger alert-dismissible text-white' role='alert'>
+  <span class='text-lg'>Archivo cargado<a href='profile.php' class='alert-link text-white'>incorrecto</a>!</span>
+  <button type='button' class='btn-close text-lg py-3 opacity-10' data-bs-dismiss='alert' aria-label='Close'>
+  <span aria-hidden='true'>&times;</span>
+  </button>
+</div>";
+}
+
+elseif ($_GET['alert'] == 6) {
+  echo "<div class='alert alert-danger alert-dismissible text-white' role='alert'>
+  <span class='text-lg'>La imagen debe pesar <a href='profile.php' class='alert-link text-white'>menos de 1mb</a>!</span>
+  <button type='button' class='btn-close text-lg py-3 opacity-10' data-bs-dismiss='alert' aria-label='Close'>
+  <span aria-hidden='true'>&times;</span>
+  </button>
+</div>";
+}
+
+elseif ($_GET['alert'] == 7) {
+  echo "<div class='alert alert-danger alert-dismissible text-white' role='alert'>
+  <span class='text-lg'>Solo se admiten archivos: <a href='profile.php' class='alert-link text-white'>*.JPG, *.JPEG, *.PNG</a>!</span>
+  <button type='button' class='btn-close text-lg py-3 opacity-10' data-bs-dismiss='alert' aria-label='Close'>
+  <span aria-hidden='true'>&times;</span>
+  </button>
+</div>";
+}
+
 ?>
 
 <div class="container-fluid px-2 px-md-10">
@@ -294,10 +338,24 @@ elseif ($_GET['alert'] == 2) {
       <div class="card card-body mx-3 mx-md-4 mt-n6">
         <div class="row gx-5 mb-2">
           <div class="col-auto">
+
             <div class="avatar avatar-xl position-relative">
-              <img src="../assets/img/marie.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            <div class="image-upload avatar avatar-xl position-relative">
+                 <label for="file-input">
+                 <?php
+                 if (empty($data['foto'])) {
+                    ?>                 
+                   <img class='img-user' src='../assets/img/person.jpg' width='45' class="border-radius-lg shadow">
+                 <?php
+                 } else{?>
+                   <img src="../assets/img/<?php echo $data['foto']; ?>" class="w-100 border-radius-lg shadow-sm">              
+                <?php } ?>
+                </label>
+                
             </div>
-          </div>
+            </div>
+            </div>
+
           <div class="col-auto my-auto">
             <div class="h-100">
               <h5 class="mb-1">
@@ -513,15 +571,16 @@ elseif ($_GET['alert'] == 2) {
                  <h6 class='mb-0 text-sm'>$data[nombres] $data[apellidos]</h6>
                  <p class='mb-0 text-xs'>$data[cargo]</p></div><div></td>
 
-                   <td> <a class='fas fa-user-edit text-secondary text-sm' data-bs-toggle='tooltip' data-bs-placement='top' title='Modificar'>
+                   <td> <a class='fas fa-user-edit text-secondary text-sm' data-bs-toggle='tooltip' href='../pages/agregar_miembros.php?form=update&id=$data[id]' data-bs-placement='top' title='Modificar'>
                    </a></td>
-                   
-                   <td> <a class='fas fa-trash text-secondary text-sm' data-bs-toggle='tooltip' data-bs-placement='top' title='Eliminar'>
+                   "; ?>
+                   <td> <a class="fas fa-trash text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"  href="../pages/proses_miembros.php?act=delete&id=<?php echo $data['id'];?>" onclick="return confirm('¿Seguro de eliminar a <?php echo $data['nombres'] ?> de su equipo?');" >
                    </a></td>
    
                   </div>
                  </td>
-               </tr>";
+               </tr>
+               <?php
                    }
        ?>
        </tbody>
