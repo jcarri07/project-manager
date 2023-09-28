@@ -1,9 +1,9 @@
-<?php 
-  require_once('../databases/conexion.php');
+<?php
+require_once('../databases/conexion.php');
 
-  $query = "SELECT * FROM projects";
-  $result = mysqli_query($conn,$query);
-  $num_r= mysqli_num_rows($result);
+$query = "SELECT * FROM projects";
+$result = mysqli_query($conn, $query);
+$num_r = mysqli_num_rows($result);
 
 ?>
 <!DOCTYPE html>
@@ -58,30 +58,6 @@
             <span class="nav-link-text ms-1">Proyectos</span>
           </a>
         </li>
-        <!--<li class="nav-item">
-          <a class="nav-link text-white " href="../pages/billing.html">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">receipt_long</i>
-            </div>
-            <span class="nav-link-text ms-1">Billing</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/virtual-reality.html">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">view_in_ar</i>
-            </div>
-            <span class="nav-link-text ms-1">Virtual Reality</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/rtl.html">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
-            </div>
-            <span class="nav-link-text ms-1">RTL</span>
-          </a>
-        </li>-->
         <li class="nav-item">
           <a class="nav-link text-white " href="../pages/notifications - copia.html">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -110,21 +86,6 @@
             <span class="nav-link-text ms-1">Sign In</span>
           </a>
         </li>
-       <!-- <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/sign-up.php">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">assignment</i>
-            </div>
-            <span class="nav-link-text ms-1">Sign Up</span>
-          </a>
-        </li>
-      </ul>
-    </div>-->
-   <!-- <div class="sidenav-footer position-absolute w-100 bottom-0 ">
-      <div class="mx-3">
-        <a class="btn bg-gradient-primary mt-4 w-100" href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
-      </div>
-    </div>-->
   </aside>
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
@@ -137,24 +98,24 @@
           </ol>
           <!--<h6 class="font-weight-bolder mb-0">Tables</h6>-->
         </nav>
-          <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-              <!-- <div class="input-group input-group-outline">
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+            <!-- <div class="input-group input-group-outline">
                 <label class="form-label">Type here...</label>
                 <input type="text" class="form-control">
               </div>-->
-            </div>
-            <ul class="navbar-nav  justify-content-end">
-             <!-- <li class="nav-item d-flex align-items-center">
+          </div>
+          <ul class="navbar-nav  justify-content-end">
+            <!-- <li class="nav-item d-flex align-items-center">
                 <a class="btn btn-outline-primary btn-sm mb-0 me-3" target="_blank" href="https://www.creative-tim.com/builder/material?ref=navbar-dashboard">Online Builder</a>
               </li>-->
-              <li class="nav-item d-flex align-items-center">
-                <a href="../pages/sign-in.php" class="nav-link text-body font-weight-bold px-0">
-                  <i class="fa fa-user me-sm-1"></i>
-                  <span class="d-sm-inline d-none">Sign In</span>
-                </a>
-              </li>
-           <!-- <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+            <li class="nav-item d-flex align-items-center">
+              <a href="../pages/sign-in.php" class="nav-link text-body font-weight-bold px-0">
+                <i class="fa fa-user me-sm-1"></i>
+                <span class="d-sm-inline d-none">Sign In</span>
+              </a>
+            </li>
+            <!-- <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                 <div class="sidenav-toggler-inner">
                   <i class="sidenav-toggler-line"></i>
@@ -246,7 +207,7 @@
       </div>-->
     </nav>
     <!-- End Navbar -->
-   <!-- <div class="container-fluid py-4">
+    <!-- <div class="container-fluid py-4">
       <div class="row">
         <div class="col-12">
           <div class="card my-4">
@@ -443,37 +404,38 @@
           </div>
         </div>
       </div>-->
-      <div class="row mt-4">
-        <div class="col-11" style="padding-left:90px;">
-          <div class="card my-4">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-              <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                <h6 class="text-white text-capitalize ps-3">Proyectos</h6>
-              </div>
+    <div class="row mt-4">
+      <div class="col-11" style="padding-left:90px;">
+        <div class="card my-4">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Proyectos</h6>
             </div>
-            <div class="card-body px-0 pb-2">
-              <div class="table-responsive p-0">
-                <table class="table align-items-center justify-content-center mb-0">
-                  <thead>
-                    <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Proyectos</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Miembros</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Avance</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <?php
-                      while ($row = mysqli_fetch_assoc($result)) {
-                      echo '<td>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center justify-content-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Proyectos</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Miembros</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Avance</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody style="background-color: red; display: flex, justify-content: 'center'">
+                  <tr>
+                    <?php
+                    while ($row = mysqli_fetch_assoc($result)) {
+                      echo '
+                      <td>
                         <div class="d-flex px-2">
                           <div>
                             <img src="../assets/img/small-logos/logo-asana.svg" class="avatar avatar-sm rounded-circle me-2" alt="spotify">
                           </div>
                           <div class="my-auto">
-                            <h6 class="mb-0 text-sm">'.$row["nombre"].'</h6>
+                            <h6 class="mb-0 text-sm">' . $row["nombre"] . '</h6>
                           </div>
                         </div>
                       </td>
@@ -481,11 +443,11 @@
                         <p class="text-sm font-weight-bold mb-0">3</p>
                       </td>
                       <td>
-                        <span class="text-xs font-weight-bold">'.$row["estatus"].'</span>
+                        <span class="text-xs font-weight-bold">' . $row["estatus"] . '</span>
                       </td>
                       <td class="align-middle text-center">
                         <div class="d-flex align-items-center justify-content-center">
-                          <span class="me-2 text-xs font-weight-bold">'.$row["avance"].'%</span>
+                          <span class="me-2 text-xs font-weight-bold">' . $row["avance"] . '%</span>
                           <div>
                             <div class="progress">
                               <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
@@ -630,50 +592,17 @@
                           <i class="fa fa-ellipsis-v text-xs"></i>
                         </button>
                       </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-flex px-2">
-                          <div>
-                            <img src="../assets/img/small-logos/devto.svg" class="avatar avatar-sm rounded-circle me-2" alt="xd">
-                          </div>
-                          <div class="my-auto">
-                            <h6 class="mb-0 text-sm">Proyecto #6</h6>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <p class="text-sm font-weight-bold mb-0">2</p>
-                      </td>
-                      <td>
-                        <span class="text-xs font-weight-bold">Ejecutado</span>
-                      </td>
-                      <td class="align-middle text-center">
-                        <div class="d-flex align-items-center justify-content-center">
-                          <span class="me-2 text-xs font-weight-bold">100%</span>
-                          <div>
-                            <div class="progress">
-                              <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="align-middle">
-                        <button class="btn btn-link text-secondary mb-0" aria-haspopup="true" aria-expanded="false">
-                          <i class="fa fa-ellipsis-v text-xs"></i>
-                        </button>
-                      </td>';
-                      }
-                      ?>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                    </tr>';
+                    }
+                    ?>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
-  
+    </div>
+
     </div>
   </main>
   <div class="fixed-plugin">
@@ -769,4 +698,5 @@
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/material-dashboard.min.js?v=3.0.4"></script>
 </body>
+
 </html>

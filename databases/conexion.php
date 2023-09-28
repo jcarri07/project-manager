@@ -4,7 +4,7 @@
 $host = "localhost"; // servidor
 $user = "root"; // nombre de usuario
 $pass = ""; // contraseña
-$dbname = "project-manager"; // nombre de la base de datos
+$dbname = "project_manager"; // nombre de la base de datos
 
 // Crear conexión
 $conn = mysqli_connect($host, $user, $pass, $dbname);
