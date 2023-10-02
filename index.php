@@ -12,6 +12,7 @@
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,14 +27,14 @@
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
   <!-- Nucleo Icons -->
-  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
-  <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
+  <link id="pagestyle" href="assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
 </head>
 
 <body class="bg-gray-200">
@@ -108,7 +109,7 @@ if (empty($_GET['alert'])) {
 
 elseif ($_GET['alert'] == 1) {
 echo "<div class='alert alert-light alert-dismissible text-black  py-2' role='alert'>
-  <span class='text-lg'>Error al iniciar sesión <a href='sign-in.php' class='alert-link text-black'>datos invalidos o incorrectos</a>!</span>
+  <span class='text-lg'>Error al iniciar sesión <a href='index.php' class='alert-link text-black'>datos invalidos o incorrectos</a>!</span>
   <button type='button' class='btn-close text-lg py-2 opacity-10' data-bs-dismiss='alert' aria-label='Close'>
   <span aria-hidden='true'>&times;</span>
   </button>
@@ -143,14 +144,16 @@ echo "<div class='alert alert-light alert-dismissible text-black  py-2' role='al
               </div>
               <div class="card-body">
                 <form action="login_check.php" method="POST">
-                  <div class="input-group input-group-outline my-3">
-                    <label class="form-label">Cedula</label>
-                    <input type="cedula" class="form-control" name="cedula">
+                  <div class="form-floating">
+                    <input style="border: 1px solid #ced4da; margin-bottom: 15px; padding-left: 20px;  height: 50px;" type="text" class="form-control" name="cedula" placeholder="Cédula de Identidad">
+                    <label>Cédula de Identidad</label>
                   </div>
-                  <div class="input-group input-group-outline mb-3">
-                    <label class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" name="password">
-                  </div>
+
+                  <div class="form-floating">
+                    <input style="border: 1px solid #ced4da;  padding-left: 20px;  height: 50px;" type="password" class="form-control" name="password" placeholder="Contraseña">
+                    <label>Contraseña</label>
+
+                                    </div>
                   <!--<div class="form-check form-switch d-flex align-items-center mb-3">
                     <input class="form-check-input" type="checkbox" id="rememberMe" checked>
                     <label class="form-check-label mb-0 ms-3" for="rememberMe">Recordar contraseña</label>
@@ -161,7 +164,7 @@ echo "<div class='alert alert-light alert-dismissible text-black  py-2' role='al
                   </div>
                   <p class="mt-4 text-sm text-center">
                     Nuevo Project Manager?
-                    <a href="../pages/sign-up.php" class="text-primary text-gradient font-weight-bold">Registrate</a>
+                    <a href="pages/sign-up.php" class="text-primary text-gradient font-weight-bold">Registrate</a>
                   </p>
                 </form>
               </div>

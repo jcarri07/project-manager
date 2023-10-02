@@ -1,13 +1,13 @@
 
 <?php
 
-require_once('../databases/conexion.php');
+require_once('databases/conexion.php');
 
 $cedula = mysqli_real_escape_string($conn, stripslashes(strip_tags(htmlspecialchars(trim($_POST['cedula'])))));
 $password = mysqli_real_escape_string($conn, stripslashes(strip_tags(htmlspecialchars(trim($_POST['password'])))));
 
 if (!ctype_alnum($cedula) OR !ctype_alnum($password)) {
-    header("location: sign-in.php?alert=1");
+    header("location: index.php?alert=1");
 
 }
 else {
@@ -29,12 +29,13 @@ else {
         $_SESSION['apellidos'] = $data['apellidos'];
 		//$_SESSION['permisos_acceso'] = $data['permisos_acceso'];
 
-		header("Location: dashboard.php");
+		header("Location: pages/dashboard.php");
 	}
 
 
 	else {
-		header("Location: sign-in.php?alert=1");
+		header("Location: index.php?alert=1");
 	}
 }
+
 ?>

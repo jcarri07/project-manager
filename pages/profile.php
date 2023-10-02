@@ -21,6 +21,11 @@
                                 or die('error: '.mysqli_error($conn));
   $data = mysqli_fetch_assoc($query);
 
+  if (!isset($_SESSION['id'])) {
+    // Redirigir al usuario a la página de inicio de sesión
+    header("Location: ../index.php");
+  
+  }
 
 ?>
 
@@ -100,7 +105,7 @@
           </a>
         </li>-->
         <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/notifications - copia.html">
+          <a class="nav-link text-white " href="../pages/reportes.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">notifications</i>
             </div>
@@ -119,11 +124,11 @@
           </a>
         </li>
        <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/sign-in.php">
+          <a class="nav-link text-white " href="../logout.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">login</i>
             </div>
-            <span class="nav-link-text ms-1">Sign In</span>
+            <span class="nav-link-text ms-1">Cerrar Sesión</span>
           </a>
         </li>
         <!--<li class="nav-item">
@@ -164,9 +169,9 @@
               <a class="btn btn-outline-primary btn-sm mb-0 me-3" target="_blank" href="https://www.creative-tim.com/builder/material?ref=navbar-dashboard">Online Builder</a>
             </li>-->
             <li class="nav-item d-flex align-items-center">
-              <a href="../pages/sign-in.php" class="nav-link text-body font-weight-bold px-0">
+              <a href="../logout.php" class="nav-link text-body font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">Sign In</span>
+                <span class="d-sm-inline d-none">Cerrar Sesión</span>
               </a>
             </li>
            <!-- <li class="nav-item d-xl-none ps-3 d-flex align-items-center">

@@ -112,13 +112,13 @@
             <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
               <div class="card card-plain">
                 <div class="card-header">
-                  <h4 class="font-weight-bolder">Registrarse</h4>
-                  <p class="mb-0">Ingresa tus datos:</p>
+                  <h4 class="font-weight-bolder" style="display: flex; justify-content: center;">Registrarse</h4>
+                  <p class="mb-0"  style="display: flex; justify-content: center;">Ingresa tus datos:</p>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="padding-top: 5px;">
                 <form role="form" class="form-horizontal" method="POST" action="../pages/proses_sign-up.php?act=insert" enctype="multipart/form-data">
 
-                <div class="input-group input-group-outline mb-3">
+                <!--<div class="input-group input-group-outline mb-3">
                   <select class="form-select-lg " name="proyecto" placeholder="--Seleccione proyecto participante--" autocomplete="off" required>
                     <option value="">-- Proyecto Participante --</option>
                     <?php
@@ -131,7 +131,7 @@
                       echo $data_1['project_id'];
                     ?>
                  </select>
-                </div>
+                </div>-->
 
                     <div class="input-group input-group-outline mb-3">
                       <label class="form-label">Nombres</label>
@@ -167,7 +167,7 @@
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                   <p class="mb-2 text-sm mx-auto">
                     Ya tienes una cuenta?
-                    <a href="../pages/sign-in.php" class="text-primary text-gradient font-weight-bold">Inicia sesion</a>
+                    <a href="../index.php" class="text-primary text-gradient font-weight-bold">Inicia sesion</a>
                   </p>
                 </div>
               </div>

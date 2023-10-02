@@ -41,7 +41,7 @@ require_once('../databases/conexion.php');
 
             if ($query) {
 				
-				header("location: ../pages/sign-in.php");
+				header("location: ../index.php");
 
             }
 		}	
