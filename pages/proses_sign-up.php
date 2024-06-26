@@ -31,12 +31,12 @@ require_once('../databases/conexion.php');
            // $unidad = mysqli_real_escape_string($conn, trim($_POST['unidad']));
 		    $cedula = mysqli_real_escape_string($conn, trim($_POST['cedula']));
            // $movil = mysqli_real_escape_string($conn, trim($_POST['movil']));
-            $email = mysqli_real_escape_string($conn, trim($_POST['email']));
+            //$email = mysqli_real_escape_string($conn, trim($_POST['email']));
             $password = mysqli_real_escape_string($conn, trim($_POST['password']));
-			$proyecto = mysqli_real_escape_string($conn, trim($_POST['proyecto']));
+			//$proyecto = mysqli_real_escape_string($conn, trim($_POST['proyecto']));
 
-            $query = mysqli_query($conn, "INSERT INTO project_managers(project_id,nombres,apellidos,cargo,email,password,cedula)
-                                            VALUES('$proyecto','$nombres','$apellidos','$cargo','$email','$password','$cedula')")
+            $query = mysqli_query($conn, "INSERT INTO project_managers(nombres,apellidos,cargo,password,cedula)
+                                            VALUES('$nombres','$apellidos','$cargo','$password','$cedula')")
                                             or die('error: '.mysqli_error($conn)); 
 
             if ($query) {

@@ -153,9 +153,9 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Perfil</li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Proyectos</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0">Perfil</h6>
+          <h6 class="font-weight-bolder mb-0">Proyectos</h6>
         </nav>
        <!--<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -289,10 +289,10 @@ if ($_GET['form']=='add') { ?>
           <div class="col-auto my-auto">
             <div class="h-100">
               <h5 class="mb-1">
-                 Agregar datos: 
+                 Agregar: 
               </h5>
               <p class="mb-0 font-weight-normal text-sm">
-                 Miembros
+                 Proyecto
               </p>
             </div>
           </div>
@@ -303,78 +303,95 @@ if ($_GET['form']=='add') { ?>
           <div class="card-body">
 
 
-          <form role="form" class="form-horizontal" method="POST" action="../pages/proses_miembros.php?act=insert" enctype="multipart/form-data">
+          <form role="form" class="form-horizontal" method="POST" action="../pages/proses_proyecto.php?act=insert" enctype="multipart/form-data">
                 <form role="form" class="text-start" >
 
                 <input id="file-input" type="file" name="foto" style="display:none">
               
-                <label class="form-label">Proyecto Participante</label>
+                <label class="form-label">Lider del Proyecto</label>
                 <div class="input-group input-group-outline my-2">
-                  <select class="form-select-lg" name="proyecto" data-placeholder="-- Seleccionar proyecto --" autocomplete="off" required>
+                  <select class="form-select-lg" name="lider" data-placeholder="-- Seleccionar proyecto --" autocomplete="off" required>
                     <option value=""></option>
                     <?php
-                      $query_data = mysqli_query($conn, "SELECT id, estatus, nombre FROM projects")
+                      $query_data = mysqli_query($conn, "SELECT id,nombres, apellidos, unidad FROM project_managers")
                                                             or die('error '.mysqli_error($conn));
 
                       while ($data_1 = mysqli_fetch_assoc($query_data)) {
-                        echo"<option value=\"$data_1[id]\"> $data_1[estatus] | $data_1[nombre] </option>";
+                        echo"<option value=\"$data_1[id]\"> $data_1[unidad]  | $data_1[nombres] $data_1[apellidos] </option>";
                       }
                       echo $data_1['project_id'];
                     ?>
                   </select>
                 </div>
 
-                <label class="form-label">Nombres</label>
+                <label class="form-label">Nombre del Proyecto</label>
                   <div class="input-group input-group-outline my-2">
-                    <input type="text" name="nombres" class="form-control">
+                    <input type="text" name="nombre" class="form-control">
                   </div>
 
-                  <label class="form-label">Apellidos</label>
-                  <div class="input-group input-group-outline mb-2">
-                    <input type="text" name="apellidos" class="form-control">
+                <label class="form-label">Descripcion</label>
+                  <div class="input-group input-group-outline my-2">
+                    <input type="text" name="descripcion" class="form-control" >
                   </div>
 
-                  <label class="form-label">Cedula</label>
+                  <label class="form-label">Categoria</label>
                   <div class="input-group input-group-outline mb-2">
-                    <input type="text" name="cedula" class="form-control">
+                    <input type="text" name="categoria" class="form-control">
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">Fecha de Inicio</label>
+                        <div class="input-group input-group-outline my-2">
+                            <input type="date" name="fecha_inicio" class="form-control" lang="es">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Fecha de Culminación</label>
+                        <div class="input-group input-group-outline my-2">
+                            <input type="date" name="fecha_fin" class="form-control" data-date-format="DD MMMM YYYY">
+                        </div>
+                    </div>
+                </div>
+                  <label class="form-label">Objetivos</label>
+                  <div class="input-group input-group-outline mb-2">
+                    <input type="text" name="objetivos" class="form-control">
                   </div>
 
-                  <label class="form-label">Email</label>
+                  <label class="form-label">Beneficiarios</label>
                   <div class="input-group input-group-outline mb-2">
-                    <input type="text" name="email" class="form-control">
+                    <input type="text" name="beneficiarios" class="form-control">
                   </div>
 
-                  <label class="form-label">Movil</label>
+                  <label class="form-label">Requerimientos</label>
                   <div class="input-group input-group-outline mb-2">
-                    <input type="text" name="movil" class="form-control">
-                  </div>
+                    <input type="text" name="requerimientos" class="form-control">
+                    </div>
 
-                  <label class="form-label">Cargo</label>
+                  <label class="form-label">Estatus</label>
                   <div class="input-group input-group-outline mb-2">
-                    <input type="text" name="cargo" class="form-control">
-                  </div>
-
-                  <label class="form-label">Jefe</label>
-                  <div class="input-group input-group-outline mb-2">
-                    <select class="form-select-lg form-control" name="jefe" data-placeholder="-- Seleccionar proyecto --" autocomplete="off" required>
-                    <option value=""></option>
-                    <?php
-                      $query_data = mysqli_query($conn, "SELECT id,nombres,apellidos,unidad FROM project_managers WHERE id='$_SESSION[id]'")
-                                                            or die('error '.mysqli_error($conn));
-
-                      while ($data_1 = mysqli_fetch_assoc($query_data)) {
-                        echo"<option value=\"$data_1[id]\"> $data_1[nombres]  $data_1[apellidos] | $data_1[unidad]</option>";
-                      }
-                    ?>
+                    <select class="form-select-lg form-control" name="estatus" data-placeholder="-- Seleccionar proyecto --" autocomplete="off" required>
+                    <option value="por_ejecutar">Por ejecutar</option>
+                    <option value="en_progreso">En progreso</option>
+                    <option value="terminado">Terminado</option>
                   </select>
 
                   </div>
-                  <label class="form-label">Unidad</label>
-                  <div class="input-group input-group-outline mb-2">
-                    <input type="text" name="unidad" class="form-control">
-                  </div>
 
-                  
+                  <div class="row">
+                    <div class="col-md-11">
+                        <label class="form-label">Avance del Proyecto</label>
+                        <div class="input-group input-group-outline my-2">
+                        <label for="customRange1" class="form-label"></label>
+                        <input type="range" class="form-range" id="customRange1" name="rango" min="0" max="100" oninput="updateRangeValue(this.value)">
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <label class="form-label"></label>
+                        <div class="input-group input-group-outline my-2">
+                        <div><span id="rangeValue">0</span></div>
+                        </div>
+                    </div>
+                </div>
 
                  <!-- <div class="form-group">
                 <label class="col-sm-2 control-label">Foto</label>
@@ -388,7 +405,7 @@ if ($_GET['form']=='add') { ?>
                       <div class="form-group text-center">
                        <div class="col-sm-offset-4 col-sm-12">
                   <input type="submit" class="btn bg-gradient-primary w-30 my-4 mb-2" name="Guardar" value="Guardar">
-                  <a href="../pages/profile.php" class="btn btn-outline-primary w-30 my-4 mb-2">Cancelar</a>
+                  <a href="../pages/tables.php" class="btn btn-outline-primary w-30 my-4 mb-2">Cancelar</a>
 
                 </div>
               </div>
@@ -540,3 +557,9 @@ if ($_GET['form']=='add') { ?>
 </body>
 
 </html>
+
+<script>
+      function updateRangeValue(value) {
+      document.getElementById('rangeValue').textContent = value;
+      }
+</script>
