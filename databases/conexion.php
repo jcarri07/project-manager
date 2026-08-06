@@ -3,7 +3,7 @@
 // Datos de la base de datos
 $host = "localhost"; // servidor
 $user = "root"; // nombre de usuario
-$pass = ""; // contraseña
+$pass = "12345678"; // contraseña
 $dbname = "project_manager"; // nombre de la base de datos
 
 // Crear conexión
@@ -18,8 +18,7 @@ if (!$conn) {
 // echo "Conexión exitosa a la base de datos project-manager";
 
 // Cerrar conexión
-function closeConection($conn) {
+function closeConection($conn)
+{
     mysqli_close($conn);
 }
-
-?>

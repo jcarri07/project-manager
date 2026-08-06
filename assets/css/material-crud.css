@@ -1,0 +1,54 @@
+#tabla_proyectos tbody td{ 
+    color: #344767 !important; 
+    font-size: 14px; font-weight: 500; 
+    } 
+
+#tabla_proyectos tbody tr:hover{ 
+    background-color: #f8f9fa !important; 
+    } 
+
+#tabla_proyectos thead th{ 
+    color: #7b809a !important; 
+    font-size: 12px; font-weight: 700; 
+    padding-top: 18px !important; 
+    padding-bottom: 18px !important; 
+    } 
+
+#tabla_proyectos tbody td{ 
+    padding-top: 18px !important; 
+    padding-bottom: 18px !important; 
+    } 
+
+#tabla_proyectos td, #tabla_proyectos th{ 
+    padding-left: 20px !important; 
+    padding-right: 20px !important; 
+    } 
+
+#tabla_proyectos tbody tr{ 
+    min-height: 70px; 
+    } 
+
+.dataTables_wrapper .dataTables_filter input{ 
+    border: 1px solid #d2d6da; 
+    border-radius: 0.5rem; 
+    padding: 6px 12px; 
+    margin-left: 8px; 
+    color: #344767; 
+    } 
+.dataTables_wrapper .dataTables_length select{ 
+    border: 1px solid #d2d6da; 
+    border-radius: 0.5rem; 
+    padding: 6px 12px; 
+    color: #344767; 
+    } 
+
+.dataTables_wrapper .dataTables_paginate .paginate_button{ 
+    border-radius: 0.5rem !important; 
+    margin: 0 3px; 
+    } 
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current{ 
+    background: #e91e63 !important; 
+    border-color: #e91e63 !important; 
+    color: white !important; 
+    }
