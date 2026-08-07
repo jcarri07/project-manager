@@ -2,9 +2,6 @@
 require_once('../databases/conexion.php');
 session_start();
 
-$query = "SELECT * FROM projects";
-$result = mysqli_query($conn, $query);
-$num_r = mysqli_num_rows($result);
 
 if (!isset($_SESSION['id'])) {
   // Redirigir al usuario a la página de inicio de sesión
@@ -155,6 +152,7 @@ if (!isset($_SESSION['id'])) {
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Miembros</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Avance</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Imagen</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opciones</th>
 
                   </tr>
@@ -218,7 +216,7 @@ if (!isset($_SESSION['id'])) {
             "render": function(data, type, row) {
               let porcentaje = data ? parseInt(data) : 0;
               var BarraColor = "#0d6efd";
-              if (row.estatus === "Iniciado") {
+              if (row.estatus === "Por Ejecutar") {
                 BarraColor = "#0f5132";
               }
               if (row.estatus === "En Desarrollo") {
@@ -241,10 +239,17 @@ if (!isset($_SESSION['id'])) {
             }
           },
           {
+            "data": "imagen",
+            "render": function(data, type, row) {
+              let img = data ? data : '../assets/img/default.png';
+              return ` <div class="d-flex justify-content-center"> <img src="${img}" alt="Proyecto" class="avatar avatar-lg border-radius-lg shadow-sm" style="width:55px; height:55px; object-fit:cover;"> </div> `;
+            }
+          },
+          {
             "data": null,
             "render": function(data, type, row) {
-              return ' <button type="button" onclick="location.href=\'./#?id=' + row.id + '\'" class="btn btn-success btn-sm" t="tooltip" title="Editar Datos" ><i class="fa-solid fa-file-import"></i></button> ' +
-                ' <button type="button" onclick="location.href=\'./#?id=' + row.id + '\'" class="btn btn-success btn-sm" t="tooltip" title="Editar Datos" ><i class="fa-solid fa-file-import"></i></button> ';
+              return ' <button type="button" onclick="location.href=\'./modal_edit_proy.php?id=' + row.id + '\'" class="btn btn-success" t="tooltip" title="Editar Datos" ><i class="fa-regular fa-pen-to-square" style="color: rgb(0, 142, 255);"></i></button> ' +
+                ' <button type="button" onclick="location.href=\'./#?id=' + row.id + '\'" class="btn btn-primary" t="tooltip" title="Eliminar Proyecto" ><i class="fa-solid fa-eraser" style="color: rgb(0, 142, 255);"></i></button> ';
             }
           }
         ]
