@@ -1,0 +1,98 @@
+.modal{ 
+    backdrop-filter: blur(4px); 
+} 
+
+.modal-content{ 
+    border: none !important; 
+    border-radius: 24px !important; 
+    overflow: hidden; 
+    box-shadow: 0 20px 45px rgba(0,0,0,.18); 
+    background: #fff; 
+} 
+
+.w3-teal{ 
+    background: linear-gradient(135deg,#e91e63 0%, #ff2e7a 100%) !important; 
+    padding: 22px 28px !important; 
+} 
+
+.modal-title{ 
+    color: #fff !important; 
+    font-weight: 700; 
+    font-size: 1.15rem; 
+    margin: 0; 
+} 
+
+.modal-body{ 
+    padding: 28px !important; 
+} 
+
+.form-label{ 
+    color: #6c757d !important; 
+    font-weight: 600; 
+    margin-bottom: .5rem; 
+} 
+
+.form-control, .form-select{ 
+    border: 1px solid #e5e7eb !important; 
+    border-radius: 14px !important; 
+    padding: .75rem 1rem !important; 
+    background: #fafafa !important; 
+    transition: all .2s ease; 
+    box-shadow: none !important; } 
+
+.form-control:focus, .form-select:focus{ 
+    background: #fff !important; 
+    border-color: #e91e63 !important; 
+    box-shadow: 0 0 0 .2rem rgba(233,30,99,.15) !important; 
+} 
+
+textarea.form-control{ 
+    min-height: 120px; resize: vertical; 
+} 
+
+[id^="contador_"]{ 
+    text-align: right; 
+    font-size: .8rem; 
+    color: #9ca3af; 
+    margin-top: .35rem; 
+} 
+
+.form-check-input:checked{ 
+    background-color: #e91e63 !important; 
+    border-color: #e91e63 !important; 
+} 
+
+.modal-footer{ 
+    border-top: none !important; 
+    padding: 0 28px 24px 28px !important; 
+    background: #fff; 
+} 
+
+#Redirect{ 
+    background: linear-gradient(135deg,#e91e63 0%, #ff2e7a 100%) !important; 
+    border: none !important; border-radius: 999px !important; 
+    padding: .7rem 1.6rem !important; 
+    font-weight: 600; 
+    box-shadow: 0 4px 12px rgba(233,30,99,.25); 
+} 
+#Redirect:hover{ 
+    transform: translateY(-1px); 
+    box-shadow: 0 6px 16px rgba(233,30,99,.35); 
+} 
+
+#closeAndRedirect{ 
+    border-radius: 999px !important; 
+    padding: .7rem 1.6rem !important; 
+} 
+
+.row.g-3{ 
+    margin-bottom: .5rem; 
+} 
+
+input[type=file].form-control{ 
+    padding: .55rem .9rem !important; 
+} 
+
+@media (min-width: 992px){ 
+    .modal-dialog{ max-width: 980px; } 
+}

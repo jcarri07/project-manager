@@ -6,7 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/material-modal.css">
+    <link rel="stylesheet" href="../assets/css/dash-modal.css">
     <script src="../assets/Bootstrap/js/bootstrap.min.js"></script>
     <script src="../assets/jqery/jquery.js"></script>
     <script src="../assets/Daterangepicker/moment.min.js"></script>
@@ -18,6 +20,7 @@
 <body>
 
     <?php
+    error_reporting(0);
     $id = $_REQUEST["id"];
     require_once('../databases/conexion.php');
     ?>
@@ -51,7 +54,7 @@
                     <?php
                     $sqlDat = ("SELECT * FROM projects WHERE projects.id='$id'")
                     ?>
-                    <form class="col-8 padding-8" action="./ejec_edit_proy.php" id="form-upload" enctype="multipart/form-data" method="POST">
+                    <form class="row g-3" action="./ejec_edit_proy.php" id="form-upload" enctype="multipart/form-data" method="POST">
 
                         <?php
                         $DatNot = mysqli_query($conn, $sqlDat);
@@ -74,7 +77,7 @@
                             <br>
 
                             <div class="row g-3">
-                                <div class="col-md-8" style="color:black">
+                                <div class="col-md-4" style="color:black">
                                     <label for="Grafica" class="form-label">Fecha: </label>
                                     <input type="text" class="form-control" id="edit_fecha_fin" name="edit_fecha_fin" value="<?php echo ($row["fecha_fin"]); ?>" required>
                                     <script>
@@ -88,8 +91,8 @@
                                     </script>
                                 </div>
 
-                                <div class="col-md-4" style="color:black">
-                                    <label for="Comando" class="form-label">Categoria del Proyecto: </label>
+                                <div class="col-md-8" style="color:black">
+                                    <label for="Comando" class="form-label">Categoria: </label>
                                     <input type="text" class="form-control" value="<?php echo ($row["categoria"]); ?>" id="edit_categoria_proy" name="edit_categoria_proy">
                                 </div>
                             </div>
@@ -105,19 +108,19 @@
                             <div class="row g-3">
                                 <div class="col-md-12" style="color:black">
                                     <label for="Grafica" class="form-label">Descripción del Proyecto: </label>
-                                    <textarea name="edit_descrip_proy" id="edit_descrip_proy" cols="40" rows="4" class="ampliar" required><?php echo ($row["descripcion"]); ?></textarea>
+                                    <textarea name="edit_descrip_proy" id="edit_descrip_proy" cols="40" rows="4" class="form-control" required><?php echo ($row["descripcion"]); ?></textarea>
                                     <div id="contador_descrip_proy">150</div>
                                 </div>
 
                                 <div class="col-md-12" style="color:black">
                                     <label for="Grafica" class="form-label">Objetivos del Proyecto: </label>
-                                    <textarea name="edit_objec_proy" id="edit_objec_proy" cols="40" rows="4" class="ampliar" required><?php echo ($row["objetivos"]); ?></textarea>
+                                    <textarea name="edit_objec_proy" id="edit_objec_proy" cols="40" rows="4" class="form-control" required><?php echo ($row["objetivos"]); ?></textarea>
                                     <div id="contador_objec_proy">150</div>
                                 </div>
 
                                 <div class="col-md-12" style="color:black">
                                     <label for="Grafica" class="form-label">Requerimientos del Proyecto: </label>
-                                    <textarea name="edit_objec_requer" id="edit_objec_requer" cols="40" rows="4" class="ampliar" required><?php echo ($row["requerimientos"]); ?></textarea>
+                                    <textarea name="edit_objec_requer" id="edit_objec_requer" cols="40" rows="4" class="form-control" required><?php echo ($row["requerimientos"]); ?></textarea>
                                     <div id="contador_requer">150</div>
                                 </div>
 
@@ -169,12 +172,13 @@
                             </div>
 
                             <br>
+                            <br>
 
                             <div class="col-md-8" style="color:black">
                                 <label for="fecha">Archivo Fotografico (PNG/JPG): </label><br>
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="check_Arc_fot_proy" checked>
-                                    <label class="form-check-label" for="check_Arc_fot_proy">Habilitado/Inhabilitado</label>
+                                    <label class="form-check-label" for="check_Arc_fot_proy"></label>
                                 </div>
                                 <input type="file" class="form-control" id="Arc_fot_proy" name="Arc_fot_proy">
                             </div>
@@ -195,14 +199,13 @@
 
                     </form>
 
-                    <!-- -------------------------------------------------------------------------------------------------------------- -->
-
                 </div>
 
-                <!-- Modal footer -->
                 <div class="w3-teal modal-footer">
-                    <button type="button" class="btn btn-danger" id="closeAndRedirect" data-bs-dismiss="modal">Cerrar</button>
+                    <br>
+                    <button type="button" class="btn btn-success" id="closeAndRedirect" data-bs-dismiss="modal">Cerrar</button>
                 </div>
+
             </div>
         </div>
     </div>
