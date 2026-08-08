@@ -13,6 +13,7 @@ $D7 = $_REQUEST["edit_objec_proy"];
 $D8 = $_REQUEST["edit_objec_requer"];
 
 $D9 = $_REQUEST["edit_est"];
+$D10 = $_REQUEST["edit_ben_proy"];
 
 $carpeta_destino = "../assets/img/img_proyect/";
 
@@ -34,7 +35,7 @@ if (($extension1 == "png") || ($extension1 == "jpg")) {
 }
 
 $sq1 = "UPDATE projects SET nombre = '$D2', avance = '$D3', fecha_fin = '$D4', categoria = '$D5', descripcion = '$D6', objetivos = '$D7',
-requerimientos = '$D8', estatus = '$D9' WHERE projects.id='$D1' ";
+beneficiarios = '$D10', requerimientos = '$D8', estatus = '$D9' WHERE projects.id='$D1' ";
 $resultado = mysqli_query($conn, $sq1);
 
 if ($resultado) {

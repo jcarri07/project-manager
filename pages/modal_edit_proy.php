@@ -94,6 +94,12 @@
                                 </div>
                             </div>
 
+                            <div class="col-md-6" style="color:black">
+                                <label for="Beneficiarios" class="form-label">Nombre del Beneficiarios: </label>
+                                <input type="text" class="form-control" value="<?php echo ($row["beneficiarios"]); ?>" id="edit_ben_proy" name="edit_ben_proy">
+                            </div>
+
+
                             <br>
 
                             <div class="row g-3">
@@ -153,7 +159,7 @@
                             <br>
 
                             <div class="col-md-6" style="color:black">
-                                <label for="Caso" class="form-label">Condición: </label>
+                                <label for="Cond" class="form-label">Condición: </label>
                                 <select class="form-select" id="edit_est" name="edit_est" required>
                                     <option selected value="<?php echo ($row["estatus"]); ?>"><?php echo ($row["estatus"]); ?></option>
                                     <option value="Por Ejecutar">Por Ejecutar</option>
@@ -162,6 +168,7 @@
                                 </select>
                             </div>
 
+                            <br>
 
                             <div class="col-md-8" style="color:black">
                                 <label for="fecha">Archivo Fotografico (PNG/JPG): </label><br>
