@@ -1,10 +1,10 @@
 <?php
+require_once __DIR__ . '/../config.php';
 
-// Datos de la base de datos
-$host = "localhost"; // servidor
-$user = "root"; // nombre de usuario
-$pass = "12345678"; // contraseña
-$dbname = "project_manager"; // nombre de la base de datos
+$host = $_ENV['DB_HOST'];
+$user = $_ENV['DB_USER'];
+$pass = $_ENV['DB_PASS'];
+$dbname = $_ENV['DB_NAME'];
 
 // Crear conexión
 $conn = mysqli_connect($host, $user, $pass, $dbname);

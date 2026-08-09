@@ -1,22 +1,17 @@
 <?php
+
+require_once __DIR__ . '/../config.php';
 class Conexion
 {
     public static function Conectar()
     {
-        define('servidor', 'localhost');
-        define('nombre_bd', 'project_manager');
-        define('usuario', 'root');
-        define('password', '12345678');
 
         try {
             $conexion = new PDO(
-                "mysql:host=" . servidor . ";dbname=" . nombre_bd . ";charset=utf8",
-                usuario,
-                password,
-                [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-                ]
+                'mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'] . ';charset=utf8',
+                $_ENV['DB_USER'],
+                $_ENV['DB_PASS'],
+                [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]
             );
             return $conexion;
         } catch (Exception $e) {
