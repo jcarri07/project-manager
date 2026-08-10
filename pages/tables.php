@@ -118,13 +118,21 @@ if (!isset($_SESSION['id'])) {
 
     </nav>
 
+
+
     <div class="d-flex justify-content-center align-items-md-center mt-2">
+
       <div class="col-12 px-3">
 
         <div class="card my-4">
           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
               <h6 class="text-white text-capitalize ps-3">Proyectos</h6>
+              <br>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+                <label class="text-white text-capitalize" for="flexSwitchCheckChecked">Habilitado/Inhabilitado</label>
+              </div>
             </div>
 
             <div class="col-lg-2 col-md-5 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3" style="padding-top: 30px;">
@@ -142,29 +150,65 @@ if (!isset($_SESSION['id'])) {
             </div>
 
           </div>
-          <div class="card-body px-3 pb-3">
-            <div class="table-responsive">
 
-              <table id="tabla_proyectos" class="table align-items-center justify-content-center" style="width:100%">
-                <thead>
-                  <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Proyectos</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Beneficiarios</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Avance</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Imagen</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opciones</th>
+          <div id="section1" class="section">
 
-                  </tr>
-                </thead>
+            <div class="card-body px-3 pb-3">
+              <div class="table-responsive">
 
-                <tbody>
-                </tbody>
+                <table id="tabla_proyectos" class="table align-items-center justify-content-center" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Proyectos</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Beneficiarios</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Avance</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Imagen</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opciones</th>
 
-              </table>
+                    </tr>
+                  </thead>
 
+                  <tbody>
+                  </tbody>
+
+                </table>
+
+              </div>
             </div>
+
           </div>
+
+          <div id="section2" class="section" style="display: none;">
+
+            <div class="card-body px-3 pb-3">
+              <div class="table-responsive">
+
+                <table id="tabla_proyectos_elim" class="table align-items-center justify-content-center" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Proyectos</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Beneficiarios</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Avance</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Imagen</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opciones</th>
+
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                  </tbody>
+
+                </table>
+
+              </div>
+            </div>
+
+          </div>
+
+
+
         </div>
       </div>
     </div>
@@ -254,6 +298,92 @@ if (!isset($_SESSION['id'])) {
           }
         ]
       });
+    });
+  </script>
+
+  <script>
+    $(document).ready(function() {
+      $('#tabla_proyectos_elim').DataTable({
+        autoWidth: false,
+        responsive: true,
+        pageLength: 5,
+        "language": {
+          "url": "../assets/js/DataEsp.json"
+        },
+        "ajax": {
+          "url": "./consul_proyectos_elim.php",
+          "dataSrc": ""
+        },
+        "columns": [{
+            "data": "nombre"
+          },
+          {
+            "data": "beneficiarios"
+          },
+          {
+            "data": "estatus"
+          },
+          {
+            "data": "avance",
+            "render": function(data, type, row) {
+              let porcentaje = data ? parseInt(data) : 0;
+              var BarraColor = "#0d6efd";
+              if (row.estatus === "Por Ejecutar") {
+                BarraColor = "#0f5132";
+              }
+              if (row.estatus === "En Desarrollo") {
+                BarraColor = "#055160";
+              }
+              if (row.estatus === "Listo") {
+                BarraColor = "#664d03";
+              }
+              return ` <div 
+              class="d-flex align-items-center justify-content-center gap-2"> 
+              <span class="text-xs font-weight-bold" style="min-width:38px;"> 
+                ${porcentaje}% 
+                </span> 
+                <div class="progress flex-grow-1" style="height:8px; min-width:90px;"> 
+                  <div 
+                    class="progress-bar" role="progressbar" aria-valuenow="${porcentaje}" aria-valuemin="0" aria-valuemax="100" style="width:${porcentaje}%; background-color:${BarraColor}; background-image:none;"> 
+                  </div> 
+                </div> 
+              </div> `;
+            }
+          },
+          {
+            "data": "imagen",
+            "render": function(data, type, row) {
+              let img = data ? data : '../assets/img/default.png';
+              return ` <div class="d-flex justify-content-center"> <img src="${img}" alt="Proyecto" class="avatar avatar-lg border-radius-lg shadow-sm" style="width:55px; height:55px; object-fit:cover;"> </div> `;
+            }
+          },
+          {
+            "data": null,
+            "render": function(data, type, row) {
+              return ' <button type="button" onclick="location.href=\'./ejec_rest_proy.php?id=' + row.id + '\'" class="btn btn-success" t="tooltip" title="Restablecer los Datos" ><i class="fa-regular fa-folder-open" style="color: rgb(0, 92, 255);"></i></button> ';
+            }
+          }
+        ]
+      });
+    });
+  </script>
+
+
+  <script>
+    const switchElement = document.getElementById("flexSwitchCheckChecked");
+    const section1 = document.getElementById("section1");
+    const section2 = document.getElementById("section2");
+
+    switchElement.addEventListener("change", function() {
+      const isChecked = this.checked;
+
+      if (isChecked) {
+        section1.style.display = "block";
+        section2.style.display = "none";
+      } else {
+        section1.style.display = "none";
+        section2.style.display = "block";
+      }
     });
   </script>
 

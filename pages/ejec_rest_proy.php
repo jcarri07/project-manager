@@ -6,13 +6,13 @@ require_once('../databases/conexion.php');
 
 if (isset($_GET['confirm']) && $_GET['confirm'] === 'yes' && isset($_GET['id'])) {
     $idProyecto = intval($_GET['id']);
-    $sql = "UPDATE projects SET activo = 0 WHERE projects.id = $idProyecto";
+    $sql = "UPDATE projects SET activo = 1 WHERE projects.id = $idProyecto";
     $resultado = mysqli_query($conn, $sql);
 
     if ($resultado && mysqli_affected_rows($conn) > 0) {
-        header('Location: ./tables.php?msg=success&msg_text=Proyecto+eliminado+exitosamente');
+        header('Location: ./tables.php?msg=success&msg_text=Proyecto+restablecido+exitosamente');
     } else {
-        header('Location: ./tables.php?msg=error&msg_text=No+se+pudo+eliminar+el+proyecto');
+        header('Location: ./tables.php?msg=error&msg_text=No+se+pudo+restablecer+el+proyecto');
     }
     mysqli_close($conn);
     exit;
@@ -51,7 +51,7 @@ $projectId = intval($_GET['id']);
                 text: "¡No podrás revertir esta acción!",
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonText: "Sí, eliminar!",
+                confirmButtonText: "Sí,  restablecer!",
                 cancelButtonText: "Cancelar",
                 reverseButtons: true
             }).then((result) => {
@@ -60,7 +60,7 @@ $projectId = intval($_GET['id']);
                 } else {
                     Swal.fire({
                         title: 'Cancelado',
-                        text: 'La eliminación fue cancelada',
+                        text: 'El restablecimiento fue cancelado',
                         icon: 'info',
                         confirmButtonText: 'OK'
                     }).then(goBack);
