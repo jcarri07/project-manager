@@ -3,7 +3,7 @@ include_once '../databases/conexion_crud.php';
 $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 
-$consulta = "SELECT * FROM projects";
+$consulta = "SELECT * FROM projects WHERE projects.activo = '1'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

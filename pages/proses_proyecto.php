@@ -34,6 +34,7 @@ if ($_GET['act'] == 'insert') {
 		$avance = mysqli_real_escape_string($conn, trim($_POST['rango']));
 		$fecha_inicio = mysqli_real_escape_string($conn, trim($_POST['fecha_inicio']));
 		$fecha_fin = mysqli_real_escape_string($conn, trim($_POST['fecha_fin']));
+		$act = 1;
 
 		$name_file          = $_FILES['foto']['name'];
 		$ukuran_file        = $_FILES['foto']['size'];
@@ -55,8 +56,8 @@ if ($_GET['act'] == 'insert') {
 
 				if ((is_uploaded_file($_FILES["foto"]["tmp_name"]) && move_uploaded_file($_FILES["foto"]["tmp_name"], $carpeta_destino . $nombre_archivo1))) {
 
-					$query = mysqli_query($conn, "INSERT INTO projects(nombre, descripcion, avance, imagen, fecha_inicio, fecha_fin, categoria, objetivos, beneficiarios, requerimientos, estatus)
-																							VALUES('$nombre','$descripcion','$avance','$Destino1','$fecha_inicio','$fecha_fin','$categoria','$objetivos','$beneficiarios','$requerimientos','$estatus')")
+					$query = mysqli_query($conn, "INSERT INTO projects(nombre, descripcion, avance, imagen, fecha_inicio, fecha_fin, categoria, objetivos, beneficiarios, requerimientos, estatus, activo)
+																							VALUES('$nombre','$descripcion','$avance','$Destino1','$fecha_inicio','$fecha_fin','$categoria','$objetivos','$beneficiarios','$requerimientos','$estatus', '$act')")
 						or die('error: ' . mysqli_error($conn));
 
 					if ($query) {
@@ -70,8 +71,8 @@ if ($_GET['act'] == 'insert') {
 			}
 		} else {
 
-			$query = mysqli_query($conn, "INSERT INTO projects(nombre, descripcion, avance, fecha_inicio, fecha_fin, categoria, objetivos, beneficiarios, requerimientos, estatus)
-																	VALUES('$nombre','$descripcion','$avance','$fecha_inicio','$fecha_fin','$categoria','$objetivos','$beneficiarios','$requerimientos','$estatus')")
+			$query = mysqli_query($conn, "INSERT INTO projects(nombre, descripcion, avance, fecha_inicio, fecha_fin, categoria, objetivos, beneficiarios, requerimientos, estatus, activo)
+																	VALUES('$nombre','$descripcion','$avance','$fecha_inicio','$fecha_fin','$categoria','$objetivos','$beneficiarios','$requerimientos','$estatus', '$act')")
 				or die('error: ' . mysqli_error($conn));
 
 			if ($query) {

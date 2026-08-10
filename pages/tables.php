@@ -249,7 +249,7 @@ if (!isset($_SESSION['id'])) {
             "data": null,
             "render": function(data, type, row) {
               return ' <button type="button" onclick="location.href=\'./modal_edit_proy.php?id=' + row.id + '\'" class="btn btn-success" t="tooltip" title="Editar Datos" ><i class="fa-regular fa-pen-to-square" style="color: rgb(0, 142, 255);"></i></button> ' +
-                ' <button type="button" onclick="location.href=\'./#?id=' + row.id + '\'" class="btn btn-primary" t="tooltip" title="Eliminar Proyecto" ><i class="fa-solid fa-eraser" style="color: rgb(0, 142, 255);"></i></button> ';
+                ' <button type="button" onclick="location.href=\'./ejec_elim_proy.php?id=' + row.id + '\'" class="btn btn-primary" t="tooltip" title="Eliminar Proyecto" ><i class="fa-solid fa-eraser" style="color: rgb(0, 142, 255);"></i></button> ';
             }
           }
         ]
