@@ -118,6 +118,112 @@ if (!isset($_SESSION['id'])) {
 
     </nav>
 
+    <style>
+      .proyecto-switch {
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .proyecto-switch input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .proyecto-switch label {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+
+        cursor: pointer;
+        user-select: none;
+
+        color: #344767;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      /* Contenedor del switch */
+      .switch-slider {
+        position: relative;
+
+        width: 48px;
+        height: 26px;
+
+        display: block;
+
+        background-color: #d9dee5;
+
+        border-radius: 50px;
+
+        box-shadow:
+          inset 0 1px 3px rgba(0, 0, 0, 0.12);
+
+        transition:
+          background-color 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+
+      .switch-slider::before {
+        content: "";
+
+        position: absolute;
+
+        width: 20px;
+        height: 20px;
+
+        left: 3px;
+        top: 3px;
+
+        background-color: #ffffff;
+
+        border-radius: 50%;
+
+        box-shadow:
+          0 2px 5px rgba(0, 0, 0, 0.20);
+
+        transition:
+          transform 0.25s ease;
+      }
+
+      /* =========================================
+   ACTIVADO
+   ========================================= */
+
+      .proyecto-switch input:checked+label .switch-slider {
+        background-color: #123a63;
+
+        box-shadow:
+          0 3px 10px rgba(18, 58, 99, 0.30);
+      }
+
+      .proyecto-switch input:checked+label .switch-slider::before {
+        transform: translateX(22px);
+      }
+
+      /* =========================================
+   TEXTO SEGÚN ESTADO
+   ========================================= */
+
+      .proyecto-switch input:checked+label .switch-text {
+        color: #123a63;
+      }
+
+      .proyecto-switch input:not(:checked)+label .switch-text {
+        color: #7b8794;
+      }
+
+      .proyecto-switch label:hover .switch-slider {
+        box-shadow:
+          0 3px 10px rgba(18, 58, 99, 0.20);
+      }
+
+      .proyecto-switch input:focus-visible+label .switch-slider {
+        outline: 3px solid rgba(18, 58, 99, 0.20);
+        outline-offset: 3px;
+      }
+    </style>
+
 
 
     <div class="d-flex justify-content-center align-items-md-center mt-2">
@@ -129,10 +235,19 @@ if (!isset($_SESSION['id'])) {
             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
               <h6 class="text-white text-capitalize ps-3">Proyectos</h6>
               <br>
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                <label class="text-white text-capitalize" for="flexSwitchCheckChecked">Habilitado/Inhabilitado</label>
+
+              <div class="proyecto-switch">
+                <input
+                  type="checkbox"
+                  id="flexSwitchCheckChecked"
+                  checked>
+
+                <label for="flexSwitchCheckChecked">
+                  <span class="switch-slider"></span>
+                  <span class="switch-text">Habilitado / Inhabilitado</span>
+                </label>
               </div>
+
             </div>
 
             <div class="col-lg-2 col-md-5 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3" style="padding-top: 30px;">

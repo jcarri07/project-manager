@@ -42,12 +42,17 @@
 
 
     <div class="modal w3-container" id="myModal">
-        <div class="modal-dialog">
+        <div class="modal-proyecto">
             <div class="modal-content w3-animate-opacity">
                 <div class="w3-container w3-teal">
                     <br>
                     <p class="modal-title" style="color: black;">Datos Registrados</p>
                     <br>
+
+                    <div class="w3-center">
+                        <span onclick="document.getElementById('id01').style.display='none'" id="closeAndRedirect" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+                    </div>
+
                 </div>
 
                 <div class="w3-container modal-body" id="modalBody">
@@ -63,14 +68,18 @@
                             <input type="hidden" style="display:none" class="form-control" value="<?php echo ($row["id"]); ?>" id="edit_id_Proy" name="edit_id_Proy" readonly>
 
                             <div class="row g-3">
-                                <div class="col-md-6" style="color:black">
+                                <div class="col-md-4" style="color:black">
                                     <label for="Comando" class="form-label">Nombre del Proyecto: </label>
                                     <input type="text" class="form-control" value="<?php echo ($row["nombre"]); ?>" id="edit_nombre_proy" name="edit_nombre_proy">
                                 </div>
 
-                                <div class="col-md-6" style="color:black">
+                                <div class="col-md-1" style="color:black">
                                     <label for="Comando" class="form-label">Avance: </label>
-                                    <input max="100" min="0" type="number" class="form-control" value="<?php echo ($row["avance"]); ?>" id="edit_avance" name="edit_avance">
+
+                                    <div class="input-group mb-2">
+                                        <input max="100" min="0" type="number" class="form-control" value="<?php echo ($row["avance"]); ?>" id="edit_avance" name="edit_avance">
+                                        <span class="input-group-text">%</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -91,34 +100,35 @@
                                     </script>
                                 </div>
 
-                                <div class="col-md-8" style="color:black">
+                                <div class="col-md-4" style="color:black">
                                     <label for="Comando" class="form-label">Categoria: </label>
                                     <input type="text" class="form-control" value="<?php echo ($row["categoria"]); ?>" id="edit_categoria_proy" name="edit_categoria_proy">
                                 </div>
-                            </div>
 
-                            <div class="col-md-6" style="color:black">
-                                <label for="Beneficiarios" class="form-label">Nombre del Beneficiarios: </label>
-                                <input type="text" class="form-control" value="<?php echo ($row["beneficiarios"]); ?>" id="edit_ben_proy" name="edit_ben_proy">
-                            </div>
+                                <div class="col-md-4" style="color:black">
+                                    <label for="Beneficiarios" class="form-label">Nombre del Beneficiarios: </label>
+                                    <input type="text" class="form-control" value="<?php echo ($row["beneficiarios"]); ?>" id="edit_ben_proy" name="edit_ben_proy">
+                                </div>
 
+                            </div>
 
                             <br>
 
                             <div class="row g-3">
-                                <div class="col-md-12" style="color:black">
+
+                                <div class="col-md-4" style="color:black">
                                     <label for="Grafica" class="form-label">Descripción del Proyecto: </label>
                                     <textarea name="edit_descrip_proy" id="edit_descrip_proy" cols="40" rows="4" class="form-control" required><?php echo ($row["descripcion"]); ?></textarea>
                                     <div id="contador_descrip_proy">150</div>
                                 </div>
 
-                                <div class="col-md-12" style="color:black">
+                                <div class="col-md-4" style="color:black">
                                     <label for="Grafica" class="form-label">Objetivos del Proyecto: </label>
                                     <textarea name="edit_objec_proy" id="edit_objec_proy" cols="40" rows="4" class="form-control" required><?php echo ($row["objetivos"]); ?></textarea>
                                     <div id="contador_objec_proy">150</div>
                                 </div>
 
-                                <div class="col-md-12" style="color:black">
+                                <div class="col-md-4" style="color:black">
                                     <label for="Grafica" class="form-label">Requerimientos del Proyecto: </label>
                                     <textarea name="edit_objec_requer" id="edit_objec_requer" cols="40" rows="4" class="form-control" required><?php echo ($row["requerimientos"]); ?></textarea>
                                     <div id="contador_requer">150</div>
@@ -161,26 +171,27 @@
 
                             <br>
 
-                            <div class="col-md-6" style="color:black">
-                                <label for="Cond" class="form-label">Condición: </label>
-                                <select class="form-select" id="edit_est" name="edit_est" required>
-                                    <option selected value="<?php echo ($row["estatus"]); ?>"><?php echo ($row["estatus"]); ?></option>
-                                    <option value="Por Ejecutar">Por Ejecutar</option>
-                                    <option value="En progreso">En progreso</option>
-                                    <option value="Terminado">Terminado</option>
-                                </select>
-                            </div>
+                            <div class="row g-3">
 
-                            <br>
-                            <br>
-
-                            <div class="col-md-8" style="color:black">
-                                <label for="fecha">Archivo Fotografico (PNG/JPG): </label><br>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="check_Arc_fot_proy" checked>
-                                    <label class="form-check-label" for="check_Arc_fot_proy"></label>
+                                <div class="col-md-4" style="color:black">
+                                    <label for="Cond" class="form-label">Condición: </label>
+                                    <select class="form-select" id="edit_est" name="edit_est" required>
+                                        <option selected value="<?php echo ($row["estatus"]); ?>"><?php echo ($row["estatus"]); ?></option>
+                                        <option value="Por Ejecutar">Por Ejecutar</option>
+                                        <option value="En progreso">En progreso</option>
+                                        <option value="Terminado">Terminado</option>
+                                    </select>
                                 </div>
-                                <input type="file" class="form-control" id="Arc_fot_proy" name="Arc_fot_proy">
+
+                                <div class="col-md-4" style="color:black">
+                                    <label for="fecha">Archivo Fotografico (PNG/JPG): </label><br>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="check_Arc_fot_proy" checked>
+                                        <label class="form-check-label" for="check_Arc_fot_proy"></label>
+                                    </div>
+                                    <input type="file" class="form-control" id="Arc_fot_proy" name="Arc_fot_proy">
+                                </div>
+
                             </div>
 
                             <br>
@@ -194,7 +205,12 @@
 
                         <br>
 
-                        <button type="submit" class="btn btn-primary" id="Redirect" data-bs-dismiss="modal">Editar</button>
+                        <div class="d-grid gap-2 col-6 mx-auto">
+
+                            <button type="submit" class="btn btn-primary" id="Redirect" data-bs-dismiss="modal">Editar</button>
+
+                        </div>
+
                         <br><br>
 
                     </form>
@@ -203,7 +219,6 @@
 
                 <div class="w3-teal modal-footer">
                     <br>
-                    <button type="button" class="btn btn-success" id="closeAndRedirect" data-bs-dismiss="modal">Cerrar</button>
                 </div>
 
             </div>
@@ -211,7 +226,7 @@
     </div>
 
 
-    <div> <?php include("./tables.php") ?> </div>
+
 </body>
 
 <script>

@@ -2,6 +2,20 @@
     backdrop-filter: blur(4px); 
 } 
 
+.modal-proyecto {
+        width: 100px;
+        max-width: 75%;
+        margin: 30px auto;
+    }
+
+.modal-proyecto .modal-content {
+        width: 75%;
+    }
+
+#modalBody {
+        padding: 25px 35px;
+    }
+
 .modal-content{ 
     border: none !important; 
     border-radius: 24px !important; 
