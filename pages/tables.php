@@ -17,12 +17,10 @@ if (!isset($_SESSION['id'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="stylesheet" href="../assets/css/code_tables.css">
   <title>
     Sistema de Gestion de Proyectos
   </title>
-  <!--     Fonts and icons     -->
-  <!-- <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" /> -->
-  <!-- Nucleo Icons -->
   <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
@@ -118,135 +116,28 @@ if (!isset($_SESSION['id'])) {
 
     </nav>
 
-    <style>
-      .proyecto-switch {
-        display: inline-flex;
-        align-items: center;
-      }
-
-      .proyecto-switch input {
-        position: absolute;
-        opacity: 0;
-        pointer-events: none;
-      }
-
-      .proyecto-switch label {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-
-        cursor: pointer;
-        user-select: none;
-
-        color: #344767;
-        font-size: 14px;
-        font-weight: 600;
-      }
-
-      /* Contenedor del switch */
-      .switch-slider {
-        position: relative;
-
-        width: 48px;
-        height: 26px;
-
-        display: block;
-
-        background-color: #d9dee5;
-
-        border-radius: 50px;
-
-        box-shadow:
-          inset 0 1px 3px rgba(0, 0, 0, 0.12);
-
-        transition:
-          background-color 0.25s ease,
-          box-shadow 0.25s ease;
-      }
-
-      .switch-slider::before {
-        content: "";
-
-        position: absolute;
-
-        width: 20px;
-        height: 20px;
-
-        left: 3px;
-        top: 3px;
-
-        background-color: #ffffff;
-
-        border-radius: 50%;
-
-        box-shadow:
-          0 2px 5px rgba(0, 0, 0, 0.20);
-
-        transition:
-          transform 0.25s ease;
-      }
-
-      /* =========================================
-   ACTIVADO
-   ========================================= */
-
-      .proyecto-switch input:checked+label .switch-slider {
-        background-color: #123a63;
-
-        box-shadow:
-          0 3px 10px rgba(18, 58, 99, 0.30);
-      }
-
-      .proyecto-switch input:checked+label .switch-slider::before {
-        transform: translateX(22px);
-      }
-
-      /* =========================================
-   TEXTO SEGÚN ESTADO
-   ========================================= */
-
-      .proyecto-switch input:checked+label .switch-text {
-        color: #123a63;
-      }
-
-      .proyecto-switch input:not(:checked)+label .switch-text {
-        color: #7b8794;
-      }
-
-      .proyecto-switch label:hover .switch-slider {
-        box-shadow:
-          0 3px 10px rgba(18, 58, 99, 0.20);
-      }
-
-      .proyecto-switch input:focus-visible+label .switch-slider {
-        outline: 3px solid rgba(18, 58, 99, 0.20);
-        outline-offset: 3px;
-      }
-    </style>
-
-
-
     <div class="d-flex justify-content-center align-items-md-center mt-2">
 
       <div class="col-12 px-3">
 
         <div class="card my-4">
           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+
             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-              <h6 class="text-white text-capitalize ps-3">Proyectos</h6>
-              <br>
 
-              <div class="proyecto-switch">
-                <input
-                  type="checkbox"
-                  id="flexSwitchCheckChecked"
-                  checked>
+              <div class="d-flex align-items-center gap-3 px-3">
 
-                <label for="flexSwitchCheckChecked">
-                  <span class="switch-slider"></span>
-                  <span class="switch-text">Habilitado / Inhabilitado</span>
-                </label>
+                <h6 class="text-white text-capitalize mb-0">Proyectos</h6>
+                <div class="proyecto-switch mb-0">
+                  <input type="checkbox" id="flexSwitchCheckChecked" checked>
+                  <label for="flexSwitchCheckChecked">
+                    <span class="switch-slider"></span> <span class="switch-text">Estado</span>
+                  </label>
+                </div>
+
               </div>
+
+              <br>
 
             </div>
 
@@ -407,8 +298,7 @@ if (!isset($_SESSION['id'])) {
           {
             "data": null,
             "render": function(data, type, row) {
-              return ' <button type="button" onclick="location.href=\'./modal_edit_proy.php?id=' + row.id + '\'" class="btn btn-success" t="tooltip" title="Editar Datos" ><i class="fa-regular fa-pen-to-square" style="color: rgb(0, 142, 255);"></i></button> ' +
-                ' <button type="button" onclick="location.href=\'./ejec_elim_proy.php?id=' + row.id + '\'" class="btn btn-primary" t="tooltip" title="Eliminar Proyecto" ><i class="fa-solid fa-eraser" style="color: rgb(0, 142, 255);"></i></button> ';
+              return ' <button type="button" onclick="location.href=\'./modal_edit_proy.php?id=' + row.id + '\'" class="btn btn-success" t="tooltip" title="Editar Datos" ><i class="fa-regular fa-pen-to-square" style="color: rgb(0, 142, 255);"></i></button> ';
             }
           }
         ]
@@ -475,7 +365,7 @@ if (!isset($_SESSION['id'])) {
           {
             "data": null,
             "render": function(data, type, row) {
-              return ' <button type="button" onclick="location.href=\'./ejec_rest_proy.php?id=' + row.id + '\'" class="btn btn-success" t="tooltip" title="Restablecer los Datos" ><i class="fa-regular fa-folder-open" style="color: rgb(0, 92, 255);"></i></button> ';
+              return '  <button type="button" onclick="location.href=\'./modal_edit_proy.php?id=' + row.id + '\'" class="btn btn-success" t="tooltip" title="Editar Datos" ><i class="fa-regular fa-pen-to-square" style="color: rgb(0, 142, 255);"></i></button>  ';
             }
           }
         ]

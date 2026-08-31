@@ -42,17 +42,15 @@
 
 
     <div class="modal w3-container" id="myModal">
-        <div class="modal-proyecto">
+        <div class="modal-dialog">
             <div class="modal-content w3-animate-opacity">
                 <div class="w3-container w3-teal">
                     <br>
                     <p class="modal-title" style="color: black;">Datos Registrados</p>
                     <br>
-
                     <div class="w3-center">
                         <span onclick="document.getElementById('id01').style.display='none'" id="closeAndRedirect" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
                     </div>
-
                 </div>
 
                 <div class="w3-container modal-body" id="modalBody">
@@ -73,10 +71,10 @@
                                     <input type="text" class="form-control" value="<?php echo ($row["nombre"]); ?>" id="edit_nombre_proy" name="edit_nombre_proy">
                                 </div>
 
-                                <div class="col-md-1" style="color:black">
+                                <div class="col-md-2" style="color:black">
                                     <label for="Comando" class="form-label">Avance: </label>
 
-                                    <div class="input-group mb-2">
+                                    <div class="input-group col-md-">
                                         <input max="100" min="0" type="number" class="form-control" value="<?php echo ($row["avance"]); ?>" id="edit_avance" name="edit_avance">
                                         <span class="input-group-text">%</span>
                                     </div>
@@ -92,9 +90,12 @@
                                     <script>
                                         $(function() {
                                             $('input[name="edit_fecha_fin"]').daterangepicker({
-                                                opens: 'left'
-                                            }, function(start, end, label) {
-                                                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+                                                singleDatePicker: true,
+                                                showDropdowns: true,
+                                                opens: 'left',
+                                                locale: {
+                                                    format: 'YYYY-MM-DD'
+                                                }
                                             });
                                         });
                                     </script>
@@ -179,7 +180,7 @@
                                         <option selected value="<?php echo ($row["estatus"]); ?>"><?php echo ($row["estatus"]); ?></option>
                                         <option value="Por Ejecutar">Por Ejecutar</option>
                                         <option value="En progreso">En progreso</option>
-                                        <option value="Terminado">Terminado</option>
+                                        <option value="Completado">Completado</option>
                                     </select>
                                 </div>
 
@@ -218,14 +219,12 @@
                 </div>
 
                 <div class="w3-teal modal-footer">
-                    <br>
+                    <br><br>
                 </div>
 
             </div>
         </div>
     </div>
-
-
 
 </body>
 
@@ -275,6 +274,51 @@
         if (previousEstado === 'Por Asignar' || previousEstado === '' || previousEstado === 'En Espera') {
             if (selectedUser !== '') {
                 estadoSelect.value = 'Asignado';
+            }
+        }
+    });
+</script>
+
+<script>
+    const avance = document.getElementById("edit_avance");
+    const estado = document.getElementById("edit_est");
+
+    avance.addEventListener("input", function() {
+
+        let valor = parseInt(this.value);
+
+        if (isNaN(valor)) {
+            return;
+        }
+
+        if (valor < 0) {
+            this.value = 0;
+            valor = 0;
+        }
+
+        if (valor > 100) {
+            this.value = 100;
+            valor = 100;
+        }
+
+        if (valor === 100) {
+            estado.value = "Completado";
+        } else if (estado.value === "Completado") {
+            estado.value = "En progreso";
+        }
+    });
+
+    estado.addEventListener("change", function() {
+
+        if (this.value === "Completado") {
+            avance.value = 100;
+        } else if (
+            this.value === "En progreso" ||
+            this.value === "Por Ejecutar"
+        ) {
+
+            if (parseInt(avance.value) >= 100 || avance.value === "") {
+                avance.value = 99;
             }
         }
     });

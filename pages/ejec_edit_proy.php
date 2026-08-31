@@ -5,7 +5,7 @@ require_once('../databases/conexion.php');
 $D1 = $_REQUEST["edit_id_Proy"];
 $D2 = $_REQUEST["edit_nombre_proy"];
 $D3 = $_REQUEST["edit_avance"];
-$D4 = $_REQUEST["edit_fecha_fin"];
+$D4 = $_POST["edit_fecha_fin"];
 
 $D5 = $_REQUEST["edit_categoria_proy"];
 $D6 = $_REQUEST["edit_descrip_proy"];
@@ -34,9 +34,18 @@ if (($extension1 == "png") || ($extension1 == "jpg")) {
     }
 }
 
-$sq1 = "UPDATE projects SET nombre = '$D2', avance = '$D3', fecha_fin = '$D4', categoria = '$D5', descripcion = '$D6', objetivos = '$D7',
-beneficiarios = '$D10', requerimientos = '$D8', estatus = '$D9' WHERE projects.id='$D1' ";
-$resultado = mysqli_query($conn, $sq1);
+if (($D9 == "Completado") && ($D3 == 100)) {
+
+
+    $sq1 = "UPDATE projects SET nombre = '$D2', avance = '$D3', fecha_fin = '$D4', categoria = '$D5', descripcion = '$D6', objetivos = '$D7',
+                beneficiarios = '$D10', requerimientos = '$D8', estatus = '$D9', activo = '0' WHERE projects.id='$D1' ";
+    $resultado = mysqli_query($conn, $sq1);
+} else {
+
+    $sq1 = "UPDATE projects SET nombre = '$D2', avance = '$D3', fecha_fin = '$D4', categoria = '$D5', descripcion = '$D6', objetivos = '$D7',
+                beneficiarios = '$D10', requerimientos = '$D8', estatus = '$D9' WHERE projects.id='$D1' ";
+    $resultado = mysqli_query($conn, $sq1);
+}
 
 if ($resultado) {
     echo "
