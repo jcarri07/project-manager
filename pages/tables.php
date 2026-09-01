@@ -17,7 +17,6 @@ if (!isset($_SESSION['id'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-  <link rel="stylesheet" href="../assets/css/code_tables.css">
   <title>
     Sistema de Gestion de Proyectos
   </title>
@@ -32,6 +31,8 @@ if (!isset($_SESSION['id'])) {
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
 
   <link rel="stylesheet" href="../assets/DataTable/datatables.min.css">
+
+  <link rel="stylesheet" href="../assets/css/code_tables.css">
 </head>
 
 
@@ -170,7 +171,7 @@ if (!isset($_SESSION['id'])) {
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Avance</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Imagen</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opciones</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Editar</th>
 
                     </tr>
                   </thead>
@@ -198,7 +199,7 @@ if (!isset($_SESSION['id'])) {
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Avance</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Imagen</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opciones</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Editar</th>
 
                     </tr>
                   </thead>
@@ -259,34 +260,51 @@ if (!isset($_SESSION['id'])) {
             "data": "beneficiarios"
           },
           {
-            "data": "estatus"
+            "data": "estatus",
+            "render": function(data, type, row) {
+              let clase = "";
+              if (data === "En progreso") {
+                clase = "estado-progreso";
+              } else if (data === "Por Ejecutar") {
+                clase = "estado-ejecutar";
+              } else if (data === "Listo") {
+                clase = "estado-listo";
+              }
+              return `
+            <span class="estado-badge ${clase}">
+                ${data}
+            </span>
+        `;
+            }
           },
           {
+
             "data": "avance",
             "render": function(data, type, row) {
+
               let porcentaje = data ? parseInt(data) : 0;
-              var BarraColor = "#0d6efd";
-              if (row.estatus === "Por Ejecutar") {
-                BarraColor = "#0f5132";
-              }
-              if (row.estatus === "En Desarrollo") {
-                BarraColor = "#055160";
-              }
-              if (row.estatus === "Listo") {
-                BarraColor = "#664d03";
-              }
-              return ` <div 
-              class="d-flex align-items-center justify-content-center gap-2"> 
-              <span class="text-xs font-weight-bold" style="min-width:38px;"> 
-                ${porcentaje}% 
-                </span> 
-                <div class="progress flex-grow-1" style="height:8px; min-width:90px;"> 
-                  <div 
-                    class="progress-bar" role="progressbar" aria-valuenow="${porcentaje}" aria-valuemin="0" aria-valuemax="100" style="width:${porcentaje}%; background-color:${BarraColor}; background-image:none;"> 
-                  </div> 
-                </div> 
-              </div> `;
+              porcentaje = Math.max(0, Math.min(100, porcentaje));
+
+              return `
+            <div class="progreso-contenedor">
+
+                <span class="progreso-porcentaje">
+                    ${porcentaje}%
+                </span>
+
+                <div class="progreso-barra">
+
+                    <div 
+                        class="progreso-relleno"
+                        style="width: ${porcentaje}%;">
+                    </div>
+
+                </div>
+
+            </div>
+        `;
             }
+
           },
           {
             "data": "imagen",
@@ -298,7 +316,17 @@ if (!isset($_SESSION['id'])) {
           {
             "data": null,
             "render": function(data, type, row) {
-              return ' <button type="button" onclick="location.href=\'./modal_edit_proy.php?id=' + row.id + '\'" class="btn btn-success" t="tooltip" title="Editar Datos" ><i class="fa-regular fa-pen-to-square" style="color: rgb(0, 142, 255);"></i></button> ';
+              return `
+            <button 
+                type="button"
+                onclick="location.href='./modal_edit_proy.php?id=${row.id}'"
+                class="btn-editar"
+                title="Editar Datos">
+
+                <i class="fa-regular fa-pen-to-square"></i>
+
+            </button>
+        `;
             }
           }
         ]
@@ -326,33 +354,48 @@ if (!isset($_SESSION['id'])) {
             "data": "beneficiarios"
           },
           {
-            "data": "estatus"
+            "data": "estatus",
+            "render": function(data, type, row) {
+              let clase = "";
+              if (data === "En progreso") {
+                clase = "estado-progreso";
+              } else if (data === "Por Ejecutar") {
+                clase = "estado-ejecutar";
+              } else if (data === "Listo" || data === "Completado") {
+                clase = "estado-listo";
+              }
+              return `
+            <span class="estado-badge ${clase}">
+                ${data}
+            </span>
+        `;
+            }
           },
           {
             "data": "avance",
             "render": function(data, type, row) {
+
               let porcentaje = data ? parseInt(data) : 0;
-              var BarraColor = "#0d6efd";
-              if (row.estatus === "Por Ejecutar") {
-                BarraColor = "#0f5132";
-              }
-              if (row.estatus === "En Desarrollo") {
-                BarraColor = "#055160";
-              }
-              if (row.estatus === "Listo") {
-                BarraColor = "#664d03";
-              }
-              return ` <div 
-              class="d-flex align-items-center justify-content-center gap-2"> 
-              <span class="text-xs font-weight-bold" style="min-width:38px;"> 
-                ${porcentaje}% 
-                </span> 
-                <div class="progress flex-grow-1" style="height:8px; min-width:90px;"> 
-                  <div 
-                    class="progress-bar" role="progressbar" aria-valuenow="${porcentaje}" aria-valuemin="0" aria-valuemax="100" style="width:${porcentaje}%; background-color:${BarraColor}; background-image:none;"> 
-                  </div> 
-                </div> 
-              </div> `;
+              porcentaje = Math.max(0, Math.min(100, porcentaje));
+
+              return `
+            <div class="progreso-contenedor">
+
+                <span class="progreso-porcentaje">
+                    ${porcentaje}%
+                </span>
+
+                <div class="progreso-barra">
+
+                    <div 
+                        class="progreso-relleno"
+                        style="width: ${porcentaje}%;">
+                    </div>
+
+                </div>
+
+            </div>
+        `;
             }
           },
           {
@@ -365,7 +408,17 @@ if (!isset($_SESSION['id'])) {
           {
             "data": null,
             "render": function(data, type, row) {
-              return '  <button type="button" onclick="location.href=\'./modal_edit_proy.php?id=' + row.id + '\'" class="btn btn-success" t="tooltip" title="Editar Datos" ><i class="fa-regular fa-pen-to-square" style="color: rgb(0, 142, 255);"></i></button>  ';
+              return `
+            <button 
+                type="button"
+                onclick="location.href='./modal_edit_proy.php?id=${row.id}'"
+                class="btn-editar"
+                title="Editar Datos">
+
+                <i class="fa-regular fa-pen-to-square"></i>
+
+            </button>
+        `;
             }
           }
         ]

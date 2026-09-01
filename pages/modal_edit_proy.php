@@ -41,7 +41,7 @@
     </script>
 
 
-    <div class="modal w3-container" id="myModal">
+    <div class="modal w3-container" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content w3-animate-opacity">
                 <div class="w3-container w3-teal">
