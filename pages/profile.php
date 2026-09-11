@@ -14,23 +14,23 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
 
-<?php 
-  require_once('../databases/conexion.php');
-  session_start();
-  $query = mysqli_query($conn, "SELECT * FROM project_managers WHERE id='$_SESSION[id]'")
-                                or die('error: '.mysqli_error($conn));
-  $data = mysqli_fetch_assoc($query);
+<?php
+require_once('../databases/conexion.php');
+session_start();
+$query = mysqli_query($conn, "SELECT * FROM project_managers WHERE id='$_SESSION[id]'")
+  or die('error: ' . mysqli_error($conn));
+$data = mysqli_fetch_assoc($query);
 
-  if (!isset($_SESSION['id'])) {
-    // Redirigir al usuario a la página de inicio de sesión
-    header("Location: ../index.php");
-  
-  }
+if (!isset($_SESSION['id'])) {
+  // Redirigir al usuario a la página de inicio de sesión
+  header("Location: ../index.php");
+}
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -80,7 +80,7 @@
             <span class="nav-link-text ms-1">Proyectos</span>
           </a>
         </li>
-       <!--<li class="nav-item">
+        <!--<li class="nav-item">
           <a class="nav-link text-white " href="../pages/billing.html">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">receipt_long</i>
@@ -123,7 +123,7 @@
             <span class="nav-link-text ms-1">Perfil</span>
           </a>
         </li>
-       <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link text-white " href="../logout.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">login</i>
@@ -141,7 +141,7 @@
         </li>
       </ul>
     </div>-->
-    <!--<div class="sidenav-footer position-absolute w-100 bottom-0 ">
+        <!--<div class="sidenav-footer position-absolute w-100 bottom-0 ">
       <div class="mx-3">
         <a class="btn bg-gradient-primary mt-4 w-100" href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
       </div>
@@ -157,7 +157,7 @@
             <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Perfil</li>
           </ol>
         </nav>
-       <!--<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+        <!--<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group input-group-outline">
               <label class="form-label">Type here...</label>
@@ -168,13 +168,13 @@
             <li class="nav-item d-flex align-items-center">
               <a class="btn btn-outline-primary btn-sm mb-0 me-3" target="_blank" href="https://www.creative-tim.com/builder/material?ref=navbar-dashboard">Online Builder</a>
             </li>-->
-            <li class="nav-item d-flex align-items-center">
-              <a href="../logout.php" class="nav-link text-body font-weight-bold px-0">
-                <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">Cerrar Sesión</span>
-              </a>
-            </li>
-           <!-- <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+        <li class="nav-item d-flex align-items-center">
+          <a href="../logout.php" class="nav-link text-body font-weight-bold px-0">
+            <i class="fa fa-user me-sm-1"></i>
+            <span class="d-sm-inline d-none">Cerrar Sesión</span>
+          </a>
+        </li>
+        <!-- <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                 <div class="sidenav-toggler-inner">
                   <i class="sidenav-toggler-line"></i>
@@ -268,75 +268,62 @@
     <!-- End Navbar -->
     <?php
 
-if (empty($_GET['alert'])) {
-  echo "";
-} 
-
-elseif ($_GET['alert'] == 1) {
-echo "<div class='alert alert-success alert-dismissible text-white' role='alert'>
+    if (empty($_GET['alert'])) {
+      echo "";
+    } elseif ($_GET['alert'] == 1) {
+      echo "<div class='alert alert-success alert-dismissible text-white' role='alert'>
   <span class='text-lg'>Datos agregados <a href='profile.php' class='alert-link text-white'>exitosamente</a>!</span>
   <button type='button' class='btn-close text-lg py-3 opacity-10' data-bs-dismiss='alert' aria-label='Close'>
   <span aria-hidden='true'>&times;</span>
   </button>
 </div>";
-}
-
-elseif ($_GET['alert'] == 2) {
-  echo "<div class='alert alert-success alert-dismissible text-white' role='alert'>
+    } elseif ($_GET['alert'] == 2) {
+      echo "<div class='alert alert-success alert-dismissible text-white' role='alert'>
   <span class='text-lg'>Datos modificados <a href='profile.php' class='alert-link text-white'>exitosamente</a>!</span>
   <button type='button' class='btn-close text-lg py-3 opacity-10' data-bs-dismiss='alert' aria-label='Close'>
   <span aria-hidden='true'>&times;</span>
   </button>
 </div>";
-}
-
-elseif ($_GET['alert'] == 3) {
-  echo "<div class='alert alert-danger alert-dismissible text-white' role='alert'>
+    } elseif ($_GET['alert'] == 3) {
+      echo "<div class='alert alert-danger alert-dismissible text-white' role='alert'>
   <span class='text-lg'>No se completó, <a href='profile.php' class='alert-link text-white'>falla en la operación</a>!</span>
   <button type='button' class='btn-close text-lg py-3 opacity-10' data-bs-dismiss='alert' aria-label='Close'>
   <span aria-hidden='true'>&times;</span>
   </button>
 </div>";
-}
-elseif ($_GET['alert'] == 4) {
-  echo "<div class='alert alert-info alert-dismissible text-white' role='alert'>
+    } elseif ($_GET['alert'] == 4) {
+      echo "<div class='alert alert-info alert-dismissible text-white' role='alert'>
   <span class='text-lg'>Datos eliminados <a href='profile.php' class='alert-link text-white'>exitosamente</a>!</span>
   <button type='button' class='btn-close text-lg py-3 opacity-10' data-bs-dismiss='alert' aria-label='Close'>
   <span aria-hidden='true'>&times;</span>
   </button>
 </div>";
-}
-
-elseif ($_GET['alert'] == 5) {
-  echo "<div class='alert alert-danger alert-dismissible text-white' role='alert'>
+    } elseif ($_GET['alert'] == 5) {
+      echo "<div class='alert alert-danger alert-dismissible text-white' role='alert'>
   <span class='text-lg'>Archivo cargado<a href='profile.php' class='alert-link text-white'>incorrecto</a>!</span>
   <button type='button' class='btn-close text-lg py-3 opacity-10' data-bs-dismiss='alert' aria-label='Close'>
   <span aria-hidden='true'>&times;</span>
   </button>
 </div>";
-}
-
-elseif ($_GET['alert'] == 6) {
-  echo "<div class='alert alert-danger alert-dismissible text-white' role='alert'>
+    } elseif ($_GET['alert'] == 6) {
+      echo "<div class='alert alert-danger alert-dismissible text-white' role='alert'>
   <span class='text-lg'>La imagen debe pesar <a href='profile.php' class='alert-link text-white'>menos de 1mb</a>!</span>
   <button type='button' class='btn-close text-lg py-3 opacity-10' data-bs-dismiss='alert' aria-label='Close'>
   <span aria-hidden='true'>&times;</span>
   </button>
 </div>";
-}
-
-elseif ($_GET['alert'] == 7) {
-  echo "<div class='alert alert-danger alert-dismissible text-white' role='alert'>
+    } elseif ($_GET['alert'] == 7) {
+      echo "<div class='alert alert-danger alert-dismissible text-white' role='alert'>
   <span class='text-lg'>Solo se admiten archivos: <a href='profile.php' class='alert-link text-white'>*.JPG, *.JPEG, *.PNG</a>!</span>
   <button type='button' class='btn-close text-lg py-3 opacity-10' data-bs-dismiss='alert' aria-label='Close'>
   <span aria-hidden='true'>&times;</span>
   </button>
 </div>";
-}
+    }
 
-?>
+    ?>
 
-<div class="container-fluid px-2 px-md-10">
+    <div class="container-fluid px-2 px-md-10">
       <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
         <span class="mask  bg-gradient-primary  opacity-6"></span>
       </div>
@@ -344,35 +331,21 @@ elseif ($_GET['alert'] == 7) {
         <div class="row gx-5 mb-2">
           <div class="col-auto">
 
-            <div class="avatar avatar-xl position-relative">
-            <div class="image-upload avatar avatar-xl position-relative">
-                 <label for="file-input">
-                 <?php
-                 if (empty($data['foto'])) {
-                    ?>                 
-                   <img class='img-user' src='../assets/img/person.jpg' width='45' class="border-radius-lg shadow">
-                 <?php
-                 } else{?>
-                   <img src="../assets/img/<?php echo $data['foto']; ?>" class="w-100 border-radius-lg shadow-sm">              
-                <?php } ?>
-                </label>
-                
-            </div>
-            </div>
-            </div>
+
+          </div>
 
           <div class="col-auto my-auto">
             <div class="h-100">
               <h5 class="mb-1">
-              <?php echo $data['nombres']; ?>
+                <?php echo $data['nombres']; ?>
               </h5>
               <p class="mb-0 font-weight-normal text-sm">
-              <?php echo $data['cargo']; ?>
+                <?php echo $data['cargo']; ?>
               </p>
             </div>
           </div>
           <div class="col-lg-3 col-md-5 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
-             <div class="nav-wrapper position-relative end-0">
+            <div class="nav-wrapper position-relative end-0">
               <ul class="nav nav-pills nav-fill p-1" role="tablist">
                 <!--<li class="nav-item">
                   <a class="nav-link mb-0 px-0 py-1 active " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="true">
@@ -465,12 +438,12 @@ elseif ($_GET['alert'] == 7) {
                   </div>
                 </div>
                 <div class="card-body p-3">
-                 <hr class="horizontal gray-light my-2">
+                  <hr class="horizontal gray-light my-2">
                   <ul class="list-group">
-                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Nombres:</strong> &nbsp; <?php echo $data['nombres'];?></li>
-                    <li class="list-group-item border-0 ps-0  text-sm"><strong class="text-dark">Apellidos:</strong> &nbsp; <?php echo $data['apellidos'];?></li>
-                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Cedula:</strong> &nbsp; <?php echo $data['cedula']; ?></li> 
-                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Movil:</strong> &nbsp; <?php echo $data['movil']; ?></li>                             
+                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Nombres:</strong> &nbsp; <?php echo $data['nombres']; ?></li>
+                    <li class="list-group-item border-0 ps-0  text-sm"><strong class="text-dark">Apellidos:</strong> &nbsp; <?php echo $data['apellidos']; ?></li>
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Cedula:</strong> &nbsp; <?php echo $data['cedula']; ?></li>
+                    <!-- <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Movil:</strong> &nbsp; <?php echo $data['movil']; ?></li> -->
                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; <?php echo $data['email']; ?></li>
                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Unidad de adscripción:</strong> &nbsp; <?php echo $data['unidad']; ?></li>
 
@@ -491,13 +464,13 @@ elseif ($_GET['alert'] == 7) {
               </div>
             </div>
             <div class="col-lg-8 col-md-6 mt-4 mb-3" style="padding-left:300px;">
-              <div class="card z-index-2">
+              <!-- <div class="card z-index-2">
                 <div class="card-header pb-0 p-3">
                   <h6 class="mb-2">Miembros:</h6>
                 </div>
                 <div class="card-body p-3">
                   <ul class="list-group">
-                  <!-- <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2 pt-0">
+                    <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2 pt-0">
                       <div class="avatar me-3">
                         <img src="../assets/img/kal-visuals-square.jpg" alt="kal" class="border-radius-lg shadow">
                       </div>
@@ -549,29 +522,29 @@ elseif ($_GET['alert'] == 7) {
                     </li>
                   </ul>-->
 
-                  <table class=" table table-responsive-lg">
-       
-      <tbody>
-       <?php 
+              <table class=" table table-responsive-lg">
 
-       $query = mysqli_query($conn, "SELECT * FROM members WHERE jefe ='$_SESSION[id]'")
-                                       or die('error: '.mysqli_error($conn));
+                <tbody>
+                  <?php
+
+                  $query = mysqli_query($conn, "SELECT * FROM members WHERE jefe ='$_SESSION[id]'")
+                    or die('error: ' . mysqli_error($conn));
 
 
-       while ($data = mysqli_fetch_assoc($query)) { 
-           
-         echo "<tr>";
+                  while ($data = mysqli_fetch_assoc($query)) {
 
-                 if ($data['foto']=="") { ?>
-                   <td class='center'><img class='img-user' src='../assets/img/person.jpg' width='45' class="border-radius-lg shadow"></td>
-                 <?php
-                 } else { ?>
-                   
-                   <td class='center'><img class='img-user' src='../assets/img/<?php echo $data['foto']; ?>' width='45'  class="border-radius-lg shadow"></td>
-                 <?php
-                 }
+                    echo "<tr>";
 
-               echo "  
+                    if ($data['foto'] == "") { ?>
+                      <td class='center'><img class='img-user' src='../assets/img/person.jpg' width='45' class="border-radius-lg shadow"></td>
+                    <?php
+                    } else { ?>
+
+                      <td class='center'><img class='img-user' src='../assets/img/<?php echo $data['foto']; ?>' width='45' class="border-radius-lg shadow"></td>
+                    <?php
+                    }
+
+                    echo "  
                  <td class='center'> <div class='d-flex align-items-start flex-column justify-content-center'>
                  <h6 class='mb-0 text-sm'>$data[nombres] $data[apellidos]</h6>
                  <p class='mb-0 text-xs'>$data[cargo]</p></div><div></td>
@@ -579,22 +552,25 @@ elseif ($_GET['alert'] == 7) {
                    <td> <a class='fas fa-user-edit text-secondary text-sm' data-bs-toggle='tooltip' href='../pages/agregar_miembros.php?form=update&id=$data[id]' data-bs-placement='top' title='Modificar'>
                    </a></td>
                    "; ?>
-                   <td> <a class="fas fa-trash text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"  href="../pages/proses_miembros.php?act=delete&id=<?php echo $data['id'];?>" onclick="return confirm('¿Seguro de eliminar a <?php echo $data['nombres'] ?> de su equipo?');" >
-                   </a></td>
-   
-                  </div>
-                 </td>
-               </tr>
-               <?php
-                   }
-       ?>
-       </tbody>
-     </table>
+                    <td> <a class="fas fa-trash text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar" href="../pages/proses_miembros.php?act=delete&id=<?php echo $data['id']; ?>" onclick="return confirm('¿Seguro de eliminar a <?php echo $data['nombres'] ?> de su equipo?');">
+                      </a></td>
 
-
-                </div>
-              </div>
             </div>
+            </td>
+            </tr>
+          <?php
+                  }
+          ?>
+          </tbody>
+          </table>
+
+
+          </div>
+        </div>
+      </div>
+
+      <!--
+
             <div class="col-12 mt-4">
               <div class="mb-5 ps-3">
                 <h6 class="mb-1">Proyectos</h6>
@@ -740,11 +716,13 @@ elseif ($_GET['alert'] == 7) {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          -->
+
     </div>
-   <!-- <footer class="footer py-4  ">
+  </div>
+  </div>
+  </div>
+  <!-- <footer class="footer py-4  ">
       <div class="container-fluid">
         <div class="row align-items-center justify-content-lg-between">
           <div class="col-lg-6 mb-lg-0 mb-4">
@@ -777,7 +755,7 @@ elseif ($_GET['alert'] == 7) {
       </div>
     </footer>-->
   </div>
- <!-- <div class="fixed-plugin">
+  <!-- <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
       <i class="material-icons py-2">settings</i>
     </a>
@@ -792,12 +770,12 @@ elseif ($_GET['alert'] == 7) {
             <i class="material-icons">clear</i>
           </button>
         </div>-->
-        <!-- End Toggle Button -->
-     <!--</div>
+  <!-- End Toggle Button -->
+  <!--</div>
       <hr class="horizontal dark my-1">
       <div class="card-body pt-sm-3 pt-0">-->
-        <!-- Sidebar Backgrounds -->
-       <!-- <div>
+  <!-- Sidebar Backgrounds -->
+  <!-- <div>
           <h6 class="mb-0">Sidebar Colors</h6>
         </div>
         <a href="javascript:void(0)" class="switch-trigger background-color">
@@ -810,8 +788,8 @@ elseif ($_GET['alert'] == 7) {
             <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
           </div>
         </a>-->
-        <!-- Sidenav Type -->
-        <!--<div class="mt-3">
+  <!-- Sidenav Type -->
+  <!--<div class="mt-3">
           <h6 class="mb-0">Sidenav Type</h6>
           <p class="text-sm">Choose between 2 different sidenav types.</p>
         </div>
@@ -821,8 +799,8 @@ elseif ($_GET['alert'] == 7) {
           <button class="btn bg-gradient-dark px-3 mb-2 ms-2" data-class="bg-white" onclick="sidebarType(this)">White</button>
         </div>
         <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>-->
-        <!-- Navbar Fixed -->
-        <!--<div class="mt-3 d-flex">
+  <!-- Navbar Fixed -->
+  <!--<div class="mt-3 d-flex">
           <h6 class="mb-0">Navbar Fixed</h6>
           <div class="form-check form-switch ps-0 ms-auto my-auto">
             <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
@@ -866,7 +844,7 @@ elseif ($_GET['alert'] == 7) {
     }
   </script>-->
   <!-- Github buttons -->
- <!-- <script async defer src="https://buttons.github.io/buttons.js"></script>-->
+  <!-- <script async defer src="https://buttons.github.io/buttons.js"></script>-->
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <!--<script src="../assets/js/material-dashboard.min.js?v=3.0.4"></script>-->
 </body>
