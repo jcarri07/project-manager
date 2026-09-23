@@ -6,67 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grafica</title>
     <?php 
-    include("./encabezadoAdmi1.php");
-    include("./conexion2POO.php"); 
-    include("./conexion.php"); 
+    require_once('../databases/conexion.php');
     ?>
 
-    <link rel="stylesheet" href="./boot/css/bootstrap.min.css"> 
-    <link rel="stylesheet" href="./DataTable/datatables.min.css">
+    <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="../assets/DataTable/datatables.min.css">
   </head>
 
   <body>
     <br>
     <div class="container">
       <div class="row">
-        <div class="col-lg-4" style="inline:block">
-          <table id="example" class="table table-success table-striped" style="width:100%">
-
-            <thead class="text-center">
-              <tr>
-                <th class="text-center" style="color:white;background-color: #dc3545;">Estado</th>
-                <th class="text-center" style="color:white;background-color: #dc3545;">Cantidad</th>
-
-              </tr>
-            </thead>
-
-
-            <tbody>
-
-            <?php
-
-            $SQL="SELECT
-            memo.Estado AS Estado,
-            SUM( CASE
-              WHEN memo.Estado = 'Cerrado' THEN 1
-              WHEN memo.Estado = 'Asignado' THEN 1
-              WHEN memo.Estado IN ('En Espera', 'Por Asignar') THEN 1
-              ELSE 0
-            END
-            ) AS Cantidad
-            FROM memo
-            GROUP BY CASE WHEN memo.Estado IN ('En Espera', 'Por Asignar') THEN 'En Espera/Por Asignar' ELSE memo.Estado END";
-            
-            $Datos=mysqli_query($Conex,$SQL);
-
-            while($row=mysqli_fetch_assoc($Datos)){
-
-            ?>
-
-            <tr>
-
-              <th> <?php echo($row["Estado"]); ?> </th>
-              <th> <?php echo($row["Cantidad"]); ?> </th>
-
-              </tr>
-
-              <?php } ?>
-
-            </tbody>
-          </table>
-
-        </div>
-
         <div class="col-7 col-lg-7">
           <canvas id="miGrafico"></canvas> 
     </div>
@@ -79,10 +29,10 @@
   </body>
 
   
-    <script src="./js/Chart.js"></script>
-    <script src="./jqery/jquery.js"></script>
-    <script src="./DataTable/datatables.min.js"></script>
-    <script src="./boot/js/bootstrap.min.js"></script>
+    <script src="../assets/chart/chart.umd.min.js"></script>
+    <script src="../assets/jqery/jquery.js"></script>
+    <script src="../assets/DataTable/datatables.min.js"></script>
+    <script src="../assets/Bootstrap/js/bootstrap.min.js"></script>
 
 
   <script>
