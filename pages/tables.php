@@ -250,7 +250,7 @@ if (!isset($_SESSION['id'])) {
           "url": "../assets/js/DataEsp.json"
         },
         "ajax": {
-          "url": "./consul_proyectos.php",
+          "url": "./consultas/consul_proyectos.php",
           "dataSrc": ""
         },
         "columns": [{
@@ -344,7 +344,7 @@ if (!isset($_SESSION['id'])) {
           "url": "../assets/js/DataEsp.json"
         },
         "ajax": {
-          "url": "./consul_proyectos_elim.php",
+          "url": "./consultas/consul_proyectos_comp.php",
           "dataSrc": ""
         },
         "columns": [{
