@@ -1,5 +1,5 @@
 <?php
-include_once '../databases/conexion_crud.php';
+include_once __DIR__ . '/../../databases/conexion_crud.php';
 $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 

@@ -20,8 +20,16 @@ if (!isset($_SESSION['id'])) {
   <title>
     Sistema de Gestion de Proyectos
   </title>
+
+  <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/material-modal.css">
+  <link rel="stylesheet" href="../assets/css/dash-modal.css">
+
+  <!--
   <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+-->
+
   <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
@@ -30,8 +38,10 @@ if (!isset($_SESSION['id'])) {
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
 
+  <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/material-modal.css">
+  <link rel="stylesheet" href="../assets/css/dash-modal.css">
   <link rel="stylesheet" href="../assets/DataTable/datatables.min.css">
-
   <link rel="stylesheet" href="../assets/css/code_tables.css">
 </head>
 
@@ -223,13 +233,250 @@ if (!isset($_SESSION['id'])) {
     </div>
   </main>
 
-  <!--   Core JS Files   -->
+  <div class="modal w3-container" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content w3-animate-opacity">
+        <div class="w3-container w3-teal">
+          <br>
+          <p class="modal-title" style="color: black;">Datos Registrados</p>
+          <br>
+          <div class="w3-center">
+            <span onclick="document.getElementById('id01').style.display='none'" id="closeAndRedirect" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+          </div>
+        </div>
+
+        <div class="w3-container modal-body" id="modalBody">
+
+          <form class="row g-3" action="./ejec_edit_proy.php" id="form-upload" enctype="multipart/form-data" method="POST">
+
+            <input type="hidden" style="display:none" class="form-control" id="edit_id_Proy" name="edit_id_Proy" readonly>
+
+            <div class="row g-3">
+              <div class="col-md-4" style="color:black">
+                <label for="Comando" class="form-label">Nombre del Proyecto: </label>
+                <input type="text" class="form-control" id="edit_nombre_proy" name="edit_nombre_proy">
+              </div>
+
+              <div class="col-md-2" style="color:black">
+                <label for="Comando" class="form-label">Avance: </label>
+
+                <div class="input-group col-md-">
+                  <input max="100" min="0" type="number" class="form-control" id="edit_avance" name="edit_avance">
+                  <span class="input-group-text">%</span>
+                </div>
+              </div>
+            </div>
+
+            <br>
+
+            <div class="row g-3">
+              <div class="col-md-4" style="color:black">
+                <label for="Grafica" class="form-label">Fecha: </label>
+                <input type="text" class="form-control" id="edit_fecha_fin" name="edit_fecha_fin" required>
+                <script>
+                  $(function() {
+                    $('input[name="edit_fecha_fin"]').daterangepicker({
+                      singleDatePicker: true,
+                      showDropdowns: true,
+                      opens: 'left',
+                      locale: {
+                        format: 'YYYY-MM-DD'
+                      }
+                    });
+                  });
+                </script>
+              </div>
+
+              <div class="col-md-4" style="color:black">
+                <label for="Comando" class="form-label">Categoria: </label>
+                <input type="text" class="form-control" id="edit_categoria_proy" name="edit_categoria_proy">
+              </div>
+
+              <div class="col-md-4" style="color:black">
+                <label for="Beneficiarios" class="form-label">Nombre del Beneficiarios: </label>
+                <input type="text" class="form-control" id="edit_ben_proy" name="edit_ben_proy">
+              </div>
+
+            </div>
+
+            <br>
+
+            <div class="row g-3">
+
+              <div class="col-md-4" style="color:black">
+                <label for="Grafica" class="form-label">Descripción del Proyecto: </label>
+                <textarea name="edit_descrip_proy" id="edit_descrip_proy" cols="40" rows="4" class="form-control" required></textarea>
+                <div id="contador_descrip_proy">150</div>
+              </div>
+
+              <div class="col-md-4" style="color:black">
+                <label for="Grafica" class="form-label">Objetivos del Proyecto: </label>
+                <textarea name="edit_objec_proy" id="edit_objec_proy" cols="40" rows="4" class="form-control" required></textarea>
+                <div id="contador_objec_proy">150</div>
+              </div>
+
+              <div class="col-md-4" style="color:black">
+                <label for="Grafica" class="form-label">Requerimientos del Proyecto: </label>
+                <textarea name="edit_objec_requer" id="edit_objec_requer" cols="40" rows="4" class="form-control" required></textarea>
+                <div id="contador_requer">150</div>
+              </div>
+
+              <script>
+                function limitarTextarea(idTextarea, idContador, maximoCaracteres = 200) {
+                  const textarea = document.getElementById(idTextarea);
+                  const contador = document.getElementById(idContador);
+
+                  const mensajeError = document.createElement('p');
+                  mensajeError.classList.add('text-danger');
+                  mensajeError.textContent = 'Has superado el límite de caracteres (Reiniciar el Registro).';
+                  mensajeError.style.display = 'none';
+                  textarea.parentNode.appendChild(mensajeError);
+
+                  const actualizarContador = () => {
+                    const restantes = maximoCaracteres - textarea.value.length;
+                    contador.textContent = restantes;
+
+                    if (restantes < 0) {
+                      mensajeError.style.display = 'block';
+                      textarea.disabled = true;
+                    } else {
+                      mensajeError.style.display = 'none';
+                      textarea.disabled = false;
+                    }
+                  };
+
+                  textarea.addEventListener('input', actualizarContador);
+                  actualizarContador();
+                }
+
+                limitarTextarea("edit_descrip_proy", "contador_descrip_proy", 200);
+                limitarTextarea("edit_objec_proy", "contador_objec_proy", 200);
+                limitarTextarea("edit_objec_requer", "contador_requer", 200);
+              </script>
+
+            </div>
+
+            <br>
+
+            <div class="row g-3">
+
+              <div class="col-md-4" style="color:black">
+                <label for="Cond" class="form-label">Condición: </label>
+                <select class="form-select" id="edit_est" name="edit_est" required>
+                  <option value="Por Ejecutar">Por Ejecutar</option>
+                  <option value="En progreso">En progreso</option>
+                  <option value="Completado">Completado</option>
+                </select>
+              </div>
+
+              <div class="col-md-4" style="color:black">
+                <label for="fecha">Archivo Fotografico (PNG/JPG): </label><br>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="check_Arc_fot_proy" checked>
+                  <label class="form-check-label" for="check_Arc_fot_proy"></label>
+                </div>
+                <input type="file" class="form-control" id="Arc_fot_proy" name="Arc_fot_proy">
+              </div>
+
+            </div>
+
+            <br>
+            <br>
+
+            <br>
+
+            <div class="d-grid gap-2 col-6 mx-auto">
+
+              <button type="submit" class="btn btn-primary" id="Redirect" data-bs-dismiss="modal">Editar</button>
+
+            </div>
+
+            <br><br>
+
+          </form>
+
+        </div>
+
+        <div class="w3-teal modal-footer">
+          <br><br>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="../assets/jqery/jquery.js"></script>
   <script src="../assets/DataTable/datatables.min.js"></script>
+
+
+  <script>
+    const closeAndRedirectButton = document.getElementById("closeAndRedirect");
+    if (closeAndRedirectButton) {
+      closeAndRedirectButton.addEventListener("click", function() {
+        window.location.href = "./tables.php";
+      });
+    }
+  </script>
+
+  <script>
+    function abrirModalEditar(id) {
+
+      console.log("ID seleccionado:", id);
+
+      document.getElementById('edit_id_Proy').value = id;
+
+      const modalElement = document.getElementById('myModal');
+      const modal = new bootstrap.Modal(modalElement);
+
+      modal.show();
+
+      $.ajax({
+        url: './consultas/consul_obtener_proyecto.php',
+        type: 'GET',
+        data: {
+          id: id
+        },
+        dataType: 'json',
+
+        success: function(respuesta) {
+
+          console.log("Respuesta del servidor:", respuesta);
+
+          if (!respuesta.success) {
+            alert(respuesta.message);
+            return;
+          }
+
+          const proyecto = respuesta.data;
+          $('#edit_id_Proy').val(proyecto.id);
+          $('#edit_nombre_proy').val(proyecto.nombre);
+          $('#edit_avance').val(proyecto.avance);
+          $('#edit_fecha_fin').val(proyecto.fecha_fin);
+          $('#edit_categoria_proy').val(proyecto.categoria);
+          $('#edit_ben_proy').val(proyecto.beneficiarios);
+          $('#edit_descrip_proy').val(proyecto.descripcion);
+          $('#edit_objec_proy').val(proyecto.objetivos);
+          $('#edit_objec_requer').val(proyecto.requerimientos);
+          $('#edit_est').val(proyecto.estatus);
+
+        },
+
+        error: function(xhr) {
+
+          console.error("Error AJAX:");
+          console.error(xhr.responseText);
+
+          alert('Error al obtener los datos del proyecto.');
+
+        }
+      });
+    }
+  </script>
+
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -319,7 +566,7 @@ if (!isset($_SESSION['id'])) {
               return `
             <button 
                 type="button"
-                onclick="location.href='./modal_edit_proy.php?id=${row.id}'"
+                onclick="abrirModalEditar(${row.id})"
                 class="btn-editar"
                 title="Editar Datos">
 
@@ -409,11 +656,11 @@ if (!isset($_SESSION['id'])) {
             "data": null,
             "render": function(data, type, row) {
               return `
-            <button 
+            <button
                 type="button"
-                onclick="location.href='./modal_edit_proy.php?id=${row.id}'"
                 class="btn-editar"
-                title="Editar Datos">
+                title="Editar Datos"
+                onclick="abrirModalEditar(${row.id})">
 
                 <i class="fa-regular fa-pen-to-square"></i>
 
@@ -445,288 +692,89 @@ if (!isset($_SESSION['id'])) {
     });
   </script>
 
+  <script>
+    const checkboxes = document.querySelectorAll('.form-check-input');
+
+    checkboxes.forEach(checkbox => {
+      const fileInputId = checkbox.id.replace('check_', '');
+      const fileInput = document.getElementById(fileInputId);
+
+      fileInput.style.display = checkbox.checked ? 'none' : 'block';
+
+      checkbox.addEventListener('change', () => {
+        if (checkbox.checked) {
+          fileInput.style.display = 'none';
+        } else {
+          fileInput.style.display = 'block';
+        }
+      });
+    });
+  </script>
+
+
+  <script>
+    const asignSelect = document.getElementById('Asign');
+    const estadoSelect = document.getElementById('estado');
+
+    asignSelect.addEventListener('change', () => {
+      const previousEstado = estadoSelect.value;
+      const selectedUser = asignSelect.options[asignSelect.selectedIndex].value;
+
+      if (previousEstado === 'Por Asignar' || previousEstado === '' || previousEstado === 'En Espera') {
+        if (selectedUser !== '') {
+          estadoSelect.value = 'Asignado';
+        }
+      }
+    });
+  </script>
+
+  <script>
+    const avance = document.getElementById("edit_avance");
+    const estado = document.getElementById("edit_est");
+
+    avance.addEventListener("input", function() {
+
+      let valor = parseInt(this.value);
+
+      if (isNaN(valor)) {
+        return;
+      }
+
+      if (valor < 0) {
+        this.value = 0;
+        valor = 0;
+      }
+
+      if (valor > 100) {
+        this.value = 100;
+        valor = 100;
+      }
+
+      if (valor === 100) {
+        estado.value = "Completado";
+      } else if (estado.value === "Completado") {
+        estado.value = "En progreso";
+      }
+    });
+
+    estado.addEventListener("change", function() {
+
+      if (this.value === "Completado") {
+        avance.value = 100;
+      } else if (
+        this.value === "En progreso" ||
+        this.value === "Por Ejecutar"
+      ) {
+
+        if (parseInt(avance.value) >= 100 || avance.value === "") {
+          avance.value = 99;
+        }
+      }
+    });
+  </script>
+
 </body>
 
 
-<!--
-
-
-<div class="row">
-      <div class="col-12">
-        <div class="card my-4">
-          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-              <h6 class="text-white text-capitalize ps-3">Authors table</h6>
-            </div>
-          </div>
-          <div class="card-body px-0 pb-2">
-            <div class="table-responsive p-0">
-              <table class="table align-items-center mb-0">
-                <thead>
-                  <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Author</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Function</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employed</th>
-                    <th class="text-secondary opacity-7"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div>
-                          <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
-                        </div>
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">John Michael</h6>
-                          <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">Manager</p>
-                      <p class="text-xs text-secondary mb-0">Organization</p>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm bg-gradient-success">Online</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                    </td>
-                    <td class="align-middle">
-                      <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                        Edit
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div>
-                          <img src="../assets/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user2">
-                        </div>
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">Alexa Liras</h6>
-                          <p class="text-xs text-secondary mb-0">alexa@creative-tim.com</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">Programator</p>
-                      <p class="text-xs text-secondary mb-0">Developer</p>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">11/01/19</span>
-                    </td>
-                    <td class="align-middle">
-                      <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                        Edit
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div>
-                          <img src="../assets/img/team-4.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user3">
-                        </div>
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">Laurent Perrier</h6>
-                          <p class="text-xs text-secondary mb-0">laurent@creative-tim.com</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">Executive</p>
-                      <p class="text-xs text-secondary mb-0">Projects</p>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm bg-gradient-success">Online</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">19/09/17</span>
-                    </td>
-                    <td class="align-middle">
-                      <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                        Edit
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div>
-                          <img src="../assets/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user4">
-                        </div>
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">Michael Levi</h6>
-                          <p class="text-xs text-secondary mb-0">michael@creative-tim.com</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">Programator</p>
-                      <p class="text-xs text-secondary mb-0">Developer</p>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm bg-gradient-success">Online</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">24/12/08</span>
-                    </td>
-                    <td class="align-middle">
-                      <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                        Edit
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div>
-                          <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user5">
-                        </div>
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">Richard Gran</h6>
-                          <p class="text-xs text-secondary mb-0">richard@creative-tim.com</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">Manager</p>
-                      <p class="text-xs text-secondary mb-0">Executive</p>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">04/10/21</span>
-                    </td>
-                    <td class="align-middle">
-                      <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                        Edit
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <div>
-                          <img src="../assets/img/team-4.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user6">
-                        </div>
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">Miriam Eric</h6>
-                          <p class="text-xs text-secondary mb-0">miriam@creative-tim.com</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="text-xs font-weight-bold mb-0">Programator</p>
-                      <p class="text-xs text-secondary mb-0">Developer</p>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                    </td>
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">14/09/20</span>
-                    </td>
-                    <td class="align-middle">
-                      <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                        Edit
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-<div class="fixed-plugin">
-
-    <div class="card shadow-lg">
-      <div class="card-header pb-0 pt-3">
-        <div class="float-start">
-          <h5 class="mt-3 mb-0">Material UI Configurator</h5>
-          <p>See our dashboard options.</p>
-        </div>
-        <div class="float-end mt-4">
-          <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
-            <i class="material-icons">clear</i>
-          </button>
-        </div>
-
-      </div>
-      <hr class="horizontal dark my-1">
-      <div class="card-body pt-sm-3 pt-0">
-
-        <div>
-          <h6 class="mb-0">Sidebar Colors</h6>
-        </div>
-        <a href="javascript:void(0)" class="switch-trigger background-color">
-          <div class="badge-colors my-2 text-start">
-            <span class="badge filter bg-gradient-primary active" data-color="primary" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-dark" data-color="dark" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-success" data-color="success" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-warning" data-color="warning" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
-          </div>
-        </a>
-
-        <div class="mt-3">
-          <h6 class="mb-0">Sidenav Type</h6>
-          <p class="text-sm">Choose between 2 different sidenav types.</p>
-        </div>
-        <div class="d-flex">
-          <button class="btn bg-gradient-dark px-3 mb-2 active" data-class="bg-gradient-dark" onclick="sidebarType(this)">Dark</button>
-          <button class="btn bg-gradient-dark px-3 mb-2 ms-2" data-class="bg-transparent" onclick="sidebarType(this)">Transparent</button>
-          <button class="btn bg-gradient-dark px-3 mb-2 ms-2" data-class="bg-white" onclick="sidebarType(this)">White</button>
-        </div>
-        <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
-
-        <div class="mt-3 d-flex">
-          <h6 class="mb-0">Navbar Fixed</h6>
-          <div class="form-check form-switch ps-0 ms-auto my-auto">
-            <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
-          </div>
-        </div>
-        <hr class="horizontal dark my-3">
-        <div class="mt-2 d-flex">
-          <h6 class="mb-0">Light / Dark</h6>
-          <div class="form-check form-switch ps-0 ms-auto my-auto">
-            <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)">
-          </div>
-        </div>
-        <hr class="horizontal dark my-sm-4">
-        <a class="btn bg-gradient-info w-100" href="https://www.creative-tim.com/product/material-dashboard-pro">Free Download</a>
-        <a class="btn btn-outline-dark w-100" href="https://www.creative-tim.com/learning-lab/bootstrap/overview/material-dashboard">View documentation</a>
-        <div class="w-100 text-center">
-          <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star creativetimofficial/material-dashboard on GitHub">Star</a>
-          <h6 class="mt-3">Thank you for sharing!</h6>
-          <a href="https://twitter.com/intent/tweet?text=Check%20Material%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
-            <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
-          </a>
-          <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/material-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
-            <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
--->
-
-<!-- Github buttons 
-  <script async defer src="https://buttons.github.io/buttons.js"></script> -->
-<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc 
-  <script src="../assets/js/material-dashboard.min.js?v=3.0.4"></script> -->
 
 </html>
