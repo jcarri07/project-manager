@@ -1,20 +1,5 @@
-<!--
-=========================================================
-* Material Dashboard 2 - v3.0.4
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
-
-<?php 
-  require_once('../databases/conexion.php');
+<?php
+require_once('../databases/conexion.php');
 ?>
 
 <!DOCTYPE html>
@@ -28,16 +13,9 @@
   <title>
     Material Dashboard 2 by Creative Tim
   </title>
-  <!--     Fonts and icons     -->
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-  <!-- Nucleo Icons -->
+
   <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-  <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-  <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
 </head>
 
@@ -45,58 +23,6 @@
   <div class="container position-sticky z-index-sticky top-0">
     <div class="row">
       <div class="col-12">
-        <!-- Navbar 
-        <nav class="navbar navbar-expand-lg blur border-radius-lg top-0 z-index-3 shadow position-absolute mt-4 py-2 start-0 end-0 mx-4">
-          <div class="container-fluid ps-2 pe-0">
-            <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="../pages/dashboard.php">
-              Material Dashboard 2
-            </a>
-            <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon mt-2">
-                <span class="navbar-toggler-bar bar1"></span>
-                <span class="navbar-toggler-bar bar2"></span>
-                <span class="navbar-toggler-bar bar3"></span>
-              </span>
-            </button>
-            <div class="collapse navbar-collapse" id="navigation">
-              <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="../pages/dashboard.php">
-                    <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
-                    Dashboard
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link me-2" href="../pages/profile.html">
-                    <i class="fa fa-user opacity-6 text-dark me-1"></i>
-                    Perfil
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link me-2" href="../pages/sign-up.php">
-                    <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
-                    Registrarse
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link me-2" href="../pages/sign-in.php">
-                    <i class="fas fa-key opacity-6 text-dark me-1"></i>
-                    Iniciar sesion
-                  </a>
-                </li>
-              </ul>
-              <ul class="navbar-nav d-lg-flex d-none">
-                <li class="nav-item d-flex align-items-center">
-                  <a class="btn btn-outline-primary btn-sm mb-0 me-2" target="_blank" href="https://www.creative-tim.com/builder/material?ref=navbar-dashboard">Online Builder</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/product/material-dashboard" class="btn btn-sm mb-0 me-1 bg-gradient-dark">Free download</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>-->
-        <!-- End Navbar -->
       </div>
     </div>
   </div>
@@ -113,52 +39,46 @@
               <div class="card card-plain">
                 <div class="card-header">
                   <h4 class="font-weight-bolder" style="display: flex; justify-content: center;">Registrarse</h4>
-                  <p class="mb-0"  style="display: flex; justify-content: center;">Ingresa tus datos:</p>
+                  <p class="mb-0" style="display: flex; justify-content: center;">Ingresa tus datos:</p>
                 </div>
                 <div class="card-body" style="padding-top: 5px;">
-                <form role="form" class="form-horizontal" method="POST" action="../pages/proses_sign-up.php?act=insert" enctype="multipart/form-data">
-
-                <!--<div class="input-group input-group-outline mb-3">
-                  <select class="form-select-lg " name="proyecto" placeholder="--Seleccione proyecto participante--" autocomplete="off" required>
-                    <option value="">-- Proyecto Participante --</option>
-                    <?php
-                      $query_data = mysqli_query($conn, "SELECT id, estatus, nombre FROM projects")
-                                                            or die('error '.mysqli_error($conn));
-
-                      while ($data_1 = mysqli_fetch_assoc($query_data)) {
-                        echo"<option value=\"$data_1[id]\"> $data_1[estatus] | $data_1[nombre] </option>";
-                      }
-                      echo $data_1['project_id'];
-                    ?>
-                 </select>
-                </div>-->
+                  <form role="form" class="form-horizontal" method="POST" action="../pages/proses_sign-up.php?act=insert_init" enctype="multipart/form-data">
 
                     <div class="input-group input-group-outline mb-3">
-                      <label class="form-label">Nombres</label>
-                      <input type="text" class="form-control" name="nombres">
+                      <label class="form-label">Nombres:</label>
+                      <input type="text" class="form-control" name="nombres_reg" id="nombres_reg" required>
                     </div>
                     <div class="input-group input-group-outline mb-3">
-                      <label class="form-label">Apellidos</label>
-                      <input type="text" class="form-control" name="apellidos">
+                      <label class="form-label">Apellidos:</label>
+                      <input type="text" class="form-control" name="apellidos_reg" id="apellidos_reg" required>
                     </div>
                     <div class="input-group input-group-outline mb-3">
-                      <label class="form-label">Cedula</label>
-                      <input type="text" class="form-control" name="cedula">
+                      <label class="form-label">Cedula:</label>
+                      <input type="text" class="form-control" name="cedula_reg" id="cedula_reg" required>
                     </div>
                     <div class="input-group input-group-outline mb-3">
-                      <label class="form-label">Cargo</label>
-                      <input type="text" class="form-control" name="cargo">
+                      <label class="form-label">Correo:</label>
+                      <input type="email" class="form-control" name="correo_reg" id="correo_reg" required>
                     </div>
                     <div class="input-group input-group-outline mb-3">
-                      <label class="form-label">Contraseña</label>
-                      <input type="password" class="form-control"  name="password">
+                      <label class="form-label">Especialidad:</label>
+                      <input type="text" class="form-control" name="especialidad_reg" id="especialidad_reg" required>
                     </div>
-                    <!--<div class="form-check form-check-info text-start ps-0">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
-                      <label class="form-check-label" for="flexCheckDefault">
-                        Acepto <a href="javascript:;" class="text-dark font-weight-bolder">los terminos y condiciones</a>
-                      </label>
-                    </div>-->
+                    <div class="input-group input-group-outline mb-3">
+                      <label class="form-label">Contraseña:</label>
+                      <input type="password" class="form-control" name="password_reg" id="password_reg" required>
+                    </div>
+
+                    <div class="input-group input-group-outline mb-3 is-filled">
+                      <label class="form-label">Fecha de Registro:</label><br>
+                      <input type="datetime-local" class="form-control" id="fecha_reg" name="fecha_reg" readonly>
+                    </div>
+                    <script>
+                      var fechaActual = new Date();
+                      var formattedDateTime = fechaActual.getFullYear() + '-' + ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '-' + ('0' + fechaActual.getDate()).slice(-2) + 'T' + ('0' + fechaActual.getHours()).slice(-2) + ':' + ('0' + fechaActual.getMinutes()).slice(-2);
+                      document.getElementById('fecha_reg').value = formattedDateTime;
+                    </script>
+
                     <div class="text-center">
                       <button type="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0" name="Guardar" value="Guardar">Registrar</button>
                     </div>
@@ -191,8 +111,6 @@
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
-  <!-- Github buttons -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/material-dashboard.min.js?v=3.0.4"></script>
 </body>

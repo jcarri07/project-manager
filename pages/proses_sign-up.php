@@ -20,33 +20,34 @@ require_once('../databases/conexion.php');
 
 /*else {*/
 
-	if ($_GET['act']=='insert') {
-		if (isset($_POST['Guardar'])) {
+if ($_GET['act'] == 'insert_init') {
+	if (isset($_POST['Guardar'])) {
 
-			$nombres  = mysqli_real_escape_string($conn, trim($_POST['nombres']));
-			$apellidos  = mysqli_real_escape_string($conn, trim($_POST['apellidos']));
-			$cargo = mysqli_real_escape_string($conn, trim($_POST['cargo']));
-			//$jefe = mysqli_real_escape_string($conn, trim($_POST['jefe']));
-			//$foto = mysqli_real_escape_string($conn, trim($_POST['foto']));
-           // $unidad = mysqli_real_escape_string($conn, trim($_POST['unidad']));
-		    $cedula = mysqli_real_escape_string($conn, trim($_POST['cedula']));
-           // $movil = mysqli_real_escape_string($conn, trim($_POST['movil']));
-            //$email = mysqli_real_escape_string($conn, trim($_POST['email']));
-            $password = mysqli_real_escape_string($conn, trim($_POST['password']));
-			//$proyecto = mysqli_real_escape_string($conn, trim($_POST['proyecto']));
+		$D_cedula  = mysqli_real_escape_string($conn, trim($_POST['cedula_reg']));
+		$D_nombres  = mysqli_real_escape_string($conn, trim($_POST['nombres_reg']));
+		$D_apellidos = mysqli_real_escape_string($conn, trim($_POST['apellidos_reg']));
+		$D_correo = mysqli_real_escape_string($conn, trim($_POST['correo_reg']));
+		$D_password = mysqli_real_escape_string($conn, trim($_POST['password_reg']));
+		$D_especialidad = mysqli_real_escape_string($conn, trim($_POST['especialidad_reg']));
+		$D_fecha = mysqli_real_escape_string($conn, trim($_POST['fecha_reg']));
+		$D_estatus = "activo";
 
-            $query = mysqli_query($conn, "INSERT INTO project_managers(nombres,apellidos,cargo,password,cedula)
-                                            VALUES('$nombres','$apellidos','$cargo','$password','$cedula')")
-                                            or die('error: '.mysqli_error($conn)); 
+		$Sqll_1 = "INSERT INTO members(cedula, nombre, apellido, email, especialidad, registrado) 
+		VALUES ('$D_cedula','$D_nombres','$D_apellidos','$D_correo','$D_especialidad','$D_fecha')";
+		$Carg1 = mysqli_query($conn, $Sqll_1);
 
-            if ($query) {
-				
-				header("location: ../index.php");
+		$Sqll_2 = "INSERT INTO users(cedula, email, password_hash, fecha_creacion, estatus) 
+		VALUES ('$D_cedula','$D_correo','$D_password','$D_fecha','$D_estatus')";
+		$Carg2 = mysqli_query($conn, $Sqll_2);
 
-            }
-		}	
+
+		if (($Carg1) && ($Carg2)) {
+
+			header("location: ../index.php");
+		}
 	}
-	/*
+}
+/*
 	elseif ($_GET['act']=='update') {
 		if (isset($_POST['Guardar'])) {
 			if (isset($_POST['id_user'])) {
@@ -297,5 +298,5 @@ require_once('../databases/conexion.php');
 
     		header("location: ../../main.php?module=user");
     }
-}	*/	
+}	*/
 ?>
