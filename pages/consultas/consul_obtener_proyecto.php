@@ -14,7 +14,7 @@ if (!isset($_GET['id'])) {
 
 $id = (int) $_GET['id'];
 
-$sql = "SELECT * FROM projects WHERE id = $id LIMIT 1";
+$sql = "SELECT * FROM projects WHERE id_proyecto = $id LIMIT 1";
 
 $resultado = mysqli_query($conn, $sql);
 

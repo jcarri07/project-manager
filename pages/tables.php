@@ -450,7 +450,7 @@ if (!isset($_SESSION['id_miembro'])) {
           }
 
           const proyecto = respuesta.data;
-          $('#edit_id_Proy').val(proyecto.id);
+          $('#edit_id_Proy').val(proyecto.id_proyecto);
           $('#edit_nombre_proy').val(proyecto.nombre);
           $('#edit_avance').val(proyecto.avance);
           $('#edit_fecha_fin').val(proyecto.fecha_fin);
@@ -564,7 +564,7 @@ if (!isset($_SESSION['id_miembro'])) {
               return `
             <button 
                 type="button"
-                onclick="abrirModalEditar(${row.id})"
+                onclick="abrirModalEditar(${row.id_proyecto})"
                 class="btn-editar"
                 title="Editar Datos">
 
@@ -658,7 +658,7 @@ if (!isset($_SESSION['id_miembro'])) {
                 type="button"
                 class="btn-editar"
                 title="Editar Datos"
-                onclick="abrirModalEditar(${row.id})">
+                onclick="abrirModalEditar(${row.id_proyecto})">
 
                 <i class="fa-regular fa-pen-to-square"></i>
 

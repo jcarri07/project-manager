@@ -17,7 +17,7 @@
 <?php
 require_once('../databases/conexion.php');
 session_start();
-$query = mysqli_query($conn, "SELECT * FROM project_miembro WHERE id_miembro='$_SESSION[id_miembro]'")
+$query = mysqli_query($conn, "SELECT * FROM members,project_miembro WHERE members.id_miembro = project_miembro.id_miembro AND project_miembro.id_miembro='$_SESSION[id_miembro]'")
   or die('error: ' . mysqli_error($conn));
 $data = mysqli_fetch_assoc($query);
 
@@ -337,10 +337,10 @@ if (!isset($_SESSION['id_miembro'])) {
           <div class="col-auto my-auto">
             <div class="h-100">
               <h5 class="mb-1">
-                <?php echo $data['nombres']; ?>
+                <?php echo $data['nombre']; ?>
               </h5>
               <p class="mb-0 font-weight-normal text-sm">
-                <?php echo $data['cargo']; ?>
+                <?php echo $data['rol_proyecto']; ?>
               </p>
             </div>
           </div>
@@ -440,12 +440,11 @@ if (!isset($_SESSION['id_miembro'])) {
                 <div class="card-body p-3">
                   <hr class="horizontal gray-light my-2">
                   <ul class="list-group">
-                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Nombres:</strong> &nbsp; <?php echo $data['nombres']; ?></li>
-                    <li class="list-group-item border-0 ps-0  text-sm"><strong class="text-dark">Apellidos:</strong> &nbsp; <?php echo $data['apellidos']; ?></li>
+                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Nombres:</strong> &nbsp; <?php echo $data['nombre']; ?></li>
+                    <li class="list-group-item border-0 ps-0  text-sm"><strong class="text-dark">Apellidos:</strong> &nbsp; <?php echo $data['apellido']; ?></li>
                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Cedula:</strong> &nbsp; <?php echo $data['cedula']; ?></li>
-                    <!-- <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Movil:</strong> &nbsp; <?php echo $data['movil']; ?></li> -->
                     <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; <?php echo $data['email']; ?></li>
-                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Unidad de adscripción:</strong> &nbsp; <?php echo $data['unidad']; ?></li>
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Unidad de adscripción:</strong> &nbsp; <?php echo $data['especialidad']; ?></li>
 
                     <!--<li class="list-group-item border-0 ps-0 pb-0">
                       <strong class="text-dark text-sm">Social:</strong> &nbsp;
@@ -525,51 +524,16 @@ if (!isset($_SESSION['id_miembro'])) {
               <table class=" table table-responsive-lg">
 
                 <tbody>
-                  <?php
 
-                  $query = mysqli_query($conn, "SELECT * FROM members WHERE jefe ='$_SESSION[id]'")
-                    or die('error: ' . mysqli_error($conn));
+                </tbody>
+              </table>
 
-
-                  while ($data = mysqli_fetch_assoc($query)) {
-
-                    echo "<tr>";
-
-                    if ($data['foto'] == "") { ?>
-                      <td class='center'><img class='img-user' src='../assets/img/person.jpg' width='45' class="border-radius-lg shadow"></td>
-                    <?php
-                    } else { ?>
-
-                      <td class='center'><img class='img-user' src='../assets/img/<?php echo $data['foto']; ?>' width='45' class="border-radius-lg shadow"></td>
-                    <?php
-                    }
-
-                    echo "  
-                 <td class='center'> <div class='d-flex align-items-start flex-column justify-content-center'>
-                 <h6 class='mb-0 text-sm'>$data[nombres] $data[apellidos]</h6>
-                 <p class='mb-0 text-xs'>$data[cargo]</p></div><div></td>
-
-                   <td> <a class='fas fa-user-edit text-secondary text-sm' data-bs-toggle='tooltip' href='../pages/agregar_miembros.php?form=update&id=$data[id]' data-bs-placement='top' title='Modificar'>
-                   </a></td>
-                   "; ?>
-                    <td> <a class="fas fa-trash text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar" href="../pages/proses_miembros.php?act=delete&id=<?php echo $data['id']; ?>" onclick="return confirm('¿Seguro de eliminar a <?php echo $data['nombres'] ?> de su equipo?');">
-                      </a></td>
 
             </div>
-            </td>
-            </tr>
-          <?php
-                  }
-          ?>
-          </tbody>
-          </table>
-
-
           </div>
         </div>
-      </div>
 
-      <!--
+        <!--
 
             <div class="col-12 mt-4">
               <div class="mb-5 ps-3">
@@ -718,8 +682,8 @@ if (!isset($_SESSION['id_miembro'])) {
             </div>
           -->
 
+      </div>
     </div>
-  </div>
   </div>
   </div>
   <!-- <footer class="footer py-4  ">
