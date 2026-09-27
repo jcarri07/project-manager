@@ -10,7 +10,7 @@ if (!ctype_alnum($cedula) or !ctype_alnum($password)) {
 	header("location: index.php?alert=1");
 } else {
 
-	$query = mysqli_query($conn, "SELECT * FROM users,members WHERE users.id_miembro = members.id_miembro AND cedula='$cedula' AND users.password_hash ='$password' AND estatus='activo'")
+	$query = mysqli_query($conn, "SELECT * FROM users,members WHERE users.cedula = members.cedula AND users.cedula='$cedula' AND users.password_hash ='$password' AND users.estatus='activo'")
 		or die('error' . mysqli_error($conn));
 	$rows  = mysqli_num_rows($query);
 
@@ -18,13 +18,13 @@ if (!ctype_alnum($cedula) or !ctype_alnum($password)) {
 		$data  = mysqli_fetch_assoc($query);
 
 		session_start();
-		$_SESSION['id_usuario']   = $data['id'];
+		$_SESSION['id_miembro']   = $data['id_miembro'];
 		$_SESSION['email']  = $data['email'];
 		$_SESSION['cedula']  = $data['cedula'];
-		$_SESSION['password_hash']  = $data['password'];
+		$_SESSION['password']  = $data['password_hash'];
 		//$_SESSION['cargo'] = $data['cargo'];
-		$_SESSION['nombre'] = $data['nombres'];
-		$_SESSION['apellido'] = $data['apellidos'];
+		//$_SESSION['nombre'] = $data['nombres'];
+		//$_SESSION['apellido'] = $data['apellidos'];
 		//$_SESSION['permisos_acceso'] = $data['permisos_acceso'];
 
 		header("Location: pages/dashboard.php");

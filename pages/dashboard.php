@@ -13,31 +13,31 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
 
-<?php 
+<?php
 
 
-  require_once('../databases/conexion.php');
-  session_start();
-  $query = mysqli_query($conn, "SELECT id, nombres, apellidos FROM project_managers WHERE id='$_SESSION[id]'")
-                                or die('error: '.mysqli_error($conn));
+require_once('../databases/conexion.php');
+session_start();
+$query = mysqli_query($conn, "SELECT * FROM project_miembro WHERE id_miembro='$_SESSION[id_miembro]'")
+  or die('error: ' . mysqli_error($conn));
 
 
-if (!isset($_SESSION['id'])) {
+if (!isset($_SESSION['id_miembro'])) {
   // Redirigir al usuario a la página de inicio de sesión
   header("Location: ../index.php");
-
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <title>
-      Sistema de Gestion de Proyectos
+    Sistema de Gestion de Proyectos
   </title>
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -80,7 +80,7 @@ if (!isset($_SESSION['id'])) {
             <span class="nav-link-text ms-1">Proyectos</span>
           </a>
         </li>
-       <!--<li class="nav-item">
+        <!--<li class="nav-item">
           <a class="nav-link text-white " href="../pages/billing.html">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">receipt_long</i>
@@ -141,7 +141,7 @@ if (!isset($_SESSION['id'])) {
         </li>
       </ul>
     </div>-->
-   <!-- <div class="sidenav-footer position-absolute w-100 bottom-0 ">
+        <!-- <div class="sidenav-footer position-absolute w-100 bottom-0 ">
       <div class="mx-3">
         <a class="btn bg-gradient-primary mt-4 w-100" href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
       </div>
@@ -166,7 +166,7 @@ if (!isset($_SESSION['id'])) {
             </div>-->
           </div>
           <ul class="navbar-nav  justify-content-end">
-           <!-- <li class="nav-item d-flex align-items-center">
+            <!-- <li class="nav-item d-flex align-items-center">
               <a class="btn btn-outline-primary btn-sm mb-0 me-3" target="_blank" href="https://www.creative-tim.com/builder/material?ref=navbar-dashboard">Online Builder</a>
             </li>-->
             <li class="nav-item d-flex align-items-center">
@@ -174,7 +174,7 @@ if (!isset($_SESSION['id'])) {
                 <i class="fa fa-user me-sm-1"></i>
                 <span class="d-sm-inline d-none">Cerrar Sesión</span>
               </a>
-            </li>    
+            </li>
             <!--<li class="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                 <div class="sidenav-toggler-inner">
@@ -271,7 +271,7 @@ if (!isset($_SESSION['id'])) {
       <div class="row">
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
           <div class="card">-->
-           <!-- <div class="card-header p-3 pt-2">
+    <!-- <div class="card-header p-3 pt-2">
               <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
                 <i class="material-icons opacity-10">weekend</i>
               </div>
@@ -360,70 +360,70 @@ if (!isset($_SESSION['id'])) {
           </div>
         </div>
       </div>-->
-      
-      <div class="alert alert-primary alert-dismissible text-white" role="alert">
-        <span class="text-sm">Bienvenid@ <a href="javascript:;" class="alert-link text-white"><?php echo $_SESSION['nombres']; ?></a>, al sistema de Gestion de Proyectos</span>
-        <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
 
-  
-        <div class="row mt-4" style="padding-left:0px;">
-        <div class="col-lg-6 col-md-6 mt-4 mb-4">
-          <div class="card z-index-2  ">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-              <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
-                <div class="chart-bars">
-                  <canvas id="chart-bars" class="chart-canvas" height="280"></canvas>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h6 class="mb-0 "> Daily Sales </h6>
-              <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today sales. </p>
-              <hr class="dark horizontal">
-              <div class="d-flex ">
-                <i class="material-icons text-sm my-auto me-1">schedule</i>
-                <p class="mb-0 text-sm"> updated 4 min ago </p>
+    <div class="alert alert-primary alert-dismissible text-white" role="alert">
+      <span class="text-sm">Bienvenid@ <a href="javascript:;" class="alert-link text-white"><?php echo $_SESSION['cedula']; ?></a>, al sistema de Gestion de Proyectos</span>
+      <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+
+    <div class="row mt-4" style="padding-left:0px;">
+      <div class="col-lg-6 col-md-6 mt-4 mb-4">
+        <div class="card z-index-2  ">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+            <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
+              <div class="chart-bars">
+                <canvas id="chart-bars" class="chart-canvas" height="280"></canvas>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-lg-6 col-md-6 mt-4 mb-3" style="padding-left:0px;">
-          <div class="card z-index-2 ">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-              <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
-                <div class="chart">
-                  <canvas id="chart-line" class="chart-canvas" height="280"></canvas>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h6 class="mb-0 ">Completed Tasks</h6>
-              <p class="text-sm ">Last Campaign Performance</p>
-              <hr class="dark horizontal">
-              <div class="d-flex ">
-                <i class="material-icons text-sm my-auto me-1">schedule</i>
-                <p class="mb-0 text-sm">just updated</p>
-              </div>
+          <div class="card-body">
+            <h6 class="mb-0 "> Daily Sales </h6>
+            <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today sales. </p>
+            <hr class="dark horizontal">
+            <div class="d-flex ">
+              <i class="material-icons text-sm my-auto me-1">schedule</i>
+              <p class="mb-0 text-sm"> updated 4 min ago </p>
             </div>
           </div>
         </div>
       </div>
-      <div class="row mb-4" style="padding-left:90px;">
-        <div class="col-lg-11 col-md-6 mb-md-0 mb-4">
-          <div class="card">
-            <div class="card-header pb-0">
-              <div class="row">
-                <div class="col-lg-6 col-7">
-                  <h6>Proyectos</h6>
-                  <p class="text-sm mb-0">
-                    <i class="fa fa-check text-info" aria-hidden="true"></i>
-                    <span class="font-weight-bold ms-1">2 Ejecutados</span> este mes
-                  </p>
-                </div>
-                <!--<div class="col-lg-6 col-5 my-auto text-end">
+      <div class="col-lg-6 col-md-6 mt-4 mb-3" style="padding-left:0px;">
+        <div class="card z-index-2 ">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+            <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
+              <div class="chart">
+                <canvas id="chart-line" class="chart-canvas" height="280"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <h6 class="mb-0 ">Completed Tasks</h6>
+            <p class="text-sm ">Last Campaign Performance</p>
+            <hr class="dark horizontal">
+            <div class="d-flex ">
+              <i class="material-icons text-sm my-auto me-1">schedule</i>
+              <p class="mb-0 text-sm">just updated</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-4" style="padding-left:90px;">
+      <div class="col-lg-11 col-md-6 mb-md-0 mb-4">
+        <div class="card">
+          <div class="card-header pb-0">
+            <div class="row">
+              <div class="col-lg-6 col-7">
+                <h6>Proyectos</h6>
+                <p class="text-sm mb-0">
+                  <i class="fa fa-check text-info" aria-hidden="true"></i>
+                  <span class="font-weight-bold ms-1">2 Ejecutados</span> este mes
+                </p>
+              </div>
+              <!--<div class="col-lg-6 col-5 my-auto text-end">
                   <div class="dropdown float-lg-end pe-4">
                     <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false">
                       <i class="fa fa-ellipsis-v text-secondary"></i>
@@ -435,258 +435,258 @@ if (!isset($_SESSION['id'])) {
                     </ul>
                   </div>
                 </div>-->
-              </div>
             </div>
-            <div class="card-body px-0 pb-2">
-              <div class="table-responsive">
-                <table class="table align-items-center mb-0">
-                  <thead>
-                    <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Proyectos</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Miembros</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Avance</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="../assets/img/small-logos/logo-xd.svg" class="avatar avatar-sm me-3" alt="xd">
-                          </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">Proyecto 1</h6>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Proyectos</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Miembros</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Avance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          <img src="../assets/img/small-logos/logo-xd.svg" class="avatar avatar-sm me-3" alt="xd">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">Proyecto 1</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="avatar-group mt-2">
+                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Yoseli Guaramato">
+                          <img src="../assets/img/team-1.jpg" alt="team1">
+                        </a>
+                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jose Carrizales">
+                          <img src="../assets/img/team-2.jpg" alt="team2">
+                        </a>
+                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Juan Ruiz">
+                          <img src="../assets/img/team-3.jpg" alt="team3">
+                        </a>
+                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Alfredo Calderon">
+                          <img src="../assets/img/team-4.jpg" alt="team4">
+                        </a>
+                      </div>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold"> En ejecución </span>
+                    </td>
+                    <td class="align-middle">
+                      <div class="progress-wrapper w-30 mx-auto">
+                        <div class="progress-info">
+                          <div class="progress-percentage">
+                            <span class="text-xs font-weight-bold">60%</span>
                           </div>
                         </div>
-                      </td>
-                      <td>
-                        <div class="avatar-group mt-2">
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Yoseli Guaramato">
-                            <img src="../assets/img/team-1.jpg" alt="team1">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jose Carrizales">
-                            <img src="../assets/img/team-2.jpg" alt="team2">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Juan Ruiz">
-                            <img src="../assets/img/team-3.jpg" alt="team3">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Alfredo Calderon">
-                            <img src="../assets/img/team-4.jpg" alt="team4">
-                          </a>
+                        <div class="progress">
+                          <div class="progress-bar bg-gradient-info w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="text-xs font-weight-bold"> En ejecución </span>
-                      </td>
-                      <td class="align-middle">
-                        <div class="progress-wrapper w-30 mx-auto">
-                          <div class="progress-info">
-                            <div class="progress-percentage">
-                              <span class="text-xs font-weight-bold">60%</span>
-                            </div>
-                          </div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-info w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          <img src="../assets/img/small-logos/logo-atlassian.svg" class="avatar avatar-sm me-3" alt="atlassian">
                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="../assets/img/small-logos/logo-atlassian.svg" class="avatar avatar-sm me-3" alt="atlassian">
-                          </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">Proyecto 2</h6>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">Proyecto 2</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="avatar-group mt-2">
+                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jose Carrizales">
+                          <img src="../assets/img/team-2.jpg" alt="team5">
+                        </a>
+                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Yoseli Guaramato">
+                          <img src="../assets/img/team-1.jpg" alt="team6">
+                        </a>
+                      </div>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold"> En ejecución </span>
+                    </td>
+                    <td class="align-middle">
+                      <div class="progress-wrapper w-30 mx-auto">
+                        <div class="progress-info">
+                          <div class="progress-percentage">
+                            <span class="text-xs font-weight-bold">10%</span>
                           </div>
                         </div>
-                      </td>
-                      <td>
-                        <div class="avatar-group mt-2">
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jose Carrizales">
-                            <img src="../assets/img/team-2.jpg" alt="team5">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Yoseli Guaramato">
-                            <img src="../assets/img/team-1.jpg" alt="team6">
-                          </a>
+                        <div class="progress">
+                          <div class="progress-bar bg-gradient-info w-10" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="text-xs font-weight-bold"> En ejecución </span>
-                      </td>
-                      <td class="align-middle">
-                        <div class="progress-wrapper w-30 mx-auto">
-                          <div class="progress-info">
-                            <div class="progress-percentage">
-                              <span class="text-xs font-weight-bold">10%</span>
-                            </div>
-                          </div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-info w-10" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          <img src="../assets/img/small-logos/logo-slack.svg" class="avatar avatar-sm me-3" alt="team7">
                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="../assets/img/small-logos/logo-slack.svg" class="avatar avatar-sm me-3" alt="team7">
-                          </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">Proyecto 3</h6>
-                          </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">Proyecto 3</h6>
                         </div>
-                      </td>
-                      <td>
-                        <div class="avatar-group mt-2">
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jose Carrizales">
-                            <img src="../assets/img/team-2.jpg" alt="team8">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Yoseli Guaramato">
-                            <img src="../assets/img/team-1.jpg" alt="team9">
-                          </a>
-                        </div>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="text-xs font-weight-bold"> Ejecutado </span>
-                      </td>
-                      <td class="align-middle">
-                        <div class="progress-wrapper w-30 mx-auto">
-                          <div class="progress-info">
-                            <div class="progress-percentage">
-                              <span class="text-xs font-weight-bold">100%</span>
-                            </div>
-                          </div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-success w-100" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="avatar-group mt-2">
+                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jose Carrizales">
+                          <img src="../assets/img/team-2.jpg" alt="team8">
+                        </a>
+                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Yoseli Guaramato">
+                          <img src="../assets/img/team-1.jpg" alt="team9">
+                        </a>
+                      </div>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold"> Ejecutado </span>
+                    </td>
+                    <td class="align-middle">
+                      <div class="progress-wrapper w-30 mx-auto">
+                        <div class="progress-info">
+                          <div class="progress-percentage">
+                            <span class="text-xs font-weight-bold">100%</span>
                           </div>
                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="../assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm me-3" alt="spotify">
-                          </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">Proyecto 4</h6>
+                        <div class="progress">
+                          <div class="progress-bar bg-gradient-success w-100" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          <img src="../assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm me-3" alt="spotify">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">Proyecto 4</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="avatar-group mt-2">
+                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Alfredo Calderon">
+                          <img src="../assets/img/team-4.jpg" alt="user1">
+                        </a>
+                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jose Carrizales">
+                          <img src="../assets/img/team-2.jpg" alt="user2">
+                        </a>
+                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Juan Ruiz">
+                          <img src="../assets/img/team-3.jpg" alt="user3">
+                        </a>
+                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Yoseli Guaramato">
+                          <img src="../assets/img/team-1.jpg" alt="user4">
+                        </a>
+                      </div>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold"> Ejecutado </span>
+                    </td>
+                    <td class="align-middle">
+                      <div class="progress-wrapper w-30 mx-auto">
+                        <div class="progress-info">
+                          <div class="progress-percentage">
+                            <span class="text-xs font-weight-bold">100%</span>
                           </div>
                         </div>
-                      </td>
-                      <td>
-                        <div class="avatar-group mt-2">
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Alfredo Calderon">
-                            <img src="../assets/img/team-4.jpg" alt="user1">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jose Carrizales">
-                            <img src="../assets/img/team-2.jpg" alt="user2">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Juan Ruiz">
-                            <img src="../assets/img/team-3.jpg" alt="user3">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Yoseli Guaramato">
-                            <img src="../assets/img/team-1.jpg" alt="user4">
-                          </a>
+                        <div class="progress">
+                          <div class="progress-bar bg-gradient-success w-100" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="text-xs font-weight-bold"> Ejecutado </span>
-                      </td>
-                      <td class="align-middle">
-                        <div class="progress-wrapper w-30 mx-auto">
-                          <div class="progress-info">
-                            <div class="progress-percentage">
-                              <span class="text-xs font-weight-bold">100%</span>
-                            </div>
-                          </div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-success w-100" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          <img src="../assets/img/small-logos/logo-jira.svg" class="avatar avatar-sm me-3" alt="jira">
                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="../assets/img/small-logos/logo-jira.svg" class="avatar avatar-sm me-3" alt="jira">
-                          </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">Proyecto 5</h6>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">Proyecto 5</h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="avatar-group mt-2">
+                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Miguel Bencomo">
+                          <img src="../assets/img/team-11.jpg" alt="user5">
+                        </a>
+                      </div>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold"> En ejecución </span>
+                    </td>
+                    <td class="align-middle">
+                      <div class="progress-wrapper w-30 mx-auto">
+                        <div class="progress-info">
+                          <div class="progress-percentage">
+                            <span class="text-xs font-weight-bold">25%</span>
                           </div>
                         </div>
-                      </td>
-                      <td>
-                        <div class="avatar-group mt-2">
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Miguel Bencomo">
-                            <img src="../assets/img/team-11.jpg" alt="user5">
-                          </a>
+                        <div class="progress">
+                          <div class="progress-bar bg-gradient-info w-25" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="25"></div>
                         </div>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="text-xs font-weight-bold"> En ejecución </span>
-                      </td>
-                      <td class="align-middle">
-                        <div class="progress-wrapper w-30 mx-auto">
-                          <div class="progress-info">
-                            <div class="progress-percentage">
-                              <span class="text-xs font-weight-bold">25%</span>
-                            </div>
-                          </div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-info w-25" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="25"></div>
-                          </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div>
+                          <img src="../assets/img/small-logos/logo-invision.svg" class="avatar avatar-sm me-3" alt="invision">
                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="../assets/img/small-logos/logo-invision.svg" class="avatar avatar-sm me-3" alt="invision">
-                          </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">Proyecto 6</h6>
-                          </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm">Proyecto 6</h6>
                         </div>
-                      </td>
-                      <td>
-                        <div class="avatar-group mt-2">
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Yoseli Guaramato">
-                            <img src="../assets/img/team-1.jpg" alt="user6">
-                          </a>
-                          <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Miguel Bencomo">
-                            <img src="../assets/img/team-11.jpg" alt="user7">
-                          </a>
-                        </div>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="text-xs font-weight-bold"> En ejecución </span>
-                      </td>
-                      <td class="align-middle">
-                        <div class="progress-wrapper w-30 mx-auto">
-                          <div class="progress-info">
-                            <div class="progress-percentage">
-                              <span class="text-xs font-weight-bold">40%</span>
-                            </div>
-                          </div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-info w-40" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="40"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="avatar-group mt-2">
+                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Yoseli Guaramato">
+                          <img src="../assets/img/team-1.jpg" alt="user6">
+                        </a>
+                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Miguel Bencomo">
+                          <img src="../assets/img/team-11.jpg" alt="user7">
+                        </a>
+                      </div>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold"> En ejecución </span>
+                    </td>
+                    <td class="align-middle">
+                      <div class="progress-wrapper w-30 mx-auto">
+                        <div class="progress-info">
+                          <div class="progress-percentage">
+                            <span class="text-xs font-weight-bold">40%</span>
                           </div>
                         </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                        <div class="progress">
+                          <div class="progress-bar bg-gradient-info w-40" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="40"></div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
-        <!-- <div class="col-lg-4 col-md-6">
+      </div>
+      <!-- <div class="col-lg-4 col-md-6">
           <div class="card h-100">
             <div class="card-header pb-0">
               <h6>Orders overview</h6>
@@ -756,8 +756,8 @@ if (!isset($_SESSION['id'])) {
           </div>
         </div>
       </div>-->
- 
-    
+
+
     </div>
   </main>
   <div class="fixed-plugin">
@@ -841,7 +841,7 @@ if (!isset($_SESSION['id'])) {
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/chartjs.min.js"></script>
   <script>
-   var ctx = document.getElementById("chart-bars").getContext("2d");
+    var ctx = document.getElementById("chart-bars").getContext("2d");
 
     new Chart(ctx, {
       type: "bar",

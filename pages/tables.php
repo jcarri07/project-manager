@@ -3,7 +3,7 @@ require_once('../databases/conexion.php');
 session_start();
 
 
-if (!isset($_SESSION['id'])) {
+if (!isset($_SESSION['id_miembro'])) {
   // Redirigir al usuario a la página de inicio de sesión
   header("Location: ../index.php");
 }

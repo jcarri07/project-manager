@@ -23,6 +23,21 @@ require_once('../databases/conexion.php');
 if ($_GET['act'] == 'insert') {
 	if (isset($_POST['Guardar'])) {
 
+		$cont = 0;
+		$sql0 = ("SELECT * FROM projects");
+		$result = mysqli_query($conn, $sql0);
+		$datos = array();
+
+		while ($row = mysqli_fetch_array($result)) {
+			$cont++;
+		}
+
+		if ($cont == 0) {
+			$DIDM = 1;
+		} else {
+			$DIDM = $cont + 1;
+		}
+
 		$nombre = mysqli_real_escape_string($conn, trim($_POST['nombre']));
 		$descripcion  = mysqli_real_escape_string($conn, trim($_POST['descripcion']));
 		$lider = mysqli_real_escape_string($conn, trim($_POST['lider']));
@@ -35,6 +50,8 @@ if ($_GET['act'] == 'insert') {
 		$fecha_inicio = mysqli_real_escape_string($conn, trim($_POST['fecha_inicio']));
 		$fecha_fin = mysqli_real_escape_string($conn, trim($_POST['fecha_fin']));
 		$act = 1;
+		$rol = "Lider";
+		$fecha_regist = mysqli_real_escape_string($conn, trim($_POST['fecha_reg']));
 
 		$name_file          = $_FILES['foto']['name'];
 		$ukuran_file        = $_FILES['foto']['size'];
@@ -56,11 +73,16 @@ if ($_GET['act'] == 'insert') {
 
 				if ((is_uploaded_file($_FILES["foto"]["tmp_name"]) && move_uploaded_file($_FILES["foto"]["tmp_name"], $carpeta_destino . $nombre_archivo1))) {
 
-					$query = mysqli_query($conn, "INSERT INTO projects(nombre, descripcion, avance, imagen, fecha_inicio, fecha_fin, categoria, objetivos, beneficiarios, requerimientos, estatus, activo)
-																							VALUES('$nombre','$descripcion','$avance','$Destino1','$fecha_inicio','$fecha_fin','$categoria','$objetivos','$beneficiarios','$requerimientos','$estatus', '$act')")
+					$query = mysqli_query($conn, "INSERT INTO projects(id_proyecto, id_manager, nombre, descripcion, avance, imagen, fecha_inicio, fecha_fin, categoria, objetivos, beneficiarios, requerimientos, estatus, activo)
+																							VALUES('$DIDM','$lider','$nombre','$descripcion','$avance','$Destino1','$fecha_inicio','$fecha_fin','$categoria','$objetivos','$beneficiarios','$requerimientos','$estatus', '$act')")
 						or die('error: ' . mysqli_error($conn));
 
 					if ($query) {
+
+						$Sql_2 = "INSERT INTO project_miembro(id_proyecto, id_miembro, rol_proyecto, fecha_asignacion) 
+						VALUES ('$DIDM','$lider','$rol','$fecha_regist')";
+
+						$Carg_project_miembro = mysqli_query($conn, $Sql_2);
 
 						header("location: ../pages/profile.php?alert=1");
 					} else {
@@ -76,6 +98,11 @@ if ($_GET['act'] == 'insert') {
 				or die('error: ' . mysqli_error($conn));
 
 			if ($query) {
+
+				$Sql_2 = "INSERT INTO project_miembro(id_proyecto, id_miembro, rol_proyecto, fecha_asignacion) 
+						VALUES ('$DIDM','$lider','$rol','$fecha_regist')";
+				$Carg_project_miembro = mysqli_query($conn, $Sql_2);
+
 				header("location: ../pages/profile.php?alert=1");
 			}
 		}

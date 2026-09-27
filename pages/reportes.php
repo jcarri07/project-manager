@@ -12,19 +12,18 @@
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
-<?php 
-  require_once('../databases/conexion.php');
-  session_start();
+<?php
+require_once('../databases/conexion.php');
+session_start();
 
-  $query = mysqli_query($conn, "SELECT * FROM project_managers WHERE id='$_SESSION[id]'")
-                                or die('error: '.mysqli_error($conn));
-  $data = mysqli_fetch_assoc($query);
+$query = mysqli_query($conn, "SELECT * FROM project_miembro WHERE id_miembro ='$_SESSION[id_miembro]'")
+  or die('error: ' . mysqli_error($conn));
+$data = mysqli_fetch_assoc($query);
 
-  if (!isset($_SESSION['id'])) {
-    // Redirigir al usuario a la página de inicio de sesión
-    header("Location: ../index.php");
-  
-  }
+if (!isset($_SESSION['id_miembro'])) {
+  // Redirigir al usuario a la página de inicio de sesión
+  header("Location: ../index.php");
+}
 
 ?>
 
@@ -80,7 +79,7 @@
             <span class="nav-link-text ms-1">Proyectos</span>
           </a>
         </li>
-       <!--<li class="nav-item">
+        <!--<li class="nav-item">
           <a class="nav-link text-white " href="../pages/billing.html">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">receipt_long</i>
@@ -123,7 +122,7 @@
             <span class="nav-link-text ms-1">Perfil</span>
           </a>
         </li>
-      <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link text-white " href="../logout.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">login</i>
@@ -141,7 +140,7 @@
         </li>
       </ul>
     </div>-->
-    <!--<div class="sidenav-footer position-absolute w-100 bottom-0 ">
+        <!--<div class="sidenav-footer position-absolute w-100 bottom-0 ">
       <div class="mx-3">
         <a class="btn bg-gradient-primary mt-4 w-100" href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
       </div>
@@ -158,7 +157,7 @@
           </ol>
           <h6 class="font-weight-bolder mb-0">Reporte</h6>
         </nav>
-       <!--<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+        <!--<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group input-group-outline">
               <label class="form-label">Type here...</label>
@@ -169,22 +168,22 @@
             <li class="nav-item d-flex align-items-center">
               <a class="btn btn-outline-primary btn-sm mb-0 me-3" target="_blank" href="https://www.creative-tim.com/builder/material?ref=navbar-dashboard">Online Builder</a>
             </li>-->
-            <li class="nav-item d-flex align-items-center">
-              <a href="../logout.php" class="nav-link text-body font-weight-bold px-0">
-                <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">Cerrar Sesión</span>
-              </a>
-            </li>
-            <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
-                <div class="sidenav-toggler-inner">
-                  <i class="sidenav-toggler-line"></i>
-                  <i class="sidenav-toggler-line"></i>
-                  <i class="sidenav-toggler-line"></i>
-                </div>
-              </a>
-            </li>
-          <!--  <li class="nav-item px-3 d-flex align-items-center">
+        <li class="nav-item d-flex align-items-center">
+          <a href="../logout.php" class="nav-link text-body font-weight-bold px-0">
+            <i class="fa fa-user me-sm-1"></i>
+            <span class="d-sm-inline d-none">Cerrar Sesión</span>
+          </a>
+        </li>
+        <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+          <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+            <div class="sidenav-toggler-inner">
+              <i class="sidenav-toggler-line"></i>
+              <i class="sidenav-toggler-line"></i>
+              <i class="sidenav-toggler-line"></i>
+            </div>
+          </a>
+        </li>
+        <!--  <li class="nav-item px-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-body p-0">
                 <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
               </a>
@@ -444,7 +443,7 @@
       </footer>
     </div>-->
   </main>
- <!-- <div class="fixed-plugin">
+  <!-- <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
       <i class="material-icons py-2">settings</i>
     </a>
@@ -459,12 +458,12 @@
             <i class="material-icons">clear</i>
           </button>
         </div> -->
-        <!-- End Toggle Button -->
-     <!-- </div>
+  <!-- End Toggle Button -->
+  <!-- </div>
       <hr class="horizontal dark my-1">
       <div class="card-body pt-sm-3 pt-0">
         <!-- Sidebar Backgrounds -->
-       <!-- <div>
+  <!-- <div>
           <h6 class="mb-0">Sidebar Colors</h6>
         </div>
         <a href="javascript:void(0)" class="switch-trigger background-color">
@@ -477,8 +476,8 @@
             <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
           </div>
         </a> -->
-        <!-- Sidenav Type -->
-        <!--<div class="mt-3">
+  <!-- Sidenav Type -->
+  <!--<div class="mt-3">
           <h6 class="mb-0">Sidenav Type</h6>
           <p class="text-sm">Choose between 2 different sidenav types.</p>
         </div>
@@ -488,8 +487,8 @@
           <button class="btn bg-gradient-dark px-3 mb-2 ms-2" data-class="bg-white" onclick="sidebarType(this)">White</button>
         </div>
         <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>-->
-        <!-- Navbar Fixed -->
-       <!-- <div class="mt-3 d-flex">
+  <!-- Navbar Fixed -->
+  <!-- <div class="mt-3 d-flex">
           <h6 class="mb-0">Navbar Fixed</h6>
           <div class="form-check form-switch ps-0 ms-auto my-auto">
             <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
