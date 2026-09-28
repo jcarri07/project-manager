@@ -32,18 +32,25 @@ if ($_GET['act'] == 'insert_init') {
 		$D_fecha = mysqli_real_escape_string($conn, trim($_POST['fecha_reg']));
 		$D_estatus = "activo";
 
-		$Sqll_1 = "INSERT INTO members(cedula, nombre, apellido, email, especialidad, registrado) 
-		VALUES ('$D_cedula','$D_nombres','$D_apellidos','$D_correo','$D_especialidad','$D_fecha')";
-		$Carg1 = mysqli_query($conn, $Sqll_1);
+		$carpeta_destino = "../assets/img/img_users/";
 
-		$Sqll_2 = "INSERT INTO users(cedula, email, password_hash, fecha_creacion, estatus) 
-		VALUES ('$D_cedula','$D_correo','$D_password','$D_fecha','$D_estatus')";
-		$Carg2 = mysqli_query($conn, $Sqll_2);
+		$nombre_archivo1 = basename($_FILES["foto_reg"]["name"]);
+		$extension1 = strtolower(pathinfo($nombre_archivo1, PATHINFO_EXTENSION));
+		$Destino1 = $carpeta_destino . $nombre_archivo1;
 
+		if ((is_uploaded_file($_FILES["foto_reg"]["tmp_name"]) && move_uploaded_file($_FILES["foto_reg"]["tmp_name"], $carpeta_destino . $nombre_archivo1))) {
 
-		if (($Carg1) && ($Carg2)) {
+			$Sqll_1 = "INSERT INTO members(cedula, nombre, apellido, email, especialidad, foto_personal, registrado) 
+				VALUES ('$D_cedula','$D_nombres','$D_apellidos','$D_correo','$D_especialidad','$Destino1','$D_fecha')";
+			$Carg1 = mysqli_query($conn, $Sqll_1);
 
-			header("location: ../index.php");
+			$Sqll_2 = "INSERT INTO users(cedula, email, password_hash, fecha_creacion, foto_personal, estatus) 
+				VALUES ('$D_cedula','$D_correo','$D_password','$D_fecha','$Destino1','$D_estatus')";
+			$Carg2 = mysqli_query($conn, $Sqll_2);
+
+			if (($Carg1) && ($Carg2)) {
+				header("location: ../index.php");
+			}
 		}
 	}
 }

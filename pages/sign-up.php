@@ -68,7 +68,10 @@ require_once('../databases/conexion.php');
                       <label class="form-label">Contraseña:</label>
                       <input type="password" class="form-control" name="password_reg" id="password_reg" required>
                     </div>
-
+                    <div class="input-group input-group-outline mb-3 is-filled">
+                      <label class="form-label">Fotografia:</label>
+                      <input type="file" class="form-control" name="foto_reg" id="foto_reg" required>
+                    </div>
                     <div class="input-group input-group-outline mb-3 is-filled">
                       <label class="form-label">Fecha de Registro:</label><br>
                       <input type="datetime-local" class="form-control" id="fecha_reg" name="fecha_reg" readonly>

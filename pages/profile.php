@@ -463,7 +463,7 @@ if (!isset($_SESSION['id_miembro'])) {
               </div>
             </div>
             <div class="col-lg-8 col-md-6 mt-4 mb-3" style="padding-left:300px;">
-              <!-- <div class="card z-index-2">
+              <div class="card z-index-2">
                 <div class="card-header pb-0 p-3">
                   <h6 class="mb-2">Miembros:</h6>
                 </div>
@@ -519,21 +519,21 @@ if (!isset($_SESSION['id_miembro'])) {
                       </div>
                       <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto w-25 w-md-auto" href="javascript:;">...</a>
                     </li>
-                  </ul>-->
+                  </ul>
 
-              <table class=" table table-responsive-lg">
+                  <table class=" table table-responsive-lg">
 
-                <tbody>
+                    <tbody>
 
-                </tbody>
-              </table>
+                    </tbody>
+                  </table>
 
 
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <!--
+            <!--
 
             <div class="col-12 mt-4">
               <div class="mb-5 ps-3">
@@ -682,11 +682,11 @@ if (!isset($_SESSION['id_miembro'])) {
             </div>
           -->
 
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  </div>
-  <!-- <footer class="footer py-4  ">
+    <!-- <footer class="footer py-4  ">
       <div class="container-fluid">
         <div class="row align-items-center justify-content-lg-between">
           <div class="col-lg-6 mb-lg-0 mb-4">
