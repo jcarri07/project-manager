@@ -42,7 +42,7 @@ require_once('../databases/conexion.php');
                   <p class="mb-0" style="display: flex; justify-content: center;">Ingresa tus datos:</p>
                 </div>
                 <div class="card-body" style="padding-top: 5px;">
-                  <form role="form" class="form-horizontal" method="POST" action="../pages/proses_sign-up.php?act=insert_init" enctype="multipart/form-data">
+                  <form role="form" class="form-horizontal" method="POST" action="../pages/proses_users.php?act=insert_members_users" enctype="multipart/form-data">
 
                     <div class="input-group input-group-outline mb-3">
                       <label class="form-label">Nombres:</label>
