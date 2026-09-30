@@ -79,6 +79,57 @@ if ($_GET['act'] == 'insert_members_users') {
 			}
 		}
 	}
+} elseif ($_GET['act'] == 'update_miembros') {
+
+	if (isset($_POST['Guardar'])) {
+
+		$D_id_miemb  = mysqli_real_escape_string($conn, trim($_POST['edit_id_miem']));
+		$D_cedul_miemb  = mysqli_real_escape_string($conn, trim($_POST['edit_ced_miem']));
+		$D_nombres_edit  = mysqli_real_escape_string($conn, trim($_POST['edit_nombre_miem']));
+		$D_apellidos_edit = mysqli_real_escape_string($conn, trim($_POST['edit_apell_miem']));
+		$D_correo_edit = mysqli_real_escape_string($conn, trim($_POST['edit_corr_miem']));
+		$D_especialidad_edit = mysqli_real_escape_string($conn, trim($_POST['edit_esp_miem']));
+
+		$carpeta_destino = "../assets/img/img_users/";
+
+		$nombre_archivo1 = basename($_FILES["Arc_fot_miem"]["name"]);
+		$extension1 = strtolower(pathinfo($nombre_archivo1, PATHINFO_EXTENSION));
+
+		$Destino1 = $carpeta_destino . $nombre_archivo1;
+
+		if (($extension1 == "png") || ($extension1 == "jpg")) {
+
+			if ((is_uploaded_file($_FILES["Arc_fot_miem"]["tmp_name"]) && move_uploaded_file($_FILES["Arc_fot_miem"]["tmp_name"], $carpeta_destino . $nombre_archivo1))) {
+
+				$C1 = ("UPDATE members SET foto_personal = '$Destino1' WHERE members.id_miembro='$D_id_miemb' ");
+
+				$Carg1 = mysqli_query($conn, $C1);
+
+				$C2 = ("UPDATE users SET foto_personal = '$Destino1' WHERE users.cedula='$D_cedul_miemb' ");
+
+				$Carg2 = mysqli_query($conn, $C2);
+
+				if (!$Carg1) {
+					header("location: ../pages/pag_admin_users.php?alert=3");
+				}
+			}
+		}
+
+		$C3 = "UPDATE members SET nombre = '$D_nombres_edit', apellido = '$D_apellidos_edit', email = '$D_correo_edit', especialidad = '$D_especialidad_edit' WHERE members.id_miembro='$D_id_miemb' ";
+
+		$Carg3 = mysqli_query($conn, $C3);
+
+		$C4 = ("UPDATE users SET email = '$D_correo_edit' WHERE users.cedula='$D_cedul_miemb' ");
+
+		$Carg4 = mysqli_query($conn, $C4);
+
+		if ($Carg3) {
+			//echo ("$C3 " . " " . "Hola 3 " . " $C2");
+			header("location: ../pages/pag_admin_users.php?alert=2");
+		} else {
+			header("location: ../pages/pag_admin_users.php?alert=3");
+		}
+	}
 }
 
 /*

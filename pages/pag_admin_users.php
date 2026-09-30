@@ -19,7 +19,7 @@
 
   <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="../assets/css/material-modal.css">
-  <!-- <link rel="stylesheet" href="../assets/css/dash-modal.css"> -->
+  <link rel="stylesheet" href="../assets/css/dash-modal_miemb.css">
   <link rel="stylesheet" href="../assets/DataTable/datatables.min.css">
   <link rel="stylesheet" href="../assets/css/code_tables.css">
 </head>
@@ -295,7 +295,7 @@
           </div>
         </div>
         <!-- ------------------------------------------------------------------------------------------------------------------ -->
-        <div class="col-md-8 mt-4">
+        <div class="col-md-6 mt-4">
           <div class="card h-100 mb-4">
             <div class="card-body pt-4 p-3">
               <ul class="list-group">
@@ -328,16 +328,103 @@
 
   </main>
 
+  <!-- --------------------------------------------------------------------------------------------------------------- -->
+
+  <div class="modal w3-container" id="myModal_1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content w3-animate-opacity">
+        <div class="w3-container w3-teal">
+          <br>
+          <p class="modal-title" style="color: black;">Datos Registrados</p>
+          <br>
+          <div class="w3-center">
+            <span onclick="document.getElementById('id01').style.display='none'" id="closeAndRedirect" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+          </div>
+        </div>
+
+        <div class="w3-container modal-body" id="modalBody">
+
+          <form class="row g-3" action="../pages/proses_users.php?act=update_miembros" id="form-upload" enctype="multipart/form-data" method="POST">
+
+            <input type="hidden" style="display:none" class="form-control" id="edit_id_miem" name="edit_id_miem" readonly>
+
+            <div class="row g-3">
+
+              <div class="col-md-4" style="color:black">
+                <label for="Comando" class="form-label">Cedula: </label>
+                <input type="text" class="form-control" id="edit_ced_miem" name="edit_ced_miem" readonly>
+              </div>
+
+              <div class="col-md-4" style="color:black">
+                <label for="Comando" class="form-label">Nombre: </label>
+                <input type="text" class="form-control" id="edit_nombre_miem" name="edit_nombre_miem">
+              </div>
+
+              <div class="col-md-4" style="color:black">
+                <label for="Comando" class="form-label">Apellido: </label>
+                <input type="text" class="form-control" id="edit_apell_miem" name="edit_apell_miem">
+              </div>
+
+            </div>
+
+            <br>
+
+            <div class="row g-3">
+
+              <div class="col-md-4" style="color:black">
+                <label for="Comando" class="form-label">Correo: </label>
+                <input type="text" class="form-control" id="edit_corr_miem" name="edit_corr_miem">
+              </div>
+
+              <div class="col-md-4" style="color:black">
+                <label for="Comando" class="form-label">Especialidad: </label>
+                <input type="text" class="form-control" id="edit_esp_miem" name="edit_esp_miem">
+              </div>
+
+              <div class="col-md-4" style="color:black">
+                <label for="fecha">Archivo Fotografico (PNG/JPG): </label><br>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="check_Arc_fot_miem" checked>
+                  <label class="form-check-label" for="check_Arc_fot_miem"></label>
+                </div>
+                <input type="file" class="form-control" id="Arc_fot_miem" name="Arc_fot_miem">
+              </div>
+
+            </div>
+            <br><br><br><br>
+
+            <div class="d-grid gap-2 col-6 mx-auto">
+
+              <button type="submit" class="btn btn-primary" id="Redirect" name="Guardar" value="Guardar" data-bs-dismiss="modal">Editar</button>
+
+            </div>
+
+            <br><br>
+
+          </form>
+
+        </div>
+
+        <div class="w3-teal modal-footer">
+          <br><br>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <!-- ------------------------------------------------------------------------------------------------------------------ -->
 
   </div>
   <!--   Core JS Files   -->
+  <script src="../assets/js/material-dashboard.min.js?v=3.0.4"></script>
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="../assets/jqery/jquery.js"></script>
   <script src="../assets/DataTable/datatables.min.js"></script>
+
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -347,7 +434,6 @@
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
-  <script src="../assets/js/material-dashboard.min.js?v=3.0.4"></script>
 
   <script>
     $(document).ready(function() {
@@ -381,7 +467,7 @@
             "data": "foto_personal",
             "render": function(data, type, row) {
               let img = data ? data : '../assets/img/default.png';
-              return ` <div class="d-flex justify-content-center"> <img src="${img}" alt="Proyecto" class="avatar avatar-lg border-radius-lg shadow-sm" style="width:55px; height:55px; object-fit:cover;"> </div> `;
+              return ` <div class="d-flex justify-content-center"> <img src="${img}" alt="foto" class="avatar avatar-lg border-radius-lg shadow-sm" style="width:55px; height:55px; object-fit:cover;"> </div> `;
             }
           },
           {
@@ -431,7 +517,7 @@
             "data": "foto_personal",
             "render": function(data, type, row) {
               let img = data ? data : '../assets/img/default.png';
-              return ` <div class="d-flex justify-content-center"> <img src="${img}" alt="Proyecto" class="avatar avatar-lg border-radius-lg shadow-sm" style="width:55px; height:55px; object-fit:cover;"> </div> `;
+              return ` <div class="d-flex justify-content-center"> <img src="${img}" alt="foto" class="avatar avatar-lg border-radius-lg shadow-sm" style="width:55px; height:55px; object-fit:cover;"> </div> `;
             }
           },
         ]
@@ -481,9 +567,9 @@
 
       console.log("ID seleccionado:", id);
 
-      document.getElementById('edit_id_Proy').value = id;
+      document.getElementById('edit_id_miem').value = id;
 
-      const modalElement = document.getElementById('myModal');
+      const modalElement = document.getElementById('myModal_1');
       const modal = new bootstrap.Modal(modalElement);
 
       modal.show();
@@ -505,17 +591,13 @@
             return;
           }
 
-          const proyecto = respuesta.data;
-          $('#edit_id_Proy').val(proyecto.id_proyecto);
-          $('#edit_nombre_proy').val(proyecto.nombre);
-          $('#edit_avance').val(proyecto.avance);
-          $('#edit_fecha_fin').val(proyecto.fecha_fin);
-          $('#edit_categoria_proy').val(proyecto.categoria);
-          $('#edit_ben_proy').val(proyecto.beneficiarios);
-          $('#edit_descrip_proy').val(proyecto.descripcion);
-          $('#edit_objec_proy').val(proyecto.objetivos);
-          $('#edit_objec_requer').val(proyecto.requerimientos);
-          $('#edit_est').val(proyecto.estatus);
+          const data_personal = respuesta.data;
+          $('#edit_id_miem').val(data_personal.id_miembro);
+          $('#edit_ced_miem').val(data_personal.cedula);
+          $('#edit_nombre_miem').val(data_personal.nombre);
+          $('#edit_apell_miem').val(data_personal.apellido);
+          $('#edit_corr_miem').val(data_personal.email);
+          $('#edit_esp_miem').val(data_personal.especialidad);
 
         },
 
@@ -524,12 +606,22 @@
           console.error("Error AJAX:");
           console.error(xhr.responseText);
 
-          alert('Error al obtener los datos del proyecto.');
+          alert('Error al obtener los datos del miembros.');
 
         }
       });
     }
   </script>
+
+  <script>
+    const closeAndRedirectButton = document.getElementById("closeAndRedirect");
+    if (closeAndRedirectButton) {
+      closeAndRedirectButton.addEventListener("click", function() {
+        window.location.href = "./pag_admin_users.php";
+      });
+    }
+  </script>
+
 
 </body>
 

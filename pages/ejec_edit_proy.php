@@ -28,7 +28,7 @@ if (($extension1 == "png") || ($extension1 == "jpg")) {
 
 
         $C1 = ("UPDATE projects SET imagen = '$Destino1'
-        WHERE projects.id='$D1' ");
+        WHERE projects.id_proyecto='$D1' ");
 
         $Carg1 = mysqli_query($conn, $C1);
     }
@@ -38,12 +38,12 @@ if (($D9 == "Completado") && ($D3 == 100)) {
 
 
     $sq1 = "UPDATE projects SET nombre = '$D2', avance = '$D3', fecha_fin = '$D4', categoria = '$D5', descripcion = '$D6', objetivos = '$D7',
-                beneficiarios = '$D10', requerimientos = '$D8', estatus = '$D9', activo = '0' WHERE projects.id='$D1' ";
+                beneficiarios = '$D10', requerimientos = '$D8', estatus = '$D9', activo = '0' WHERE projects.id_proyecto='$D1' ";
     $resultado = mysqli_query($conn, $sq1);
 } else {
 
     $sq1 = "UPDATE projects SET nombre = '$D2', avance = '$D3', fecha_fin = '$D4', categoria = '$D5', descripcion = '$D6', objetivos = '$D7',
-                beneficiarios = '$D10', requerimientos = '$D8', estatus = '$D9' WHERE projects.id='$D1' ";
+                beneficiarios = '$D10', requerimientos = '$D8', estatus = '$D9' WHERE projects.id_proyecto='$D1' ";
     $resultado = mysqli_query($conn, $sq1);
 }
 
