@@ -1,0 +1,20 @@
+<?php
+
+
+session_start();
+$id = $_SESSION["id_users"];
+
+include_once __DIR__ . ('/../../databases/conexion.php');
+$objeto = new Conexion();
+$conexion = $objeto->Conectar();
+
+$consulta = "SELECT * FROM memo,tickets,empleados WHERE memo.id_empleados=empleados.id_empleados AND memo.id_empleados=tickets.id_empleados AND memo.ID_Memo=tickets.id_tickets AND empleados.id_empleados=$id";
+$resultado = $conexion->prepare($consulta);
+$resultado->execute();
+$data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+print json_encode($data, JSON_UNESCAPED_UNICODE);
+
+$conexion = null;
+
+session_abort();
