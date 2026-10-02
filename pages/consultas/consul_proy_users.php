@@ -4,11 +4,11 @@
 session_start();
 $id = $_SESSION["id_users"];
 
-include_once __DIR__ . ('/../../databases/conexion.php');
+include_once __DIR__ . ('/../../databases/conexion_crud.php');
 $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 
-$consulta = "SELECT * FROM memo,tickets,empleados WHERE memo.id_empleados=empleados.id_empleados AND memo.id_empleados=tickets.id_empleados AND memo.ID_Memo=tickets.id_tickets AND empleados.id_empleados=$id";
+$consulta = "SELECT * FROM project_miembro,members,projects WHERE project_miembro.id_proyecto=projects.id_proyecto AND project_miembro.id_miembro=members.id_miembro AND project_miembro.rol_proyecto='Lider' AND members.id_miembro='$id'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

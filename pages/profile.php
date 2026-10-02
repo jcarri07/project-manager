@@ -234,16 +234,14 @@ if (!isset($_SESSION['id_miembro'])) {
                       <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
 
                         <div class="table-responsive">
-                          <table id="tabla_miembros" class="table align-items-center justify-content-center" style="width:100%">
+                          <table id="tabla_proy" class="table align-items-center justify-content-center" style="width:100%">
                             <thead>
                               <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">CEDULA</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">NOMBRE</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">APELLIDO</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">CORREO</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ESPECIALIDAD</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">FOTO</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">EDITAR</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">DESCRIPCION</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">OBJETIVOS</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">F.INICIO</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">F.CIERRA</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -279,30 +277,34 @@ if (!isset($_SESSION['id_miembro'])) {
   <script src="../assets/DataTable/datatables.min.js"></script>
 
 
+
   <script>
     $(document).ready(function() {
-      $('#example').DataTable({
+      $('#tabla_proy').DataTable({
+        autoWidth: false,
+        responsive: true,
+        pageLength: 5,
         "language": {
-          "url": "./js/DataEsp.json"
+          "url": "../assets/js/DataEsp.json"
         },
         "ajax": {
-          "url": "./Consul_blog_usu.php",
+          "url": "./consultas/consul_proy_users.php",
           "dataSrc": ""
         },
         "columns": [{
-            "data": "ID_Memo"
+            "data": "nombre"
           },
           {
-            "data": "username"
+            "data": "descripcion"
           },
           {
-            "data": "Asunto"
+            "data": "objetivos"
           },
           {
-            "data": "Estado"
+            "data": "fecha_inicio"
           },
           {
-            "data": "Fecha_Ult_Actualizacion"
+            "data": "fecha_fin"
           }
         ]
       });
