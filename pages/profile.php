@@ -171,7 +171,10 @@ if (!isset($_SESSION['id_miembro'])) {
                     </div>
                     <ul class="list-group">
                       <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                        <form role="form" class="form-horizontal" method="POST" action="../pages/proses_users.php?act=insert_members_users" enctype="multipart/form-data">
+                        <form role="form" class="form-horizontal" method="POST" action="../pages/proses_users.php?act=update_members_users" enctype="multipart/form-data">
+
+                          <input type="hidden" style="display:none" class="form-control" id="data_id_prev" name="data_id_prev" value="<?php echo $data_2['id_usuario']; ?>">
+                          <input type="hidden" style="display:none" class="form-control" id="data_cedul_ini" name="data_cedul_ini" value="<?php echo $data_2['cedula']; ?>">
 
                           <div class="input-group input-group-outline mb-3 is-filled">
                             <label class="form-label">Nombres:</label>
@@ -193,16 +196,25 @@ if (!isset($_SESSION['id_miembro'])) {
                             <label class="form-label">Especialidad:</label>
                             <input type="text" class="form-control" value="<?php echo $data['especialidad']; ?>" name="especialidad_user" id="especialidad_user" required>
                           </div>
+
                           <div class="input-group input-group-outline mb-3 is-filled">
                             <label class="form-label">Contraseña:</label>
                             <input type="password" class="form-control" value="<?php echo $data_2['password_hash']; ?>" name="password_user" id="password_user" required>
                           </div>
-                          <div class="input-group input-group-outline mb-3 is-filled">
-                            <img src="<?php echo $data['foto_personal']; ?>" alt="ERROR">
+                          <div class="mb-3">
+                            <input class="form-check-input" type="checkbox" id="ShowPassword">
+                            <label class="form-check-label" for="ShowPassword">
+                              Visualizar Contraseña
+                            </label>
                           </div>
+
                           <div class="input-group input-group-outline mb-3 is-filled">
-                            <label class="form-label">Fotografia:</label>
-                            <input type="file" class="form-control" name="foto_user" id="foto_user" required>
+                            <label class="form-label">Fotografía:</label>
+                            <input type="file" class="form-control" name="foto_user" id="foto_user" accept="image/*" onchange="previewImage(event)">
+                          </div>
+
+                          <div class="input-group input-group-outline mb-3 is-filled">
+                            <img id="preview" src="<?php echo $data['foto_personal']; ?>" alt="Vista previa" style="max-width: 100px; max-height: 70px; border-radius: 8px; border: 1px solid #ccc; display: block;">
                           </div>
 
                           <div class="text-center">
@@ -296,6 +308,35 @@ if (!isset($_SESSION['id_miembro'])) {
       });
     });
   </script>
+
+  <script>
+    function previewImage(event) {
+      const input = event.target;
+      const preview = document.getElementById('preview');
+
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+          preview.src = e.target.result;
+          preview.style.display = 'block';
+        };
+
+        reader.readAsDataURL(input.files[0]);
+      } else {
+        preview.src = '<?php echo $data['foto_personal']; ?>';
+      }
+    }
+  </script>
+
+  <script>
+    $(document).ready(function() {
+      $('#ShowPassword').click(function() {
+        $('#password_user').attr('type', $(this).is(':checked') ? 'text' : 'password');
+      });
+    });
+  </script>
+
 
 </body>
 

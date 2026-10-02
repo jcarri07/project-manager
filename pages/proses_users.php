@@ -130,6 +130,60 @@ if ($_GET['act'] == 'insert_members_users') {
 			header("location: ../pages/pag_admin_users.php?alert=3");
 		}
 	}
+} elseif ($_GET['act'] == 'update_members_users') {
+
+	if (isset($_POST['Guardar'])) {
+
+		$Data_cedul_prev = mysqli_real_escape_string($conn, trim($_POST['data_cedul_ini']));
+		$D_id_users  = mysqli_real_escape_string($conn, trim($_POST['data_id_prev']));
+
+		$D_cedul_users  = mysqli_real_escape_string($conn, trim($_POST['cedula_users']));
+		$D_nombres_users  = mysqli_real_escape_string($conn, trim($_POST['nombres_users']));
+		$D_apellidos_users = mysqli_real_escape_string($conn, trim($_POST['apellidos_user']));
+		$D_correo_users = mysqli_real_escape_string($conn, trim($_POST['correo_user']));
+		$D_especialidad_users = mysqli_real_escape_string($conn, trim($_POST['especialidad_user']));
+		$D_password_users = mysqli_real_escape_string($conn, trim($_POST['password_user']));
+
+		$carpeta_destino = "../assets/img/img_users/";
+
+		$nombre_archivo1 = basename($_FILES["foto_user"]["name"]);
+		$extension1 = strtolower(pathinfo($nombre_archivo1, PATHINFO_EXTENSION));
+
+		$Destino1 = $carpeta_destino . $nombre_archivo1;
+
+		if (($extension1 == "png") || ($extension1 == "jpg")) {
+
+			if ((is_uploaded_file($_FILES["foto_user"]["tmp_name"]) && move_uploaded_file($_FILES["foto_user"]["tmp_name"], $carpeta_destino . $nombre_archivo1))) {
+
+				$C1 = ("UPDATE members SET foto_personal = '$Destino1' WHERE members.cedula='$Data_cedul_prev' ");
+
+				$Carg1 = mysqli_query($conn, $C1);
+
+				$C2 = ("UPDATE users SET foto_personal = '$Destino1' WHERE users.id_usuario ='$D_id_users' ");
+
+				$Carg2 = mysqli_query($conn, $C2);
+
+				if (!$Carg1) {
+					header("location: ../pages/profile.php?alert=3");
+				}
+			}
+		}
+
+		$C3 = "UPDATE members SET cedula = '$D_cedul_users', nombre = '$D_nombres_users', apellido = '$D_apellidos_users', email = '$D_correo_users', especialidad = '$D_especialidad_users' WHERE members.cedula='$Data_cedul_prev' ";
+
+		$Carg3 = mysqli_query($conn, $C3);
+
+		$C4 = ("UPDATE users SET cedula = '$D_cedul_users', email = '$D_correo_users', password_hash = '$D_password_users' WHERE users.id_usuario ='$D_id_users' ");
+
+		$Carg4 = mysqli_query($conn, $C4);
+
+		if (($Carg3) && ($Carg4)) {
+			//echo ("$C3 " . " " . "Hola 3 " . " $C2");
+			header("location: ../pages/profile.php?alert=2");
+		} else {
+			header("location: ../pages/profile.php?alert=3");
+		}
+	}
 }
 
 /*
