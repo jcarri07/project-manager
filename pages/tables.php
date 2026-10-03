@@ -40,7 +40,7 @@ if (!isset($_SESSION['id_miembro'])) {
   <link rel="stylesheet" href="../assets/css/material-modal.css">
   <link rel="stylesheet" href="../assets/css/dash-modal.css">
   <link rel="stylesheet" href="../assets/DataTable/datatables.min.css">
-  <link rel="stylesheet" href="../assets/css/code_tables.css">
+  <link rel="stylesheet" href="../assets/css/code_tables_proyectos.css">
 </head>
 
 

@@ -9,19 +9,18 @@
   <title>
     Sistema de Gestion de Proyectos
   </title>
+  <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
+
   <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
-
   <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
-
   <link href="../assets/css/code_icon_navbar.css" rel="stylesheet">
 
-  <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
 
   <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="../assets/css/material-modal.css">
   <link rel="stylesheet" href="../assets/css/dash-modal_miemb.css">
   <link rel="stylesheet" href="../assets/DataTable/datatables.min.css">
-  <link rel="stylesheet" href="../assets/css/code_tables.css">
+  <link rel="stylesheet" href="../assets/css/code_tables_miemb_users.css">
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
@@ -103,27 +102,27 @@
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                   <form role="form" class="form-horizontal" method="POST" action="../pages/proses_users.php?act=insert_miembros" enctype="multipart/form-data">
 
-                    <div class="input-group input-group-outline my-3">
+                    <div class="input-group input-group-outline my-3 is-filled">
                       <label class="form-label">Nombres</label>
                       <input type="text" name="nombres_reg_min" id="nombres_reg_min" class="form-control">
                     </div>
 
-                    <div class="input-group input-group-outline mb-3">
+                    <div class="input-group input-group-outline mb-3 is-filled">
                       <label class="form-label">Apellidos</label>
                       <input type="text" name="apellidos_reg_min" id="apellidos_reg_min" class="form-control">
                     </div>
 
-                    <div class="input-group input-group-outline mb-3">
+                    <div class="input-group input-group-outline mb-3 is-filled">
                       <label class="form-label">Cedula</label>
                       <input type="text" name="cedula_reg_min" id="cedula_reg_min" class="form-control">
                     </div>
 
-                    <div class="input-group input-group-outline mb-3">
+                    <div class="input-group input-group-outline mb-3 is-filled">
                       <label class="form-label">Email</label>
                       <input type="text" name="email_reg_min" class="form-control">
                     </div>
 
-                    <div class="input-group input-group-outline mb-3">
+                    <div class="input-group input-group-outline mb-3 is-filled">
                       <label class="form-label">Especialidad</label>
                       <input type="text" name="especialidad_reg_min" id="especialidad_reg_min" class="form-control">
                     </div>
@@ -247,27 +246,27 @@
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                   <form role="form" class="form-horizontal" method="POST" action="../pages/proses_users.php?act=insert_members_users" enctype="multipart/form-data">
 
-                    <div class="input-group input-group-outline mb-3">
+                    <div class="input-group input-group-outline mb-3 is-filled">
                       <label class="form-label">Nombres:</label>
                       <input type="text" class="form-control" name="nombres_reg" id="nombres_reg" required>
                     </div>
-                    <div class="input-group input-group-outline mb-3">
+                    <div class="input-group input-group-outline mb-3 is-filled">
                       <label class="form-label">Apellidos:</label>
                       <input type="text" class="form-control" name="apellidos_reg" id="apellidos_reg" required>
                     </div>
-                    <div class="input-group input-group-outline mb-3">
+                    <div class="input-group input-group-outline mb-3 is-filled">
                       <label class="form-label">Cedula:</label>
                       <input type="text" class="form-control" name="cedula_reg" id="cedula_reg" required>
                     </div>
-                    <div class="input-group input-group-outline mb-3">
+                    <div class="input-group input-group-outline mb-3 is-filled">
                       <label class="form-label">Correo:</label>
                       <input type="email" class="form-control" name="correo_reg" id="correo_reg" required>
                     </div>
-                    <div class="input-group input-group-outline mb-3">
+                    <div class="input-group input-group-outline mb-3 is-filled">
                       <label class="form-label">Especialidad:</label>
                       <input type="text" class="form-control" name="especialidad_reg" id="especialidad_reg" required>
                     </div>
-                    <div class="input-group input-group-outline mb-3">
+                    <div class="input-group input-group-outline mb-3 is-filled">
                       <label class="form-label">Contraseña:</label>
                       <input type="password" class="form-control" name="password_reg" id="password_reg" required>
                     </div>

@@ -65,12 +65,6 @@ if (!isset($_SESSION['id_miembro'])) {
           </ol>
           <h6 class="font-weight-bolder mb-0">Proyectos</h6>
         </nav>
-        <li class="nav-item d-flex align-items-center">
-          <a href="../logout.php" class="nav-link text-body font-weight-bold px-0">
-            <i class="fa fa-user me-sm-1"></i>
-            <span class="d-sm-inline d-none">Cerrar Sesión</span>
-          </a>
-        </li>
 
     </nav>
     <!-- End Navbar -->
@@ -114,14 +108,12 @@ if (!isset($_SESSION['id_miembro'])) {
                     <form role="form" class="form-horizontal" method="POST" action="../pages/proses_proyecto.php?act=insert" enctype="multipart/form-data">
                       <form role="form" class="text-start">
 
-                        <input id="file-input" type="file" name="foto" style="display:none">
-
                         <label class="form-label">Lider del Proyecto</label>
                         <div class="input-group input-group-outline my-2">
                           <select class="form-select-lg" name="lider" data-placeholder="-- Seleccionar proyecto --" autocomplete="off" required>
                             <option value=""></option>
                             <?php
-                            $query_data = mysqli_query($conn, "SELECT id_miembro ,nombre, apellido, especialidad FROM members")
+                            $query_data = mysqli_query($conn, "SELECT id_miembro ,nombre, apellido, especialidad FROM members,users WHERE members.cedula = users.cedula")
                               or die('error ' . mysqli_error($conn));
 
                             while ($data_1 = mysqli_fetch_assoc($query_data)) {
@@ -201,7 +193,7 @@ if (!isset($_SESSION['id_miembro'])) {
                           <div class="col-md-1">
                             <label class="form-label"></label>
                             <div class="input-group input-group-outline my-2">
-                              <div><span id="rangeValue">50</span></div>
+                              <div><span id="rangeValue">0</span></div>
                             </div>
                           </div>
                         </div>
@@ -238,6 +230,7 @@ if (!isset($_SESSION['id_miembro'])) {
 
               </div>
             </div>
+            <!--
           <?php
         } elseif ($_GET['form'] == 'update') {
           if (isset($_GET['id'])) {
@@ -367,7 +360,7 @@ if (!isset($_SESSION['id_miembro'])) {
                 <?php
               }
                 ?>
-
+-->
 </body>
 
 </html>
