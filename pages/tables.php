@@ -350,6 +350,72 @@ if (!isset($_SESSION['id_miembro'])) {
     </div>
   </div>
 
+  <div class="modal w3-container" id="modalMiembros" data-bs-backdrop="static" data-bs-keyboard="false">
+
+    <div class="modal-dialog">
+
+      <div class="modal-content w3-animate-opacity">
+
+        <div class="w3-container w3-teal">
+          <br>
+          <p class="modal-title" style="color: black;">Miembros del Proyecto</p>
+          <br>
+          <div class="w3-center">
+            <span class="closeAndRedirect w3-button w3-xlarge w3-hover-red w3-display-topright"
+              data-modal="modalMiembros"
+              title="Close Modal">&times;</span>
+          </div>
+        </div>
+
+        <div class="modal-body">
+
+          <input type="hidden" id="miembros_id_proyecto" name="miembros_id_proyecto">
+
+          <button type="button"
+            class="btn btn-primary"
+            onclick="agregarFilaMiembro()">
+
+            <i class="fa-solid fa-user-plus"></i>
+
+            Agregar miembro
+
+          </button>
+
+
+          <hr>
+
+          <div class="table-responsive">
+
+            <table id="tabla_miembros_proy" class="table align-items-center justify-content-center" style="width:100%">
+
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Apellido</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cargo</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Correo</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
+                </tr>
+              </thead>
+
+              <tbody>
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+
+        <div class="w3-teal modal-footer">
+          <br><br>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
@@ -365,6 +431,26 @@ if (!isset($_SESSION['id_miembro'])) {
         window.location.href = "./tables.php";
       });
     }
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const modalMiembros = document.getElementById('modalMiembros');
+
+      if (!modalMiembros) return;
+      const botonesCerrar = modalMiembros.querySelectorAll('.closeAndRedirect');
+
+      botonesCerrar.forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          cerrarMiembrosYRedirigir();
+        });
+      });
+
+      function cerrarMiembrosYRedirigir() {
+        window.location.href = './tables.php';
+      }
+    });
   </script>
 
   <script>
@@ -421,6 +507,163 @@ if (!isset($_SESSION['id_miembro'])) {
       });
     }
   </script>
+
+  <script>
+    function abrirModalVerMiembros(id) {
+
+      console.log("ID del proyecto seleccionado:", id);
+
+      $('#miembros_id_proyecto').val(id);
+
+      const modalElement = document.getElementById('modalMiembros');
+      const modal = new bootstrap.Modal(modalElement);
+
+      modal.show();
+
+      cargarMiembros(id);
+    }
+  </script>
+  <script>
+    function cargarMiembros(idProyecto) {
+
+      console.log("Cargando miembros:", idProyecto);
+
+      $('#miembros_proyecto_id_texto').text(idProyecto);
+
+      if ($.fn.DataTable.isDataTable('#tabla_miembros_proy')) {
+        $('#tabla_miembros_proy').DataTable().destroy();
+      }
+
+      $('#tabla_miembros_proy').DataTable({
+
+        //autoWidth: false,
+        //responsive: true,
+        //pageLength: 5,
+
+        language: {
+          url: "../assets/js/DataEsp.json"
+        },
+
+        ajax: {
+          url: './consultas/consul_obtener_miemb.php',
+          type: 'GET',
+          data: {
+            id_proyecto: idProyecto
+          },
+          dataSrc: function(respuesta) {
+            console.log("Respuesta miembros:", respuesta);
+            if (!respuesta.success) {
+              alert(respuesta.message);
+              return [];
+            }
+            return respuesta.data;
+          }
+        },
+
+        columns: [{
+            data: 'id_miembro'
+          },
+          {
+            data: 'nombre'
+          },
+          {
+            data: 'apellido'
+          },
+          {
+            data: 'rol_proyecto'
+          },
+          {
+            data: 'email'
+          },
+          {
+            data: null,
+            render: function(data, type, row) {
+              return `
+                        <div class="btn-group" role="group">
+
+                            <button
+                                type="button"
+                                class="btn btn-sm btn-danger"
+                                onclick="eliminarMiembro(${row.id_miembro})"
+                                title="Eliminar">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+
+                        </div>
+                    `;
+            }
+          }
+        ]
+
+      });
+    }
+
+    /*
+    function construirTablaMiembros(miembros) {
+      const tbody = $('#tabla_miembros_proy tbody');
+      tbody.empty();
+
+            if (miembros.length === 0) {
+              tbody.append(`
+                  <tr>
+                      <td colspan="6"
+                          class="text-center">
+                          No hay miembros registrados.
+                      </td>
+                  </tr>
+              `);
+              return;
+            }
+      
+
+      miembros.forEach(function(miembro) {
+        tbody.append(`
+            <tr id="miembro_${miembro.id_miembro}">
+
+                <td>
+                    ${miembro.id_miembro}
+                </td>
+
+                <td>
+                    ${miembro.nombre}
+                </td>
+
+                <td>
+                    ${miembro.apellido}
+                </td>
+
+                <td>
+                    ${miembro.rol_proyecto}
+                </td>
+
+                <td>
+                    ${miembro.email}
+                </td>
+
+                <td>
+
+                    <button
+                        type="button"
+                        class="btn btn-sm btn-danger"
+                        onclick="eliminarMiembro(${miembro.id_miembro})"
+                        title="Eliminar">
+
+                        <i class="fa-solid fa-pen"></i>
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `);
+
+      });
+
+    }
+      */
+  </script>
+
 
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
@@ -509,15 +752,26 @@ if (!isset($_SESSION['id_miembro'])) {
             "data": null,
             "render": function(data, type, row) {
               return `
-            <button 
-                type="button"
-                onclick="abrirModalEditar(${row.id_proyecto})"
-                class="btn-editar"
-                title="Editar Datos">
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button 
+                    type="button"
+                    onclick="abrirModalEditar(${row.id_proyecto})"
+                    class="btn-editar"
+                    title="Editar Datos">
 
-                <i class="fa-regular fa-pen-to-square"></i>
+                    <i class="fa-regular fa-pen-to-square"></i>
 
-            </button>
+                </button>
+                <button 
+                    type="button"
+                    onclick="abrirModalVerMiembros(${row.id_proyecto})"
+                    class="btn-agregar-miemb"
+                    title="Agregar Miembros">
+
+                    <i class="fa-solid fa-circle-plus" style="color: rgb(0, 92, 255);"></i>
+
+                </button>
+            </div>
         `;
             }
           }
@@ -617,7 +871,6 @@ if (!isset($_SESSION['id_miembro'])) {
       });
     });
   </script>
-
 
   <script>
     const switchElement = document.getElementById("flexSwitchCheckChecked");
