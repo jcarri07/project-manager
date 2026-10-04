@@ -184,6 +184,27 @@ if ($_GET['act'] == 'insert_members_users') {
 			header("location: ../pages/profile.php?alert=3");
 		}
 	}
+} elseif ($_GET['act'] == 'insert_miembros_proyectos') {
+
+	if (isset($_POST['Guardar'])) {
+
+		$Data_id_proy = mysqli_real_escape_string($conn, trim($_POST['miembros_id_proyecto']));
+		$D_id_new_member  = mysqli_real_escape_string($conn, trim($_POST['new_member']));
+		$D_miembro_rol_proyect  = mysqli_real_escape_string($conn, trim($_POST['miembro_rol_proyect']));
+		$D_fecha_reg_memb  = mysqli_real_escape_string($conn, trim($_POST['fecha_reg_memb']));
+
+		$C1 = ("INSERT INTO project_miembro(id_proyecto, id_miembro, rol_proyecto, fecha_asignacion) 
+			VALUES ('$Data_id_proy','$D_id_new_member','$D_miembro_rol_proyect','$D_fecha_reg_memb')");
+
+		$Carg1 = mysqli_query($conn, $C1);
+
+		if (($Carg1)) {
+			//echo ("$C3 " . " " . "Hola 3 " . " $C2");
+			header("location: ../pages/tables.php?alert=1");
+		} else {
+			header("location: ../pages/tables.php?alert=3");
+		}
+	}
 }
 
 /*

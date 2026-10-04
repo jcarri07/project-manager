@@ -369,41 +369,90 @@ if (!isset($_SESSION['id_miembro'])) {
 
         <div class="modal-body">
 
-          <input type="hidden" id="miembros_id_proyecto" name="miembros_id_proyecto">
+          <div class="row">
 
-          <button type="button"
-            class="btn btn-primary"
-            onclick="agregarFilaMiembro()">
+            <div class="col-md-4 mt-4">
+              <div id="formularioMiembro">
 
-            <i class="fa-solid fa-user-plus"></i>
+                <div class="card">
 
-            Agregar miembro
+                  <div class="card-body">
 
-          </button>
+                    <h6>
+                      Agregar miembro
+                    </h6>
 
+                    <div class="row g-3">
 
-          <hr>
+                      <form class="row g-3" action="../pages/proses_users.php?act=insert_miembros_proyectos" id="form-upload" enctype="multipart/form-data" method="POST">
 
-          <div class="table-responsive">
+                        <input type="hidden" value="miembros_id_proyecto" id="miembros_id_proyecto" name="miembros_id_proyecto">
 
-            <table id="tabla_miembros_proy" class="table align-items-center justify-content-center" style="width:100%">
+                        <div class="col-md-12">
+                          <label class="form-label">Miembro: </label>
+                          <select class="form-control" name="new_member" id="new_member" required>
+                            <option value="" disabled>Lista del Personal</option>
+                            <?php
+                            $query_data = mysqli_query($conn, "SELECT id_miembro ,nombre, apellido, especialidad FROM members")
+                              or die('error ' . mysqli_error($conn));
+                            while ($data_1 = mysqli_fetch_assoc($query_data)) {
+                              echo "<option value=\"$data_1[id_miembro]\"> $data_1[especialidad]  | $data_1[nombre] $data_1[apellido] </option>";
+                            }
+                            ?>
+                          </select>
+                        </div>
+                        <div class="col-md-12">
+                          <label class="form-label">Rol en el Proyecto</label>
+                          <input type="text" class="form-control" id="miembro_rol_proyect" name="miembro_rol_proyect">
+                        </div>
+                        <div class="col-md-12">
+                          <label class="form-label">Fecha de Registro:</label><br>
+                          <input type="datetime-local" class="form-control" id="fecha_reg_memb" name="fecha_reg_memb" readonly>
+                        </div>
+                        <script>
+                          var fechaActual = new Date();
+                          var formattedDateTime = fechaActual.getFullYear() + '-' + ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '-' + ('0' + fechaActual.getDate()).slice(-2) + 'T' + ('0' + fechaActual.getHours()).slice(-2) + ':' + ('0' + fechaActual.getMinutes()).slice(-2);
+                          document.getElementById('fecha_reg_memb').value = formattedDateTime;
+                        </script>
 
-              <thead>
-                <tr>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Apellido</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cargo</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Correo</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
-                </tr>
-              </thead>
+                    </div>
 
-              <tbody>
-              </tbody>
+                    <button type="submit" class="btn btn-primary" id="Redirect" name="Guardar" value="Guardar" data-bs-dismiss="modal">Guardar</button>
 
-            </table>
+                    </form>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+            <div class="col-md-8 mt-4">
+              <div class="table-responsive">
+
+                <table id="tabla_miembros_proy" class="table align-items-center justify-content-center" style="width:100%">
+
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Apellido</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cargo</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Correo</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                  </tbody>
+
+                </table>
+              </div>
+            </div>
+
           </div>
+
         </div>
 
         <div class="w3-teal modal-footer">
