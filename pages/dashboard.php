@@ -94,34 +94,35 @@ if (!isset($_SESSION['id_miembro'])) {
 
     <div class="row mt-4" style="padding-left:0px;">
       <div class="col-lg-6 col-md-6 mt-4 mb-4">
-        <div class="card z-index-2  ">
-          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-            <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
-              <div class="chart-bars" style="height: 280px;">
+        <div class="card z-index-2 ">
+          <div class="card-header card-body">
+            <h6 class="mb-0 "> Grafica de los Proyectos </h6>
+          </div>
+          <div class="p-0 position-relative mx-3 mt-3 z-index-2 bg-transparent">
+            <div class="bg-gradient border-radius-lg pe-1">
+              <div class="chart-bars p-3 border rounded" style="height: 280px;">
                 <canvas id="Grafico_proyectos"></canvas>
               </div>
             </div>
           </div>
-          <div class="card-body">
-            <h6 class="mb-0 "> Grafica de los Proyectos </h6>
-            <hr class="dark horizontal">
-          </div>
+          <br>
         </div>
       </div>
       <!-- --------------------------------------------------------------------------------------------------------------------------------- -->
       <div class="col-lg-6 col-md-6 mt-4 mb-3" style="padding-left:0px;">
         <div class="card z-index-2 ">
-          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-            <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
+          <div class="card-header card-body">
+            <h6 class="mb-0 ">2do Grafico</h6>
+            <!-- <hr class="dark horizontal"> -->
+          </div>
+          <div class="p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+            <div class="bg-gradient border-radius-lg py-3 pe-1">
               <div class="chart">
                 <canvas id="chart-line" class="chart-canvas" height="280"></canvas>
               </div>
             </div>
           </div>
-          <div class="card-body">
-            <h6 class="mb-0 ">Completed Tasks</h6>
-            <hr class="dark horizontal">
-          </div>
+          <br>
         </div>
       </div>
     </div>
@@ -164,12 +165,12 @@ if (!isset($_SESSION['id_miembro'])) {
           const canvas = document.getElementById("Grafico_proyectos");
 
           const colores = [
-            'rgba(255, 0, 46, 1)',
-            'rgba(0, 51, 204, 1)',
-            'rgba(153, 92, 0, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
+            'rgba(255, 209, 220, 1)',  
+            'rgba(198, 230, 255, 1)',  
+            'rgba(200, 245, 210, 1)',  
+            'rgba(178, 223, 219, 1)',  
+            'rgba(200, 182, 255, 1)',  
+            'rgba(255, 214, 170, 1)'   
           ];
 
           new Chart(canvas, {
@@ -189,7 +190,11 @@ if (!isset($_SESSION['id_miembro'])) {
 
                 borderColor: colores,
 
-                borderWidth: 1
+                borderWidth: 1,
+
+                borderRadius: 10, 
+
+                borderSkipped: false
               }]
             },
 

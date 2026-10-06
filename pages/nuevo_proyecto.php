@@ -193,7 +193,7 @@ if (!isset($_SESSION['id_miembro'])) {
                           <div class="col-md-1">
                             <label class="form-label"></label>
                             <div class="input-group input-group-outline my-2">
-                              <div><span id="rangeValue">0</span></div>
+                              <div><span id="rangeValue">50</span></div>
                             </div>
                           </div>
                         </div>

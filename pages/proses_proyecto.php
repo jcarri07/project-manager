@@ -72,7 +72,6 @@ if ($_GET['act'] == 'insert') {
 			if (($extension1 == "png") || ($extension1 == "jpg")) {
 
 				if ((is_uploaded_file($_FILES["foto"]["tmp_name"]) && move_uploaded_file($_FILES["foto"]["tmp_name"], $carpeta_destino . $nombre_archivo1))) {
-
 					$query = mysqli_query($conn, "INSERT INTO projects(id_proyecto, id_manager, nombre, descripcion, avance, imagen, fecha_inicio, fecha_fin, categoria, objetivos, beneficiarios, requerimientos, estatus, activo)
 																							VALUES('$DIDM','$lider','$nombre','$descripcion','$avance','$Destino1','$fecha_inicio','$fecha_fin','$categoria','$objetivos','$beneficiarios','$requerimientos','$estatus', '$act')")
 						or die('error: ' . mysqli_error($conn));
@@ -93,8 +92,8 @@ if ($_GET['act'] == 'insert') {
 			}
 		} else {
 
-			$query = mysqli_query($conn, "INSERT INTO projects(nombre, descripcion, avance, fecha_inicio, fecha_fin, categoria, objetivos, beneficiarios, requerimientos, estatus, activo)
-																	VALUES('$nombre','$descripcion','$avance','$fecha_inicio','$fecha_fin','$categoria','$objetivos','$beneficiarios','$requerimientos','$estatus', '$act')")
+			$query = mysqli_query($conn, "INSERT INTO projects(id_proyecto, id_manager, nombre, descripcion, avance, fecha_inicio, fecha_fin, categoria, objetivos, beneficiarios, requerimientos, estatus, activo)
+																	VALUES('$DIDM','$lider','$nombre','$descripcion','$avance','$fecha_inicio','$fecha_fin','$categoria','$objetivos','$beneficiarios','$requerimientos','$estatus', '$act')")
 				or die('error: ' . mysqli_error($conn));
 
 			if ($query) {
@@ -103,7 +102,7 @@ if ($_GET['act'] == 'insert') {
 						VALUES ('$DIDM','$lider','$rol','$fecha_regist')";
 				$Carg_project_miembro = mysqli_query($conn, $Sql_2);
 
-				header("location: ../pages/profile.php?alert=1");
+				header("location: ../pages/tables.php?alert=1");
 			}
 		}
 	}
