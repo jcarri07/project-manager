@@ -98,7 +98,7 @@ if (!isset($_SESSION['id_miembro'])) {
           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
             <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
               <div class="chart-bars" style="height: 280px;">
-                <canvas id="miGrafico"></canvas>
+                <canvas id="Grafico_proyectos"></canvas>
               </div>
             </div>
           </div>
@@ -161,7 +161,7 @@ if (!isset($_SESSION['id_miembro'])) {
 
           });
 
-          const canvas = document.getElementById("miGrafico");
+          const canvas = document.getElementById("Grafico_proyectos");
 
           const colores = [
             'rgba(255, 0, 46, 1)',
@@ -174,7 +174,7 @@ if (!isset($_SESSION['id_miembro'])) {
 
           new Chart(canvas, {
 
-            type: "polarArea",
+            type: "bar",
 
             data: {
 
@@ -199,6 +199,14 @@ if (!isset($_SESSION['id_miembro'])) {
 
               maintainAspectRatio: false,
 
+              scales: {
+                y: {
+                  ticks: {
+                    precision: 0
+                  }
+                }
+              },
+
               plugins: {
 
                 legend: {
@@ -216,13 +224,6 @@ if (!isset($_SESSION['id_miembro'])) {
             }
 
           });
-
-        },
-
-        error: function(xhr) {
-
-          console.error("ERROR EN AJAX");
-          console.error(xhr.responseText);
 
         }
 
