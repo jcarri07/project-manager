@@ -49,7 +49,7 @@ if ($_GET['act'] == 'insert_members_users') {
 			$Carg2 = mysqli_query($conn, $Sqll_2);
 
 			if (($Carg1) && ($Carg2)) {
-				header("location: ../index.php");
+				header("location: ../profile.php");
 			}
 		}
 	}
