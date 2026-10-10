@@ -1,18 +1,3 @@
-<!--
-=========================================================
-* Material Dashboard 2 - v3.0.4
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
-
 <?php
 
 
@@ -37,7 +22,7 @@ if (!isset($_SESSION['id_miembro'])) {
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <title>
-    Sistema de Gestion de Proyectos
+    Sistema de Gestion de Proyectos Super Admin
   </title>
   <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="../assets/css/dash-modal.css">
@@ -165,12 +150,12 @@ if (!isset($_SESSION['id_miembro'])) {
           const canvas = document.getElementById("Grafico_proyectos");
 
           const colores = [
-            'rgba(255, 209, 220, 1)',  
-            'rgba(198, 230, 255, 1)',  
-            'rgba(200, 245, 210, 1)',  
-            'rgba(178, 223, 219, 1)',  
-            'rgba(200, 182, 255, 1)',  
-            'rgba(255, 214, 170, 1)'   
+            'rgba(255, 209, 220, 1)',
+            'rgba(198, 230, 255, 1)',
+            'rgba(200, 245, 210, 1)',
+            'rgba(178, 223, 219, 1)',
+            'rgba(200, 182, 255, 1)',
+            'rgba(255, 214, 170, 1)'
           ];
 
           new Chart(canvas, {
@@ -192,7 +177,7 @@ if (!isset($_SESSION['id_miembro'])) {
 
                 borderWidth: 1,
 
-                borderRadius: 10, 
+                borderRadius: 10,
 
                 borderSkipped: false
               }]

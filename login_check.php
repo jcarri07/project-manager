@@ -17,17 +17,24 @@ if (!ctype_alnum($cedula) or !ctype_alnum($password)) {
 	if ($rows > 0) {
 		$data  = mysqli_fetch_assoc($query);
 
+		$type_user = $data['id_user_type'];
+
 		session_start();
 		$_SESSION['id_miembro']   = $data['id_miembro'];
 		$_SESSION['email']  = $data['email'];
 		$_SESSION['cedula']  = $data['cedula'];
 		$_SESSION['password']  = $data['password_hash'];
-		//$_SESSION['cargo'] = $data['cargo'];
-		//$_SESSION['nombre'] = $data['nombres'];
-		//$_SESSION['apellido'] = $data['apellidos'];
-		//$_SESSION['permisos_acceso'] = $data['permisos_acceso'];
+		$_SESSION['user_type']  = $data['id_user_type '];
 
-		header("Location: pages/dashboard.php");
+		if ($type_user == 1) {
+			header("Location: pages/dashboard_admin.php");
+		}
+		if ($type_user == 2) {
+			header("Location: pages/dashboard_director.php");
+		}
+		if ($type_user == 3) {
+			header("Location: pages/dashboard_manager.php");
+		}
 	} else {
 		header("Location: index.php?alert=1");
 	}
