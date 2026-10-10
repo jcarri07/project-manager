@@ -200,9 +200,9 @@ if ($_GET['act'] == 'insert_members_users') {
 
 		if (($Carg1)) {
 			//echo ("$C3 " . " " . "Hola 3 " . " $C2");
-			header("location: ../pages/tables.php?alert=1");
+			header("location: ../pages/project_tables.php?alert=1");
 		} else {
-			header("location: ../pages/tables.php?alert=3");
+			header("location: ../pages/project_tables.php?alert=3");
 		}
 	}
 }

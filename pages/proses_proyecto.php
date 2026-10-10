@@ -102,7 +102,7 @@ if ($_GET['act'] == 'insert') {
 						VALUES ('$DIDM','$lider','$rol','$fecha_regist')";
 				$Carg_project_miembro = mysqli_query($conn, $Sql_2);
 
-				header("location: ../pages/tables.php?alert=1");
+				header("location: ../pages/project_tables.php?alert=1");
 			}
 		}
 	}

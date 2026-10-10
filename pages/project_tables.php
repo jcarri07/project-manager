@@ -477,7 +477,7 @@ if (!isset($_SESSION['id_miembro'])) {
     const closeAndRedirectButton = document.getElementById("closeAndRedirect");
     if (closeAndRedirectButton) {
       closeAndRedirectButton.addEventListener("click", function() {
-        window.location.href = "./tables.php";
+        window.location.href = "./project_tables.php";
       });
     }
   </script>
@@ -497,7 +497,7 @@ if (!isset($_SESSION['id_miembro'])) {
       });
 
       function cerrarMiembrosYRedirigir() {
-        window.location.href = './tables.php';
+        window.location.href = './project_tables.php';
       }
     });
   </script>

@@ -218,7 +218,7 @@ if (!isset($_SESSION['id_miembro'])) {
                           <div class="form-group text-center">
                             <div class="col-sm-offset-4 col-sm-12">
                               <input type="submit" class="btn bg-gradient-primary w-30 my-4 mb-2" name="Guardar" value="Guardar">
-                              <a href="../pages/tables.php" class="btn btn-outline-primary w-30 my-4 mb-2">Cancelar</a>
+                              <a href="../pages/project_tables.php" class="btn btn-outline-primary w-30 my-4 mb-2">Cancelar</a>
 
                             </div>
                           </div>

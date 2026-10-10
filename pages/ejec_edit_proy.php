@@ -60,7 +60,7 @@ if ($resultado) {
                         confirmButtonText: 'OK',
                         timer: 5000
                         }).then(() => {
-                        location.assign('./tables.php');
+                        location.assign('./project_tables.php');
                         });
                 });
                 </script>";
@@ -78,7 +78,7 @@ if ($resultado) {
                                     confirmButtonText: 'OK',
                                     timer: 5000
                                     }).then(() => {
-                                    location.assign('./tables.php');
+                                    location.assign('./project_tables.php');
                                     });
                             });
                             </script>";
