@@ -266,6 +266,21 @@
                       <label class="form-label">Especialidad:</label>
                       <input type="text" class="form-control" name="especialidad_reg" id="especialidad_reg" required>
                     </div>
+
+                    <div class="input-group input-group-outline mb-3 is-filled">
+                      <label class="form-label">Nivel de usuario:</label>
+                      <select class="form-control" name="level_user_new" id="level_user_new" required>
+                        <option value="" disabled>Opciones</option>
+                        <?php
+                        $query_data = mysqli_query($conn, "SELECT * FROM user_type WHERE user_type.id_user_type != 1")
+                          or die('error ' . mysqli_error($conn));
+                        while ($data_1 = mysqli_fetch_assoc($query_data)) {
+                          echo "<option value=\"$data_1[id_user_type]\"> | $data_1[nombre_user_type] | </option>";
+                        }
+                        ?>
+                      </select>
+                    </div>
+
                     <div class="input-group input-group-outline mb-3 is-filled">
                       <label class="form-label">Contraseña:</label>
                       <input type="password" class="form-control" name="password_reg" id="password_reg" required>

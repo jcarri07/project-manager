@@ -24,7 +24,7 @@ if (!ctype_alnum($cedula) or !ctype_alnum($password)) {
 		$_SESSION['email']  = $data['email'];
 		$_SESSION['cedula']  = $data['cedula'];
 		$_SESSION['password']  = $data['password_hash'];
-		$_SESSION['user_type']  = $data['id_user_type '];
+		$_SESSION['id_user_type']  = $data['id_user_type '];
 
 		if ($type_user == 1) {
 			header("Location: pages/dashboard_admin.php");

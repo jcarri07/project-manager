@@ -25,6 +25,7 @@ if ($_GET['act'] == 'insert_members_users') {
 
 		$D_cedula  = mysqli_real_escape_string($conn, trim($_POST['cedula_reg']));
 		$D_nombres  = mysqli_real_escape_string($conn, trim($_POST['nombres_reg']));
+		$D_level  = mysqli_real_escape_string($conn, trim($_POST['level_user_new']));
 		$D_apellidos = mysqli_real_escape_string($conn, trim($_POST['apellidos_reg']));
 		$D_correo = mysqli_real_escape_string($conn, trim($_POST['correo_reg']));
 		$D_password = mysqli_real_escape_string($conn, trim($_POST['password_reg']));
@@ -44,8 +45,8 @@ if ($_GET['act'] == 'insert_members_users') {
 				VALUES ('$D_cedula','$D_nombres','$D_apellidos','$D_correo','$D_especialidad','$Destino1','$D_fecha')";
 			$Carg1 = mysqli_query($conn, $Sqll_1);
 
-			$Sqll_2 = "INSERT INTO users(cedula, email, password_hash, fecha_creacion, foto_personal, estatus) 
-				VALUES ('$D_cedula','$D_correo','$D_password','$D_fecha','$Destino1','$D_estatus')";
+			$Sqll_2 = "INSERT INTO users(id_user_type, cedula, email, password_hash, fecha_creacion, foto_personal, estatus) 
+				VALUES ('$D_level','$D_cedula','$D_correo','$D_password','$D_fecha','$Destino1','$D_estatus')";
 			$Carg2 = mysqli_query($conn, $Sqll_2);
 
 			if (($Carg1) && ($Carg2)) {
@@ -136,7 +137,7 @@ if ($_GET['act'] == 'insert_members_users') {
 
 		$Data_cedul_prev = mysqli_real_escape_string($conn, trim($_POST['data_cedul_ini']));
 		$D_id_users  = mysqli_real_escape_string($conn, trim($_POST['data_id_prev']));
-
+		$D_level_users  = mysqli_real_escape_string($conn, trim($_POST['level_user']));
 		$D_cedul_users  = mysqli_real_escape_string($conn, trim($_POST['cedula_users']));
 		$D_nombres_users  = mysqli_real_escape_string($conn, trim($_POST['nombres_users']));
 		$D_apellidos_users = mysqli_real_escape_string($conn, trim($_POST['apellidos_user']));
