@@ -121,12 +121,17 @@ if (!isset($_SESSION['id_miembro'])) {
                 <table id="tabla_proyectos" class="table align-items-center justify-content-center" style="width:100%">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Proyectos</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Beneficiarios</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proyecto</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">PM</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unidad</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Avance</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Imagen</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Editar</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salud</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Inicio</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fin</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progreso</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prioridad</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opciones</th>
 
                     </tr>
                   </thead>
@@ -149,12 +154,17 @@ if (!isset($_SESSION['id_miembro'])) {
                 <table id="tabla_proyectos_elim" class="table align-items-center justify-content-center" style="width:100%">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Proyectos</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Beneficiarios</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proyecto</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">PM</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unidad</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Avance</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Imagen</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Editar</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salud</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Inicio</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fin</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progreso</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prioridad</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opciones</th>
 
                     </tr>
                   </thead>
@@ -738,20 +748,29 @@ if (!isset($_SESSION['id_miembro'])) {
           "dataSrc": ""
         },
         "columns": [{
+            "data": "id_proyecto"
+          },
+          {
             "data": "nombre"
           },
           {
-            "data": "beneficiarios"
+            "data": "cedula"
           },
           {
-            "data": "estatus",
+            "data": "unidad"
+          },
+          {
+            "data": "estatus"
+          },
+          {
+            "data": "salud",
             "render": function(data, type, row) {
               let clase = "";
-              if (data === "En progreso") {
+              if (data === "En control") {
                 clase = "estado-progreso";
-              } else if (data === "Por Ejecutar") {
+              } else if (data === "En riesgo") {
                 clase = "estado-ejecutar";
-              } else if (data === "Listo") {
+              } else if (data === "Critico") {
                 clase = "estado-listo";
               }
               return `
@@ -760,6 +779,12 @@ if (!isset($_SESSION['id_miembro'])) {
             </span>
         `;
             }
+          },
+          {
+            "data": "fecha_inicio"
+          },
+          {
+            "data": "fecha_fin"
           },
           {
 
@@ -791,11 +816,7 @@ if (!isset($_SESSION['id_miembro'])) {
 
           },
           {
-            "data": "imagen",
-            "render": function(data, type, row) {
-              let img = data ? data : '../assets/img/default.png';
-              return ` <div class="d-flex justify-content-center"> <img src="${img}" alt="Proyecto" class="avatar avatar-lg border-radius-lg shadow-sm" style="width:55px; height:55px; object-fit:cover;"> </div> `;
-            }
+            "data": "prioridad"
           },
           {
             "data": null,
@@ -843,20 +864,29 @@ if (!isset($_SESSION['id_miembro'])) {
           "dataSrc": ""
         },
         "columns": [{
+            "data": "id_proyecto"
+          },
+          {
             "data": "nombre"
           },
           {
-            "data": "beneficiarios"
+            "data": "cedula"
           },
           {
-            "data": "estatus",
+            "data": "unidad"
+          },
+          {
+            "data": "estatus"
+          },
+          {
+            "data": "salud",
             "render": function(data, type, row) {
               let clase = "";
-              if (data === "En progreso") {
+              if (data === "En control") {
                 clase = "estado-progreso";
-              } else if (data === "Por Ejecutar") {
+              } else if (data === "En riesgo") {
                 clase = "estado-ejecutar";
-              } else if (data === "Listo" || data === "Completado") {
+              } else if (data === "Critico") {
                 clase = "estado-listo";
               }
               return `
@@ -867,6 +897,13 @@ if (!isset($_SESSION['id_miembro'])) {
             }
           },
           {
+            "data": "fecha_inicio"
+          },
+          {
+            "data": "fecha_fin"
+          },
+          {
+
             "data": "avance",
             "render": function(data, type, row) {
 
@@ -892,27 +929,35 @@ if (!isset($_SESSION['id_miembro'])) {
             </div>
         `;
             }
+
           },
           {
-            "data": "imagen",
-            "render": function(data, type, row) {
-              let img = data ? data : '../assets/img/default.png';
-              return ` <div class="d-flex justify-content-center"> <img src="${img}" alt="Proyecto" class="avatar avatar-lg border-radius-lg shadow-sm" style="width:55px; height:55px; object-fit:cover;"> </div> `;
-            }
+            "data": "prioridad"
           },
           {
             "data": null,
             "render": function(data, type, row) {
               return `
-            <button
-                type="button"
-                class="btn-editar"
-                title="Editar Datos"
-                onclick="abrirModalEditar(${row.id_proyecto})">
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button 
+                    type="button"
+                    onclick="abrirModalEditar(${row.id_proyecto})"
+                    class="btn-editar"
+                    title="Editar Datos">
 
-                <i class="fa-regular fa-pen-to-square"></i>
+                    <i class="fa-regular fa-pen-to-square"></i>
 
-            </button>
+                </button>
+                <button 
+                    type="button"
+                    onclick="abrirModalVerMiembros(${row.id_proyecto})"
+                    class="btn-agregar-miemb"
+                    title="Agregar Miembros">
+
+                    <i class="fa-solid fa-circle-plus" style="color: rgb(0, 92, 255);"></i>
+
+                </button>
+            </div>
         `;
             }
           }

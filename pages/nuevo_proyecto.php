@@ -71,296 +71,264 @@ if (!isset($_SESSION['id_miembro'])) {
     <?php
     if ($_GET['form'] == 'add') { ?>
 
-      <div class="container-fluid px-2 px-md-10">
-        <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
-          <span class="mask  bg-gradient-primary  opacity-6"></span>
-        </div>
-        <div class="card card-body mx-3 mx-md-4 mt-n6">
-          <div class="row gx-5 mb-2">
-            <div class="col-auto">
+      <div class="container-fluid px-3 px-md-4">
 
-              <div class="avatar avatar-xl position-relative">
-                <div class="image-upload avatar avatar-xl position-relative">
-                  <label for="file-input" class='center fas fa-edit'>
-                    <img class='img-user' src='../assets/img/person.jpg' width='45' class="border-radius-lg shadow">
-                  </label>
+        <!-- Encabezado -->
+        <div class="page-header min-height-200 border-radius-xl mt-4"
+          style="background-image: url('../assets/img/curved-images/curved0.jpg');">
+          <span class="mask bg-gradient-primary opacity-6"></span>
+          <div class="position-relative p-4">
+            <h3 class="text-white mb-1">Nuevo proyecto</h3>
+          </div>
+        </div>
+
+        <div class="card card-body mx-2 mx-md-3 mt-n6">
+
+          <form method="POST" action="../pages/proses_proyecto.php?act=insert_init" enctype="multipart/form-data">
+
+            <div class="card mb-4 shadow-none border">
+              <div class="card-header pb-0">
+                <h6 class="mb-1">
+                  <i class="material-icons-round me-2 text-primary">description</i>
+                  Sección 1 — Información básica
+                </h6>
+              </div>
+
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label">Nombre *</label>
+                    <input type="text" name="nombre_proy" id="nombre_proy" class="form-control border px-3" placeholder="Nombre del proyecto"
+                      required>
+                  </div>
+
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label">Descripción *</label>
+                    <textarea name="descripcion_proy" id="descripcion_proy" class="form-control border px-3" rows="3" placeholder="Describa brevemente el proyecto" required></textarea>
+                    <div id="contador_descrip_proy">300</div>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Unidad *</label>
+                    <select name="unidad_proy" id="unidad_proy" class="form-select border px-3" required>
+                      <option value="">Seleccione una unidad</option>
+                      <option value="Investigación">Investigación</option>
+                      <option value="Desarrollo">Desarrollo</option>
+                      <option value="Administración">Administración</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Tipo *</label>
+                    <select name="categoria_proy" id="categoria_proy" class="form-select border px-3" required>
+                      <option value="">Seleccione un tipo</option>
+                      <option value="Proyecto">Proyecto</option>
+                      <option value="Mantenimiento">Mantenimiento</option>
+                      <option value="Reparación">Reparación</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Prioridad *</label>
+                    <select name="prioridad_proy" id="prioridad_proy" class="form-select border px-3" required>
+                      <option value="">Seleccione la prioridad</option>
+                      <option value="Baja">Baja</option>
+                      <option value="Media">Media</option>
+                      <option value="Alta">Alta</option>
+                      <option value="Crítica">Crítica</option>
+                    </select>
+                  </div>
+
                 </div>
               </div>
             </div>
 
-            <div class="col-auto my-auto">
-              <div class="h-100">
-                <h5 class="mb-1">
-                  Agregar:
-                </h5>
-                <p class="mb-0 font-weight-normal text-sm">
-                  Proyecto
+            <div class="card mb-4 shadow-none border">
+              <div class="card-header pb-0">
+                <h6 class="mb-1">
+                  <i class="material-icons-round me-2 text-primary">group</i>
+                  Sección 2 — Solicitante
+                </h6>
+              </div>
+
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Solicitante *</label>
+                    <input type="text" name="solicitante_proy" id="solicitante_proy" class="form-control border px-3" value="<?php echo htmlspecialchars($_SESSION['cedula'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="Solicitante" readonly>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Sponsor</label>
+                    <input type="text" name="sponsor_proy" id="sponsor_proy" class="form-control border px-3" placeholder="Nombre del sponsor">
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">PM</label>
+                    <select name="lider_proy" id="lider_proy" class="form-select border px-3">
+                      <option value="">Seleccione un responsable</option>
+                      <?php
+                      $query_data = mysqli_query($conn, "SELECT * FROM members,users WHERE members.cedula = users.cedula") or die('Error: ' . mysqli_error($conn));
+
+                      while ($miembro = mysqli_fetch_assoc($query_data)) {
+                        $id = (int) $miembro['id_usuario'];
+                        $nombre = htmlspecialchars(
+                          $miembro['nombre'] . ' ' .
+                            $miembro['apellido'] . ' | ' .
+                            $miembro['especialidad'],
+                          ENT_QUOTES,
+                          'UTF-8'
+                        );
+                        echo "<option value=\"$id\">$nombre</option>";
+                      }
+                      ?>
+                    </select>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="card mb-4 shadow-none border">
+              <div class="card-header pb-0">
+                <h6 class="mb-1">
+                  <i class="material-icons-round me-2 text-primary">event</i>
+                  Sección 3 — Estimación inicial
+                </h6>
+                <p class="text-sm text-secondary">
+                  Fechas y presupuesto previstos.
                 </p>
               </div>
-            </div>
 
-            <div class="container my-auto">
-              <div class="row">
-                <div class="col-lg-8 col-md-8 col-12 mx-auto">
-                  <div class="card-body">
+              <div class="card-body">
+                <div class="row">
 
-
-                    <form role="form" class="form-horizontal" method="POST" action="../pages/proses_proyecto.php?act=insert" enctype="multipart/form-data">
-                      <form role="form" class="text-start">
-
-                        <label class="form-label">Lider del Proyecto</label>
-                        <div class="input-group input-group-outline my-2">
-                          <select class="form-select-lg" name="lider" data-placeholder="-- Seleccionar proyecto --" autocomplete="off" required>
-                            <option value=""></option>
-                            <?php
-                            $query_data = mysqli_query($conn, "SELECT id_miembro ,nombre, apellido, especialidad FROM members,users WHERE members.cedula = users.cedula")
-                              or die('error ' . mysqli_error($conn));
-
-                            while ($data_1 = mysqli_fetch_assoc($query_data)) {
-                              echo "<option value=\"$data_1[id_miembro]\"> $data_1[especialidad]  | $data_1[nombre] $data_1[apellido] </option>";
-                            }
-                            echo $data_1['project_id'];
-                            ?>
-                          </select>
-                        </div>
-
-                        <label class="form-label">Nombre del Proyecto</label>
-                        <div class="input-group input-group-outline my-2">
-                          <input type="text" name="nombre" class="form-control">
-                        </div>
-
-                        <label class="form-label">Descripcion</label>
-                        <div class="input-group input-group-outline my-2">
-                          <input type="text" name="descripcion" class="form-control">
-                        </div>
-
-                        <label class="form-label">Categoria</label>
-                        <div class="input-group input-group-outline mb-2">
-                          <input type="text" name="categoria" class="form-control">
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6">
-                            <label class="form-label">Fecha de Inicio</label>
-                            <div class="input-group input-group-outline my-2">
-                              <input type="date" name="fecha_inicio" class="form-control" lang="es">
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <label class="form-label">Fecha de Culminación</label>
-                            <div class="input-group input-group-outline my-2">
-                              <input type="date" name="fecha_fin" class="form-control" data-date-format="DD MMMM YYYY">
-                            </div>
-                          </div>
-                        </div>
-                        <label class="form-label">Objetivos</label>
-                        <div class="input-group input-group-outline mb-2">
-                          <input type="text" name="objetivos" class="form-control">
-                        </div>
-
-                        <label class="form-label">Beneficiarios</label>
-                        <div class="input-group input-group-outline mb-2">
-                          <input type="text" name="beneficiarios" class="form-control">
-                        </div>
-
-                        <label class="form-label">Requerimientos</label>
-                        <div class="input-group input-group-outline mb-2">
-                          <input type="text" name="requerimientos" class="form-control">
-                        </div>
-
-                        <label class="form-label">Estatus</label>
-                        <div class="input-group input-group-outline mb-2">
-                          <select class="form-select-lg form-control" name="estatus" data-placeholder="-- Seleccionar proyecto --" autocomplete="off" required>
-                            <option value="Por Ejecutar">Por ejecutar</option>
-                            <option value="En progreso">En progreso</option>
-                            <option value="Terminado">Terminado</option>
-                          </select>
-                        </div>
-
-                        <label for="fecha">Archivo Fotografico (PNG/JPG): </label>
-                        <div class="input-group input-group-outline mb-2 form-check form-switch">
-                          <input class="form-check-input" type="checkbox" id="check_foto" checked>
-                        </div>
-                        <input type="file" class="form-control" id="foto" name="foto">
-
-                        <div class="row">
-                          <div class="col-md-11">
-                            <label class="form-label">Avance del Proyecto</label>
-                            <div class="input-group input-group-outline my-2">
-                              <label for="customRange1" class="form-label"></label>
-                              <input type="range" class="form-range" id="customRange1" name="rango" min="0" max="100" oninput="updateRangeValue(this.value)">
-                            </div>
-                          </div>
-                          <div class="col-md-1">
-                            <label class="form-label"></label>
-                            <div class="input-group input-group-outline my-2">
-                              <div><span id="rangeValue">50</span></div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <input type="datetime-local" class="form-control" id="fecha_reg" name="fecha_reg" style="display:none" readonly>
-
-                        <script>
-                          var fechaActual = new Date();
-                          var formattedDateTime = fechaActual.getFullYear() + '-' + ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '-' + ('0' + fechaActual.getDate()).slice(-2) + 'T' + ('0' + fechaActual.getHours()).slice(-2) + ':' + ('0' + fechaActual.getMinutes()).slice(-2);
-                          document.getElementById('fecha_reg').value = formattedDateTime;
-                        </script>
-
-                        <!-- <div class="form-group">
-                <label class="col-sm-2 control-label">Foto</label>
-                <div class="col-sm-5">
-                  <input type="file" name="foto">
-               </div>
-              </div>-->
-                        </br>
-
-                        <div class="box-footer">
-                          <div class="form-group text-center">
-                            <div class="col-sm-offset-4 col-sm-12">
-                              <input type="submit" class="btn bg-gradient-primary w-30 my-4 mb-2" name="Guardar" value="Guardar">
-                              <a href="../pages/project_tables.php" class="btn btn-outline-primary w-30 my-4 mb-2">Cancelar</a>
-
-                            </div>
-                          </div>
-
-                      </form>
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Inicio estimado</label>
+                    <input type="date" name="fecha_inicio_proy" id="fecha_inicio_proy" class="form-control border px-3">
                   </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Final estimado</label>
+                    <input type="date" name="fecha_fin_proy" id="fecha_fin_proy" class="form-control border px-3">
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Presupuesto estimado</label>
+                    <div class="input-group input-group-outline">
+                      <span class="input-group-text"></span>
+                      <input type="number" name="presupuesto_estimado_proy" id="presupuesto_estimado_proy" class="form-control border px-3" min="0" step="0.01" placeholder="0.00$">
+                    </div>
+                  </div>
+
                 </div>
-
-
               </div>
             </div>
-            <!--
-          <?php
-        } elseif ($_GET['form'] == 'update') {
-          if (isset($_GET['id'])) {
 
-            $query = mysqli_query($conn, "SELECT * FROM members WHERE id='$_GET[id]'")
-              or die('error: ' . mysqli_error($conn));
-            $data  = mysqli_fetch_assoc($query);
-          }
-          ?>
-            <div class="container-fluid px-2 px-md-10">
-              <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
-                <span class="mask  bg-gradient-primary  opacity-6"></span>
+            <!-- SECCIÓN 4: NECESIDAD EMPRESARIAL -->
+            <div class="card mb-4 shadow-none border">
+              <div class="card-header pb-0">
+                <h6 class="mb-1">
+                  <i class="material-icons-round me-2 text-primary">lightbulb</i>
+                  Sección 4 — Necesidad empresarial
+                </h6>
               </div>
-              <div class="card card-body mx-3 mx-md-4 mt-n6">
-                <div class="row gx-5 mb-2">
-                  <div class="col-auto">
 
-                    <div class="avatar avatar-xl position-relative">
-                      <div class="image-upload avatar avatar-xl position-relative">
-                        <label for="file-input" class='center fas fa-edit'>
-                          <?php
-                          if ($data['foto'] == "") { ?>
-                            <td class='center'><img class='img-user' src='../assets/img/person.jpg' width='45' class="border-radius-lg shadow"></td>
-                          <?php
-                          } else { ?>
+              <div class="card-body">
+                <div class="row">
 
-                            <td class='center'><img src="../assets/img/<?php echo $data['foto']; ?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm"></td>
-                          <?php } ?>
-                        </label>
-
-                      </div>
-                    </div>
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label">Problema / Necesidad *</label>
+                    <textarea name="problema_proy" id="problema_proy" class="form-control border px-3" rows="3" placeholder="Describa el problema o la necesidad que se desea resolver" required></textarea>
+                    <div id="contador_problema_proy">300</div>
                   </div>
 
-                  <div class="col-auto my-auto">
-                    <div class="h-100">
-                      <h5 class="mb-1">
-                        Modificar datos:
-                      </h5>
-                      <p class="mb-0 font-weight-normal text-sm">
-                        Miembros
-                      </p>
-                    </div>
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label">Objetivo *</label>
+                    <textarea name="objetivos_proy" class="form-control border px-3" rows="3" placeholder="Indique el objetivo principal del proyecto" required></textarea>
+                    <div id="contador_objetivos_proy">300</div>
                   </div>
 
-                  <div class="container my-auto">
-                    <div class="row">
-                      <div class="col-lg-8 col-md-8 col-12 mx-auto">
-                        <div class="card-body">
-
-
-                          <form role="form" class="form-horizontal" method="POST" action="../pages/proses_miembros.php?act=update" enctype="multipart/form-data">
-                            <form role="form" class="text-start">
-
-                              <input id="file-input" type="file" name="foto" style="display:none">
-                              <input type="hidden" name="id" class="form-control" value="<?php echo $data['id']; ?>">
-
-                              <label class="form-label">Nombres</label>
-                              <div class="input-group input-group-outline my-2">
-                                <input type="text" name="nombres" class="form-control" value="<?php echo $data['nombres']; ?>">
-                              </div>
-
-                              <label class="form-label">Apellidos</label>
-                              <div class="input-group input-group-outline mb-2">
-                                <input type="text" name="apellidos" class="form-control" value="<?php echo $data['apellidos']; ?>">
-                              </div>
-
-                              <label class="form-label">Cedula</label>
-                              <div class="input-group input-group-outline mb-2">
-                                <input type="text" name="cedula" class="form-control" value="<?php echo $data['cedula']; ?>">
-                              </div>
-
-                              <label class="form-label">Cargo</label>
-                              <div class="input-group input-group-outline mb-2">
-                                <input type="text" name="cargo" class="form-control" value="<?php echo $data['cargo']; ?>">
-                              </div>
-
-                              <label class="form-label">Jefe</label>
-                              <div class="input-group input-group-outline mb-2">
-                                <?php
-                                $query_data = mysqli_query($conn, "SELECT id,nombres,apellidos,unidad FROM project_managers")
-                                  or die('error ' . mysqli_error($conn));
-                                $data_2 = mysqli_fetch_assoc($query_data) ?>
-
-                                <select class="form-select-lg form-control" name="jefe" data-placeholder="-- Seleccionar proyecto --" autocomplete="off" required>
-                                  <option value="<?php echo $data['jefe']; ?>"><?php echo $data_2['nombres'], ' ', $data_2['apellidos'], ' | ', $data_2['unidad']; ?></option>
-                                  <?php
-                                  while ($data_2 = mysqli_fetch_assoc($query_data)) {
-                                    echo "<option value=\"$data_2[id]\"> $data_2[nombres]  $data_2[apellidos] | $data_2[unidad]</option>";
-                                  }
-                                  ?>
-                                </select>
-                              </div>
-
-                              <label class="form-label">Unidad</label>
-                              <div class="input-group input-group-outline mb-2">
-                                <input type="text" name="unidad" class="form-control" value="<?php echo $data['unidad']; ?>">
-                              </div>
-
-                              <label class="form-label">Email</label>
-                              <div class="input-group input-group-outline mb-2">
-                                <input type="text" name="email" class="form-control" value="<?php echo $data['email']; ?>">
-                              </div>
-
-                              <label class="form-label">Movil</label>
-                              <div class="input-group input-group-outline mb-2">
-                                <input type="text" name="movil" class="form-control" value="<?php echo $data['movil']; ?>">
-                              </div>
-                              </br>
-
-                              <div class="box-footer">
-                                <div class="form-group text-center">
-                                  <div class="col-sm-offset-4 col-sm-12">
-                                    <input type="submit" class="btn bg-gradient-primary w-30 my-4 mb-2" name="Guardar" value="Guardar">
-                                    <a href="../pages/profile.php" class="btn btn-outline-primary w-30 my-4 mb-2">Cancelar</a>
-
-                                  </div>
-                                </div>
-
-                            </form>
-                        </div>
-                      </div>
-
-
-                    </div>
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label">Beneficios esperados *</label>
+                    <textarea name="beneficios_esperados_proy" id="beneficios_esperados_proy" class="form-control border px-3" rows="3" placeholder="Describa los beneficios que se esperan obtener" required></textarea>
+                    <div id="contador_beneficios_esperados_proy">300</div>
                   </div>
-                <?php
-              }
-                ?>
--->
+
+                  <input type="datetime-local" class="form-control" id="fecha_reg" name="fecha_reg" style="display:none" readonly>
+
+                  <script>
+                    var fechaActual = new Date();
+                    var formattedDateTime = fechaActual.getFullYear() + '-' + ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '-' + ('0' + fechaActual.getDate()).slice(-2) + 'T' + ('0' + fechaActual.getHours()).slice(-2) + ':' + ('0' + fechaActual.getMinutes()).slice(-2);
+                    document.getElementById('fecha_reg').value = formattedDateTime;
+                  </script>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex flex-column flex-sm-row justify-content-end gap-2 pb-2">
+
+              <a href="../pages/project_tables.php"
+                class="btn btn-outline-secondary mb-0">
+                Cancelar
+              </a>
+
+              <button type="submit" name="Borrador" value="Borrador"
+                class="btn btn-outline-primary mb-0">
+                <i class="material-icons-round me-1">save</i>
+                Guardar borrador
+              </button>
+
+              <button type="submit" name="Guardar" value="Guardar"
+                class="btn bg-gradient-primary mb-0">
+                <i class="material-icons-round me-1">add_circle</i>
+                Crear proyecto
+              </button>
+
+              <script>
+                function limitarTextarea(idTextarea, idContador, maximoCaracteres = 300) {
+                  const textarea = document.getElementById(idTextarea);
+                  const contador = document.getElementById(idContador);
+
+                  const mensajeError = document.createElement('p');
+                  mensajeError.classList.add('text-danger');
+                  mensajeError.textContent = 'Has superado el límite de caracteres. ERROR (Reiniciar el Registro).';
+                  mensajeError.style.display = 'none';
+                  textarea.parentNode.appendChild(mensajeError);
+
+                  const actualizarContador = () => {
+                    const restantes = maximoCaracteres - textarea.value.length;
+                    contador.textContent = restantes;
+
+                    if (restantes < 0) {
+                      mensajeError.style.display = 'block';
+                      textarea.disabled = true;
+                    } else {
+                      mensajeError.style.display = 'none';
+                      textarea.disabled = false;
+                    }
+                  };
+
+                  textarea.addEventListener('input', actualizarContador);
+                  actualizarContador();
+                }
+
+                limitarTextarea("descripcion_proy", "contador_descrip_proy", 300);
+                limitarTextarea("problema_proy", "contador_problema_proy", 300);
+                limitarTextarea("objetivos_proy", "contador_objetivos_proy", 300);
+                limitarTextarea("beneficios_esperados_proy", "contador_beneficios_esperados_proy", 300);
+              </script>
+
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    <?php } ?>
 </body>
 
 </html>
