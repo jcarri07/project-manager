@@ -21,10 +21,11 @@ if (!ctype_alnum($cedula) or !ctype_alnum($password)) {
 
 		session_start();
 		$_SESSION['id_miembro']   = $data['id_miembro'];
+		$_SESSION['id_usuario']   = $data['id_usuario'];
 		$_SESSION['email']  = $data['email'];
 		$_SESSION['cedula']  = $data['cedula'];
 		$_SESSION['password']  = $data['password_hash'];
-		$_SESSION['id_user_type']  = $data['id_user_type '];
+		//$_SESSION['id_user_type']  = $data['id_user_type '];
 
 		if ($type_user == 1) {
 			header("Location: pages/dashboard_admin.php");

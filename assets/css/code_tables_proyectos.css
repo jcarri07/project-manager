@@ -92,18 +92,18 @@
 }
 
 .estado-progreso {
-    background-color: #fff3e0;
-    color: #e65100;
+    background-color: #e4ffe0;
+    color: #1b5e20;
 }
 
 .estado-ejecutar {
-    background-color: #e3f2fd;
-    color: #0d47a1;
+    background-color: #fcfde3;
+    color: #f3eb07;
 }
 
 .estado-listo {
-    background-color: #e8f5e9;
-    color: #1b5e20;
+    background-color: #f5e8e8;
+    color: #de0909;
 }
 
 .progreso-contenedor {

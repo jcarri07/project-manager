@@ -13,6 +13,8 @@ $data  = mysqli_fetch_assoc($query_2);
 //$val_typ = $_SESSION['cedula'];
 $val_typ = $data['id_user_type'];
 
+$ID_user = $data['id_usuario'];
+
 
 if (!isset($_SESSION['id_miembro'])) {
     header("Location: ../index.php");
@@ -45,6 +47,14 @@ if ($val_typ == 1) {
                             <i class="material-icons opacity-10">table_view</i>
                         </div>
                         <span class="nav-link-text ms-1">Proyectos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white " href="../pages/project_tables_draft.php?id='<?php echo ($ID_user); ?>'">
+                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="material-icons opacity-10">assignment</i>
+                        </div>
+                        <span class="nav-link-text ms-1">Borradores</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -147,23 +157,14 @@ if ($val_typ == 2) { ?>
                         <span class="nav-link-text ms-1">Proyectos</span>
                     </a>
                 </li>
-
-                <!--<li class="nav-item">
-          <a class="nav-link text-white " href="../pages/virtual-reality.html">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">view_in_ar</i>
-            </div>
-            <span class="nav-link-text ms-1">Virtual Reality</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/rtl.html">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
-            </div>
-            <span class="nav-link-text ms-1">RTL</span>
-          </a>
-        </li>-->
+                <li class="nav-item">
+                    <a class="nav-link text-white " href="../pages/project_tables_draft.php?id='<?php echo ($ID_user); ?>'">
+                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="material-icons opacity-10">assignment</i>
+                        </div>
+                        <span class="nav-link-text ms-1">Borradores</span>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link text-white " href="../pages/reportes.php">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -241,6 +242,14 @@ if ($val_typ == 3) { ?>
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link text-white " href="../pages/project_tables_draft.php?id='<?php echo ($ID_user); ?>'">
+                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="material-icons opacity-10">assignment</i>
+                        </div>
+                        <span class="nav-link-text ms-1">Borradores</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link text-white " href="../pages/pag_admin_users.php">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">receipt_long</i>
@@ -248,22 +257,6 @@ if ($val_typ == 3) { ?>
                         <span class="nav-link-text ms-1">Lista de Miembros</span>
                     </a>
                 </li>
-                <!--<li class="nav-item">
-          <a class="nav-link text-white " href="../pages/virtual-reality.html">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">view_in_ar</i>
-            </div>
-            <span class="nav-link-text ms-1">Virtual Reality</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/rtl.html">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
-            </div>
-            <span class="nav-link-text ms-1">RTL</span>
-          </a>
-        </li>-->
                 <li class="nav-item">
                     <a class="nav-link text-white " href="../pages/reportes.php">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
