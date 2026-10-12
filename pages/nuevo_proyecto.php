@@ -246,7 +246,7 @@ if (!isset($_SESSION['id_miembro'])) {
                   </div>
 
                   <div class="col-md-12 mb-3">
-                    <label class="form-label">Objetivo *</label>
+                    <label class="form-label">Objetivos *</label>
                     <textarea name="objetivos_proy" class="form-control border px-3" rows="3" placeholder="Indique el objetivo principal del proyecto" required></textarea>
                     <div id="contador_objetivos_proy">300</div>
                   </div>

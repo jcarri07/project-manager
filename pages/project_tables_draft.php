@@ -112,7 +112,6 @@ if (!isset($_SESSION['id_miembro'])) {
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proyecto</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unidad</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salud</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Inicio</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fin</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progreso</th>
@@ -151,78 +150,134 @@ if (!isset($_SESSION['id_miembro'])) {
 
                 <div class="w3-container modal-body" id="modalBody">
 
-                    <form class="row g-3" action="./ejec_edit_proy.php" id="form-upload" enctype="multipart/form-data" method="POST">
+                    <form class="row g-3" action="./proses_proyecto.php" id="form-upload" enctype="multipart/form-data" method="POST">
 
-                        <input type="hidden" style="display:none" class="form-control" id="edit_id_Proy" name="edit_id_Proy" readonly>
+                        <input type="hidden" style="display:none" class="form-control" id="borra_id_Proy" name="borra_id_Proy" readonly>
 
                         <div class="row g-3">
                             <div class="col-md-4" style="color:black">
                                 <label for="Comando" class="form-label">Nombre del Proyecto: </label>
-                                <input type="text" class="form-control" id="edit_nombre_proy" name="edit_nombre_proy">
+                                <input type="text" class="form-control" id="borra_nombre_proy" name="borra_nombre_proy">
                             </div>
-
-                            <div class="col-md-2" style="color:black">
-                                <label for="Comando" class="form-label">Avance: </label>
-
-                                <div class="input-group col-md-">
-                                    <input max="100" min="0" type="number" class="form-control" id="edit_avance" name="edit_avance">
-                                    <span class="input-group-text">%</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <br>
-
-                        <div class="row g-3">
-                            <div class="col-md-4" style="color:black">
-                                <label for="Grafica" class="form-label">Fecha: </label>
-                                <input type="text" class="form-control" id="edit_fecha_fin" name="edit_fecha_fin" required>
-                                <script>
-                                    $(function() {
-                                        $('input[name="edit_fecha_fin"]').daterangepicker({
-                                            singleDatePicker: true,
-                                            showDropdowns: true,
-                                            opens: 'left',
-                                            locale: {
-                                                format: 'YYYY-MM-DD'
-                                            }
-                                        });
-                                    });
-                                </script>
-                            </div>
-
-                            <div class="col-md-4" style="color:black">
-                                <label for="Comando" class="form-label">Categoria: </label>
-                                <input type="text" class="form-control" id="edit_categoria_proy" name="edit_categoria_proy">
-                            </div>
-
-                            <div class="col-md-4" style="color:black">
-                                <label for="Beneficiarios" class="form-label">Nombre del Beneficiarios: </label>
-                                <input type="text" class="form-control" id="edit_ben_proy" name="edit_ben_proy">
-                            </div>
-
-                        </div>
-
-                        <br>
-
-                        <div class="row g-3">
 
                             <div class="col-md-4" style="color:black">
                                 <label for="Grafica" class="form-label">Descripción del Proyecto: </label>
-                                <textarea name="edit_descrip_proy" id="edit_descrip_proy" cols="40" rows="4" class="form-control" required></textarea>
-                                <div id="contador_descrip_proy">150</div>
+                                <textarea name="borra_descrip_proy" id="borra_descrip_proy" cols="40" rows="4" class="form-control" required></textarea>
+                                <div id="contador_descrip_proy">300</div>
                             </div>
 
                             <div class="col-md-4" style="color:black">
-                                <label for="Grafica" class="form-label">Objetivos del Proyecto: </label>
-                                <textarea name="edit_objec_proy" id="edit_objec_proy" cols="40" rows="4" class="form-control" required></textarea>
-                                <div id="contador_objec_proy">150</div>
+                                <label for="Cond" class="form-label">Condición: </label>
+                                <select class="form-select" id="borra_unidad_proy" name="borra_unidad_proy" required>
+                                    <option value="Investigación">Investigación</option>
+                                    <option value="Desarrollo">Desarrollo</option>
+                                    <option value="Administración">Administración</option>
+                                </select>
                             </div>
 
-                            <div class="col-md-4" style="color:black">
-                                <label for="Grafica" class="form-label">Requerimientos del Proyecto: </label>
-                                <textarea name="edit_objec_requer" id="edit_objec_requer" cols="40" rows="4" class="form-control" required></textarea>
-                                <div id="contador_requer">150</div>
+                            <br>
+
+                            <div class="row g-3">
+                                <div class="col-md-4" style="color:black">
+                                    <label for="Comando" class="form-label">Tipo: </label>
+                                    <select name="borra_tipo_proy" id="borra_tipo_proy" class="form-select border px-3" required>
+                                        <option value="Proyecto">Proyecto</option>
+                                        <option value="Mantenimiento">Mantenimiento</option>
+                                        <option value="Reparación">Reparación</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4" style="color:black">
+                                    <label for="Beneficiarios" class="form-label">Prioridad: </label>
+                                    <select name="borra_prio_proy" id="borra_prio_proy" class="form-select border px-3" required>
+                                        <option value="Baja">Baja</option>
+                                        <option value="Media">Media</option>
+                                        <option value="Alta">Alta</option>
+                                        <option value="Crítica">Crítica</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4" style="color:black">
+                                    <label for="Comando" class="form-label">Solicitante del Proyecto: </label>
+                                    <input type="text" class="form-control" id="borra_solic_proy" name="borra_solic_proy" readonly>
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class="row g-3">
+
+                                <div class="col-md-4" style="color:black">
+                                    <label for="Comando" class="form-label">Sponsor Proyecto: </label>
+                                    <input type="text" class="form-control" id="borra_sponsor_proy" name="borra_sponsor_proy">
+                                </div>
+
+                                <div class="col-md-4" style="color:black">
+                                    <label for="Comando" class="form-label">Inicio del Proyecto: </label>
+                                    <input type="date" class="form-control" id="borra_fech_ini_proy" name="borra_fech_ini_proy">
+                                </div>
+
+                                <div class="col-md-4" style="color:black">
+                                    <label for="Comando" class="form-label">Fin del Proyecto: </label>
+                                    <input type="date" class="form-control" id="borra_fech_fin_proy" name="borra_fech_fin_proy">
+                                </div>
+
+                            </div>
+
+                            <br>
+
+                            <div class="row g-3">
+
+                                <div class="col-md-8" style="color:black">
+                                    <label for="Comando" class="form-label">PM del Proyecto: </label>
+                                    <select name="borra_pm_proy" id="borra_pm_proy" class="form-select border px-3">
+                                        <option value="">Seleccione un responsable</option>
+                                        <?php
+                                        $query_data = mysqli_query($conn, "SELECT * FROM members,users WHERE members.cedula = users.cedula") or die('Error: ' . mysqli_error($conn));
+
+                                        while ($miembro = mysqli_fetch_assoc($query_data)) {
+                                            $id = (int) $miembro['id_usuario'];
+                                            $nombre = htmlspecialchars(
+                                                $miembro['nombre'] . ' ' .
+                                                    $miembro['apellido'] . ' | ' .
+                                                    $miembro['especialidad'],
+                                                ENT_QUOTES,
+                                                'UTF-8'
+                                            );
+                                            echo "<option value=\"$id\">$nombre</option>";
+                                        }
+                                        ?>
+                                    </select>
+
+                                </div>
+
+                                <div class="col-md-4" style="color:black">
+                                    <label for="Comando" class="form-label">Presupuesto del Proyecto: </label>
+                                    <input type="text" class="form-control" id="borra_pres_proy" name="borra_pres_proy">
+                                </div>
+
+                            </div>
+
+                            <div class="row g-3">
+
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Problema / Necesidad *</label>
+                                    <textarea name="borra_problema_proy" id="borra_problema_proy" class="form-control border px-3" rows="3" placeholder="Describa el problema o la necesidad que se desea resolver" required></textarea>
+                                    <div id="contador_problema_proy">300</div>
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Objetivos *</label>
+                                    <textarea name="borra_objetivos_proy" id="borra_objetivos_proy" class="form-control border px-3" rows="3" placeholder="Describa el problema o la necesidad que se desea resolver" required></textarea>
+                                    <div id="contador_objetivos_proy">300</div>
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Beneficios *</label>
+                                    <textarea name="borra_beneficios_proy" id="borra_beneficios_proy" class="form-control border px-3" rows="3" placeholder="Describa el problema o la necesidad que se desea resolver" required></textarea>
+                                    <div id="contador_benef_proy">300</div>
+                                </div>
+
                             </div>
 
                             <script>
@@ -253,49 +308,24 @@ if (!isset($_SESSION['id_miembro'])) {
                                     actualizarContador();
                                 }
 
-                                limitarTextarea("edit_descrip_proy", "contador_descrip_proy", 200);
-                                limitarTextarea("edit_objec_proy", "contador_objec_proy", 200);
-                                limitarTextarea("edit_objec_requer", "contador_requer", 200);
+                                limitarTextarea("borra_descrip_proy", "contador_descrip_proy", 300);
+                                limitarTextarea("borra_problema_proy", "contador_problema_proy", 300);
+                                limitarTextarea("borra_objetivos_proy", "contador_objetivos_proy", 300);
+                                limitarTextarea("borra_beneficios_proy", "contador_benef_proy", 300);
                             </script>
 
-                        </div>
+                            <br>
+                            <br>
 
-                        <br>
+                            <br>
 
-                        <div class="row g-3">
+                            <div class="d-grid gap-2 col-6 mx-auto">
 
-                            <div class="col-md-4" style="color:black">
-                                <label for="Cond" class="form-label">Condición: </label>
-                                <select class="form-select" id="edit_est" name="edit_est" required>
-                                    <option value="Por Ejecutar">Por Ejecutar</option>
-                                    <option value="En progreso">En progreso</option>
-                                    <option value="Completado">Completado</option>
-                                </select>
+                                <button type="submit" class="btn btn-primary" id="Redirect" data-bs-dismiss="modal">Editar</button>
+
                             </div>
 
-                            <div class="col-md-4" style="color:black">
-                                <label for="fecha">Archivo Fotografico (PNG/JPG): </label><br>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="check_Arc_fot_proy" checked>
-                                    <label class="form-check-label" for="check_Arc_fot_proy"></label>
-                                </div>
-                                <input type="file" class="form-control" id="Arc_fot_proy" name="Arc_fot_proy">
-                            </div>
-
-                        </div>
-
-                        <br>
-                        <br>
-
-                        <br>
-
-                        <div class="d-grid gap-2 col-6 mx-auto">
-
-                            <button type="submit" class="btn btn-primary" id="Redirect" data-bs-dismiss="modal">Editar</button>
-
-                        </div>
-
-                        <br><br>
+                            <br><br>
 
                     </form>
 
@@ -347,11 +377,11 @@ if (!isset($_SESSION['id_miembro'])) {
     </script>
 
     <script>
-        function abrirModalEditar(id) {
+        function abrirModalBorrador(id) {
 
             console.log("ID seleccionado:", id);
 
-            document.getElementById('edit_id_Proy').value = id;
+            document.getElementById('borra_id_Proy').value = id;
 
             const modalElement = document.getElementById('myModal');
             const modal = new bootstrap.Modal(modalElement);
@@ -359,7 +389,7 @@ if (!isset($_SESSION['id_miembro'])) {
             modal.show();
 
             $.ajax({
-                url: './consultas/consul_obtener_proyecto.php',
+                url: './consultas/consul_obtener_proyecto_draft.php',
                 type: 'GET',
                 data: {
                     id: id
@@ -376,16 +406,21 @@ if (!isset($_SESSION['id_miembro'])) {
                     }
 
                     const proyecto = respuesta.data;
-                    $('#edit_id_Proy').val(proyecto.id_proyecto);
-                    $('#edit_nombre_proy').val(proyecto.nombre);
-                    $('#edit_avance').val(proyecto.avance);
-                    $('#edit_fecha_fin').val(proyecto.fecha_fin);
-                    $('#edit_categoria_proy').val(proyecto.categoria);
-                    $('#edit_ben_proy').val(proyecto.beneficiarios);
-                    $('#edit_descrip_proy').val(proyecto.descripcion);
-                    $('#edit_objec_proy').val(proyecto.objetivos);
-                    $('#edit_objec_requer').val(proyecto.requerimientos);
-                    $('#edit_est').val(proyecto.estatus);
+                    $('#borra_id_Proy').val(proyecto.id_draf_proy);
+                    $('#borra_nombre_proy').val(proyecto.nombre);
+                    $('#borra_descrip_proy').val(proyecto.descripcion);
+                    $('#borra_unidad_proy').val(proyecto.unidad);
+                    $('#borra_tipo_proy').val(proyecto.tipo);
+                    $('#borra_prio_proy').val(proyecto.prioridad);
+                    $('#borra_solic_proy').val(proyecto.solicitante);
+                    $('#borra_sponsor_proy').val(proyecto.sponsor);
+                    $('#borra_fech_ini_proy').val(proyecto.fecha_inicio);
+                    $('#borra_fech_fin_proy').val(proyecto.fecha_fin);
+                    $('#borra_pm_proy').val(proyecto.id_manager);
+                    $('#borra_pres_proy').val(proyecto.presupuesto_est);
+                    $('#borra_problema_proy').val(proyecto.problema);
+                    $('#borra_objetivos_proy').val(proyecto.objetivos);
+                    $('#borra_beneficios_proy').val(proyecto.beneficios);
 
                 },
 
@@ -400,163 +435,6 @@ if (!isset($_SESSION['id_miembro'])) {
             });
         }
     </script>
-
-    <script>
-        function abrirModalVerMiembros(id) {
-
-            console.log("ID del proyecto seleccionado:", id);
-
-            $('#miembros_id_proyecto').val(id);
-
-            const modalElement = document.getElementById('modalMiembros');
-            const modal = new bootstrap.Modal(modalElement);
-
-            modal.show();
-
-            cargarMiembros(id);
-        }
-    </script>
-    <script>
-        function cargarMiembros(idProyecto) {
-
-            console.log("Cargando miembros:", idProyecto);
-
-            $('#miembros_proyecto_id_texto').text(idProyecto);
-
-            if ($.fn.DataTable.isDataTable('#tabla_miembros_proy')) {
-                $('#tabla_miembros_proy').DataTable().destroy();
-            }
-
-            $('#tabla_miembros_proy').DataTable({
-
-                //autoWidth: false,
-                //responsive: true,
-                //pageLength: 5,
-
-                language: {
-                    url: "../assets/js/DataEsp.json"
-                },
-
-                ajax: {
-                    url: './consultas/consul_obtener_miemb.php',
-                    type: 'GET',
-                    data: {
-                        id_proyecto: idProyecto
-                    },
-                    dataSrc: function(respuesta) {
-                        console.log("Respuesta miembros:", respuesta);
-                        if (!respuesta.success) {
-                            alert(respuesta.message);
-                            return [];
-                        }
-                        return respuesta.data;
-                    }
-                },
-
-                columns: [{
-                        data: 'id_miembro'
-                    },
-                    {
-                        data: 'nombre'
-                    },
-                    {
-                        data: 'apellido'
-                    },
-                    {
-                        data: 'rol_proyecto'
-                    },
-                    {
-                        data: 'email'
-                    },
-                    {
-                        data: null,
-                        render: function(data, type, row) {
-                            return `
-                        <div class="btn-group" role="group">
-
-                            <button
-                                type="button"
-                                class="btn btn-sm btn-danger"
-                                onclick="eliminarMiembro(${row.id_miembro})"
-                                title="Eliminar">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-
-                        </div>
-                    `;
-                        }
-                    }
-                ]
-
-            });
-        }
-
-        /*
-        function construirTablaMiembros(miembros) {
-          const tbody = $('#tabla_miembros_proy tbody');
-          tbody.empty();
-
-                if (miembros.length === 0) {
-                  tbody.append(`
-                      <tr>
-                          <td colspan="6"
-                              class="text-center">
-                              No hay miembros registrados.
-                          </td>
-                      </tr>
-                  `);
-                  return;
-                }
-          
-
-          miembros.forEach(function(miembro) {
-            tbody.append(`
-                <tr id="miembro_${miembro.id_miembro}">
-
-                    <td>
-                        ${miembro.id_miembro}
-                    </td>
-
-                    <td>
-                        ${miembro.nombre}
-                    </td>
-
-                    <td>
-                        ${miembro.apellido}
-                    </td>
-
-                    <td>
-                        ${miembro.rol_proyecto}
-                    </td>
-
-                    <td>
-                        ${miembro.email}
-                    </td>
-
-                    <td>
-
-                        <button
-                            type="button"
-                            class="btn btn-sm btn-danger"
-                            onclick="eliminarMiembro(${miembro.id_miembro})"
-                            title="Eliminar">
-
-                            <i class="fa-solid fa-pen"></i>
-
-                        </button>
-
-                    </td>
-
-                </tr>
-
-            `);
-
-          });
-
-        }
-          */
-    </script>
-
 
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
@@ -592,24 +470,6 @@ if (!isset($_SESSION['id_miembro'])) {
                     },
                     {
                         "data": "estatus"
-                    },
-                    {
-                        "data": "salud",
-                        "render": function(data, type, row) {
-                            let clase = "";
-                            if (data === "En control") {
-                                clase = "estado-progreso";
-                            } else if (data === "En riesgo") {
-                                clase = "estado-ejecutar";
-                            } else if (data === "Critico") {
-                                clase = "estado-listo";
-                            }
-                            return `
-            <span class="estado-badge ${clase}">
-                ${data}
-            </span>
-        `;
-                        }
                     },
                     {
                         "data": "fecha_inicio"
@@ -656,7 +516,7 @@ if (!isset($_SESSION['id_miembro'])) {
               <div class="btn-group" role="group" aria-label="Basic example">
                 <button 
                     type="button"
-                    onclick="abrirModalEditar(${row.id_proyecto})"
+                    onclick="abrirModalBorrador(${row.id_draf_proy})"
                     class="btn-editar"
                     title="Retomar Propuesta">
 
@@ -669,24 +529,6 @@ if (!isset($_SESSION['id_miembro'])) {
                     }
                 ]
             });
-        });
-    </script>
-
-    <script>
-        const switchElement = document.getElementById("flexSwitchCheckChecked");
-        const section1 = document.getElementById("section1");
-        const section2 = document.getElementById("section2");
-
-        switchElement.addEventListener("change", function() {
-            const isChecked = this.checked;
-
-            if (isChecked) {
-                section1.style.display = "block";
-                section2.style.display = "none";
-            } else {
-                section1.style.display = "none";
-                section2.style.display = "block";
-            }
         });
     </script>
 
@@ -721,51 +563,6 @@ if (!isset($_SESSION['id_miembro'])) {
             if (previousEstado === 'Por Asignar' || previousEstado === '' || previousEstado === 'En Espera') {
                 if (selectedUser !== '') {
                     estadoSelect.value = 'Asignado';
-                }
-            }
-        });
-    </script>
-
-    <script>
-        const avance = document.getElementById("edit_avance");
-        const estado = document.getElementById("edit_est");
-
-        avance.addEventListener("input", function() {
-
-            let valor = parseInt(this.value);
-
-            if (isNaN(valor)) {
-                return;
-            }
-
-            if (valor < 0) {
-                this.value = 0;
-                valor = 0;
-            }
-
-            if (valor > 100) {
-                this.value = 100;
-                valor = 100;
-            }
-
-            if (valor === 100) {
-                estado.value = "Completado";
-            } else if (estado.value === "Completado") {
-                estado.value = "En progreso";
-            }
-        });
-
-        estado.addEventListener("change", function() {
-
-            if (this.value === "Completado") {
-                avance.value = 100;
-            } else if (
-                this.value === "En progreso" ||
-                this.value === "Por Ejecutar"
-            ) {
-
-                if (parseInt(avance.value) >= 100 || avance.value === "") {
-                    avance.value = 99;
                 }
             }
         });
