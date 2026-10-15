@@ -150,7 +150,7 @@ if (!isset($_SESSION['id_miembro'])) {
 
                 <div class="w3-container modal-body" id="modalBody">
 
-                    <form class="row g-3" action="./proses_proyecto.php" id="form-upload" enctype="multipart/form-data" method="POST">
+                    <form class="row g-3" action="./proses_proyecto.php?act=insert_borr_init" id="form-upload" enctype="multipart/form-data" method="POST">
 
                         <input type="hidden" style="display:none" class="form-control" id="borra_id_Proy" name="borra_id_Proy" readonly>
 

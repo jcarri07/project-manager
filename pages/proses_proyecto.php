@@ -107,7 +107,7 @@ if ($_GET['act'] == 'insert_init') {
 			header("location: ../pages/project_tables.php?alert=1");
 		}
 	}
-} elseif ($_GET['act'] == 'update') {
+} elseif ($_GET['act'] == 'insert_borr_init') {
 
 	$cont = 0;
 	$sql0 = ("SELECT * FROM projects");
