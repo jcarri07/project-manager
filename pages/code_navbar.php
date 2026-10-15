@@ -16,7 +16,7 @@ $val_typ = $data['id_user_type'];
 $ID_user = $data['id_usuario'];
 
 
-if (!isset($_SESSION['id_miembro'])) {
+if (!isset($_SESSION['id_usuario'])) {
     header("Location: ../index.php");
 }
 if ($val_typ == 1) {

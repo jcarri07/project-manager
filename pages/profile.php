@@ -17,19 +17,14 @@
 <?php
 require_once('../databases/conexion.php');
 session_start();
-$_SESSION["id_users"] = $_SESSION['id_miembro'];
 
-$query = mysqli_query($conn, "SELECT * FROM members WHERE members.id_miembro='$_SESSION[id_miembro]'")
-  or die('error: ' . mysqli_error($conn));
-$data = mysqli_fetch_assoc($query);
-
-$cedul_miemb = $data['cedula'];
+$cedul_miemb = $_SESSION['cedula'];
 
 $query2 = mysqli_query($conn, "SELECT * FROM users WHERE users.cedula='$cedul_miemb'")
   or die('error: ' . mysqli_error($conn));
 $data_2 = mysqli_fetch_assoc($query2);
 
-if (!isset($_SESSION['id_miembro'])) {
+if (!isset($_SESSION['id_usuario'])) {
   // Redirigir al usuario a la página de inicio de sesión
   header("Location: ../index.php");
 }
