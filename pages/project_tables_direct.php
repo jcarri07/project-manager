@@ -32,7 +32,7 @@
 
 
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-    <!-- Navbar -->
+
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
@@ -56,7 +56,6 @@
     </nav>
 
     <div class="d-flex justify-content-center align-items-md-center mt-2">
-
       <div class="col-12 px-3">
 
         <div class="card my-4">
@@ -74,52 +73,134 @@
 
             </div>
 
-            <div class="col-lg-2 col-md-5 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3" style="padding-top: 30px;">
-              <div class="nav-wrapper position-relative end-0">
-                <ul class="nav nav-pills nav-fill p-1" role="tablist">
+            <div class="col-12 mt-3 px-3">
 
-                  <li class="nav-item">
-                    <a class="nav-link mb-0 px-0 py-1 " href="../pages/nuevo_proyecto_direct.php?form=add" role="tab" aria-selected="false">
-                      <i class="material-icons text-lg position-relative">person</i>
-                      <span class="ms-1">Nuevo Proyecto</span>
-                    </a>
+              <div class="d-flex flex-wrap align-items-center gap-3">
+
+                <a href="../pages/nuevo_proyecto_direct.php?form=add" class="nav-link mb-0 px-3 py-2">
+                  <i class="material-icons text-lg position-relative">person</i>
+                  <span class="ms-1">Nuevo Proyecto</span>
+                </a>
+
+                <ul class="nav nav-pills flex-row p-1" id="proyectosTabs" role="tablist">
+
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="proyectos-tab" data-bs-toggle="tab" data-bs-target="#proyectos-pane" type="button" role="tab" aria-controls="proyectos-pane" aria-selected="true">Vista General</button>
                   </li>
+
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="borradores-tab" data-bs-toggle="tab" data-bs-target="#borradores-pane" type="button" role="tab" aria-controls="borradores-pane" aria-selected="false">Propuestas para Validación</button>
+                  </li>
+
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="cerrados-tab" data-bs-toggle="tab" data-bs-target="#cerrados-pane" type="button" role="tab" aria-controls="cerrados-pane" aria-selected="false">Propuestas para Aprobación</button>
+                  </li>
+
                 </ul>
+
               </div>
+
             </div>
 
           </div>
 
 
           <div class="card-body px-3 pb-3">
-            <div class="table-responsive">
 
-              <table id="tabla_proyectos" class="table align-items-center justify-content-center" style="width:100%">
-                <thead>
-                  <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proyecto</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unidad</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salud</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Inicio</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fin</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progreso</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prioridad</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opciones</th>
+            <div class="tab-content" id="proyectosTabsContent">
 
-                  </tr>
-                </thead>
+              <div class="tab-pane fade show active" id="proyectos-pane" role="tabpanel" aria-labelledby="proyectos-tab" tabindex="0">
 
-                <tbody>
-                </tbody>
+                <div class="table-responsive">
 
-              </table>
+                  <table id="tabla_proyectos_gen" class="table align-items-center justify-content-center" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proyecto</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unidad</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salud</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Inicio</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fin</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progreso</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prioridad</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opciones</th>
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+
+                  </table>
+
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="borradores-pane" role="tabpanel" aria-labelledby="borradores-tab" tabindex="0">
+
+                <div class="table-responsive">
+
+                  <table id="tabla_proyectos_eval" class="table align-items-center justify-content-center" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proyecto</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unidad</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salud</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Inicio</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fin</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progreso</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prioridad</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opciones</th>
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+
+                  </table>
+
+                </div>
+
+              </div>
+
+              <div class="tab-pane fade" id="cerrados-pane" role="tabpanel" aria-labelledby="cerrados-tab" tabindex="0">
+
+                <div class="table-responsive">
+
+                  <table id="tabla_proyectos_aprob" class="table align-items-center justify-content-center" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proyecto</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unidad</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salud</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Inicio</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fin</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progreso</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prioridad</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opciones</th>
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+
+                  </table>
+
+                </div>
+
+              </div>
 
             </div>
+
           </div>
-
-
 
         </div>
       </div>
@@ -316,15 +397,223 @@
 
   <script>
     $(document).ready(function() {
-      $('#tabla_proyectos').DataTable({
+      $('#tabla_proyectos_gen').DataTable({
         //autoWidth: false,
-        //responsive: true,
+        //responsive: true, consul_proyectos_valid_direct   consul_proyectos_aprob_direct
         //pageLength: 5,
         "language": {
           "url": "../assets/js/DataEsp.json"
         },
         "ajax": {
-          "url": "./consultas/consul_proyectos.php",
+          "url": "./consultas/consul_proyectos_gen_direct.php",
+          "dataSrc": ""
+        },
+        "columns": [{
+            "data": "id_proyecto"
+          },
+          {
+            "data": "nombre"
+          },
+          {
+            "data": "nombre_unid"
+          },
+          {
+            "data": "estatus"
+          },
+          {
+            "data": "salud",
+            "render": function(data, type, row) {
+              let clase = "";
+              if (data === "En control") {
+                clase = "estado-progreso";
+              } else if (data === "En riesgo") {
+                clase = "estado-ejecutar";
+              } else if (data === "Critico") {
+                clase = "estado-listo";
+              }
+              return `
+            <span class="estado-badge ${clase}">
+                ${data}
+            </span>
+        `;
+            }
+          },
+          {
+            "data": "fecha_inicio"
+          },
+          {
+            "data": "fecha_fin"
+          },
+          {
+
+            "data": "avance",
+            "render": function(data, type, row) {
+
+              let porcentaje = data ? parseInt(data) : 0;
+              porcentaje = Math.max(0, Math.min(100, porcentaje));
+
+              return `
+            <div class="progreso-contenedor">
+
+                <span class="progreso-porcentaje">
+                    ${porcentaje}%
+                </span>
+
+                <div class="progreso-barra">
+
+                    <div 
+                        class="progreso-relleno"
+                        style="width: ${porcentaje}%;">
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+            }
+
+          },
+          {
+            "data": "prioridad"
+          },
+          {
+            "data": null,
+            "render": function(data, type, row) {
+              return `
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button 
+                    type="button"
+                    onclick="abrirModalEditar(${row.id_proyecto})"
+                    class="btn-editar"
+                    title="Editar Datos">
+
+                    <i class="fa-regular fa-pen-to-square"></i>
+
+                </button>
+            </div>
+        `;
+            }
+          }
+        ]
+      });
+    });
+  </script>
+
+  <script>
+    $(document).ready(function() {
+      $('#tabla_proyectos_eval').DataTable({
+        //autoWidth: false,
+        //responsive: true,    consul_proyectos_aprob_direct
+        //pageLength: 5,
+        "language": {
+          "url": "../assets/js/DataEsp.json"
+        },
+        "ajax": {
+          "url": "./consultas/consul_proyectos_valid_direct.php",
+          "dataSrc": ""
+        },
+        "columns": [{
+            "data": "id_proyecto"
+          },
+          {
+            "data": "nombre"
+          },
+          {
+            "data": "nombre_unid"
+          },
+          {
+            "data": "estatus"
+          },
+          {
+            "data": "salud",
+            "render": function(data, type, row) {
+              let clase = "";
+              if (data === "En control") {
+                clase = "estado-progreso";
+              } else if (data === "En riesgo") {
+                clase = "estado-ejecutar";
+              } else if (data === "Critico") {
+                clase = "estado-listo";
+              }
+              return `
+            <span class="estado-badge ${clase}">
+                ${data}
+            </span>
+        `;
+            }
+          },
+          {
+            "data": "fecha_inicio"
+          },
+          {
+            "data": "fecha_fin"
+          },
+          {
+
+            "data": "avance",
+            "render": function(data, type, row) {
+
+              let porcentaje = data ? parseInt(data) : 0;
+              porcentaje = Math.max(0, Math.min(100, porcentaje));
+
+              return `
+            <div class="progreso-contenedor">
+
+                <span class="progreso-porcentaje">
+                    ${porcentaje}%
+                </span>
+
+                <div class="progreso-barra">
+
+                    <div 
+                        class="progreso-relleno"
+                        style="width: ${porcentaje}%;">
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+            }
+
+          },
+          {
+            "data": "prioridad"
+          },
+          {
+            "data": null,
+            "render": function(data, type, row) {
+              return `
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button 
+                    type="button"
+                    onclick="abrirModalEditar(${row.id_proyecto})"
+                    class="btn-editar"
+                    title="Editar Datos">
+
+                    <i class="fa-regular fa-pen-to-square"></i>
+
+                </button>
+            </div>
+        `;
+            }
+          }
+        ]
+      });
+    });
+  </script>
+
+  <script>
+    $(document).ready(function() {
+      $('#tabla_proyectos_aprob').DataTable({
+        //autoWidth: false,
+        //responsive: true,    
+        //pageLength: 5,
+        "language": {
+          "url": "../assets/js/DataEsp.json"
+        },
+        "ajax": {
+          "url": "./consultas/consul_proyectos_aprob_direct.php",
           "dataSrc": ""
         },
         "columns": [{
@@ -471,6 +760,31 @@
         }
       });
     }
+  </script>
+
+  <script>
+    $(document).ready(function() {
+
+      $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function(e) {
+
+        const destino = e.target.getAttribute('data-bs-target');
+        const tabla = document.querySelector(destino + ' table');
+
+        if (
+          tabla &&
+          $.fn.DataTable.isDataTable(tabla)
+        ) {
+          const dt = $(tabla).DataTable();
+
+          dt.columns.adjust();
+          if (dt.responsive) {
+            dt.responsive.recalc();
+          }
+        }
+
+      });
+
+    });
   </script>
 
   <script>
