@@ -4,9 +4,9 @@ session_start();
 $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 
-$cedul = $_SESSION['cedula'];
+$cedul = $_SESSION['id_usuario'];
 
-$consulta = "SELECT * FROM projects_draft WHERE projects_draft.solicitante = '$cedul'";
+$consulta = "SELECT * FROM projects_draft WHERE projects_draft.id_solicitante  = '$cedul'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

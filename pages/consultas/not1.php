@@ -1,0 +1,868 @@
+<?php
+require_once('../databases/conexion.php');
+session_start();
+
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <title>
+        Sistema de Gestion de Proyectos
+    </title>
+
+    <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/material-modal.css">
+    <link rel="stylesheet" href="../assets/css/dash-modal.css">
+
+    <!--
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+-->
+
+    <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
+
+    <link href="../assets/css/code_icon_navbar.css" rel="stylesheet">
+
+    <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/material-modal.css">
+    <link rel="stylesheet" href="../assets/css/dash-modal.css">
+    <link rel="stylesheet" href="../assets/DataTable/datatables.min.css">
+    <link rel="stylesheet" href="../assets/css/code_tables_proyectos.css">
+</head>
+
+
+<body class="g-sidenav-show  bg-gray-200">
+    <?php
+    include("./code_navbar.php");
+    ?>
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        <!-- Navbar -->
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+            <div class="container-fluid py-1 px-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Tables</li>
+                    </ol>
+                </nav>
+                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                    <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                    </div>
+                    <ul class="navbar-nav  justify-content-end">
+
+                        <li class="nav-item d-flex align-items-center">
+                            <a href="../logout.php" class="nav-link text-body font-weight-bold px-0">
+                                <i class="fa fa-user me-sm-1"></i>
+                                <span class="d-sm-inline d-none">Cerrar Sesión</span>
+                            </a>
+                        </li>
+
+        </nav>
+
+        <div class="d-flex justify-content-center align-items-md-center mt-2">
+
+            <div class="col-12 px-3">
+
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+
+                            <div class="d-flex align-items-center gap-3 px-3">
+
+                                <h6 class="text-white text-capitalize mb-0">Proyectos</h6>
+
+                            </div>
+
+                            <br>
+
+                        </div>
+
+                        <div class="col-lg-2 col-md-5 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3" style="padding-top: 30px;">
+                            <div class="nav-wrapper position-relative end-0">
+                                <ul class="nav nav-pills nav-fill p-1" role="tablist">
+
+                                    <li class="nav-item">
+                                        <a class="nav-link mb-0 px-0 py-1 " href="../pages/nuevo_proyecto.php?form=add" role="tab" aria-selected="false">
+                                            <i class="material-icons text-lg position-relative">person</i>
+                                            <span class="ms-1">Nuevo Proyecto</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="card-body px-3 pb-3">
+                        <div class="table-responsive">
+
+                            <table id="tabla_proyectos" class="table align-items-center justify-content-center" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proyecto</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">PM</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salud</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Inicio</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fin</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progreso</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prioridad</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opciones</th>
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </main>
+
+    <div class="modal w3-container" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content w3-animate-opacity">
+                <div class="w3-container w3-teal">
+                    <br>
+                    <p class="modal-title" style="color: black;">Datos Registrados</p>
+                    <br>
+                    <div class="w3-center">
+                        <span onclick="document.getElementById('id01').style.display='none'" id="closeAndRedirect" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+                    </div>
+                </div>
+
+                <div class="w3-container modal-body" id="modalBody">
+
+                    <form class="row g-3" action="./ejec_edit_proy.php" id="form-upload" enctype="multipart/form-data" method="POST">
+
+                        <input type="hidden" style="display:none" class="form-control" id="edit_id_Proy" name="edit_id_Proy" readonly>
+
+                        <div class="row g-3">
+                            <div class="col-md-4" style="color:black">
+                                <label for="Comando" class="form-label">Nombre del Proyecto: </label>
+                                <input type="text" class="form-control" id="edit_nombre_proy" name="edit_nombre_proy">
+                            </div>
+
+                            <div class="col-md-2" style="color:black">
+                                <label for="Comando" class="form-label">Avance: </label>
+
+                                <div class="input-group col-md-">
+                                    <input max="100" min="0" type="number" class="form-control" id="edit_avance" name="edit_avance">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="row g-3">
+                            <div class="col-md-4" style="color:black">
+                                <label for="Grafica" class="form-label">Fecha: </label>
+                                <input type="text" class="form-control" id="edit_fecha_fin" name="edit_fecha_fin" required>
+                                <script>
+                                    $(function() {
+                                        $('input[name="edit_fecha_fin"]').daterangepicker({
+                                            singleDatePicker: true,
+                                            showDropdowns: true,
+                                            opens: 'left',
+                                            locale: {
+                                                format: 'YYYY-MM-DD'
+                                            }
+                                        });
+                                    });
+                                </script>
+                            </div>
+
+                            <div class="col-md-4" style="color:black">
+                                <label for="Comando" class="form-label">Categoria: </label>
+                                <input type="text" class="form-control" id="edit_categoria_proy" name="edit_categoria_proy">
+                            </div>
+
+                            <div class="col-md-4" style="color:black">
+                                <label for="Beneficiarios" class="form-label">Nombre del Beneficiarios: </label>
+                                <input type="text" class="form-control" id="edit_ben_proy" name="edit_ben_proy">
+                            </div>
+
+                        </div>
+
+                        <br>
+
+                        <div class="row g-3">
+
+                            <div class="col-md-4" style="color:black">
+                                <label for="Grafica" class="form-label">Descripción del Proyecto: </label>
+                                <textarea name="edit_descrip_proy" id="edit_descrip_proy" cols="40" rows="4" class="form-control" required></textarea>
+                                <div id="contador_descrip_proy">150</div>
+                            </div>
+
+                            <div class="col-md-4" style="color:black">
+                                <label for="Grafica" class="form-label">Objetivos del Proyecto: </label>
+                                <textarea name="edit_objec_proy" id="edit_objec_proy" cols="40" rows="4" class="form-control" required></textarea>
+                                <div id="contador_objec_proy">150</div>
+                            </div>
+
+                            <div class="col-md-4" style="color:black">
+                                <label for="Grafica" class="form-label">Requerimientos del Proyecto: </label>
+                                <textarea name="edit_objec_requer" id="edit_objec_requer" cols="40" rows="4" class="form-control" required></textarea>
+                                <div id="contador_requer">150</div>
+                            </div>
+
+                            <script>
+                                function limitarTextarea(idTextarea, idContador, maximoCaracteres = 200) {
+                                    const textarea = document.getElementById(idTextarea);
+                                    const contador = document.getElementById(idContador);
+
+                                    const mensajeError = document.createElement('p');
+                                    mensajeError.classList.add('text-danger');
+                                    mensajeError.textContent = 'Has superado el límite de caracteres (Reiniciar el Registro).';
+                                    mensajeError.style.display = 'none';
+                                    textarea.parentNode.appendChild(mensajeError);
+
+                                    const actualizarContador = () => {
+                                        const restantes = maximoCaracteres - textarea.value.length;
+                                        contador.textContent = restantes;
+
+                                        if (restantes < 0) {
+                                            mensajeError.style.display = 'block';
+                                            textarea.disabled = true;
+                                        } else {
+                                            mensajeError.style.display = 'none';
+                                            textarea.disabled = false;
+                                        }
+                                    };
+
+                                    textarea.addEventListener('input', actualizarContador);
+                                    actualizarContador();
+                                }
+
+                                limitarTextarea("edit_descrip_proy", "contador_descrip_proy", 200);
+                                limitarTextarea("edit_objec_proy", "contador_objec_proy", 200);
+                                limitarTextarea("edit_objec_requer", "contador_requer", 200);
+                            </script>
+
+                        </div>
+
+                        <br>
+
+                        <div class="row g-3">
+
+                            <div class="col-md-4" style="color:black">
+                                <label for="Cond" class="form-label">Condición: </label>
+                                <select class="form-select" id="edit_est" name="edit_est" required>
+                                    <option value="Por Ejecutar">Por Ejecutar</option>
+                                    <option value="En progreso">En progreso</option>
+                                    <option value="Completado">Completado</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4" style="color:black">
+                                <label for="fecha">Archivo Fotografico (PNG/JPG): </label><br>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="check_Arc_fot_proy" checked>
+                                    <label class="form-check-label" for="check_Arc_fot_proy"></label>
+                                </div>
+                                <input type="file" class="form-control" id="Arc_fot_proy" name="Arc_fot_proy">
+                            </div>
+
+                        </div>
+
+                        <br>
+                        <br>
+
+                        <br>
+
+                        <div class="d-grid gap-2 col-6 mx-auto">
+
+                            <button type="submit" class="btn btn-primary" id="Redirect" data-bs-dismiss="modal">Editar</button>
+
+                        </div>
+
+                        <br><br>
+
+                    </form>
+
+                </div>
+
+                <div class="w3-teal modal-footer">
+                    <br><br>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal w3-container" id="modalMiembros" data-bs-backdrop="static" data-bs-keyboard="false">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content w3-animate-opacity">
+
+                <div class="w3-container w3-teal">
+                    <br>
+                    <p class="modal-title" style="color: black;">Miembros del Proyecto</p>
+                    <br>
+                    <div class="w3-center">
+                        <span class="closeAndRedirect w3-button w3-xlarge w3-hover-red w3-display-topright"
+                            data-modal="modalMiembros"
+                            title="Close Modal">&times;</span>
+                    </div>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="row">
+
+                        <div class="col-md-4 mt-4">
+                            <div id="formularioMiembro">
+
+                                <div class="card">
+
+                                    <div class="card-body">
+
+                                        <h6>
+                                            Agregar miembro
+                                        </h6>
+
+                                        <div class="row g-3">
+
+                                            <form class="row g-3" action="../pages/proses_users.php?act=insert_miembros_proyectos" id="form-upload" enctype="multipart/form-data" method="POST">
+
+                                                <input type="hidden" value="miembros_id_proyecto" id="miembros_id_proyecto" name="miembros_id_proyecto">
+
+                                                <div class="col-md-12">
+                                                    <label class="form-label">Miembro: </label>
+                                                    <select class="form-control" name="new_member" id="new_member" required>
+                                                        <option value="" disabled>Lista del Personal</option>
+                                                        <?php
+                                                        $query_data = mysqli_query($conn, "SELECT id_miembro ,nombre, apellido, especialidad FROM members")
+                                                            or die('error ' . mysqli_error($conn));
+                                                        while ($data_1 = mysqli_fetch_assoc($query_data)) {
+                                                            echo "<option value=\"$data_1[id_miembro]\"> $data_1[especialidad]  | $data_1[nombre] $data_1[apellido] </option>";
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label class="form-label">Rol en el Proyecto</label>
+                                                    <input type="text" class="form-control" id="miembro_rol_proyect" name="miembro_rol_proyect">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label class="form-label">Fecha de Registro:</label><br>
+                                                    <input type="datetime-local" class="form-control" id="fecha_reg_memb" name="fecha_reg_memb" readonly>
+                                                </div>
+                                                <script>
+                                                    var fechaActual = new Date();
+                                                    var formattedDateTime = fechaActual.getFullYear() + '-' + ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '-' + ('0' + fechaActual.getDate()).slice(-2) + 'T' + ('0' + fechaActual.getHours()).slice(-2) + ':' + ('0' + fechaActual.getMinutes()).slice(-2);
+                                                    document.getElementById('fecha_reg_memb').value = formattedDateTime;
+                                                </script>
+
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary" id="Redirect" name="Guardar" value="Guardar" data-bs-dismiss="modal">Guardar</button>
+
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 mt-4">
+                            <div class="table-responsive">
+
+                                <table id="tabla_miembros_proy" class="table align-items-center justify-content-center" style="width:100%">
+
+                                    <thead>
+                                        <tr>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Apellido</th>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cargo</th>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Correo</th>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="w3-teal modal-footer">
+                    <br><br>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="../assets/js/core/popper.min.js"></script>
+    <script src="../assets/js/core/bootstrap.min.js"></script>
+    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="../assets/jqery/jquery.js"></script>
+    <script src="../assets/DataTable/datatables.min.js"></script>
+
+
+    <script>
+        const closeAndRedirectButton = document.getElementById("closeAndRedirect");
+        if (closeAndRedirectButton) {
+            closeAndRedirectButton.addEventListener("click", function() {
+                window.location.href = "./project_tables.php";
+            });
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modalMiembros = document.getElementById('modalMiembros');
+
+            if (!modalMiembros) return;
+            const botonesCerrar = modalMiembros.querySelectorAll('.closeAndRedirect');
+
+            botonesCerrar.forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    cerrarMiembrosYRedirigir();
+                });
+            });
+
+            function cerrarMiembrosYRedirigir() {
+                window.location.href = './project_tables_direct.php';
+            }
+        });
+    </script>
+
+    <script>
+        function abrirModalEditar(id) {
+
+            console.log("ID seleccionado:", id);
+
+            document.getElementById('edit_id_Proy').value = id;
+
+            const modalElement = document.getElementById('myModal');
+            const modal = new bootstrap.Modal(modalElement);
+
+            modal.show();
+
+            $.ajax({
+                url: './consultas/consul_obtener_proyecto.php',
+                type: 'GET',
+                data: {
+                    id: id
+                },
+                dataType: 'json',
+
+                success: function(respuesta) {
+
+                    console.log("Respuesta del servidor:", respuesta);
+
+                    if (!respuesta.success) {
+                        alert(respuesta.message);
+                        return;
+                    }
+
+                    const proyecto = respuesta.data;
+                    $('#edit_id_Proy').val(proyecto.id_proyecto);
+                    $('#edit_nombre_proy').val(proyecto.nombre);
+                    $('#edit_avance').val(proyecto.avance);
+                    $('#edit_fecha_fin').val(proyecto.fecha_fin);
+                    $('#edit_categoria_proy').val(proyecto.categoria);
+                    $('#edit_ben_proy').val(proyecto.beneficiarios);
+                    $('#edit_descrip_proy').val(proyecto.descripcion);
+                    $('#edit_objec_proy').val(proyecto.objetivos);
+                    $('#edit_objec_requer').val(proyecto.requerimientos);
+                    $('#edit_est').val(proyecto.estatus);
+
+                },
+
+                error: function(xhr) {
+
+                    console.error("Error AJAX:");
+                    console.error(xhr.responseText);
+
+                    alert('Error al obtener los datos del proyecto.');
+
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function abrirModalVerMiembros(id) {
+
+            console.log("ID del proyecto seleccionado:", id);
+
+            $('#miembros_id_proyecto').val(id);
+
+            const modalElement = document.getElementById('modalMiembros');
+            const modal = new bootstrap.Modal(modalElement);
+
+            modal.show();
+
+            cargarMiembros(id);
+        }
+    </script>
+    <script>
+        function cargarMiembros(idProyecto) {
+
+            console.log("Cargando miembros:", idProyecto);
+
+            $('#miembros_proyecto_id_texto').text(idProyecto);
+
+            if ($.fn.DataTable.isDataTable('#tabla_miembros_proy')) {
+                $('#tabla_miembros_proy').DataTable().destroy();
+            }
+
+            $('#tabla_miembros_proy').DataTable({
+
+                //autoWidth: false,
+                //responsive: true,
+                //pageLength: 5,
+
+                language: {
+                    url: "../assets/js/DataEsp.json"
+                },
+
+                ajax: {
+                    url: './consultas/consul_obtener_miemb.php',
+                    type: 'GET',
+                    data: {
+                        id_proyecto: idProyecto
+                    },
+                    dataSrc: function(respuesta) {
+                        console.log("Respuesta miembros:", respuesta);
+                        if (!respuesta.success) {
+                            alert(respuesta.message);
+                            return [];
+                        }
+                        return respuesta.data;
+                    }
+                },
+
+                columns: [{
+                        data: 'id_miembro'
+                    },
+                    {
+                        data: 'nombre'
+                    },
+                    {
+                        data: 'apellido'
+                    },
+                    {
+                        data: 'rol_proyecto'
+                    },
+                    {
+                        data: 'email'
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return `
+                        <div class="btn-group" role="group">
+
+                            <button
+                                type="button"
+                                class="btn btn-sm btn-danger"
+                                onclick="eliminarMiembro(${row.id_miembro})"
+                                title="Eliminar">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+
+                        </div>
+                    `;
+                        }
+                    }
+                ]
+
+            });
+        }
+
+        /*
+        function construirTablaMiembros(miembros) {
+          const tbody = $('#tabla_miembros_proy tbody');
+          tbody.empty();
+
+                if (miembros.length === 0) {
+                  tbody.append(`
+                      <tr>
+                          <td colspan="6"
+                              class="text-center">
+                              No hay miembros registrados.
+                          </td>
+                      </tr>
+                  `);
+                  return;
+                }
+          
+
+          miembros.forEach(function(miembro) {
+            tbody.append(`
+                <tr id="miembro_${miembro.id_miembro}">
+
+                    <td>
+                        ${miembro.id_miembro}
+                    </td>
+
+                    <td>
+                        ${miembro.nombre}
+                    </td>
+
+                    <td>
+                        ${miembro.apellido}
+                    </td>
+
+                    <td>
+                        ${miembro.rol_proyecto}
+                    </td>
+
+                    <td>
+                        ${miembro.email}
+                    </td>
+
+                    <td>
+
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-danger"
+                            onclick="eliminarMiembro(${miembro.id_miembro})"
+                            title="Eliminar">
+
+                            <i class="fa-solid fa-pen"></i>
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `);
+
+          });
+
+        }
+          */
+    </script>
+
+
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#tabla_proyectos').DataTable({
+                autoWidth: false,
+                responsive: true,
+                pageLength: 5,
+                "language": {
+                    "url": "../assets/js/DataEsp.json"
+                },
+                "ajax": {
+                    "url": "./consultas/consul_proyectos.php",
+                    "dataSrc": ""
+                },
+                "columns": [{
+                        "data": "id_proyecto"
+                    },
+                    {
+                        "data": "nombre"
+                    },
+                    {
+                        "data": "cedula"
+                    },
+
+                    {
+                        "data": "estatus"
+                    },
+                    {
+                        "data": "salud",
+                        "render": function(data, type, row) {
+                            let clase = "";
+                            if (data === "En control") {
+                                clase = "estado-progreso";
+                            } else if (data === "En riesgo") {
+                                clase = "estado-ejecutar";
+                            } else if (data === "Critico") {
+                                clase = "estado-listo";
+                            }
+                            return `
+            <span class="estado-badge ${clase}">
+                ${data}
+            </span>
+        `;
+                        }
+                    },
+                    {
+                        "data": "fecha_inicio"
+                    },
+                    {
+                        "data": "fecha_fin"
+                    },
+                    {
+
+                        "data": "avance",
+                        "render": function(data, type, row) {
+
+                            let porcentaje = data ? parseInt(data) : 0;
+                            porcentaje = Math.max(0, Math.min(100, porcentaje));
+
+                            return `
+            <div class="progreso-contenedor">
+
+                <span class="progreso-porcentaje">
+                    ${porcentaje}%
+                </span>
+
+                <div class="progreso-barra">
+
+                    <div 
+                        class="progreso-relleno"
+                        style="width: ${porcentaje}%;">
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+                        }
+
+                    },
+                    {
+                        "data": "prioridad"
+                    },
+                    {
+                        "data": null,
+                        "render": function(data, type, row) {
+                            return `
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button 
+                    type="button"
+                    onclick="abrirModalEditar(${row.id_proyecto})"
+                    class="btn-editar"
+                    title="Editar Datos">
+
+                    <i class="fa-regular fa-pen-to-square"></i>
+
+                </button>
+                <button 
+                    type="button"
+                    onclick="abrirModalVerMiembros(${row.id_proyecto})"
+                    class="btn-agregar-miemb"
+                    title="Agregar Miembros">
+
+                    <i class="fa-solid fa-circle-plus" style="color: rgb(0, 92, 255);"></i>
+
+                </button>
+            </div>
+        `;
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+
+    <script>
+        const asignSelect = document.getElementById('Asign');
+        const estadoSelect = document.getElementById('estado');
+
+        asignSelect.addEventListener('change', () => {
+            const previousEstado = estadoSelect.value;
+            const selectedUser = asignSelect.options[asignSelect.selectedIndex].value;
+
+            if (previousEstado === 'Por Asignar' || previousEstado === '' || previousEstado === 'En Espera') {
+                if (selectedUser !== '') {
+                    estadoSelect.value = 'Asignado';
+                }
+            }
+        });
+    </script>
+
+    <script>
+        const avance = document.getElementById("edit_avance");
+        const estado = document.getElementById("edit_est");
+
+        avance.addEventListener("input", function() {
+
+            let valor = parseInt(this.value);
+
+            if (isNaN(valor)) {
+                return;
+            }
+
+            if (valor < 0) {
+                this.value = 0;
+                valor = 0;
+            }
+
+            if (valor > 100) {
+                this.value = 100;
+                valor = 100;
+            }
+
+            if (valor === 100) {
+                estado.value = "Completado";
+            } else if (estado.value === "Completado") {
+                estado.value = "En progreso";
+            }
+        });
+
+        estado.addEventListener("change", function() {
+
+            if (this.value === "Completado") {
+                avance.value = 100;
+            } else if (
+                this.value === "En progreso" ||
+                this.value === "Por Ejecutar"
+            ) {
+
+                if (parseInt(avance.value) >= 100 || avance.value === "") {
+                    avance.value = 99;
+                }
+            }
+        });
+    </script>
+
+</body>
+
+
+
+</html>

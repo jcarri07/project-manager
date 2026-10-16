@@ -1,13 +1,3 @@
-<?php
-require_once('../databases/conexion.php');
-session_start();
-
-
-if (!isset($_SESSION['id_miembro'])) {
-    header("Location: ../index.php");
-}
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,29 +9,28 @@ if (!isset($_SESSION['id_miembro'])) {
     <title>
         Sistema de Gestion de Proyectos
     </title>
-
-    <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/material-modal.css">
-    <link rel="stylesheet" href="../assets/css/dash-modal.css">
-
-    <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
-
-    <link href="../assets/css/code_icon_navbar.css" rel="stylesheet">
-
     <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
 
     <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/material-modal.css">
-    <link rel="stylesheet" href="../assets/css/dash-modal.css">
-    <link rel="stylesheet" href="../assets/DataTable/datatables.min.css">
-    <link rel="stylesheet" href="../assets/css/code_tables_proyectos.css">
-</head>
+    <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
+    <link href="../assets/css/code_icon_navbar.css" rel="stylesheet">
 
+
+    <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/material-modal.css">
+    <link rel="stylesheet" href="../assets/css/dash-modal_miemb.css">
+    <link rel="stylesheet" href="../assets/DataTable/datatables.min.css">
+    <link rel="stylesheet" href="../assets/css/code_tables_miemb_users.css">
+</head>
 
 <body class="g-sidenav-show  bg-gray-200">
     <?php
     include("./code_navbar.php");
     ?>
+
+
+
+
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
@@ -85,20 +74,6 @@ if (!isset($_SESSION['id_miembro'])) {
 
                         </div>
 
-                        <div class="col-lg-2 col-md-5 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3" style="padding-top: 30px;">
-                            <div class="nav-wrapper position-relative end-0">
-                                <ul class="nav nav-pills nav-fill p-1" role="tablist">
-
-                                    <li class="nav-item">
-                                        <a class="nav-link mb-0 px-0 py-1 " href="../pages/nuevo_proyecto.php?form=add" role="tab" aria-selected="false">
-                                            <i class="material-icons text-lg position-relative">person</i>
-                                            <span class="ms-1">Nuevo Proyecto</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
                     </div>
 
 
@@ -129,12 +104,15 @@ if (!isset($_SESSION['id_miembro'])) {
                         </div>
                     </div>
 
+
+
                 </div>
             </div>
         </div>
 
-        </div>
     </main>
+
+    <!-- --------------------------------------------------------------------------------------------------------------- -->
 
     <div class="modal w3-container" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
@@ -167,11 +145,18 @@ if (!isset($_SESSION['id_miembro'])) {
                             </div>
 
                             <div class="col-md-4" style="color:black">
-                                <label for="Cond" class="form-label">Condición: </label>
+                                <label for="Cond" class="form-label">Unidad: </label>
                                 <select class="form-select" id="borra_unidad_proy" name="borra_unidad_proy" required>
-                                    <option value="Investigación">Investigación</option>
-                                    <option value="Desarrollo">Desarrollo</option>
-                                    <option value="Administración">Administración</option>
+                                    <?php
+                                    $query_data = mysqli_query($conn, "SELECT * FROM unidad");
+
+                                    while ($miembro = mysqli_fetch_assoc($query_data)) {
+                                        $id = $miembro['id_unidad'];
+                                        $nombre = ($miembro['nombre_unid']);
+                                        echo "<option value=\"$id\">$nombre</option>";
+                                    }
+                                    ?>
+                                    ?>
                                 </select>
                             </div>
 
@@ -198,9 +183,12 @@ if (!isset($_SESSION['id_miembro'])) {
                                 </div>
 
                                 <div class="col-md-4" style="color:black">
-                                    <label for="Comando" class="form-label">Solicitante del Proyecto: </label>
-                                    <input type="text" class="form-control" id="borra_solic_proy" name="borra_solic_proy" readonly>
+                                    <label for="Comando" class="form-label">Presupuesto del Proyecto: </label>
+                                    <input type="text" class="form-control" id="borra_pres_proy" name="borra_pres_proy">
+                                    <span class="input-group-text">$</span>
                                 </div>
+
+                                <input type="hidden" class="form-control" id="borra_solic_proy" name="borra_solic_proy" readonly>
                             </div>
 
                             <br>
@@ -225,38 +213,6 @@ if (!isset($_SESSION['id_miembro'])) {
                             </div>
 
                             <br>
-
-                            <div class="row g-3">
-
-                                <div class="col-md-8" style="color:black">
-                                    <label for="Comando" class="form-label">PM del Proyecto: </label>
-                                    <select name="borra_pm_proy" id="borra_pm_proy" class="form-select border px-3">
-                                        <option value="">Seleccione un responsable</option>
-                                        <?php
-                                        $query_data = mysqli_query($conn, "SELECT * FROM members,users WHERE members.cedula = users.cedula") or die('Error: ' . mysqli_error($conn));
-
-                                        while ($miembro = mysqli_fetch_assoc($query_data)) {
-                                            $id = (int) $miembro['id_usuario'];
-                                            $nombre = htmlspecialchars(
-                                                $miembro['nombre'] . ' ' .
-                                                    $miembro['apellido'] . ' | ' .
-                                                    $miembro['especialidad'],
-                                                ENT_QUOTES,
-                                                'UTF-8'
-                                            );
-                                            echo "<option value=\"$id\">$nombre</option>";
-                                        }
-                                        ?>
-                                    </select>
-
-                                </div>
-
-                                <div class="col-md-4" style="color:black">
-                                    <label for="Comando" class="form-label">Presupuesto del Proyecto: </label>
-                                    <input type="text" class="form-control" id="borra_pres_proy" name="borra_pres_proy">
-                                </div>
-
-                            </div>
 
                             <div class="row g-3">
 
@@ -339,102 +295,17 @@ if (!isset($_SESSION['id_miembro'])) {
         </div>
     </div>
 
+    <!-- ------------------------------------------------------------------------------------------------------------------ -->
+
+    </div>
+    <!--   Core JS Files   -->
+    <script src="../assets/js/material-dashboard.min.js?v=3.0.4"></script>
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/core/bootstrap.min.js"></script>
     <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
     <script src="../assets/jqery/jquery.js"></script>
     <script src="../assets/DataTable/datatables.min.js"></script>
-
-
-    <script>
-        const closeAndRedirectButton = document.getElementById("closeAndRedirect");
-        if (closeAndRedirectButton) {
-            closeAndRedirectButton.addEventListener("click", function() {
-                window.location.href = "./project_tables_draft.php";
-            });
-        }
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const modalMiembros = document.getElementById('modalMiembros');
-
-            if (!modalMiembros) return;
-            const botonesCerrar = modalMiembros.querySelectorAll('.closeAndRedirect');
-
-            botonesCerrar.forEach(function(btn) {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    cerrarMiembrosYRedirigir();
-                });
-            });
-
-            function cerrarMiembrosYRedirigir() {
-                window.location.href = './project_tables_draft.php';
-            }
-        });
-    </script>
-
-    <script>
-        function abrirModalBorrador(id) {
-
-            console.log("ID seleccionado:", id);
-
-            document.getElementById('borra_id_Proy').value = id;
-
-            const modalElement = document.getElementById('myModal');
-            const modal = new bootstrap.Modal(modalElement);
-
-            modal.show();
-
-            $.ajax({
-                url: './consultas/consul_obtener_proyecto_draft.php',
-                type: 'GET',
-                data: {
-                    id: id
-                },
-                dataType: 'json',
-
-                success: function(respuesta) {
-
-                    console.log("Respuesta del servidor:", respuesta);
-
-                    if (!respuesta.success) {
-                        alert(respuesta.message);
-                        return;
-                    }
-
-                    const proyecto = respuesta.data;
-                    $('#borra_id_Proy').val(proyecto.id_draf_proy);
-                    $('#borra_nombre_proy').val(proyecto.nombre);
-                    $('#borra_descrip_proy').val(proyecto.descripcion);
-                    $('#borra_unidad_proy').val(proyecto.unidad);
-                    $('#borra_tipo_proy').val(proyecto.tipo);
-                    $('#borra_prio_proy').val(proyecto.prioridad);
-                    $('#borra_solic_proy').val(proyecto.solicitante);
-                    $('#borra_sponsor_proy').val(proyecto.sponsor);
-                    $('#borra_fech_ini_proy').val(proyecto.fecha_inicio);
-                    $('#borra_fech_fin_proy').val(proyecto.fecha_fin);
-                    $('#borra_pm_proy').val(proyecto.id_manager);
-                    $('#borra_pres_proy').val(proyecto.presupuesto_est);
-                    $('#borra_problema_proy').val(proyecto.problema);
-                    $('#borra_objetivos_proy').val(proyecto.objetivos);
-                    $('#borra_beneficios_proy').val(proyecto.beneficios);
-
-                },
-
-                error: function(xhr) {
-
-                    console.error("Error AJAX:");
-                    console.error(xhr.responseText);
-
-                    alert('Error al obtener los datos del proyecto.');
-
-                }
-            });
-        }
-    </script>
 
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
@@ -447,11 +318,21 @@ if (!isset($_SESSION['id_miembro'])) {
     </script>
 
     <script>
+        const closeAndRedirectButton = document.getElementById("closeAndRedirect");
+        if (closeAndRedirectButton) {
+            closeAndRedirectButton.addEventListener("click", function() {
+                window.location.href = "./project_tables_draft.php";
+            });
+        }
+    </script>
+
+
+    <script>
         $(document).ready(function() {
             $('#tabla_proyectos').DataTable({
-                autoWidth: false,
-                responsive: true,
-                pageLength: 5,
+                //autoWidth: false,
+                //responsive: true,
+                //pageLength: 5,
                 "language": {
                     "url": "../assets/js/DataEsp.json"
                 },
@@ -533,43 +414,86 @@ if (!isset($_SESSION['id_miembro'])) {
     </script>
 
     <script>
-        const checkboxes = document.querySelectorAll('.form-check-input');
+        document.addEventListener('DOMContentLoaded', function() {
+            const modalMiembros = document.getElementById('modalMiembros');
 
-        checkboxes.forEach(checkbox => {
-            const fileInputId = checkbox.id.replace('check_', '');
-            const fileInput = document.getElementById(fileInputId);
+            if (!modalMiembros) return;
+            const botonesCerrar = modalMiembros.querySelectorAll('.closeAndRedirect');
 
-            fileInput.style.display = checkbox.checked ? 'none' : 'block';
-
-            checkbox.addEventListener('change', () => {
-                if (checkbox.checked) {
-                    fileInput.style.display = 'none';
-                } else {
-                    fileInput.style.display = 'block';
-                }
+            botonesCerrar.forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    cerrarMiembrosYRedirigir();
+                });
             });
-        });
-    </script>
 
-
-    <script>
-        const asignSelect = document.getElementById('Asign');
-        const estadoSelect = document.getElementById('estado');
-
-        asignSelect.addEventListener('change', () => {
-            const previousEstado = estadoSelect.value;
-            const selectedUser = asignSelect.options[asignSelect.selectedIndex].value;
-
-            if (previousEstado === 'Por Asignar' || previousEstado === '' || previousEstado === 'En Espera') {
-                if (selectedUser !== '') {
-                    estadoSelect.value = 'Asignado';
-                }
+            function cerrarMiembrosYRedirigir() {
+                window.location.href = './project_tables_draft.php';
             }
         });
     </script>
 
+    <script>
+        function abrirModalBorrador(id) {
+
+            console.log("ID seleccionado:", id);
+
+            document.getElementById('borra_id_Proy').value = id;
+
+            const modalElement = document.getElementById('myModal');
+            const modal = new bootstrap.Modal(modalElement);
+
+            modal.show();
+
+            $.ajax({
+                url: './consultas/consul_obtener_proyecto_draft.php',
+                type: 'GET',
+                data: {
+                    id: id
+                },
+                dataType: 'json',
+
+                success: function(respuesta) {
+
+                    console.log("Respuesta del servidor:", respuesta);
+
+                    if (!respuesta.success) {
+                        alert(respuesta.message);
+                        return;
+                    }
+
+                    const proyecto = respuesta.data;
+                    $('#borra_id_Proy').val(proyecto.id_draf_proy);
+                    $('#borra_solic_proy').val(proyecto.id_solicitante);
+                    $('#borra_nombre_proy').val(proyecto.nombre);
+                    $('#borra_descrip_proy').val(proyecto.descripcion);
+                    $('#borra_unidad_proy').val(proyecto.unidad);
+                    $('#borra_tipo_proy').val(proyecto.tipo);
+                    $('#borra_prio_proy').val(proyecto.prioridad);
+                    $('#borra_sponsor_proy').val(proyecto.sponsor);
+                    $('#borra_fech_ini_proy').val(proyecto.fecha_inicio);
+                    $('#borra_fech_fin_proy').val(proyecto.fecha_fin);
+                    $('#borra_pm_proy').val(proyecto.id_manager);
+                    $('#borra_pres_proy').val(proyecto.presupuesto_est);
+                    $('#borra_problema_proy').val(proyecto.problema);
+                    $('#borra_objetivos_proy').val(proyecto.objetivos);
+                    $('#borra_beneficios_proy').val(proyecto.beneficios);
+
+                },
+
+                error: function(xhr) {
+
+                    console.error("Error AJAX:");
+                    console.error(xhr.responseText);
+
+                    alert('Error al obtener los datos del proyecto.');
+
+                }
+            });
+        }
+    </script>
+
+
 </body>
-
-
 
 </html>

@@ -39,13 +39,14 @@ if ($_GET['act'] == 'insert_init') {
 			$DIDM = $cont + 1;
 		}
 
+		$d_id_manager = 0;
+		$d_solicitante_proy = mysqli_real_escape_string($conn, trim($_POST['solicitante_proy']));
 		$nombre = mysqli_real_escape_string($conn, trim($_POST['nombre_proy']));
-		$lider = mysqli_real_escape_string($conn, trim($_POST['lider_proy']));
+		//$lider = mysqli_real_escape_string($conn, trim($_POST['lider_proy']));
 		$descripcion  = mysqli_real_escape_string($conn, trim($_POST['descripcion_proy']));
 		$d_unidad_proy = mysqli_real_escape_string($conn, trim($_POST['unidad_proy']));
 		$d_categoria_proy = mysqli_real_escape_string($conn, trim($_POST['categoria_proy']));
 		$d_prioridad_proy = mysqli_real_escape_string($conn, trim($_POST['prioridad_proy']));
-		$d_solicitante_proy = mysqli_real_escape_string($conn, trim($_POST['solicitante_proy']));
 		$d_sponsor_proy = mysqli_real_escape_string($conn, trim($_POST['sponsor_proy']));
 		$d_fecha_inicio_proy = mysqli_real_escape_string($conn, trim($_POST['fecha_inicio_proy']));
 		$d_fecha_fin_proy = mysqli_real_escape_string($conn, trim($_POST['fecha_fin_proy']));
@@ -60,25 +61,21 @@ if ($_GET['act'] == 'insert_init') {
 		$d_estatus = "Propuesto";
 		$d_salud = "En control";
 		$act = 1;
-		$rol = "Lider";
+		//$rol = "Lider";
 		$fecha_regist = mysqli_real_escape_string($conn, trim($_POST['fecha_reg']));
 
-		$query = mysqli_query($conn, "INSERT INTO projects(id_proyecto, id_manager, nombre, descripcion, unidad, tipo, prioridad, solicitante, sponsor, fecha_inicio, fecha_fin, presupuesto_est, problema, objetivos, beneficios, dimension, evaluacion, comentario, avance, estatus, salud, activo)
-											VALUES('$DIDM','$lider','$nombre','$descripcion','$d_unidad_proy','$d_categoria_proy','$d_prioridad_proy','$d_solicitante_proy','$d_sponsor_proy','$d_fecha_inicio_proy','$d_fecha_fin_proy','$d_presupuesto_estimado_proy','$d_problema_proy','$d_objetivos_proy','$d_beneficios_esperados_proy','$d_dimension','$d_evaluacion','$d_comentario','$d_avance','$d_estatus','$d_salud','$act')")
-			or die('error: ' . mysqli_error($conn));
+		$query = mysqli_query($conn, "INSERT INTO projects(id_proyecto, id_solicitante, id_manager, nombre, descripcion, unidad, tipo, prioridad, sponsor, fecha_inicio, fecha_fin, presupuesto_est, problema, objetivos, beneficios, dimension, evaluacion, comentario, avance, estatus, salud, activo)
+											VALUES('$DIDM','$d_solicitante_proy','$d_id_manager','$nombre','$descripcion','$d_unidad_proy','$d_categoria_proy','$d_prioridad_proy','$d_sponsor_proy','$d_fecha_inicio_proy','$d_fecha_fin_proy','$d_presupuesto_estimado_proy','$d_problema_proy','$d_objetivos_proy','$d_beneficios_esperados_proy','$d_dimension','$d_evaluacion','$d_comentario','$d_avance','$d_estatus','$d_salud','$act')");
 
 		if ($query) {
-			$Sql_2 = "INSERT INTO project_miembro(id_proyecto, id_miembro, rol_proyecto, fecha_asignacion) 
-						VALUES ('$DIDM','$lider','$rol','$fecha_regist')";
-			$Carg_project_miembro = mysqli_query($conn, $Sql_2);
 
-			header("location: ../pages/project_tables.php?alert=1");
+			header("location: ../pages/project_tables_direct.php?alert=1");
 		}
 	}
 	if (isset($_POST['Borrador'])) {
 
 		$nombre = mysqli_real_escape_string($conn, trim($_POST['nombre_proy']));
-		$lider = mysqli_real_escape_string($conn, trim($_POST['lider_proy']));
+		$lider = mysqli_real_escape_string($conn, trim($_POST['solicitante_proy']));
 		$descripcion  = mysqli_real_escape_string($conn, trim($_POST['descripcion_proy']));
 		$d_unidad_proy = mysqli_real_escape_string($conn, trim($_POST['unidad_proy']));
 		$d_categoria_proy = mysqli_real_escape_string($conn, trim($_POST['categoria_proy']));
@@ -99,12 +96,12 @@ if ($_GET['act'] == 'insert_init') {
 		$d_salud = "En control";
 		$act = 1;
 
-		$query = mysqli_query($conn, "INSERT INTO projects_draft(id_manager, nombre, descripcion, unidad, tipo, prioridad, solicitante, sponsor, fecha_inicio, fecha_fin, presupuesto_est, problema, objetivos, beneficios, dimension, evaluacion, comentario, avance, estatus, salud, activo)
-											VALUES('$lider','$nombre','$descripcion','$d_unidad_proy','$d_categoria_proy','$d_prioridad_proy','$d_solicitante_proy','$d_sponsor_proy','$d_fecha_inicio_proy','$d_fecha_fin_proy','$d_presupuesto_estimado_proy','$d_problema_proy','$d_objetivos_proy','$d_beneficios_esperados_proy','$d_dimension','$d_evaluacion','$d_comentario','$d_avance','$d_estatus','$d_salud','$act')")
+		$query = mysqli_query($conn, "INSERT INTO projects_draft(id_solicitante, nombre, descripcion, unidad, tipo, prioridad, sponsor, fecha_inicio, fecha_fin, presupuesto_est, problema, objetivos, beneficios, dimension, evaluacion, comentario, avance, estatus, salud, activo)
+											VALUES('$lider','$nombre','$descripcion','$d_unidad_proy','$d_categoria_proy','$d_prioridad_proy','$d_sponsor_proy','$d_fecha_inicio_proy','$d_fecha_fin_proy','$d_presupuesto_estimado_proy','$d_problema_proy','$d_objetivos_proy','$d_beneficios_esperados_proy','$d_dimension','$d_evaluacion','$d_comentario','$d_avance','$d_estatus','$d_salud','$act')")
 			or die('error: ' . mysqli_error($conn));
 
 		if ($query) {
-			header("location: ../pages/project_tables.php?alert=1");
+			header("location: ../pages/project_tables_direct.php?alert=1");
 		}
 	}
 } elseif ($_GET['act'] == 'insert_borr_init') {
@@ -125,8 +122,9 @@ if ($_GET['act'] == 'insert_init') {
 	}
 
 	$id_borr = mysqli_real_escape_string($conn, trim($_POST['borra_id_Proy']));
+	$d_id_manager = 0;
 	$nombre = mysqli_real_escape_string($conn, trim($_POST['borra_nombre_proy']));
-	$lider = mysqli_real_escape_string($conn, trim($_POST['borra_pm_proy']));
+	//$lider = mysqli_real_escape_string($conn, trim($_POST['borra_pm_proy']));
 	$descripcion  = mysqli_real_escape_string($conn, trim($_POST['borra_descrip_proy']));
 	$d_unidad_proy = mysqli_real_escape_string($conn, trim($_POST['borra_unidad_proy']));
 	$d_categoria_proy = mysqli_real_escape_string($conn, trim($_POST['borra_tipo_proy']));
@@ -147,21 +145,16 @@ if ($_GET['act'] == 'insert_init') {
 	$d_salud = "En control";
 	$act = 1;
 	$rol = "Lider";
-	$fecha_regist = mysqli_real_escape_string($conn, trim($_POST['fecha_reg']));
 
-	$query = mysqli_query($conn, "INSERT INTO projects(id_proyecto, id_manager, nombre, descripcion, unidad, tipo, prioridad, solicitante, sponsor, fecha_inicio, fecha_fin, presupuesto_est, problema, objetivos, beneficios, dimension, evaluacion, comentario, avance, estatus, salud, activo)
-											VALUES('$DIDM','$lider','$nombre','$descripcion','$d_unidad_proy','$d_categoria_proy','$d_prioridad_proy','$d_solicitante_proy','$d_sponsor_proy','$d_fecha_inicio_proy','$d_fecha_fin_proy','$d_presupuesto_estimado_proy','$d_problema_proy','$d_objetivos_proy','$d_beneficios_esperados_proy','$d_dimension','$d_evaluacion','$d_comentario','$d_avance','$d_estatus','$d_salud','$act')")
-		or die('error: ' . mysqli_error($conn));
+	$query = mysqli_query($conn, "INSERT INTO projects(id_proyecto, id_solicitante, id_manager, nombre, descripcion, unidad, tipo, prioridad, sponsor, fecha_inicio, fecha_fin, presupuesto_est, problema, objetivos, beneficios, dimension, evaluacion, comentario, avance, estatus, salud, activo)
+											VALUES('$DIDM','$d_solicitante_proy','$d_id_manager','$nombre','$descripcion','$d_unidad_proy','$d_categoria_proy','$d_prioridad_proy','$d_sponsor_proy','$d_fecha_inicio_proy','$d_fecha_fin_proy','$d_presupuesto_estimado_proy','$d_problema_proy','$d_objetivos_proy','$d_beneficios_esperados_proy','$d_dimension','$d_evaluacion','$d_comentario','$d_avance','$d_estatus','$d_salud','$act')");
 
 	if ($query) {
-		$Sql_2 = "INSERT INTO project_miembro(id_proyecto, id_miembro, rol_proyecto, fecha_asignacion) 
-						VALUES ('$DIDM','$lider','$rol','$fecha_regist')";
-		$Carg_project_miembro = mysqli_query($conn, $Sql_2);
 
 		$Sql_3 = "DELETE FROM projects_draft WHERE projects_draft.id_draf_proy = $id_borr";
 		$elim_proyect = mysqli_query($conn, $Sql_3);
 
-		header("location: ../pages/project_tables.php?alert=1");
+		header("location: ../pages/project_tables_draft.php?alert=1");
 	}
 } elseif ($_GET['act'] == 'delete' /*&& $_SESSION['permisos_acceso'] == "Super Admin"*/) {
 

@@ -18,11 +18,8 @@
 
 require_once('../databases/conexion.php');
 session_start();
-$query = mysqli_query($conn, "SELECT * FROM project_miembro WHERE id_miembro='$_SESSION[id_miembro]'")
-  or die('error: ' . mysqli_error($conn));
 
-
-if (!isset($_SESSION['id_miembro'])) {
+if (!isset($_SESSION['id_usuario'])) {
   // Redirigir al usuario a la página de inicio de sesión
   header("Location: ../index.php");
 }

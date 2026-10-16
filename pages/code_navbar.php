@@ -42,7 +42,7 @@ if ($val_typ == 1) {
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white " href="../pages/project_tables.php">
+                    <a class="nav-link text-white " href="../pages/project_tables_direct.php">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">table_view</i>
                         </div>
@@ -150,7 +150,7 @@ if ($val_typ == 2) { ?>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white " href="../pages/project_tables.php">
+                    <a class="nav-link text-white " href="../pages/project_tables_jef.php">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">table_view</i>
                         </div>
@@ -234,7 +234,7 @@ if ($val_typ == 3) { ?>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white " href="../pages/project_tables.php">
+                    <a class="nav-link text-white " href="../pages/project_tables_trab.php">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">table_view</i>
                         </div>

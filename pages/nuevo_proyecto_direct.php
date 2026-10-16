@@ -18,10 +18,15 @@
 require_once('../databases/conexion.php');
 session_start();
 
-if (!isset($_SESSION['id_miembro'])) {
+if (!isset($_SESSION['id_usuario'])) {
   // Redirigir al usuario a la página de inicio de sesión
   header("Location: ../index.php");
 }
+
+$Data_ced = $_SESSION['id_usuario'];
+$Nomb_solic = $_SESSION['nombre'] . " " . $_SESSION['apellido'];
+
+//echo ("Hola $Data_ced");
 
 ?>
 
@@ -113,9 +118,15 @@ if (!isset($_SESSION['id_miembro'])) {
                     <label class="form-label">Unidad *</label>
                     <select name="unidad_proy" id="unidad_proy" class="form-select border px-3" required>
                       <option value="">Seleccione una unidad</option>
-                      <option value="Investigación">Investigación</option>
-                      <option value="Desarrollo">Desarrollo</option>
-                      <option value="Administración">Administración</option>
+                      <?php
+                      $query_data = mysqli_query($conn, "SELECT * FROM unidad");
+
+                      while ($miembro = mysqli_fetch_assoc($query_data)) {
+                        $id = $miembro['id_unidad'];
+                        $nombre = ($miembro['nombre_unid']);
+                        echo "<option value=\"$id\">$nombre</option>";
+                      }
+                      ?>
                     </select>
                   </div>
 
@@ -157,7 +168,8 @@ if (!isset($_SESSION['id_miembro'])) {
 
                   <div class="col-md-4 mb-3">
                     <label class="form-label">Solicitante *</label>
-                    <input type="text" name="solicitante_proy" id="solicitante_proy" class="form-control border px-3" value="<?php echo htmlspecialchars($_SESSION['cedula'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="Solicitante" readonly>
+                    <input type="text" name="s_nombre" id="s_nombre" class="form-control border px-3" value="<?php echo htmlspecialchars($Nomb_solic); ?>" placeholder="Solicitante" readonly>
+                    <input type="hidden" name="solicitante_proy" id="solicitante_proy" class="form-control border px-3" value="<?php echo htmlspecialchars($Data_ced); ?>" placeholder="Solicitante" readonly>
                   </div>
 
                   <div class="col-md-4 mb-3">
@@ -165,27 +177,23 @@ if (!isset($_SESSION['id_miembro'])) {
                     <input type="text" name="sponsor_proy" id="sponsor_proy" class="form-control border px-3" placeholder="Nombre del sponsor">
                   </div>
 
-                  <div class="col-md-4 mb-3">
-                    <label class="form-label">PM</label>
-                    <select name="lider_proy" id="lider_proy" class="form-select border px-3">
-                      <option value="">Seleccione un responsable</option>
-                      <?php
-                      $query_data = mysqli_query($conn, "SELECT * FROM members,users WHERE members.cedula = users.cedula") or die('Error: ' . mysqli_error($conn));
+                  <!--
+                    <div class="col-md-4 mb-3">
+                      <label class="form-label">PM</label>
+                      <select name="lider_proy" id="lider_proy" class="form-select border px-3">
+                        <option value="">Seleccione un responsable</option>
+                        <?php
+                        $query_data = mysqli_query($conn, "SELECT * FROM users WHERE users.id_usuario !=  '$Data_ced'");
 
-                      while ($miembro = mysqli_fetch_assoc($query_data)) {
-                        $id = (int) $miembro['id_usuario'];
-                        $nombre = htmlspecialchars(
-                          $miembro['nombre'] . ' ' .
-                            $miembro['apellido'] . ' | ' .
-                            $miembro['especialidad'],
-                          ENT_QUOTES,
-                          'UTF-8'
-                        );
-                        echo "<option value=\"$id\">$nombre</option>";
-                      }
-                      ?>
-                    </select>
-                  </div>
+                        while ($miembro = mysqli_fetch_assoc($query_data)) {
+                          $id = $miembro['id_usuario'];
+                          $nombre = ($miembro['nombre'] . ' ' . $miembro['apellido'] . ' | ' . $miembro['especialidad']);
+                          echo "<option value=\"$id\">$nombre</option>";
+                        }
+                        ?>
+                      </select>
+                    </div>
+                  -->
 
                 </div>
               </div>
