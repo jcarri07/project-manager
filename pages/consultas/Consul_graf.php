@@ -8,14 +8,19 @@ $conexion = $objeto->Conectar();
 $consulta = "SELECT
 projects.estatus AS estatus,
 SUM( CASE
+    WHEN projects.estatus = 'Propuesto' THEN 1
+    WHEN projects.estatus = 'Evaluacion' THEN 1 
+    WHEN projects.estatus = 'Aprobacion' THEN 1
+    WHEN projects.estatus = 'Planificacion' THEN 1
+    WHEN projects.estatus = 'Ejecucion' THEN 1
     WHEN projects.estatus = 'Completado' THEN 1
-    WHEN projects.estatus = 'En progreso' THEN 1
+    WHEN projects.estatus = 'Cerrado' THEN 1
     WHEN projects.estatus IN ('En Espera', 'Por Ejecutar') THEN 1
     ELSE 0
   END
 ) AS Cantidad
 FROM projects
-GROUP BY CASE WHEN projects.estatus IN ('En Espera', 'Por Ejecutar') THEN 'En Espera/Por Ejecutar' ELSE projects.estatus END;";
+GROUP BY CASE WHEN projects.estatus IN ('En Espera', 'Por Ejecutar') THEN 'En Espera/Por Ejecutar' ELSE projects.estatus END";
 
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();

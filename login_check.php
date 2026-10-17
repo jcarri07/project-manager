@@ -30,13 +30,13 @@ if (!ctype_alnum($cedula) or !ctype_alnum($password)) {
 		//$_SESSION['id_user_type']  = $data['id_user_type '];
 
 		if ($type_user == 1) {
-			header("Location: pages/dashboard_admin.php");
+			header("Location: pages/dashboard_admin_director.php");
 		}
 		if ($type_user == 2) {
-			header("Location: pages/dashboard_director.php");
+			header("Location: pages/dashboard_jefe_unid.php");
 		}
 		if ($type_user == 3) {
-			header("Location: pages/dashboard_manager.php");
+			header("Location: pages/dashboard_trab.php");
 		}
 	} else {
 		header("Location: index.php?alert=1");
