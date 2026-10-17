@@ -4,7 +4,7 @@ include_once __DIR__ . '/../../databases/conexion_crud.php';
 $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 
-$consulta = "SELECT * FROM members";
+$consulta = "SELECT * FROM users";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

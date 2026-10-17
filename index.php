@@ -109,10 +109,6 @@
                     <!-- <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Iniciar sesion</button>-->
                     <input type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2" name="login" value="Iniciar Sesion" />
                   </div>
-                  <p class="mt-4 text-sm text-center">
-                    Nuevo Project Manager?
-                    <a href="pages/sign-up.php" class="text-primary text-gradient font-weight-bold">Registrate</a>
-                  </p>
                 </form>
               </div>
             </div>

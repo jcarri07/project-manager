@@ -150,65 +150,66 @@ if (!isset($_SESSION['id_usuario'])) {
             'rgba(200, 245, 210, 1)',
             'rgba(178, 223, 219, 1)',
             'rgba(200, 182, 255, 1)',
+            'rgba(200, 182, 219, 1)',
             'rgba(255, 214, 170, 1)'
           ];
 
-          new Chart(canvas, {
-
-            type: "bar",
+          const grafica = new Chart(canvas.getContext('2d'), {
+            type: 'bar',
 
             data: {
-
               labels: estados,
-
               datasets: [{
-                label: "Cantidad Total",
-
+                label: 'Cantidad Total',
                 data: cantidades,
-
                 backgroundColor: colores,
-
                 borderColor: colores,
-
                 borderWidth: 1,
-
                 borderRadius: 10,
-
                 borderSkipped: false
               }]
             },
 
             options: {
+              indexAxis: 'y',
 
               responsive: true,
-
               maintainAspectRatio: false,
 
+              elements: {
+                bar: {
+                  borderWidth: 2
+                }
+              },
+
               scales: {
-                y: {
+                x: {
+                  beginAtZero: true,
                   ticks: {
                     precision: 0
+                  }
+                },
+                y: {
+                  ticks: {
+                    autoSkip: false
                   }
                 }
               },
 
               plugins: {
-
                 legend: {
-
                   labels: {
                     font: {
                       size: 20
                     }
                   }
-
                 }
-
               }
-
             }
-
           });
+
+          console.log('Versión:', Chart.version);
+          console.log('Orientación:', grafica.options.indexAxis);
 
         }
 

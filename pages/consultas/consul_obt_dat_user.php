@@ -14,7 +14,7 @@ if (!isset($_GET['id'])) {
 
 $id = (int) $_GET['id'];
 
-$sql = "SELECT * FROM members WHERE id_miembro = $id LIMIT 1";
+$sql = "SELECT * FROM users WHERE id_usuario = $id LIMIT 1";
 
 $resultado = mysqli_query($conn, $sql);
 
