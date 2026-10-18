@@ -85,7 +85,19 @@
                 <ul class="nav nav-pills flex-row p-1" id="proyectosTabs" role="tablist">
 
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="borradores-tab" data-bs-toggle="tab" data-bs-target="#borradores-pane" type="button" role="tab" aria-controls="borradores-pane" aria-selected="true">Propuestas Propias</button>
+                    <button class="nav-link active" id="vista_gen-tab" data-bs-toggle="tab" data-bs-target="#vista_gen-pane" type="button" role="tab" aria-controls="vista_gen-pane" aria-selected="true">Propuestas Propias</button>
+                  </li>
+
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="new_pro-tab" data-bs-toggle="tab" data-bs-target="#new_pro-pane" type="button" role="tab" aria-controls="new_pro-pane" aria-selected="false">Nuevas Propuestas</button>
+                  </li>
+
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="espera_pro-tab" data-bs-toggle="tab" data-bs-target="#espera_pro-pane" type="button" role="tab" aria-controls="espera_pro-pane" aria-selected="false">Propuestas en Espera</button>
+                  </li>
+
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="proy_vig-tab" data-bs-toggle="tab" data-bs-target="#proy_vig-pane" type="button" role="tab" aria-controls="proy_vig-pane" aria-selected="false">Proyectos Vigentes</button>
                   </li>
 
                 </ul>
@@ -101,7 +113,7 @@
 
             <div class="tab-content" id="proyectosTabsContent">
 
-              <div class="tab-pane fade show active" id="borradores-pane" role="tabpanel" aria-labelledby="borradores-tab" tabindex="0">
+              <div class="tab-pane fade show active" id="vista_gen-pane" role="tabpanel" aria-labelledby="vista_gen-tab" tabindex="0">
 
                 <div class="table-responsive">
 
@@ -117,7 +129,65 @@
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fin</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progreso</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prioridad</th>
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+
+                  </table>
+
+                </div>
+
+              </div>
+
+              <div class="tab-pane fade show" id="new_pro-pane" role="tabpanel" aria-labelledby="new_pro-tab" tabindex="0">
+
+                <div class="table-responsive">
+
+                  <table id="tabla_proyectos_new_pro" class="table align-items-center justify-content-center" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proyecto</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unidad</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salud</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Inicio</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fin</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progreso</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prioridad</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opciones</th>
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+
+                  </table>
+
+                </div>
+
+              </div>
+
+              <div class="tab-pane fade show" id="espera_pro-pane" role="tabpanel" aria-labelledby="espera_pro-tab" tabindex="0">
+
+                <div class="table-responsive">
+
+                  <table id="tabla_proyectos_pers_espera" class="table align-items-center justify-content-center" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proyecto</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unidad</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salud</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Inicio</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fin</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progreso</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prioridad</th>
 
                       </tr>
                     </thead>
@@ -329,207 +399,104 @@
     }
   </script>
 
-  <script>
-    $(document).ready(function() {
-      $('#tabla_proyectos_gen').DataTable({
-        //autoWidth: false,
-        //responsive: true, consul_proyectos_valid_direct   consul_proyectos_aprob_direct
-        //pageLength: 5,
-        "language": {
-          "url": "../assets/js/DataEsp.json"
-        },
-        "ajax": {
-          "url": "./consultas/consul_proyectos_gen_direct.php",
-          "dataSrc": ""
-        },
-        "columns": [{
-            "data": "id_proyecto"
-          },
-          {
-            "data": "nombre"
-          },
-          {
-            "data": "nombre_unid"
-          },
-          {
-            "data": "estatus"
-          },
-          {
-            "data": "salud",
-            "render": function(data, type, row) {
-              let clase = "";
-              if (data === "En control") {
-                clase = "estado-progreso";
-              } else if (data === "En riesgo") {
-                clase = "estado-ejecutar";
-              } else if (data === "Critico") {
-                clase = "estado-listo";
-              }
-              return `
-            <span class="estado-badge ${clase}">
-                ${data}
-            </span>
-        `;
-            }
-          },
-          {
-            "data": "fecha_inicio"
-          },
-          {
-            "data": "fecha_fin"
-          },
-          {
-
-            "data": "avance",
-            "render": function(data, type, row) {
-
-              let porcentaje = data ? parseInt(data) : 0;
-              porcentaje = Math.max(0, Math.min(100, porcentaje));
-
-              return `
-            <div class="progreso-contenedor">
-
-                <span class="progreso-porcentaje">
-                    ${porcentaje}%
-                </span>
-
-                <div class="progreso-barra">
-
-                    <div 
-                        class="progreso-relleno"
-                        style="width: ${porcentaje}%;">
-                    </div>
-
-                </div>
-
-            </div>
-        `;
-            }
-
-          },
-          {
-            "data": "prioridad"
-          }
-        ]
-      });
-    });
-  </script>
-
-  <script>
-    $(document).ready(function() {
-      $('#tabla_proyectos_eval').DataTable({
-        //autoWidth: false,
-        //responsive: true,    consul_proyectos_aprob_direct
-        //pageLength: 5,
-        "language": {
-          "url": "../assets/js/DataEsp.json"
-        },
-        "ajax": {
-          "url": "./consultas/consul_proyectos_valid_direct.php",
-          "dataSrc": ""
-        },
-        "columns": [{
-            "data": "id_proyecto"
-          },
-          {
-            "data": "nombre"
-          },
-          {
-            "data": "nombre_unid"
-          },
-          {
-            "data": "estatus"
-          },
-          {
-            "data": "salud",
-            "render": function(data, type, row) {
-              let clase = "";
-              if (data === "En control") {
-                clase = "estado-progreso";
-              } else if (data === "En riesgo") {
-                clase = "estado-ejecutar";
-              } else if (data === "Critico") {
-                clase = "estado-listo";
-              }
-              return `
-            <span class="estado-badge ${clase}">
-                ${data}
-            </span>
-        `;
-            }
-          },
-          {
-            "data": "fecha_inicio"
-          },
-          {
-            "data": "fecha_fin"
-          },
-          {
-
-            "data": "avance",
-            "render": function(data, type, row) {
-
-              let porcentaje = data ? parseInt(data) : 0;
-              porcentaje = Math.max(0, Math.min(100, porcentaje));
-
-              return `
-            <div class="progreso-contenedor">
-
-                <span class="progreso-porcentaje">
-                    ${porcentaje}%
-                </span>
-
-                <div class="progreso-barra">
-
-                    <div 
-                        class="progreso-relleno"
-                        style="width: ${porcentaje}%;">
-                    </div>
-
-                </div>
-
-            </div>
-        `;
-            }
-
-          },
-          {
-            "data": "prioridad"
-          },
-          {
-            "data": null,
-            "render": function(data, type, row) {
-              return `
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <button 
-                    type="button"
-                    onclick="abrirModalEditar(${row.id_proyecto})"
-                    class="btn-editar"
-                    title="Editar Datos">
-
-                    <i class="fa-regular fa-pen-to-square"></i>
-
-                </button>
-            </div>
-        `;
-            }
-          }
-        ]
-      });
-    });
-  </script>
 
   <script>
     $(document).ready(function() {
       $('#tabla_proyectos_pers').DataTable({
         //autoWidth: false,
-        //responsive: true,    consul_proyectos_aprob_direct
+        //responsive: true, consul_proyectos_pers_espera
         //pageLength: 5,
         "language": {
           "url": "../assets/js/DataEsp.json"
         },
         "ajax": {
           "url": "./consultas/consul_proyectos_personal.php",
+          "dataSrc": ""
+        },
+        "columns": [{
+            "data": "id_proyecto"
+          },
+          {
+            "data": "nombre"
+          },
+          {
+            "data": "nombre_unid"
+          },
+          {
+            "data": "estatus"
+          },
+          {
+            "data": "salud",
+            "render": function(data, type, row) {
+              let clase = "";
+              if (data === "En control") {
+                clase = "estado-progreso";
+              } else if (data === "En riesgo") {
+                clase = "estado-ejecutar";
+              } else if (data === "Critico") {
+                clase = "estado-listo";
+              }
+              return `
+            <span class="estado-badge ${clase}">
+                ${data}
+            </span>
+        `;
+            }
+          },
+          {
+            "data": "fecha_inicio"
+          },
+          {
+            "data": "fecha_fin"
+          },
+          {
+
+            "data": "avance",
+            "render": function(data, type, row) {
+
+              let porcentaje = data ? parseInt(data) : 0;
+              porcentaje = Math.max(0, Math.min(100, porcentaje));
+
+              return `
+            <div class="progreso-contenedor">
+
+                <span class="progreso-porcentaje">
+                    ${porcentaje}%
+                </span>
+
+                <div class="progreso-barra">
+
+                    <div 
+                        class="progreso-relleno"
+                        style="width: ${porcentaje}%;">
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+            }
+
+          },
+          {
+            "data": "prioridad"
+          }
+        ]
+      });
+    });
+  </script>
+
+  <script>
+    $(document).ready(function() {
+      $('#tabla_proyectos_new_pro').DataTable({
+        //autoWidth: false,
+        //responsive: true,    consul_proyectos_aprob_direct
+        //pageLength: 5,
+        "language": {
+          "url": "../assets/js/DataEsp.json"
+        },
+        "ajax": {
+          "url": "./consultas/consul_proyectos_pers_new_pro.php",
           "dataSrc": ""
         },
         "columns": [{
@@ -611,6 +578,92 @@
             </div>
         `;
             }
+          }
+        ]
+      });
+    });
+  </script>
+
+  <script>
+    $(document).ready(function() {
+      $('#tabla_proyectos_pers_espera').DataTable({
+        //autoWidth: false,
+        //responsive: true, 
+        //pageLength: 5,
+        "language": {
+          "url": "../assets/js/DataEsp.json"
+        },
+        "ajax": {
+          "url": "./consultas/consul_proyectos_pers_espera.php",
+          "dataSrc": ""
+        },
+        "columns": [{
+            "data": "id_proyecto"
+          },
+          {
+            "data": "nombre"
+          },
+          {
+            "data": "nombre_unid"
+          },
+          {
+            "data": "estatus"
+          },
+          {
+            "data": "salud",
+            "render": function(data, type, row) {
+              let clase = "";
+              if (data === "En control") {
+                clase = "estado-progreso";
+              } else if (data === "En riesgo") {
+                clase = "estado-ejecutar";
+              } else if (data === "Critico") {
+                clase = "estado-listo";
+              }
+              return `
+            <span class="estado-badge ${clase}">
+                ${data}
+            </span>
+        `;
+            }
+          },
+          {
+            "data": "fecha_inicio"
+          },
+          {
+            "data": "fecha_fin"
+          },
+          {
+
+            "data": "avance",
+            "render": function(data, type, row) {
+
+              let porcentaje = data ? parseInt(data) : 0;
+              porcentaje = Math.max(0, Math.min(100, porcentaje));
+
+              return `
+            <div class="progreso-contenedor">
+
+                <span class="progreso-porcentaje">
+                    ${porcentaje}%
+                </span>
+
+                <div class="progreso-barra">
+
+                    <div 
+                        class="progreso-relleno"
+                        style="width: ${porcentaje}%;">
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+            }
+
+          },
+          {
+            "data": "prioridad"
           }
         ]
       });
