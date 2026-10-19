@@ -22,8 +22,8 @@ if (!ctype_alnum($cedula) or !ctype_alnum($password)) {
 		session_start();
 		//$_SESSION['id_miembro']   = $data['id_miembro'];
 		$_SESSION['id_usuario']   = $data['id_usuario'];
-		$_SESSION['nombre']   = $data['nombre'];
-		$_SESSION['apellido']   = $data['apellido'];
+		$_SESSION['nombre']   = $data['nombre_user'];
+		$_SESSION['apellido']   = $data['apellido_user'];
 		$_SESSION['email']  = $data['email'];
 		$_SESSION['cedula']  = $data['cedula'];
 		$_SESSION['password']  = $data['password_hash'];

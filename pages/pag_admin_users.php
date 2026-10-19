@@ -386,10 +386,10 @@
             "data": "cedula"
           },
           {
-            "data": "nombre"
+            "data": "nombre_user"
           },
           {
-            "data": "apellido"
+            "data": "apellido_user"
           },
           {
             "data": "email"
@@ -458,8 +458,8 @@
           $('#edit_id_miem').val(data_personal.id_usuario);
           $('#edit_type_user').val(data_personal.id_user_type);
           $('#edit_unid_user').val(data_personal.id_unidad);
-          $('#edit_nombre_miem').val(data_personal.nombre);
-          $('#edit_apell_miem').val(data_personal.apellido);
+          $('#edit_nombre_miem').val(data_personal.nombre_user);
+          $('#edit_apell_miem').val(data_personal.apellido_user);
           $('#edit_ced_miem').val(data_personal.cedula);
           $('#edit_corr_miem').val(data_personal.email);
           $('#edit_esp_miem').val(data_personal.especialidad);

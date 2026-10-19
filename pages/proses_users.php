@@ -42,7 +42,7 @@ if ($_GET['act'] == 'insert_users') {
 
 		if ((is_uploaded_file($_FILES["foto_reg_min"]["tmp_name"]) && move_uploaded_file($_FILES["foto_reg_min"]["tmp_name"], $carpeta_destino . $nombre_archivo1))) {
 
-			$Sqll_1 = "INSERT INTO users(id_user_type, id_unidad, nombre, apellido, cedula, email, especialidad, password_hash, fecha_creacion, foto_personal, estatus) 
+			$Sqll_1 = "INSERT INTO users(id_user_type, id_unidad, nombre_user, apellido_user, cedula, email, especialidad, password_hash, fecha_creacion, foto_personal, estatus) 
 				VALUES ('$D_level','$D_unid_user','$D_nombres','$D_apellidos','$D_cedula','$D_correo','$D_especialidad','$D_password','$D_fecha','$Destino1','$D_estatus')";
 			$Carg1 = mysqli_query($conn, $Sqll_1);
 
@@ -87,7 +87,7 @@ if ($_GET['act'] == 'insert_users') {
 			}
 		}
 
-		$C4 = ("UPDATE users SET id_user_type = '$D_id_type', id_unidad = '$D_id_unid', nombre = '$D_nombres_users', apellido = '$D_apellidos_users', cedula = '$D_cedul_users', email = '$D_correo_users', especialidad = '$D_especialidad_users', password_hash = '$D_password_users' WHERE users.id_usuario ='$D_id_users' ");
+		$C4 = ("UPDATE users SET id_user_type = '$D_id_type', id_unidad = '$D_id_unid', nombre_user = '$D_nombres_users', apellido_user = '$D_apellidos_users', cedula = '$D_cedul_users', email = '$D_correo_users', especialidad = '$D_especialidad_users', password_hash = '$D_password_users' WHERE users.id_usuario ='$D_id_users' ");
 
 		$Carg4 = mysqli_query($conn, $C4);
 

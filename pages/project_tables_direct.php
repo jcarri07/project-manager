@@ -257,7 +257,7 @@
 
         <div class="w3-container modal-body" id="modalBody">
 
-          <form class="row g-3" action="./ejec_edit_proy.php" id="form-upload" enctype="multipart/form-data" method="POST">
+          <form class="row g-3" action="./proses_proyecto.php?act=update_proy_propio" id="form-upload" enctype="multipart/form-data" method="POST">
 
             <input type="hidden" style="display:none" class="form-control" id="edit_id_Proy" name="edit_id_Proy" readonly>
 
@@ -382,6 +382,216 @@
             </div>
 
             <br>
+            <br>
+
+            <br>
+
+            <div class="d-grid gap-2 col-6 mx-auto">
+
+              <button type="submit" class="btn btn-primary" id="Redirect" data-bs-dismiss="modal">Editar</button>
+
+            </div>
+
+            <br><br>
+
+          </form>
+
+        </div>
+
+        <div class="w3-teal modal-footer">
+          <br><br>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal w3-container" id="Modal_Select_Eval" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content w3-animate-opacity">
+        <div class="w3-container w3-teal">
+          <br>
+          <p class="modal-title" style="color: black;">Nuevo Proyecto Pendiente de Evaluación</p>
+          <br>
+          <div class="w3-center">
+            <span onclick="document.getElementById('id01').style.display='none'" id="closeAndRedirect" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+          </div>
+        </div>
+
+        <div class="w3-container modal-body" id="modalBody">
+
+          <form class="row g-3" action="./proses_proyecto.php?act=update_asig_eval" id="form-upload" enctype="multipart/form-data" method="POST">
+
+            <input type="hidden" style="display:none" class="form-control" id="edit_id_Proy_2" name="edit_id_Proy_2" readonly>
+
+            <div class="row g-3">
+
+              <div class="col-md-3" style="color:black">
+                <label for="Comando" class="form-label">Nombre del Proyecto: </label>
+                <input type="text" class="form-control" id="edit_nombre_proy_2" name="edit_nombre_proy_2">
+              </div>
+
+              <div class="col-md-5" style="color:black">
+                <label for="Cond" class="form-label">Solicitante: </label>
+                <select class="form-select" id="edit_id_solic_proy_2" name="edit_id_solic_proy_2" readonly>
+                  <?php
+                  $query_data = mysqli_query($conn, "SELECT * FROM users LIMIT 1");
+                  while ($miembro = mysqli_fetch_assoc($query_data)) {
+                    $id = $miembro['id_usuario'];
+                    $nombre = ($miembro['nombre_user']);
+                    $apell = ($miembro['apellido_user']);
+                    echo "<option value=\"$id\">$nombre $apell</option>";
+                  }
+                  ?>
+                </select>
+              </div>
+
+              <div class="col-md-4" style="color:black">
+                <label for="Grafica" class="form-label">Descripción del Proyecto: </label>
+                <textarea name="edit_descripcion_proy_2" id="edit_descripcion_proy_2" cols="40" rows="4" class="form-control" readonly></textarea>
+                <div id="contador_edit_descripcion_proy_2">300</div>
+              </div>
+
+            </div>
+
+            <br>
+
+            <div class="row g-3">
+
+              <div class="col-md-3" style="color:black">
+                <label for="Cond" class="form-label">Unidad: </label>
+                <select class="form-select" id="edit_unidad_proy_2" name="edit_unidad_proy_2" readonly>
+                  <?php
+                  $query_data = mysqli_query($conn, "SELECT * FROM unidad LIMIT 1");
+                  while ($miembro = mysqli_fetch_assoc($query_data)) {
+                    $id = $miembro['id_unidad'];
+                    $nombre = ($miembro['nombre_unid']);
+                    echo "<option value=\"$id\">$nombre</option>";
+                  }
+                  ?>
+                </select>
+              </div>
+
+              <div class="col-md-3" style="color:black">
+                <label for="Comando" class="form-label">Tipo: </label>
+                <input type="text" class="form-control" id="edit_tipo_proy_2" name="edit_tipo_proy_2" readonly>
+              </div>
+
+              <div class="col-md-3" style="color:black">
+                <label for="Comando" class="form-label">Prioridad: </label>
+                <input type="text" class="form-control" id="edit_prioridad_proy_2" name="edit_prioridad_proy_2" readonly>
+              </div>
+
+              <div class="col-md-3" style="color:black">
+                <label for="Comando" class="form-label">Sponsor: </label>
+                <input type="text" class="form-control" id="edit_sponsor_proy_2" name="edit_sponsor_proy_2" readonly>
+              </div>
+
+            </div>
+
+            <br>
+
+            <div class="row g-3">
+
+              <div class="col-md-3" style="color:black">
+                <label class="form-label">Inicio estimado</label>
+                <input type="date" name="edit_fecha_inicio_proy_2" id="edit_fecha_inicio_proy_2" class="form-control border px-3" readonly>
+              </div>
+
+              <div class="col-md-3">
+                <label class="form-label">Final estimado</label>
+                <input type="date" name="edit_fecha_fin_proy_2" id="edit_fecha_fin_proy_2" class="form-control border px-3" readonly>
+              </div>
+
+              <div class="col-md-3" style="color:black">
+                <label for="Comando" class="form-label">Presupesto: </label>
+                <div class="input-group col-md-">
+                  <input type="number" class="form-control" id="edit_presupuesto_est_proy_2" name="edit_presupuesto_est_proy_2" readonly>
+                  <span class="input-group-text">$</span>
+                </div>
+              </div>
+
+              <div class="col-md-3" style="color:black">
+                <label for="Comando" class="form-label">Avance: </label>
+                <div class="input-group col-md-">
+                  <input type="number" class="form-control" id="edit_avance_proy_2" name="edit_avance_proy_2" readonly>
+                  <span class="input-group-text">%</span>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row g-3">
+
+              <div class="col-md-4" style="color:black">
+                <label for="Grafica" class="form-label">Problematica: </label>
+                <textarea name="edit_problema_proy_2" id="edit_problema_proy_2" cols="40" rows="4" class="form-control" required></textarea>
+                <div id="contador_edit_problema_proy_2">300</div>
+              </div>
+
+              <div class="col-md-4" style="color:black">
+                <label for="Grafica" class="form-label">Objetivos del Proyecto: </label>
+                <textarea name="edit_objetivos_proy_2" id="edit_objetivos_proy_2" cols="40" rows="4" class="form-control" required></textarea>
+                <div id="contador_edit_objetivos_proy_2">300</div>
+              </div>
+
+              <div class="col-md-4" style="color:black">
+                <label for="Grafica" class="form-label">Beneficios del Proyecto: </label>
+                <textarea name="edit_beneficios_proy_2" id="edit_beneficios_proy_2" cols="40" rows="4" class="form-control" required></textarea>
+                <div id="contador_edit_beneficios_proy_2">300</div>
+              </div>
+
+              <script>
+                function limitarTextarea(idTextarea, idContador, maximoCaracteres = 300) {
+                  const textarea = document.getElementById(idTextarea);
+                  const contador = document.getElementById(idContador);
+
+                  const mensajeError = document.createElement('p');
+                  mensajeError.classList.add('text-danger');
+                  mensajeError.textContent = 'Has superado el límite de caracteres (Reiniciar el Registro).';
+                  mensajeError.style.display = 'none';
+                  textarea.parentNode.appendChild(mensajeError);
+
+                  const actualizarContador = () => {
+                    const restantes = maximoCaracteres - textarea.value.length;
+                    contador.textContent = restantes;
+
+                    if (restantes < 0) {
+                      mensajeError.style.display = 'block';
+                      textarea.disabled = true;
+                    } else {
+                      mensajeError.style.display = 'none';
+                      textarea.disabled = false;
+                    }
+                  };
+
+                  textarea.addEventListener('input', actualizarContador);
+                  actualizarContador();
+                }
+
+                limitarTextarea("edit_descripcion_proy_2", "contador_edit_descripcion_proy_2", 300);
+                limitarTextarea("edit_problema_proy_2", "contador_edit_problema_proy_2", 300);
+                limitarTextarea("edit_objetivos_proy_2", "contador_edit_objetivos_proy_2", 300);
+                limitarTextarea("edit_beneficios_proy_2", "contador_edit_beneficios_proy_2", 300);
+              </script>
+
+            </div>
+
+
+            <br>
+
+            <div class="row g-3">
+
+              <div class="col-md-6" style="color:black">
+                <label class="form-label">Asignar Evaluador:</label>
+                <select class="form-select" id="select_id_eval_proy" name="select_id_eval_proy" required>
+                  <option value="">Seleccione un evaluador</option>
+                </select>
+              </div>
+
+            </div>
+
             <br>
 
             <br>
@@ -602,11 +812,11 @@
               <div class="btn-group" role="group" aria-label="Basic example">
                 <button 
                     type="button"
-                    onclick="abrirModalEditar(${row.id_proyecto})"
+                    onclick="abrirModalSelectEval(${row.id_proyecto})"
                     class="btn-editar"
-                    title="Editar Datos">
+                    title="Asignar Evaluador">
 
-                    <i class="fa-regular fa-pen-to-square"></i>
+                    <i class="fa-solid fa-person" style="color: rgb(0, 92, 255);"></i>
 
                 </button>
             </div>
@@ -856,16 +1066,117 @@
           }
 
           const proyecto = respuesta.data;
-          $('#edit_id_Proy').val(proyecto.id_proyecto);
-          $('#edit_nombre_proy').val(proyecto.nombre);
-          $('#edit_avance').val(proyecto.avance);
-          $('#edit_fecha_fin').val(proyecto.fecha_fin);
-          $('#edit_categoria_proy').val(proyecto.categoria);
-          $('#edit_ben_proy').val(proyecto.beneficiarios);
-          $('#edit_descrip_proy').val(proyecto.descripcion);
-          $('#edit_objec_proy').val(proyecto.objetivos);
-          $('#edit_objec_requer').val(proyecto.requerimientos);
-          $('#edit_est').val(proyecto.estatus);
+          $('#edit_id_Proy_1').val(proyecto.id_proyecto);
+          $('#edit_nombre_proy_1').val(proyecto.nombre);
+          $('#edit_id_solic_proy_1').val(proyecto.id_solicitante);
+          $('#edit_descripcion_proy_1').val(proyecto.descripcion);
+          $('#edit_unidad_proy_1').val(proyecto.unidad);
+          $('#edit_tipo_proy_1').val(proyecto.tipo);
+          $('#edit_prioridad_proy_1').val(proyecto.prioridad);
+          $('#edit_sponsor_proy_1').val(proyecto.sponsor);
+          $('#edit_fecha_inicio_proy_1').val(proyecto.fecha_inicio);
+          $('#edit_fecha_fin_proy_1').val(proyecto.fecha_fin);
+          $('#edit_presupuesto_est_proy_1').val(proyecto.presupuesto_est);
+          $('#edit_problema_proy_1').val(proyecto.problema);
+          $('#edit_objetivos_proy_1').val(proyecto.objetivos);
+          $('#edit_beneficios_proy_1').val(proyecto.objetivos);
+          $('#edit_avance_proy_1').val(proyecto.avance);
+          $('#edit_est_proy_1').val(proyecto.estatus);
+          $('#edit_salud_proy_1').val(proyecto.salud);
+
+        },
+
+        error: function(xhr) {
+
+          console.error("Error AJAX:");
+          console.error(xhr.responseText);
+
+          alert('Error al obtener los datos del proyecto.');
+
+        }
+      });
+    }
+  </script>
+
+  <script>
+    function abrirModalSelectEval(id) {
+
+      console.log("ID seleccionado:", id);
+
+      document.getElementById('edit_id_Proy').value = id;
+
+      const modalElement = document.getElementById('Modal_Select_Eval');
+      const modal = new bootstrap.Modal(modalElement);
+
+      modal.show();
+
+      $.ajax({
+        url: './consultas/consul_obtener_proyecto.php',
+        type: 'GET',
+        data: {
+          id: id
+        },
+        dataType: 'json',
+
+        success: function(respuesta) {
+
+          console.log("Respuesta del servidor:", respuesta);
+
+          if (!respuesta.success) {
+            alert(respuesta.message);
+            return;
+          }
+
+          const proyecto = respuesta.data;
+          $('#edit_id_Proy_2').val(proyecto.id_proyecto);
+          $('#edit_nombre_proy_2').val(proyecto.nombre);
+          $('#edit_id_solic_proy_2').val(proyecto.id_solicitante);
+          $('#edit_descripcion_proy_2').val(proyecto.descripcion);
+          $('#edit_unidad_proy_2').val(proyecto.unidad);
+          $('#edit_tipo_proy_2').val(proyecto.tipo);
+          $('#edit_prioridad_proy_2').val(proyecto.prioridad);
+          $('#edit_sponsor_proy_2').val(proyecto.sponsor);
+          $('#edit_fecha_inicio_proy_2').val(proyecto.fecha_inicio);
+          $('#edit_fecha_fin_proy_2').val(proyecto.fecha_fin);
+          $('#edit_presupuesto_est_proy_2').val(proyecto.presupuesto_est);
+          $('#edit_problema_proy_2').val(proyecto.problema);
+          $('#edit_objetivos_proy_2').val(proyecto.objetivos);
+          $('#edit_beneficios_proy_2').val(proyecto.beneficios);
+          $('#edit_avance_proy_2').val(proyecto.avance);
+          $('#edit_est_proy_2').val(proyecto.estatus);
+          $('#edit_salud_proy_2').val(proyecto.salud);
+
+          $.ajax({
+            url: './consultas/consul_evaluadores.php',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+              id_excluir: proyecto.id_solicitante
+            },
+            success: function(usuarios) {
+              const select = $('#select_id_eval_proy');
+
+              select.empty();
+              select.append(
+                $('<option>', {
+                  value: '',
+                  text: 'Seleccione un evaluador'
+                })
+              );
+
+              usuarios.forEach(function(usuario) {
+                select.append(
+                  $('<option>', {
+                    value: usuario.id_usuario,
+                    text: usuario.nombre_user + ' ' + usuario.apellido_user
+                  })
+                );
+              });
+            },
+            error: function(xhr) {
+              console.error('Error al cargar evaluadores:', xhr.responseText);
+            }
+          });
 
         },
 
