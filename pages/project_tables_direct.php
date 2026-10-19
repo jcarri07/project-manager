@@ -259,151 +259,187 @@
 
           <form class="row g-3" action="./proses_proyecto.php?act=update_proy_propio" id="form-upload" enctype="multipart/form-data" method="POST">
 
-            <input type="hidden" style="display:none" class="form-control" id="edit_id_Proy" name="edit_id_Proy" readonly>
+            <input type="hidden" style="display:none" class="form-control" id="edit_id_Proy_1" name="edit_id_Proy_1" readonly>
 
             <div class="row g-3">
-              <div class="col-md-4" style="color:black">
+
+              <div class="col-md-3" style="color:black">
                 <label for="Comando" class="form-label">Nombre del Proyecto: </label>
-                <input type="text" class="form-control" id="edit_nombre_proy" name="edit_nombre_proy">
+                <input type="text" class="form-control" id="edit_nombre_proy_1" name="edit_nombre_proy_1" required>
               </div>
 
-              <div class="col-md-2" style="color:black">
-                <label for="Comando" class="form-label">Avance: </label>
-
-                <div class="input-group col-md-">
-                  <input max="100" min="0" type="number" class="form-control" id="edit_avance" name="edit_avance">
-                  <span class="input-group-text">%</span>
-                </div>
-              </div>
-            </div>
-
-            <br>
-
-            <div class="row g-3">
-              <div class="col-md-4" style="color:black">
-                <label for="Grafica" class="form-label">Fecha: </label>
-                <input type="text" class="form-control" id="edit_fecha_fin" name="edit_fecha_fin" required>
-                <script>
-                  $(function() {
-                    $('input[name="edit_fecha_fin"]').daterangepicker({
-                      singleDatePicker: true,
-                      showDropdowns: true,
-                      opens: 'left',
-                      locale: {
-                        format: 'YYYY-MM-DD'
-                      }
-                    });
-                  });
-                </script>
-              </div>
-
-              <div class="col-md-4" style="color:black">
-                <label for="Comando" class="form-label">Categoria: </label>
-                <input type="text" class="form-control" id="edit_categoria_proy" name="edit_categoria_proy">
-              </div>
-
-              <div class="col-md-4" style="color:black">
-                <label for="Beneficiarios" class="form-label">Nombre del Beneficiarios: </label>
-                <input type="text" class="form-control" id="edit_ben_proy" name="edit_ben_proy">
-              </div>
-
-            </div>
-
-            <br>
-
-            <div class="row g-3">
-
-              <div class="col-md-4" style="color:black">
-                <label for="Grafica" class="form-label">Descripción del Proyecto: </label>
-                <textarea name="edit_descrip_proy" id="edit_descrip_proy" cols="40" rows="4" class="form-control" required></textarea>
-                <div id="contador_descrip_proy">150</div>
-              </div>
-
-              <div class="col-md-4" style="color:black">
-                <label for="Grafica" class="form-label">Objetivos del Proyecto: </label>
-                <textarea name="edit_objec_proy" id="edit_objec_proy" cols="40" rows="4" class="form-control" required></textarea>
-                <div id="contador_objec_proy">150</div>
-              </div>
-
-              <div class="col-md-4" style="color:black">
-                <label for="Grafica" class="form-label">Requerimientos del Proyecto: </label>
-                <textarea name="edit_objec_requer" id="edit_objec_requer" cols="40" rows="4" class="form-control" required></textarea>
-                <div id="contador_requer">150</div>
-              </div>
-
-              <script>
-                function limitarTextarea(idTextarea, idContador, maximoCaracteres = 200) {
-                  const textarea = document.getElementById(idTextarea);
-                  const contador = document.getElementById(idContador);
-
-                  const mensajeError = document.createElement('p');
-                  mensajeError.classList.add('text-danger');
-                  mensajeError.textContent = 'Has superado el límite de caracteres (Reiniciar el Registro).';
-                  mensajeError.style.display = 'none';
-                  textarea.parentNode.appendChild(mensajeError);
-
-                  const actualizarContador = () => {
-                    const restantes = maximoCaracteres - textarea.value.length;
-                    contador.textContent = restantes;
-
-                    if (restantes < 0) {
-                      mensajeError.style.display = 'block';
-                      textarea.disabled = true;
-                    } else {
-                      mensajeError.style.display = 'none';
-                      textarea.disabled = false;
-                    }
-                  };
-
-                  textarea.addEventListener('input', actualizarContador);
-                  actualizarContador();
-                }
-
-                limitarTextarea("edit_descrip_proy", "contador_descrip_proy", 200);
-                limitarTextarea("edit_objec_proy", "contador_objec_proy", 200);
-                limitarTextarea("edit_objec_requer", "contador_requer", 200);
-              </script>
-
-            </div>
-
-            <br>
-
-            <div class="row g-3">
-
-              <div class="col-md-4" style="color:black">
-                <label for="Cond" class="form-label">Condición: </label>
-                <select class="form-select" id="edit_est" name="edit_est" required>
-                  <option value="Por Ejecutar">Por Ejecutar</option>
-                  <option value="En progreso">En progreso</option>
-                  <option value="Completado">Completado</option>
+              <div class="col-md-5" style="color:black">
+                <label for="Cond" class="form-label">Solicitante: </label>
+                <select class="form-select" id="edit_id_solic_proy_1" name="edit_id_solic_proy_1" required>
+                  <?php
+                  $query_data = mysqli_query($conn, "SELECT * FROM users");
+                  while ($miembro = mysqli_fetch_assoc($query_data)) {
+                    $id = $miembro['id_usuario'];
+                    $nombre = ($miembro['nombre_user']);
+                    $apell = ($miembro['apellido_user']);
+                    echo "<option value=\"$id\">$nombre $apell</option>";
+                  }
+                  ?>
                 </select>
               </div>
 
-            </div>
-
-            <br>
-            <br>
-
-            <br>
-
-            <div class="d-grid gap-2 col-6 mx-auto">
-
-              <button type="submit" class="btn btn-primary" id="Redirect" data-bs-dismiss="modal">Editar</button>
+              <div class="col-md-4" style="color:black">
+                <label for="Grafica" class="form-label">Descripción del Proyecto: </label>
+                <textarea name="edit_descripcion_proy_1" id="edit_descripcion_proy_1" cols="40" rows="4" class="form-control" required></textarea>
+                <div id="contador_edit_descripcion_proy_1">300</div>
+              </div>
 
             </div>
 
-            <br><br>
+            <br>
 
-          </form>
+            <div class="row g-3">
+
+              <div class="col-md-3" style="color:black">
+                <label for="Cond" class="form-label">Unidad: </label>
+                <select class="form-select" id="edit_unidad_proy_1" name="edit_unidad_proy_1" required>
+                  <?php
+                  $query_data = mysqli_query($conn, "SELECT * FROM unidad");
+                  while ($miembro = mysqli_fetch_assoc($query_data)) {
+                    $id = $miembro['id_unidad'];
+                    $nombre = ($miembro['nombre_unid']);
+                    echo "<option value=\"$id\">$nombre</option>";
+                  }
+                  ?>
+                </select>
+              </div>
+
+              <div class="col-md-3" style="color:black">
+                <label for="Comando" class="form-label">Tipo: </label>
+                <input type="text" class="form-control" id="edit_tipo_proy_1" name="edit_tipo_proy_1" required>
+              </div>
+
+              <div class="col-md-3" style="color:black">
+                <label for="Comando" class="form-label">Prioridad: </label>
+                <select name="edit_prioridad_proy_1" id="edit_prioridad_proy_1" class="form-select border px-3" required>
+                  <option value="Baja">Baja</option>
+                  <option value="Media">Media</option>
+                  <option value="Alta">Alta</option>
+                  <option value="Crítica">Crítica</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-3" style="color:black">
+              <label for="Comando" class="form-label">Sponsor: </label>
+              <input type="text" class="form-control" id="edit_sponsor_proy_1" name="edit_sponsor_proy_1" required>
+            </div>
 
         </div>
 
-        <div class="w3-teal modal-footer">
-          <br><br>
+        <br>
+
+        <div class="row g-3">
+
+          <div class="col-md-3" style="color:black">
+            <label class="form-label">Inicio estimado</label>
+            <input type="date" name="edit_fecha_inicio_proy_1" id="edit_fecha_inicio_proy_1" class="form-control border px-3" required>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Final estimado</label>
+            <input type="date" name="edit_fecha_fin_proy_1" id="edit_fecha_fin_proy_1" class="form-control border px-3" required>
+          </div>
+
+          <div class="col-md-3" style="color:black">
+            <label for="Comando" class="form-label">Presupesto: </label>
+            <div class="input-group col-md-">
+              <input type="number" class="form-control" id="edit_presupuesto_est_proy_1" name="edit_presupuesto_est_proy_1" required>
+              <span class="input-group-text">$</span>
+            </div>
+          </div>
+
+          <div class="col-md-3" style="color:black">
+            <label for="Comando" class="form-label">Avance: </label>
+            <div class="input-group col-md-">
+              <input type="number" min="0" max="100" class="form-control" id="edit_avance_proy_1" name="edit_avance_proy_1" required>
+              <span class="input-group-text">%</span>
+            </div>
+          </div>
+
         </div>
+
+        <div class="row g-3">
+
+          <div class="col-md-4" style="color:black">
+            <label for="Grafica" class="form-label">Problematica: </label>
+            <textarea name="edit_problema_proy_1" id="edit_problema_proy_1" cols="40" rows="4" class="form-control" required></textarea>
+            <div id="contador_edit_problema_proy_1">300</div>
+          </div>
+
+          <div class="col-md-4" style="color:black">
+            <label for="Grafica" class="form-label">Objetivos del Proyecto: </label>
+            <textarea name="edit_objetivos_proy_1" id="edit_objetivos_proy_1" cols="40" rows="4" class="form-control" required></textarea>
+            <div id="contador_edit_objetivos_proy_1">300</div>
+          </div>
+
+          <div class="col-md-4" style="color:black">
+            <label for="Grafica" class="form-label">Beneficios del Proyecto: </label>
+            <textarea name="edit_beneficios_proy_1" id="edit_beneficios_proy_1" cols="40" rows="4" class="form-control" required></textarea>
+            <div id="contador_edit_beneficios_proy_1">300</div>
+          </div>
+
+          <script>
+            function limitarTextarea(idTextarea, idContador, maximoCaracteres = 300) {
+              const textarea = document.getElementById(idTextarea);
+              const contador = document.getElementById(idContador);
+
+              const mensajeError = document.createElement('p');
+              mensajeError.classList.add('text-danger');
+              mensajeError.textContent = 'Has superado el límite de caracteres (Reiniciar el Registro).';
+              mensajeError.style.display = 'none';
+              textarea.parentNode.appendChild(mensajeError);
+
+              const actualizarContador = () => {
+                const restantes = maximoCaracteres - textarea.value.length;
+                contador.textContent = restantes;
+
+                if (restantes < 0) {
+                  mensajeError.style.display = 'block';
+                  textarea.disabled = true;
+                } else {
+                  mensajeError.style.display = 'none';
+                  textarea.disabled = false;
+                }
+              };
+
+              textarea.addEventListener('input', actualizarContador);
+              actualizarContador();
+            }
+
+            limitarTextarea("edit_descripcion_proy_1", "contador_edit_descripcion_proy_1", 300);
+            limitarTextarea("edit_problema_proy_1", "contador_edit_problema_proy_1", 300);
+            limitarTextarea("edit_objetivos_proy_1", "contador_edit_objetivos_proy_1", 300);
+            limitarTextarea("edit_beneficios_proy_1", "contador_edit_beneficios_proy_1", 300);
+          </script>
+
+        </div>
+
+        <br><br><br>
+
+        <div class="d-grid gap-2 col-6 mx-auto">
+
+          <button type="submit" class="btn btn-primary" id="Redirect" data-bs-dismiss="modal">Editar</button>
+
+        </div>
+
+        <br><br>
+
+        </form>
 
       </div>
+
+      <div class="w3-teal modal-footer">
+        <br><br>
+      </div>
+
     </div>
+  </div>
   </div>
 
 
@@ -1039,7 +1075,7 @@
 
       console.log("ID seleccionado:", id);
 
-      document.getElementById('edit_id_Proy').value = id;
+      document.getElementById('edit_id_Proy_1').value = id;
 
       const modalElement = document.getElementById('myModal');
       const modal = new bootstrap.Modal(modalElement);
