@@ -4,7 +4,7 @@ include_once __DIR__ . '/../../databases/conexion_crud.php';
 $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 
-$consulta = "SELECT * FROM projects,unidad WHERE projects.unidad = unidad.id_unidad AND projects.estatus = 'Evaluacion'";
+$consulta = "SELECT * FROM projects,unidad WHERE projects.unidad = unidad.id_unidad AND projects.estatus = 'Evaluacion' AND projects.id_validador = '0'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

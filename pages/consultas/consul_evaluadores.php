@@ -7,10 +7,7 @@ $idExcluir = isset($_GET['id_excluir'])
     ? (int) $_GET['id_excluir']
     : 0;
 
-$sql = "SELECT id_usuario, nombre_user, apellido_user
-        FROM users
-        WHERE id_usuario != ?
-        ORDER BY nombre_user ASC";
+$sql = "SELECT id_usuario, nombre_user, apellido_user, especialidad FROM users WHERE users.id_user_type !='3' AND id_usuario != ? ORDER BY nombre_user ASC";
 
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "i", $idExcluir);

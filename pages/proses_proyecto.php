@@ -220,6 +220,21 @@ if ($_GET['act'] == 'insert_init') {
 
 		header("location: ../pages/project_tables_trab?alert=1");
 	}
+} elseif ($_GET['act'] == 'update_asig_eval') {
+
+	$id_proy = mysqli_real_escape_string($conn, trim($_POST['edit_id_Proy_2']));
+	$id_val = mysqli_real_escape_string($conn, trim($_POST['select_id_eval_proy']));
+
+	$Carg = "UPDATE projects SET id_validador='$id_val' WHERE projects.id_proyecto = '$id_proy'";
+
+	$query = mysqli_query($conn, $Carg);
+
+	if ($query) {
+
+		//echo ($Carg);
+
+		header("location: ../pages/project_tables_direct.php?alert=1");
+	}
 }
 
 ?>
