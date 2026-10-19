@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-10-2026 a las 02:00:10
+-- Tiempo de generación: 19-10-2026 a las 18:21:42
 -- Versión del servidor: 9.7.1
 -- Versión de PHP: 8.2.33
 
@@ -47,14 +47,15 @@ CREATE TABLE `homework` (
 
 CREATE TABLE `projects` (
   `id_proyecto` int NOT NULL,
-  `id_unidad` int NOT NULL,
+  `id_solicitante` int NOT NULL,
   `id_manager` int NOT NULL,
+  `id_validador` int NOT NULL DEFAULT '0',
+  `id_aprobador` int NOT NULL DEFAULT '0',
   `nombre` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `descripcion` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `unidad` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
+  `unidad` int NOT NULL,
   `tipo` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
   `prioridad` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
-  `solicitante` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
   `sponsor` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
   `fecha_inicio` date DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL,
@@ -75,11 +76,16 @@ CREATE TABLE `projects` (
 -- Volcado de datos para la tabla `projects`
 --
 
-INSERT INTO `projects` (`id_proyecto`, `id_unidad`, `id_manager`, `nombre`, `descripcion`, `unidad`, `tipo`, `prioridad`, `solicitante`, `sponsor`, `fecha_inicio`, `fecha_fin`, `presupuesto_est`, `problema`, `objetivos`, `beneficios`, `dimension`, `evaluacion`, `comentario`, `avance`, `estatus`, `salud`, `activo`) VALUES
-(1, 0, 2, '12to proceso', 'Nuevo avance 24', '', '', '', '', '', '2026-09-14', '2026-10-10', '', '', '', '', '', '', '', '0', 'Por Ejecutar', 'Critico', 1),
-(2, 0, 2, '12to', 'Nuevo avance 9', '', '', '', '', '', '2026-10-22', '2026-10-20', '', '', '', '', '', '', '', '100', 'Completado', 'En riesgo', 0),
-(3, 0, 1, '98to proceso', 'Nuevo avance 578', '', '', '', '', '', '2026-10-06', '2026-10-22', '', '', '', '', '', '', '', '50', 'En progreso', 'En control', 1),
-(4, 0, 1, 'Nueva version', '', 'Desarrollo', 'Mantenimiento', 'Alta', '29648370', 'ABAE', '2026-10-05', '2026-10-21', '22442', 'Pocas pruebas', 'Ver los nuevos añadidos', 'Nuevos avances', '', '', '', '0', 'Propuesto', 'En control', 1);
+INSERT INTO `projects` (`id_proyecto`, `id_solicitante`, `id_manager`, `id_validador`, `id_aprobador`, `nombre`, `descripcion`, `unidad`, `tipo`, `prioridad`, `sponsor`, `fecha_inicio`, `fecha_fin`, `presupuesto_est`, `problema`, `objetivos`, `beneficios`, `dimension`, `evaluacion`, `comentario`, `avance`, `estatus`, `salud`, `activo`) VALUES
+(1, 1, 2, 0, 0, '12to proceso', 'Nuevo avance 24', 1, 'Proyecto', 'Baja', 'ABAE', '2026-09-14', '2026-10-10', '77', '', '', '', '', '', '', '0', 'Aprobacion', 'Critico', 1),
+(2, 2, 2, 0, 0, '12to', 'Nuevo avance 9', 1, 'Proyecto', 'Alta', 'ABAE', '2026-10-22', '2026-10-20', '44747', '', '', '', '', '', '', '100', 'Propuesto', 'En riesgo', 1),
+(3, 1, 1, 2, 0, '98to proceso', 'Nuevo avance 578', 2, 'Proyecto', 'Media', 'ABAE', '2026-10-06', '2026-10-22', '7', '1', '22', '333', '', '', '', '50', 'Evaluacion', 'En control', 1),
+(4, 1, 1, 0, 0, 'Nueva version', 'Nueva proyecto', 1, 'Mantenimiento', 'Alta', 'ABAE', '2026-10-05', '2026-10-21', '22442', 'Pocas pruebas', 'Ver los nuevos añadidos', 'Nuevos avances', '', '', '', '0', 'Propuesto', 'En control', 1),
+(5, 1, 0, 0, 0, 'Practica de cambios', 'afffafffa', 1, 'Mantenimiento', 'Media', 'ABAE', '2026-10-13', '2026-10-30', '255', 'affaff', 'adffg', 'faff', '', '', '', '0', 'Completado', 'En control', 1),
+(6, 1, 0, 0, 0, 'Nueva version de borrador', 'Prueba de nueva tabla', 2, 'Proyecto', 'Media', 'ABAE', '2026-10-14', '2026-10-29', '74746', 'Nueva revisión', 'Verificar', 'Revisión', '', '', '', '0', 'Aprobacion', 'En control', 1),
+(7, 1, 0, 0, 0, 'Practica 8', 'dadadadadad', 2, 'Mantenimiento', 'Media', 'ABAE', '2026-10-07', '2026-11-07', '2424', 'rwrrwr', '31331', '42424', '', '', '', '0', 'Propuesto', 'En control', 1),
+(8, 1, 0, 0, 0, 'Ingreso 7', 'ffffffffff', 2, 'Mantenimiento', 'Crítica', 'ABAE', '2026-07-26', '2026-10-28', '5787', 'sdggd', 'etyg', 'tyuhb', '', '', '', '0', 'Propuesto', 'En control', 1),
+(9, 4, 0, 0, 0, 'Ingreso trabajador', 'sfsfsf', 1, 'Mantenimiento', 'Media', 'ABAE', '2026-10-05', '2026-10-29', '4443', 'srwr', 'wrr', 'www', '', '', '', '0', 'Evaluacion', 'En control', 1);
 
 -- --------------------------------------------------------
 
@@ -89,13 +95,12 @@ INSERT INTO `projects` (`id_proyecto`, `id_unidad`, `id_manager`, `nombre`, `des
 
 CREATE TABLE `projects_draft` (
   `id_draf_proy` int NOT NULL,
-  `id_manager` int NOT NULL,
+  `id_solicitante` int NOT NULL,
   `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `descripcion` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `unidad` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tipo` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `prioridad` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `solicitante` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `sponsor` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `fecha_inicio` date DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL,
@@ -111,13 +116,6 @@ CREATE TABLE `projects_draft` (
   `salud` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'En control',
   `activo` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `projects_draft`
---
-
-INSERT INTO `projects_draft` (`id_draf_proy`, `id_manager`, `nombre`, `descripcion`, `unidad`, `tipo`, `prioridad`, `solicitante`, `sponsor`, `fecha_inicio`, `fecha_fin`, `presupuesto_est`, `problema`, `objetivos`, `beneficios`, `dimension`, `evaluacion`, `comentario`, `avance`, `estatus`, `salud`, `activo`) VALUES
-(1, 1, 'Nueva version de borrador', 'Prueba de nueva tabla', 'Administración', 'Proyecto', 'Media', '29648370', 'ABAE', '2026-10-14', '2026-10-29', '74746', 'Nueva revisión', 'Verificar', 'Revisión', '', '', '', '0', 'Propuesto', 'En control', 1);
 
 -- --------------------------------------------------------
 
@@ -199,8 +197,8 @@ CREATE TABLE `users` (
   `id_usuario` int NOT NULL,
   `id_user_type` int NOT NULL,
   `id_unidad` int NOT NULL,
-  `nombre` varchar(200) NOT NULL,
-  `apellido` varchar(200) NOT NULL,
+  `nombre_user` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `apellido_user` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `cedula` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `especialidad` varchar(200) NOT NULL,
@@ -214,10 +212,12 @@ CREATE TABLE `users` (
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id_usuario`, `id_user_type`, `id_unidad`, `nombre`, `apellido`, `cedula`, `email`, `especialidad`, `password_hash`, `fecha_creacion`, `foto_personal`, `estatus`) VALUES
-(1, 1, 1, '', '', '29648370', 'ac2002@g', '', '12345678', '2026-09-26 04:00:00', '../assets/img/img_users/Opera Captura de pantalla_2025-02-20_151444_bonvoyage.com.ve.png', 'activo'),
-(2, 2, 2, '', '', '24300100', 'Carrizales@g', '', '12345', '2026-09-27 17:06:00', '../assets/img/img_users/Captura de pantalla 2026-05-09 223057.png', 'activo'),
-(3, 1, 1, '', '', '28556231', 'miguelB@g', '', '1234567890', '2026-10-07 01:48:00', '../assets/img/img_users/Captura de pantalla 2026-05-09 223057.png', 'activo');
+INSERT INTO `users` (`id_usuario`, `id_user_type`, `id_unidad`, `nombre_user`, `apellido_user`, `cedula`, `email`, `especialidad`, `password_hash`, `fecha_creacion`, `foto_personal`, `estatus`) VALUES
+(1, 1, 1, 'Alejandro Enrique', 'Cousin Rodriguez', '29648370', 'ac2002@g', 'Mantenimiento', '12345678', '2026-09-26 04:00:00', '../assets/img/img_users/Captura de pantalla 2025-01-28 150903.png', 'activo'),
+(2, 2, 2, 'Jose', 'Carrizales', '24300100', 'Carrizales@g', 'Desarrollador', '12345', '2026-09-27 17:06:00', '../assets/img/img_users/Captura de pantalla 2026-05-09 223057.png', 'activo'),
+(3, 3, 1, 'Miguel', 'Bencomo', '28556231', 'miguelB@g', 'Modelado', '1234567890', '2026-10-07 01:48:00', '../assets/img/img_users/Captura de pantalla 2026-05-09 223057.png', 'activo'),
+(4, 3, 1, 'Alfredo', 'Calderon', '28654133', 'calderon@gmail.com', 'Desarrollo', '123', '2026-10-17 22:15:00', '../assets/img/img_users/avionRojos.png', 'activo'),
+(5, 2, 2, 'Karla', 'Karla', '28043244', 'karla@gmail.com', 'Mecanica', '1234', '2026-10-18 23:31:00', '../assets/img/img_users/ChatGPT Image 10 jun 2025, 03_15_37 p.m..jpg', 'activo');
 
 -- --------------------------------------------------------
 
@@ -297,14 +297,15 @@ ALTER TABLE `homework`
 --
 ALTER TABLE `projects`
   ADD PRIMARY KEY (`id_proyecto`),
-  ADD KEY `id_manager` (`id_manager`);
+  ADD KEY `id_solicitante` (`id_solicitante`),
+  ADD KEY `unidad` (`unidad`);
 
 --
 -- Indices de la tabla `projects_draft`
 --
 ALTER TABLE `projects_draft`
   ADD PRIMARY KEY (`id_draf_proy`),
-  ADD KEY `id_manager` (`id_manager`);
+  ADD KEY `id_solicitante` (`id_solicitante`);
 
 --
 -- Indices de la tabla `project_miembro`
@@ -384,13 +385,13 @@ ALTER TABLE `homework`
 -- AUTO_INCREMENT de la tabla `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id_proyecto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_proyecto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `projects_draft`
 --
 ALTER TABLE `projects_draft`
-  MODIFY `id_draf_proy` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_draf_proy` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `project_miembro`
@@ -420,7 +421,7 @@ ALTER TABLE `unidad`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `user_history`
@@ -461,13 +462,14 @@ ALTER TABLE `homework`
 -- Filtros para la tabla `projects`
 --
 ALTER TABLE `projects`
-  ADD CONSTRAINT `projects_ibfk_1` FOREIGN KEY (`id_manager`) REFERENCES `users` (`id_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `projects_ibfk_1` FOREIGN KEY (`id_solicitante`) REFERENCES `users` (`id_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `projects_ibfk_2` FOREIGN KEY (`unidad`) REFERENCES `unidad` (`id_unidad`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Filtros para la tabla `projects_draft`
 --
 ALTER TABLE `projects_draft`
-  ADD CONSTRAINT `projects_draft_ibfk_1` FOREIGN KEY (`id_manager`) REFERENCES `users` (`id_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `projects_draft_ibfk_1` FOREIGN KEY (`id_solicitante`) REFERENCES `users` (`id_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Filtros para la tabla `project_miembro`
