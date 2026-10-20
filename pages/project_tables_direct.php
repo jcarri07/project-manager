@@ -1135,9 +1135,10 @@
   <script>
     function abrirModalSelectEval(id) {
 
+
       console.log("ID seleccionado:", id);
 
-      document.getElementById('edit_id_Proy').value = id;
+      document.getElementById('edit_id_Proy_2').value = id;
 
       const modalElement = document.getElementById('Modal_Select_Eval');
       const modal = new bootstrap.Modal(modalElement);
@@ -1158,6 +1159,7 @@
 
           if (!respuesta.success) {
             alert(respuesta.message);
+            console.log("Prueba");
             return;
           }
 

@@ -41,16 +41,14 @@ $Nomb_solic = $_SESSION['nombre'] . " " . $_SESSION['apellido'];
   <title>
     Sistema de Gestion de Proyectos
   </title>
-  <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-  <!-- Nucleo Icons -->
   <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-  <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-  <!-- CSS Files -->
+  <link rel="stylesheet" href="../assets/coreui/coreui_min_css.css">
+  <script src="../assets/coreui/coreui_bundle_min_js.js"></script>
+
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
 
 </head>
@@ -171,6 +169,24 @@ $Nomb_solic = $_SESSION['nombre'] . " " . $_SESSION['apellido'];
                     <input type="text" name="s_nombre" id="s_nombre" class="form-control border px-3" value="<?php echo htmlspecialchars($Nomb_solic); ?>" placeholder="Solicitante" readonly>
                     <input type="hidden" name="solicitante_proy" id="solicitante_proy" class="form-control border px-3" value="<?php echo htmlspecialchars($Data_ced); ?>" placeholder="Solicitante" readonly>
                   </div>
+
+                  <div class="col-md-4">
+                    <label for="fecha" class="form-label">Co-Autores: </label>
+                                <select class="form-multi-select" id="nav_select" name="nav_select[]" multiple data-coreui-search="global" required>
+                                      <?php
+                                      $query_data = mysqli_query($conn, "SELECT * FROM users");
+
+                                      while ($miembro = mysqli_fetch_assoc($query_data)) {
+                                        $id = $miembro['id_usuario'];
+                                        $nombre = ($miembro['nombre_user']);
+                                        $apell = ($miembro['apellido_user']);
+                                        $esp = ($miembro['especialidad']);
+                                        echo "<option value=\"$id\">$nombre $apell | Especialidad: $esp</option>";
+                                      }
+                      ?>
+                                </select>
+                            </div>
+
 
                   <div class="col-md-4 mb-3">
                     <label class="form-label">Sponsor</label>

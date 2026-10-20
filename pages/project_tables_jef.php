@@ -83,7 +83,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
               <div class="d-flex align-items-center gap-3 px-3">
 
-                <h6 class="text-white text-capitalize mb-0">Proyectos</h6>
+                <h6 class="text-white text-capitalize mb-0"><h3>Proyectos</h3></h6>
 
               </div>
 
