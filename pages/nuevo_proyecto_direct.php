@@ -171,6 +171,13 @@ $Nomb_solic = $_SESSION['nombre'] . " " . $_SESSION['apellido'];
                   </div>
 
                   <div class="col-md-4 mb-3">
+                    <label class="form-label">Sponsor</label>
+                    <input type="text" name="sponsor_proy" id="sponsor_proy" class="form-control border px-3" placeholder="Nombre del sponsor">
+                  </div>
+
+                  
+
+                  <div class="col-md-4 mb-3" id="co_autor_container">
                     <label for="fecha" class="form-label">Co-Autores: </label>
                                 <select class="form-multi-select" id="co_autor_select" name="co_autor_select[]" multiple data-coreui-search="global">
                                       <?php
@@ -187,11 +194,14 @@ $Nomb_solic = $_SESSION['nombre'] . " " . $_SESSION['apellido'];
                                 </select>
                             </div>
 
+                    <div class="form-check form-switch">
+                              <input class="form-check-input" type="checkbox" id="check_co_autor_select" checked>
+                              <label class="form-check-label" for="check_co_autor_select">Agregar co-autores</label>
+                          </div>
 
-                  <div class="col-md-4 mb-3">
-                    <label class="form-label">Sponsor</label>
-                    <input type="text" name="sponsor_proy" id="sponsor_proy" class="form-control border px-3" placeholder="Nombre del sponsor">
-                  </div>
+
+
+                            
 
                   <!--
                     <div class="col-md-4 mb-3">
@@ -364,20 +374,15 @@ $Nomb_solic = $_SESSION['nombre'] . " " . $_SESSION['apellido'];
 </script>
 
 <script>
-  const checkboxes = document.querySelectorAll('.form-check-input');
+document.addEventListener('DOMContentLoaded', function () {
+    const checkbox = document.getElementById('check_co_autor_select');
+    const contenedor = document.getElementById('co_autor_container');
 
-  checkboxes.forEach(checkbox => {
-    const fileInputId = checkbox.id.replace('check_', '');
-    const fileInput = document.getElementById(fileInputId);
+    function toggle() {
+        contenedor.style.display = checkbox.checked ? 'none' : 'block';
+    }
 
-    fileInput.style.display = checkbox.checked ? 'none' : 'block';
-
-    checkbox.addEventListener('change', () => {
-      if (checkbox.checked) {
-        fileInput.style.display = 'none';
-      } else {
-        fileInput.style.display = 'block';
-      }
-    });
-  });
+    toggle(); // estado inicial
+    checkbox.addEventListener('change', toggle);
+});
 </script>
