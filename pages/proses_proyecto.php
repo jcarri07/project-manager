@@ -69,6 +69,15 @@ if ($_GET['act'] == 'insert_init') {
 
 		if ($query) {
 
+		    if (!empty($_POST['co_autor_select'])) {
+			foreach ($_POST['co_autor_select'] as $id_autor) {
+				$id_autor = intval($id_autor);
+				$sql = "INSERT INTO projects_co_autors (id_projects, id_autor_user) 
+						VALUES ('$DIDM', '$id_autor')";
+				mysqli_query($conn, $sql);
+			}
+		}
+
 			header("location: ../pages/project_tables_direct.php?alert=1");
 		}
 	}
@@ -122,6 +131,15 @@ if ($_GET['act'] == 'insert_init') {
 			$DIDM = 1;
 		} else {
 			$DIDM = $cont + 1;
+		}
+
+		if (!empty($_POST['co_autor_select'])) {
+			foreach ($_POST['co_autor_select'] as $id_autor) {
+				$id_autor = intval($id_autor);
+				$sql = "INSERT INTO projects_co_autors (id_projects, id_autor_user) 
+						VALUES ('$DIDM', '$id_autor')";
+				mysqli_query($conn, $sql);
+			}
 		}
 
 		$d_id_manager = 0;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-10-2026 a las 17:16:34
+-- Tiempo de generación: 20-10-2026 a las 18:03:43
 -- Versión del servidor: 9.7.2
 -- Versión de PHP: 8.5.10
 
@@ -88,7 +88,29 @@ INSERT INTO `projects` (`id_proyecto`, `id_solicitante`, `id_manager`, `id_valid
 (9, 4, 0, 0, 0, 'Ingreso trabajador', 'sfsfsf', 1, 'Mantenimiento', 'Media', 'ABAE', '2026-10-05', '2026-10-29', '4443', 'srwr', 'wrr', 'www', '', '', '', '0', 'Evaluacion', 'En control', 1),
 (10, 1, 0, 0, 0, 'Practica tecnica', 'Prueba en la oficina', 2, 'Mantenimiento', 'Baja', 'ABAE', '2026-10-14', '2026-10-29', '856', 'Practica', 'Funcionamiento', 'Modulo 1', '', '', '', '0', 'Propuesto', 'En control', 1),
 (11, 1, 0, 0, 0, 'Practica tecnica 2', 'Prueba de ingreso', 1, 'Reparación', 'Baja', 'ABAE', '2026-10-29', '2026-10-23', '754', 'Prueba de funcionamiento', 'Ver avance', 'Modulo 1', '', '', '', '0', 'Propuesto', 'En control', 1),
-(12, 4, 0, 2, 0, 'Proyecto trabajador', 'Prueba de la pagina', 1, 'Proyecto', 'Alta', 'ABAE', '2026-10-08', '2026-10-15', '434', 'Practica de usuario', 'Prueba', 'Funcionamiento', '', '', '', '0', 'Evaluacion', 'En control', 1);
+(12, 4, 0, 2, 0, 'Proyecto trabajador', 'Prueba de la pagina', 1, 'Proyecto', 'Alta', 'ABAE', '2026-10-08', '2026-10-15', '434', 'Practica de usuario', 'Prueba', 'Funcionamiento', '', '', '', '0', 'Evaluacion', 'En control', 1),
+(13, 1, 0, 0, 0, 'Select', 'Multiple', 1, 'Proyecto', 'Baja', 'ABAE', '2026-10-13', '2026-10-16', '634', 'Prueba', 'Prueba', 'Prueba', '', '', '', '0', 'Propuesto', 'En control', 1),
+(14, 1, 0, 0, 0, 'Select Admid', 'hrhr', 2, 'Mantenimiento', 'Baja', 'ABAE', '2026-10-01', '2026-10-23', '37', 'tww', 'yyy', 'eee', '', '', '', '0', 'Propuesto', 'En control', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `projects_co_autors`
+--
+
+CREATE TABLE `projects_co_autors` (
+  `id_projects_solicitante` int NOT NULL,
+  `id_projects` int NOT NULL,
+  `id_autor_user` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `projects_co_autors`
+--
+
+INSERT INTO `projects_co_autors` (`id_projects_solicitante`, `id_projects`, `id_autor_user`) VALUES
+(1, 14, 2),
+(2, 14, 5);
 
 -- --------------------------------------------------------
 
@@ -119,18 +141,6 @@ CREATE TABLE `projects_draft` (
   `salud` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'En control',
   `activo` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `projects_solicitante`
---
-
-CREATE TABLE `projects_solicitante` (
-  `id_projects_solicitante` int NOT NULL,
-  `id_projects` int NOT NULL,
-  `id_solicitante_user` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -316,19 +326,19 @@ ALTER TABLE `projects`
   ADD KEY `unidad` (`unidad`);
 
 --
+-- Indices de la tabla `projects_co_autors`
+--
+ALTER TABLE `projects_co_autors`
+  ADD PRIMARY KEY (`id_projects_solicitante`),
+  ADD KEY `id_projects` (`id_projects`),
+  ADD KEY `id_autor_user` (`id_autor_user`);
+
+--
 -- Indices de la tabla `projects_draft`
 --
 ALTER TABLE `projects_draft`
   ADD PRIMARY KEY (`id_draf_proy`),
   ADD KEY `id_solicitante` (`id_solicitante`);
-
---
--- Indices de la tabla `projects_solicitante`
---
-ALTER TABLE `projects_solicitante`
-  ADD PRIMARY KEY (`id_projects_solicitante`),
-  ADD KEY `id_projects` (`id_projects`),
-  ADD KEY `id_solicitante_user` (`id_solicitante_user`);
 
 --
 -- Indices de la tabla `project_miembro`
@@ -408,19 +418,19 @@ ALTER TABLE `homework`
 -- AUTO_INCREMENT de la tabla `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id_proyecto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_proyecto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `projects_co_autors`
+--
+ALTER TABLE `projects_co_autors`
+  MODIFY `id_projects_solicitante` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `projects_draft`
 --
 ALTER TABLE `projects_draft`
   MODIFY `id_draf_proy` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de la tabla `projects_solicitante`
---
-ALTER TABLE `projects_solicitante`
-  MODIFY `id_projects_solicitante` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `project_miembro`
@@ -481,11 +491,11 @@ ALTER TABLE `usuario_roles`
 --
 
 --
--- Filtros para la tabla `projects_solicitante`
+-- Filtros para la tabla `projects_co_autors`
 --
-ALTER TABLE `projects_solicitante`
-  ADD CONSTRAINT `projects_solicitante_ibfk_1` FOREIGN KEY (`id_projects`) REFERENCES `projects` (`id_proyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `projects_solicitante_ibfk_2` FOREIGN KEY (`id_solicitante_user`) REFERENCES `users` (`id_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE `projects_co_autors`
+  ADD CONSTRAINT `projects_co_autors_ibfk_1` FOREIGN KEY (`id_projects`) REFERENCES `projects` (`id_proyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `projects_co_autors_ibfk_2` FOREIGN KEY (`id_autor_user`) REFERENCES `users` (`id_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -170,9 +170,9 @@ $Nomb_solic = $_SESSION['nombre'] . " " . $_SESSION['apellido'];
                     <input type="hidden" name="solicitante_proy" id="solicitante_proy" class="form-control border px-3" value="<?php echo htmlspecialchars($Data_ced); ?>" placeholder="Solicitante" readonly>
                   </div>
 
-                  <div class="col-md-4">
+                  <div class="col-md-4 mb-3">
                     <label for="fecha" class="form-label">Co-Autores: </label>
-                                <select class="form-multi-select" id="nav_select" name="nav_select[]" multiple data-coreui-search="global" required>
+                                <select class="form-multi-select" id="co_autor_select" name="co_autor_select[]" multiple data-coreui-search="global">
                                       <?php
                                       $query_data = mysqli_query($conn, "SELECT * FROM users");
 
@@ -183,7 +183,7 @@ $Nomb_solic = $_SESSION['nombre'] . " " . $_SESSION['apellido'];
                                         $esp = ($miembro['especialidad']);
                                         echo "<option value=\"$id\">$nombre $apell | Especialidad: $esp</option>";
                                       }
-                      ?>
+                                      ?>
                                 </select>
                             </div>
 
