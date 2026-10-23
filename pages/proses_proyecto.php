@@ -20,7 +20,7 @@ require_once('../databases/conexion.php');
 
 /*else {*/
 
-if ($_GET['act'] == 'insert_init') {
+if ($_GET['act'] == 'insert_init_dir') {
 	if (isset($_POST['Guardar'])) {
 
 
@@ -69,14 +69,14 @@ if ($_GET['act'] == 'insert_init') {
 
 		if ($query) {
 
-		    if (!empty($_POST['co_autor_select'])) {
-			foreach ($_POST['co_autor_select'] as $id_autor) {
-				$id_autor = intval($id_autor);
-				$sql = "INSERT INTO projects_co_autors (id_projects, id_autor_user) 
+			if (!empty($_POST['co_autor_select'])) {
+				foreach ($_POST['co_autor_select'] as $id_autor) {
+					$id_autor = intval($id_autor);
+					$sql = "INSERT INTO users_projects (id_projects, id_autor_user) 
 						VALUES ('$DIDM', '$id_autor')";
-				mysqli_query($conn, $sql);
+					mysqli_query($conn, $sql);
+				}
 			}
-		}
 
 			header("location: ../pages/project_tables_direct.php?alert=1");
 		}
@@ -136,7 +136,7 @@ if ($_GET['act'] == 'insert_init') {
 		if (!empty($_POST['co_autor_select'])) {
 			foreach ($_POST['co_autor_select'] as $id_autor) {
 				$id_autor = intval($id_autor);
-				$sql = "INSERT INTO projects_co_autors (id_projects, id_autor_user) 
+				$sql = "INSERT INTO users_projects (id_projects, id_autor_user) 
 						VALUES ('$DIDM', '$id_autor')";
 				mysqli_query($conn, $sql);
 			}
@@ -252,6 +252,20 @@ if ($_GET['act'] == 'insert_init') {
 		//echo ($Carg);
 
 		header("location: ../pages/project_tables_direct.php?alert=1");
+	}
+} elseif ($_GET['act'] == 'insert_eval_proy') {
+
+	$id_proy = mysqli_real_escape_string($conn, trim($_POST['edit_id_Proy_2']));
+	$dimen_proy = mysqli_real_escape_string($conn, trim($_POST['dimen_proy_valid']));
+	$eval_proy = mysqli_real_escape_string($conn, trim($_POST['edit_id_Proy_2']));
+	$coment_proy = mysqli_real_escape_string($conn, trim($_POST['edit_id_Proy_2']));
+	$status_val = "Decision";
+
+	$query = mysqli_query($conn, "UPDATE projects SET dimension = '$dimen_proy', evaluacion = '$eval_proy', comentario = '$coment_proy',estatus='$status_val' WHERE projects.id_proyecto = '$id_proy'");
+
+	if ($query) {
+
+		header("location: ../pages/project_tables_jef.php?alert=1");
 	}
 }
 

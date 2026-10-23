@@ -83,7 +83,9 @@ if (!isset($_SESSION['id_usuario'])) {
 
               <div class="d-flex align-items-center gap-3 px-3">
 
-                <h6 class="text-white text-capitalize mb-0"><h3>Proyectos</h3></h6>
+                <h6 class="text-white text-capitalize mb-0">
+                  <h3>Proyectos</h3>
+                </h6>
 
               </div>
 
@@ -150,7 +152,7 @@ if (!isset($_SESSION['id_usuario'])) {
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fin</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progreso</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prioridad</th>
-
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Editar</th>
                       </tr>
                     </thead>
 
@@ -265,12 +267,14 @@ if (!isset($_SESSION['id_usuario'])) {
     </div>
   </main>
 
-  <div class="modal w3-container" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false">
+  <!-- ------------------Codigo del modal para editar las propuestas propias ------------------ -->
+
+  <div class="modal w3-container" id="Modal_edit" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog">
       <div class="modal-content w3-animate-opacity">
         <div class="w3-container w3-teal">
           <br>
-          <p class="modal-title" style="color: black;">Datos Registrados</p>
+          <p class="modal-title" style="color: black;">Propuesta Propia</p>
           <br>
           <div class="w3-center">
             <span onclick="document.getElementById('id01').style.display='none'" id="closeAndRedirect" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
@@ -279,82 +283,129 @@ if (!isset($_SESSION['id_usuario'])) {
 
         <div class="w3-container modal-body" id="modalBody">
 
-          <form class="row g-3" action="./ejec_edit_proy.php" id="form-upload" enctype="multipart/form-data" method="POST">
+          <form class="row g-3" action="./proses_proyecto.php?act=update_asig_eval" id="form-upload" enctype="multipart/form-data" method="POST">
 
-            <input type="hidden" style="display:none" class="form-control" id="edit_id_Proy" name="edit_id_Proy" readonly>
+            <input type="hidden" style="display:none" class="form-control" id="edit_id_Proy_1" name="edit_id_Proy_1" readonly>
 
             <div class="row g-3">
+
               <div class="col-md-4" style="color:black">
                 <label for="Comando" class="form-label">Nombre del Proyecto: </label>
-                <input type="text" class="form-control" id="edit_nombre_proy" name="edit_nombre_proy">
+                <input type="text" class="form-control" id="edit_nombre_proy_1" name="edit_nombre_proy_1">
               </div>
 
-              <div class="col-md-2" style="color:black">
-                <label for="Comando" class="form-label">Avance: </label>
+              <div class="col-md-4" style="color:black">
+                <label for="Cond" class="form-label">Solicitante: </label>
+                <select class="form-select" id="edit_id_solic_proy_1" name="edit_id_solic_proy_1" disabled>
+                  <?php
+                  $query_data = mysqli_query($conn, "SELECT * FROM users");
+                  while ($miembro = mysqli_fetch_assoc($query_data)) {
+                    $id = $miembro['id_usuario'];
+                    $nombre = ($miembro['nombre_user']);
+                    $apell = ($miembro['apellido_user']);
+                    echo "<option value=\"$id\">$nombre $apell</option>";
+                  }
+                  ?>
+                </select>
+              </div>
 
+              <div class="col-md-4" style="color:black">
+                <label for="Cond" class="form-label">Unidad: </label>
+                <select class="form-select" id="edit_unidad_proy_1" name="edit_unidad_proy_1">
+                  <?php
+                  $query_data = mysqli_query($conn, "SELECT * FROM unidad");
+                  while ($miembro = mysqli_fetch_assoc($query_data)) {
+                    $id = $miembro['id_unidad'];
+                    $nombre = ($miembro['nombre_unid']);
+                    echo "<option value=\"$id\">$nombre</option>";
+                  }
+                  ?>
+                </select>
+              </div>
+
+            </div>
+
+            <br>
+
+            <div class="row g-3">
+
+              <div class="col-md-3" style="color:black">
+                <label for="Comando" class="form-label">Tipo: </label>
+                <input type="text" class="form-control" id="edit_tipo_proy_1" name="edit_tipo_proy_1">
+              </div>
+
+              <div class="col-md-3" style="color:black">
+                <label for="Comando" class="form-label">Prioridad: </label>
+                <input type="text" class="form-control" id="edit_prioridad_proy_1" name="edit_prioridad_proy_1">
+              </div>
+
+              <div class="col-md-3" style="color:black">
+                <label for="Comando" class="form-label">Sponsor: </label>
+                <input type="text" class="form-control" id="edit_sponsor_proy_1" name="edit_sponsor_proy_1">
+              </div>
+
+            </div>
+
+            <br>
+
+            <div class="row g-3">
+
+              <div class="col-md-3" style="color:black">
+                <label class="form-label">Inicio estimado</label>
+                <input type="date" name="edit_fecha_inicio_proy_1" id="edit_fecha_inicio_proy_1" class="form-control border px-3">
+              </div>
+
+              <div class="col-md-3">
+                <label class="form-label">Final estimado</label>
+                <input type="date" name="edit_fecha_fin_proy_1" id="edit_fecha_fin_proy_1" class="form-control border px-3">
+              </div>
+
+              <div class="col-md-3" style="color:black">
+                <label for="Comando" class="form-label">Presupesto: </label>
                 <div class="input-group col-md-">
-                  <input max="100" min="0" type="number" class="form-control" id="edit_avance" name="edit_avance">
-                  <span class="input-group-text">%</span>
+                  <input type="number" class="form-control" id="edit_presupuesto_est_proy_1" name="edit_presupuesto_est_proy_1">
+                  <span class="input-group-text">$</span>
                 </div>
               </div>
-            </div>
 
-            <br>
-
-            <div class="row g-3">
-              <div class="col-md-4" style="color:black">
-                <label for="Grafica" class="form-label">Fecha: </label>
-                <input type="text" class="form-control" id="edit_fecha_fin" name="edit_fecha_fin" required>
-                <script>
-                  $(function() {
-                    $('input[name="edit_fecha_fin"]').daterangepicker({
-                      singleDatePicker: true,
-                      showDropdowns: true,
-                      opens: 'left',
-                      locale: {
-                        format: 'YYYY-MM-DD'
-                      }
-                    });
-                  });
-                </script>
-              </div>
-
-              <div class="col-md-4" style="color:black">
-                <label for="Comando" class="form-label">Categoria: </label>
-                <input type="text" class="form-control" id="edit_categoria_proy" name="edit_categoria_proy">
-              </div>
-
-              <div class="col-md-4" style="color:black">
-                <label for="Beneficiarios" class="form-label">Nombre del Beneficiarios: </label>
-                <input type="text" class="form-control" id="edit_ben_proy" name="edit_ben_proy">
+              <div class="col-md-3" style="color:black">
+                <label for="Comando" class="form-label">Avance: </label>
+                <div class="input-group col-md-">
+                  <input type="number" class="form-control" id="edit_avance_proy_1" name="edit_avance_proy_1">
+                  <span class=" input-group-text">%</span>
+                </div>
               </div>
 
             </div>
 
-            <br>
-
             <div class="row g-3">
 
-              <div class="col-md-4" style="color:black">
-                <label for="Grafica" class="form-label">Descripción del Proyecto: </label>
-                <textarea name="edit_descrip_proy" id="edit_descrip_proy" cols="40" rows="4" class="form-control" required></textarea>
-                <div id="contador_descrip_proy">150</div>
+              <div class="col-md-3" style="color:black">
+                <label for="Grafica" class="form-label">Problematica: </label>
+                <textarea name="edit_problema_proy_1" id="edit_problema_proy_1" cols="40" rows="4" class="form-control"></textarea>
+                <div id="contador_edit_problema_proy_1"></div>
               </div>
 
-              <div class="col-md-4" style="color:black">
+              <div class="col-md-3" style="color:black">
                 <label for="Grafica" class="form-label">Objetivos del Proyecto: </label>
-                <textarea name="edit_objec_proy" id="edit_objec_proy" cols="40" rows="4" class="form-control" required></textarea>
-                <div id="contador_objec_proy">150</div>
+                <textarea name="edit_objetivos_proy_1" id="edit_objetivos_proy_1" cols="40" rows="4" class="form-control"></textarea>
+                <div id="contador_edit_objetivos_proy_1"></div>
               </div>
 
-              <div class="col-md-4" style="color:black">
-                <label for="Grafica" class="form-label">Requerimientos del Proyecto: </label>
-                <textarea name="edit_objec_requer" id="edit_objec_requer" cols="40" rows="4" class="form-control" required></textarea>
-                <div id="contador_requer">150</div>
+              <div class="col-md-3" style="color:black">
+                <label for="Grafica" class="form-label">Beneficios del Proyecto: </label>
+                <textarea name="edit_beneficios_proy_1" id="edit_beneficios_proy_1" cols="40" rows="4" class="form-control"></textarea>
+                <div id="contador_edit_beneficios_proy_1"></div>
+              </div>
+
+              <div class="col-md-3" style="color:black">
+                <label for="Grafica" class="form-label">Descripción del Proyecto: </label>
+                <textarea name="edit_descripcion_proy_1" id="edit_descripcion_proy_1" cols="40" rows="4" class="form-control"></textarea>
+                <div id="contador_edit_descripcion_proy_1"></div>
               </div>
 
               <script>
-                function limitarTextarea(idTextarea, idContador, maximoCaracteres = 200) {
+                function limitarTextarea(idTextarea, idContador, maximoCaracteres = 300) {
                   const textarea = document.getElementById(idTextarea);
                   const contador = document.getElementById(idContador);
 
@@ -381,10 +432,216 @@ if (!isset($_SESSION['id_usuario'])) {
                   actualizarContador();
                 }
 
-                limitarTextarea("edit_descrip_proy", "contador_descrip_proy", 200);
-                limitarTextarea("edit_objec_proy", "contador_objec_proy", 200);
-                limitarTextarea("edit_objec_requer", "contador_requer", 200);
+                limitarTextarea("edit_descripcion_proy_1", "contador_edit_descripcion_proy_1", 300);
+                limitarTextarea("edit_problema_proy_1", "contador_edit_problema_proy_1", 300);
+                limitarTextarea("edit_objetivos_proy_1", "contador_edit_objetivos_proy_1", 300);
+                limitarTextarea("edit_beneficios_proy_1", "contador_edit_beneficios_proy_1", 300);
               </script>
+
+            </div>
+
+
+            <br>
+
+            <br><br><br>
+
+            <div class="d-grid gap-2 col-6 mx-auto">
+
+              <button type="submit" class="btn btn-primary" id="Redirect" data-bs-dismiss="modal">Editar</button>
+
+            </div>
+
+            <br><br>
+
+          </form>
+
+        </div>
+
+        <div class="w3-teal modal-footer">
+          <br><br>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal w3-container" id="Modal_valid" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content w3-animate-opacity">
+        <div class="w3-container w3-teal">
+          <br>
+          <p class="modal-title" style="color: black;">Proyecto Pendiente de Evaluación</p>
+          <br>
+          <div class="w3-center">
+            <span onclick="document.getElementById('id01').style.display='none'" id="closeAndRedirect" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+          </div>
+        </div>
+
+        <div class="w3-container modal-body" id="modalBody">
+
+          <form class="row g-3" action="./proses_proyecto.php?act=insert_eval_proy" id="form-upload" enctype="multipart/form-data" method="POST">
+
+            <input type="hidden" style="display:none" class="form-control" id="edit_id_Proy_2" name="edit_id_Proy_2" readonly>
+
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="check_data_proyValid" checked>
+              <label class="form-check-label" for="check_data_proyValid">Informacion del Proyecto</label>
+            </div>
+
+            <div id="data_proy_container">
+
+              <div class="row g-3">
+
+                <div class="col-md-4" style="color:black">
+                  <label for="Comando" class="form-label">Nombre del Proyecto: </label>
+                  <input type="text" class="form-control" id="edit_nombre_proy_2" name="edit_nombre_proy_2" disabled>
+                </div>
+
+                <div class="col-md-4" style="color:black">
+                  <label for="Cond" class="form-label">Solicitante: </label>
+                  <select class="form-select" id="edit_id_solic_proy_2" name="edit_id_solic_proy_2" disabled>
+                    <?php
+                    $query_data = mysqli_query($conn, "SELECT * FROM users");
+                    while ($miembro = mysqli_fetch_assoc($query_data)) {
+                      $id = $miembro['id_usuario'];
+                      $nombre = ($miembro['nombre_user']);
+                      $apell = ($miembro['apellido_user']);
+                      echo "<option value=\"$id\">$nombre $apell</option>";
+                    }
+                    ?>
+                  </select>
+                </div>
+
+                <div class="col-md-4" style="color:black">
+                  <label for="Cond" class="form-label">Unidad: </label>
+                  <select class="form-select" id="edit_unidad_proy_2" name="edit_unidad_proy_2" disabled>
+                    <?php
+                    $query_data = mysqli_query($conn, "SELECT * FROM unidad");
+                    while ($miembro = mysqli_fetch_assoc($query_data)) {
+                      $id = $miembro['id_unidad'];
+                      $nombre = ($miembro['nombre_unid']);
+                      echo "<option value=\"$id\">$nombre</option>";
+                    }
+                    ?>
+                  </select>
+                </div>
+
+              </div>
+
+              <br>
+
+              <div class="row g-3">
+
+                <div class="col-md-3" style="color:black">
+                  <label for="Comando" class="form-label">Tipo: </label>
+                  <input type="text" class="form-control" id="edit_tipo_proy_2" name="edit_tipo_proy_2" disabled>
+                </div>
+
+                <div class="col-md-3" style="color:black">
+                  <label for="Comando" class="form-label">Prioridad: </label>
+                  <input type="text" class="form-control" id="edit_prioridad_proy_2" name="edit_prioridad_proy_2" disabled>
+                </div>
+
+                <div class="col-md-3" style="color:black">
+                  <label for="Comando" class="form-label">Sponsor: </label>
+                  <input type="text" class="form-control" id="edit_sponsor_proy_2" name="edit_sponsor_proy_2" disabled>
+                </div>
+
+              </div>
+
+              <br>
+
+              <div class="row g-3">
+
+                <div class="col-md-3" style="color:black">
+                  <label class="form-label">Inicio estimado</label>
+                  <input type="date" name="edit_fecha_inicio_proy_2" id="edit_fecha_inicio_proy_2" class="form-control border px-3" disabled>
+                </div>
+
+                <div class="col-md-3">
+                  <label class="form-label">Final estimado</label>
+                  <input type="date" name="edit_fecha_fin_proy_2" id="edit_fecha_fin_proy_2" class="form-control border px-3" disabled>
+                </div>
+
+                <div class="col-md-3" style="color:black">
+                  <label for="Comando" class="form-label">Presupesto: </label>
+                  <div class="input-group col-md-">
+                    <input type="number" class="form-control" id="edit_presupuesto_est_proy_2" name="edit_presupuesto_est_proy_2" disabled>
+                    <span class="input-group-text">$</span>
+                  </div>
+                </div>
+
+                <div class="col-md-3" style="color:black">
+                  <label for="Comando" class="form-label">Avance: </label>
+                  <div class="input-group col-md-">
+                    <input type="number" class="form-control" id="edit_avance_proy_2" name="edit_avance_proy_2" disabled>
+                    <span class=" input-group-text">%</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row g-3">
+
+                <div class="col-md-3" style="color:black">
+                  <label for="Grafica" class="form-label">Problematica: </label>
+                  <textarea name="edit_problema_proy_2" id="edit_problema_proy_2" cols="40" rows="4" class="form-control" readonly></textarea>
+                  <div id="contador_edit_problema_proy_1"></div>
+                </div>
+
+                <div class="col-md-3" style="color:black">
+                  <label for="Grafica" class="form-label">Objetivos del Proyecto: </label>
+                  <textarea name="edit_objetivos_proy_2" id="edit_objetivos_proy_2" cols="40" rows="4" class="form-control" readonly></textarea>
+                  <div id="contador_edit_objetivos_proy_2"></div>
+                </div>
+
+                <div class="col-md-3" style="color:black">
+                  <label for="Grafica" class="form-label">Beneficios del Proyecto: </label>
+                  <textarea name="edit_beneficios_proy_2" id="edit_beneficios_proy_2" cols="40" rows="4" class="form-control" readonly></textarea>
+                  <div id="contador_edit_beneficios_proy_2"></div>
+                </div>
+
+                <div class="col-md-3" style="color:black">
+                  <label for="Grafica" class="form-label">Descripción del Proyecto: </label>
+                  <textarea name="edit_descripcion_proy_2" id="edit_descripcion_proy_2" cols="40" rows="4" class="form-control" readonly></textarea>
+                  <div id="contador_edit_descripcion_proy_2"></div>
+                </div>
+
+                <script>
+                  function limitarTextarea(idTextarea, idContador, maximoCaracteres = 300) {
+                    const textarea = document.getElementById(idTextarea);
+                    const contador = document.getElementById(idContador);
+
+                    const mensajeError = document.createElement('p');
+                    mensajeError.classList.add('text-danger');
+                    mensajeError.textContent = 'Has superado el límite de caracteres (Reiniciar el Registro).';
+                    mensajeError.style.display = 'none';
+                    textarea.parentNode.appendChild(mensajeError);
+
+                    const actualizarContador = () => {
+                      const restantes = maximoCaracteres - textarea.value.length;
+                      contador.textContent = restantes;
+
+                      if (restantes < 0) {
+                        mensajeError.style.display = 'block';
+                        textarea.disabled = true;
+                      } else {
+                        mensajeError.style.display = 'none';
+                        textarea.disabled = false;
+                      }
+                    };
+
+                    textarea.addEventListener('input', actualizarContador);
+                    actualizarContador();
+                  }
+
+                  limitarTextarea("edit_descripcion_proy_2", "contador_edit_descripcion_proy_2", 300);
+                  limitarTextarea("edit_problema_proy_2", "contador_edit_problema_proy_2", 300);
+                  limitarTextarea("edit_objetivos_proy_2", "contador_edit_objetivos_proy_2", 300);
+                  limitarTextarea("edit_beneficios_proy_2", "contador_edit_beneficios_proy_2", 300);
+                </script>
+
+              </div>
 
             </div>
 
@@ -392,34 +649,66 @@ if (!isset($_SESSION['id_usuario'])) {
 
             <div class="row g-3">
 
-              <div class="col-md-4" style="color:black">
-                <label for="Cond" class="form-label">Condición: </label>
-                <select class="form-select" id="edit_est" name="edit_est" required>
-                  <option value="Por Ejecutar">Por Ejecutar</option>
-                  <option value="En progreso">En progreso</option>
-                  <option value="Completado">Completado</option>
-                </select>
-              </div>
-
-              <div class="col-md-4" style="color:black">
-                <label for="fecha">Archivo Fotografico (PNG/JPG): </label><br>
-                <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" id="check_Arc_fot_proy" checked>
-                  <label class="form-check-label" for="check_Arc_fot_proy"></label>
-                </div>
-                <input type="file" class="form-control" id="Arc_fot_proy" name="Arc_fot_proy">
+              <div class="col-md-6" style="color:black">
+                <label for="Comando" class="form-label">Dimensiones: </label>
+                <input type="text" class="form-control" id="dimen_proy_valid" name="dimen_proy_valid" required>
               </div>
 
             </div>
 
-            <br>
-            <br>
+            <div class="row g-3">
 
-            <br>
+              <div class="col-md-6" style="color:black">
+                <label for="Grafica" class="form-label">Evaluacion: </label>
+                <textarea name="eval_proy_valid" id="eval_proy_valid" cols="40" rows="4" class="form-control" required></textarea>
+                <div id="contador_eval_proy_valid"></div>
+              </div>
+
+              <div class="col-md-6" style="color:black">
+                <label for="Grafica" class="form-label">Comentario: </label>
+                <textarea name="coment_proy_valid" id="coment_proy_valid" cols="40" rows="4" class="form-control" required></textarea>
+                <div id="contador_coment_proy_valid"></div>
+              </div>
+
+              <script>
+                function limitarTextarea(idTextarea, idContador, maximoCaracteres = 300) {
+                  const textarea = document.getElementById(idTextarea);
+                  const contador = document.getElementById(idContador);
+
+                  const mensajeError = document.createElement('p');
+                  mensajeError.classList.add('text-danger');
+                  mensajeError.textContent = 'Has superado el límite de caracteres (Reiniciar el Registro).';
+                  mensajeError.style.display = 'none';
+                  textarea.parentNode.appendChild(mensajeError);
+
+                  const actualizarContador = () => {
+                    const restantes = maximoCaracteres - textarea.value.length;
+                    contador.textContent = restantes;
+
+                    if (restantes < 0) {
+                      mensajeError.style.display = 'block';
+                      textarea.disabled = true;
+                    } else {
+                      mensajeError.style.display = 'none';
+                      textarea.disabled = false;
+                    }
+                  };
+
+                  textarea.addEventListener('input', actualizarContador);
+                  actualizarContador();
+                }
+
+                limitarTextarea("eval_proy_valid", "contador_eval_proy_valid", 300);
+                limitarTextarea("coment_proy_valid", "contador_coment_proy_valid", 300);
+              </script>
+
+            </div>
+
+            <br><br><br>
 
             <div class="d-grid gap-2 col-6 mx-auto">
 
-              <button type="submit" class="btn btn-primary" id="Redirect" data-bs-dismiss="modal">Editar</button>
+              <button type="submit" class="btn btn-primary" id="Redirect" data-bs-dismiss="modal">Guardar</button>
 
             </div>
 
@@ -554,6 +843,24 @@ if (!isset($_SESSION['id_usuario'])) {
           },
           {
             "data": "prioridad"
+          },
+          {
+            "data": null,
+            "render": function(data, type, row) {
+              return `
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button 
+                    type="button"
+                    onclick="abrirModalEditar(${row.id_proyecto})"
+                    class="btn-editar"
+                    title="Editar Datos">
+
+                    <i class="fa-regular fa-pen-to-square"></i>
+
+                </button>
+            </div>
+        `;
+            }
           }
         ]
       });
@@ -832,7 +1139,7 @@ if (!isset($_SESSION['id_usuario'])) {
               <div class="btn-group" role="group" aria-label="Basic example">
                 <button 
                     type="button"
-                    onclick="abrirModalEditar(${row.id_proyecto})"
+                    onclick="abrirModalValidacion(${row.id_proyecto})"
                     class="btn-editar"
                     title="Editar Datos">
 
@@ -915,9 +1222,9 @@ if (!isset($_SESSION['id_usuario'])) {
 
       console.log("ID seleccionado:", id);
 
-      document.getElementById('edit_id_Proy').value = id;
+      document.getElementById('edit_id_Proy_1').value = id;
 
-      const modalElement = document.getElementById('myModal');
+      const modalElement = document.getElementById('Modal_edit');
       const modal = new bootstrap.Modal(modalElement);
 
       modal.show();
@@ -940,16 +1247,85 @@ if (!isset($_SESSION['id_usuario'])) {
           }
 
           const proyecto = respuesta.data;
-          $('#edit_id_Proy').val(proyecto.id_proyecto);
-          $('#edit_nombre_proy').val(proyecto.nombre);
-          $('#edit_avance').val(proyecto.avance);
-          $('#edit_fecha_fin').val(proyecto.fecha_fin);
-          $('#edit_categoria_proy').val(proyecto.categoria);
-          $('#edit_ben_proy').val(proyecto.beneficiarios);
-          $('#edit_descrip_proy').val(proyecto.descripcion);
-          $('#edit_objec_proy').val(proyecto.objetivos);
-          $('#edit_objec_requer').val(proyecto.requerimientos);
-          $('#edit_est').val(proyecto.estatus);
+          $('#edit_id_Proy_1').val(proyecto.id_proyecto);
+          $('#edit_nombre_proy_1').val(proyecto.nombre);
+          $('#edit_id_solic_proy_1').val(proyecto.id_solicitante);
+          $('#edit_descripcion_proy_1').val(proyecto.descripcion);
+          $('#edit_unidad_proy_1').val(proyecto.unidad);
+          $('#edit_tipo_proy_1').val(proyecto.tipo);
+          $('#edit_prioridad_proy_1').val(proyecto.prioridad);
+          $('#edit_sponsor_proy_1').val(proyecto.sponsor);
+          $('#edit_fecha_inicio_proy_1').val(proyecto.fecha_inicio);
+          $('#edit_fecha_fin_proy_1').val(proyecto.fecha_fin);
+          $('#edit_presupuesto_est_proy_1').val(proyecto.presupuesto_est);
+          $('#edit_problema_proy_1').val(proyecto.problema);
+          $('#edit_objetivos_proy_1').val(proyecto.objetivos);
+          $('#edit_beneficios_proy_1').val(proyecto.objetivos);
+          $('#edit_avance_proy_1').val(proyecto.avance);
+          $('#edit_est_proy_1').val(proyecto.estatus);
+          $('#edit_salud_proy_1').val(proyecto.salud);
+
+        },
+
+        error: function(xhr) {
+
+          console.error("Error AJAX:");
+          console.error(xhr.responseText);
+
+          alert('Error al obtener los datos del proyecto.');
+
+        }
+      });
+    }
+  </script>
+
+  <script>
+    function abrirModalValidacion(id) {
+
+      console.log("ID seleccionado:", id);
+
+      document.getElementById('edit_id_Proy_2').value = id;
+
+      const modalElement = document.getElementById('Modal_valid');
+      const modal = new bootstrap.Modal(modalElement);
+
+      modal.show();
+
+      $.ajax({
+        url: './consultas/consul_obtener_proyecto.php',
+        type: 'GET',
+        data: {
+          id: id
+        },
+        dataType: 'json',
+
+        success: function(respuesta) {
+
+          console.log("Respuesta del servidor:", respuesta);
+
+          if (!respuesta.success) {
+            alert(respuesta.message);
+            return;
+          }
+
+          const proyecto = respuesta.data;
+          $('#edit_id_Proy_2').val(proyecto.id_proyecto);
+          $('#edit_nombre_proy_2').val(proyecto.nombre);
+          $('#edit_id_solic_proy_2').val(proyecto.id_solicitante);
+          $('#edit_descripcion_proy_2').val(proyecto.descripcion);
+          $('#edit_unidad_proy_2').val(proyecto.unidad);
+          $('#edit_tipo_proy_2').val(proyecto.tipo);
+          $('#edit_prioridad_proy_2').val(proyecto.prioridad);
+          $('#edit_sponsor_proy_2').val(proyecto.sponsor);
+          $('#edit_fecha_inicio_proy_2').val(proyecto.fecha_inicio);
+          $('#edit_fecha_fin_proy_2').val(proyecto.fecha_fin);
+          $('#edit_presupuesto_est_proy_2').val(proyecto.presupuesto_est);
+          $('#edit_problema_proy_2').val(proyecto.problema);
+          $('#edit_objetivos_proy_2').val(proyecto.objetivos);
+          $('#edit_beneficios_proy_2').val(proyecto.objetivos);
+          $('#edit_avance_proy_2').val(proyecto.avance);
+          $('#edit_est_proy_2').val(proyecto.estatus);
+          $('#edit_salud_proy_2').val(proyecto.salud);
 
         },
 
@@ -1056,6 +1432,20 @@ if (!isset($_SESSION['id_usuario'])) {
           avance.value = 99;
         }
       }
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const checkbox = document.getElementById('check_data_proyValid');
+      const contenedor = document.getElementById('data_proy_container');
+
+      function toggle() {
+        contenedor.style.display = checkbox.checked ? 'none' : 'block';
+      }
+
+      toggle(); // estado inicial
+      checkbox.addEventListener('change', toggle);
     });
   </script>
 

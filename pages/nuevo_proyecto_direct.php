@@ -87,7 +87,7 @@ $Nomb_solic = $_SESSION['nombre'] . " " . $_SESSION['apellido'];
 
         <div class="card card-body mx-2 mx-md-3 mt-n6">
 
-          <form method="POST" action="../pages/proses_proyecto.php?act=insert_init" enctype="multipart/form-data">
+          <form method="POST" action="../pages/proses_proyecto.php?act=insert_init_dir" enctype="multipart/form-data">
 
             <div class="card mb-4 shadow-none border">
               <div class="card-header pb-0">
@@ -175,33 +175,33 @@ $Nomb_solic = $_SESSION['nombre'] . " " . $_SESSION['apellido'];
                     <input type="text" name="sponsor_proy" id="sponsor_proy" class="form-control border px-3" placeholder="Nombre del sponsor">
                   </div>
 
-                  
+
 
                   <div class="col-md-4 mb-3" id="co_autor_container">
                     <label for="fecha" class="form-label">Co-Autores: </label>
-                                <select class="form-multi-select" id="co_autor_select" name="co_autor_select[]" multiple data-coreui-search="global">
-                                      <?php
-                                      $query_data = mysqli_query($conn, "SELECT * FROM users");
+                    <select class="form-multi-select" id="co_autor_select" name="co_autor_select[]" multiple data-coreui-search="global">
+                      <?php
+                      $query_data = mysqli_query($conn, "SELECT * FROM users");
 
-                                      while ($miembro = mysqli_fetch_assoc($query_data)) {
-                                        $id = $miembro['id_usuario'];
-                                        $nombre = ($miembro['nombre_user']);
-                                        $apell = ($miembro['apellido_user']);
-                                        $esp = ($miembro['especialidad']);
-                                        echo "<option value=\"$id\">$nombre $apell | Especialidad: $esp</option>";
-                                      }
-                                      ?>
-                                </select>
-                            </div>
+                      while ($miembro = mysqli_fetch_assoc($query_data)) {
+                        $id = $miembro['id_usuario'];
+                        $nombre = ($miembro['nombre_user']);
+                        $apell = ($miembro['apellido_user']);
+                        $esp = ($miembro['especialidad']);
+                        echo "<option value=\"$id\">$nombre $apell | Especialidad: $esp</option>";
+                      }
+                      ?>
+                    </select>
+                  </div>
 
-                    <div class="form-check form-switch">
-                              <input class="form-check-input" type="checkbox" id="check_co_autor_select" checked>
-                              <label class="form-check-label" for="check_co_autor_select">Agregar co-autores</label>
-                          </div>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="check_co_autor_select" checked>
+                    <label class="form-check-label" for="check_co_autor_select">Agregar co-autores</label>
+                  </div>
 
 
 
-                            
+
 
                   <!--
                     <div class="col-md-4 mb-3">
@@ -374,15 +374,15 @@ $Nomb_solic = $_SESSION['nombre'] . " " . $_SESSION['apellido'];
 </script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', function() {
     const checkbox = document.getElementById('check_co_autor_select');
     const contenedor = document.getElementById('co_autor_container');
 
     function toggle() {
-        contenedor.style.display = checkbox.checked ? 'none' : 'block';
+      contenedor.style.display = checkbox.checked ? 'none' : 'block';
     }
 
     toggle(); // estado inicial
     checkbox.addEventListener('change', toggle);
-});
+  });
 </script>

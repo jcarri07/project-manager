@@ -211,7 +211,7 @@
 
   </main>
 
-  <!-- --------------------------------------------------------------------------------------------------------------- -->
+  <!-- --------------------------------------- Modal para editar las propuestas propias  ------------------------------------------------------------ -->
 
   <div class="modal w3-container" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog">
