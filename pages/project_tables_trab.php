@@ -201,6 +201,35 @@
 
               </div>
 
+              <div class="tab-pane fade show" id="proy_vig-pane" role="tabpanel" aria-labelledby="proy_vig-tab" tabindex="0">
+
+                <div class="table-responsive">
+
+                  <table id="tabla_proyectos_pers_aprob" class="table align-items-center justify-content-center" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proyecto</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unidad</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salud</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Inicio</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fin</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progreso</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prioridad</th>
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+
+                  </table>
+
+                </div>
+
+              </div>
+
             </div>
 
           </div>
@@ -221,7 +250,11 @@
           <p class="modal-title" style="color: black;">Datos Registrados</p>
           <br>
           <div class="w3-center">
-            <span onclick="document.getElementById('id01').style.display='none'" id="closeAndRedirect" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+            <span
+              class="closeAndRedirect w3-button w3-xlarge w3-hover-red w3-display-topright"
+              title="Cerrar modal">
+              &times;
+            </span>
           </div>
         </div>
 
@@ -671,6 +704,92 @@
   </script>
 
   <script>
+    $(document).ready(function() {
+      $('#tabla_proyectos_pers_aprob').DataTable({
+        //autoWidth: false,
+        //responsive: true, 
+        //pageLength: 5,
+        "language": {
+          "url": "../assets/js/DataEsp.json"
+        },
+        "ajax": {
+          "url": "./consultas/consul_proyectos_pers_aprob.php",
+          "dataSrc": ""
+        },
+        "columns": [{
+            "data": "id_proyecto"
+          },
+          {
+            "data": "nombre"
+          },
+          {
+            "data": "nombre_unid"
+          },
+          {
+            "data": "estatus"
+          },
+          {
+            "data": "salud",
+            "render": function(data, type, row) {
+              let clase = "";
+              if (data === "En control") {
+                clase = "estado-progreso";
+              } else if (data === "En riesgo") {
+                clase = "estado-ejecutar";
+              } else if (data === "Critico") {
+                clase = "estado-listo";
+              }
+              return `
+            <span class="estado-badge ${clase}">
+                ${data}
+            </span>
+        `;
+            }
+          },
+          {
+            "data": "fecha_inicio"
+          },
+          {
+            "data": "fecha_fin"
+          },
+          {
+
+            "data": "avance",
+            "render": function(data, type, row) {
+
+              let porcentaje = data ? parseInt(data) : 0;
+              porcentaje = Math.max(0, Math.min(100, porcentaje));
+
+              return `
+            <div class="progreso-contenedor">
+
+                <span class="progreso-porcentaje">
+                    ${porcentaje}%
+                </span>
+
+                <div class="progreso-barra">
+
+                    <div 
+                        class="progreso-relleno"
+                        style="width: ${porcentaje}%;">
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+            }
+
+          },
+          {
+            "data": "prioridad"
+          }
+        ]
+      });
+    });
+  </script>
+
+  <script>
     function confirmarValidacion(idProyecto) {
 
       Swal.fire({
@@ -788,12 +907,13 @@
   </script>
 
   <script>
-    const closeAndRedirectButton = document.getElementById("closeAndRedirect");
-    if (closeAndRedirectButton) {
-      closeAndRedirectButton.addEventListener("click", function() {
-        window.location.href = "./project_tables_direct.php";
+    document.addEventListener("DOMContentLoaded", function() {
+      document.querySelectorAll(".closeAndRedirect").forEach(function(boton) {
+        boton.addEventListener("click", function() {
+          window.location.href = "./project_tables_direct.php";
+        });
       });
-    }
+    });
   </script>
 
 

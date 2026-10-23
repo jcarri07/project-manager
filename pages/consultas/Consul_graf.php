@@ -11,7 +11,6 @@ SUM( CASE
     WHEN projects.estatus = 'Propuesto' THEN 1
     WHEN projects.estatus = 'Evaluacion' THEN 1 
     WHEN projects.estatus = 'Aprobacion' THEN 1
-    WHEN projects.estatus = 'Decision' THEN 1
     WHEN projects.estatus = 'Planificacion' THEN 1
     WHEN projects.estatus = 'Ejecucion' THEN 1
     WHEN projects.estatus = 'Completado' THEN 1

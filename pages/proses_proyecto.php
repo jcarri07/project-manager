@@ -263,15 +263,40 @@ if ($_GET['act'] == 'insert_init_dir') {
 
 	$id_proy = mysqli_real_escape_string($conn, trim($_POST['edit_id_Proy_2']));
 	$dimen_proy = mysqli_real_escape_string($conn, trim($_POST['dimen_proy_valid']));
-	$eval_proy = mysqli_real_escape_string($conn, trim($_POST['edit_id_Proy_2']));
-	$coment_proy = mysqli_real_escape_string($conn, trim($_POST['edit_id_Proy_2']));
-	$status_val = "Decision";
+	$eval_proy = mysqli_real_escape_string($conn, trim($_POST['eval_proy_valid']));
+	$coment_proy = mysqli_real_escape_string($conn, trim($_POST['coment_proy_valid']));
+	$status_val = "Aprobacion";
 
 	$query = mysqli_query($conn, "UPDATE projects SET dimension = '$dimen_proy', evaluacion = '$eval_proy', comentario = '$coment_proy',estatus='$status_val' WHERE projects.id_proyecto = '$id_proy'");
 
 	if ($query) {
 
 		header("location: ../pages/project_tables_jef.php?alert=1");
+	}
+} elseif ($_GET['act'] == 'insert_decision_proy') {
+
+	$id_proy = mysqli_real_escape_string($conn, trim($_POST['edit_id_Proy_3']));
+	$just_proy = mysqli_real_escape_string($conn, trim($_POST['justificacion_proy_3']));
+	$decis_proy = mysqli_real_escape_string($conn, trim($_POST['decision_proy']));
+	$status_val = "Evaluacion";
+
+	switch ($decis_proy) {
+		case 1:
+			$status_val = "Planificacion";
+			break;
+		case 2:
+			$status_val = "Evaluacion";
+			break;
+		case 3:
+			$status_val = "Cancelado";
+			break;
+	}
+
+	$query = mysqli_query($conn, "UPDATE projects SET decision_dir = '$decis_proy', justificacion_dir = '$just_proy', estatus='$status_val' WHERE projects.id_proyecto = '$id_proy'");
+
+	if ($query) {
+
+		header("location: ../pages/project_tables_direct.php?alert=1");
 	}
 }
 

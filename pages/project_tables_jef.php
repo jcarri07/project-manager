@@ -277,7 +277,11 @@ if (!isset($_SESSION['id_usuario'])) {
           <p class="modal-title" style="color: black;">Propuesta Propia</p>
           <br>
           <div class="w3-center">
-            <span onclick="document.getElementById('id01').style.display='none'" id="closeAndRedirect" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+            <span
+              class="closeAndRedirect w3-button w3-xlarge w3-hover-red w3-display-topright"
+              title="Cerrar modal">
+              &times;
+            </span>
           </div>
         </div>
 
@@ -473,7 +477,11 @@ if (!isset($_SESSION['id_usuario'])) {
           <p class="modal-title" style="color: black;">Proyecto Pendiente de Evaluación</p>
           <br>
           <div class="w3-center">
-            <span onclick="document.getElementById('id01').style.display='none'" id="closeAndRedirect" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+            <span
+              class="closeAndRedirect w3-button w3-xlarge w3-hover-red w3-display-topright"
+              title="Cerrar modal">
+              &times;
+            </span>
           </div>
         </div>
 
@@ -733,16 +741,6 @@ if (!isset($_SESSION['id_usuario'])) {
   <script src="../assets/jqery/jquery.js"></script>
   <script src="../assets/DataTable/datatables.min.js"></script>
   <script src="../assets/js/sweetalert2.js"></script>
-
-
-  <script>
-    const closeAndRedirectButton = document.getElementById("closeAndRedirect");
-    if (closeAndRedirectButton) {
-      closeAndRedirectButton.addEventListener("click", function() {
-        window.location.href = "./project_tables_jef.php";
-      });
-    }
-  </script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -1447,6 +1445,16 @@ if (!isset($_SESSION['id_usuario'])) {
 
       toggle(); // estado inicial
       checkbox.addEventListener('change', toggle);
+    });
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      document.querySelectorAll(".closeAndRedirect").forEach(function(boton) {
+        boton.addEventListener("click", function() {
+          window.location.href = "./project_tables_direct.php";
+        });
+      });
     });
   </script>
 

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-10-2026 a las 18:03:43
--- Versión del servidor: 9.7.2
--- Versión de PHP: 8.5.10
+-- Tiempo de generación: 23-10-2026 a las 17:44:21
+-- Versión del servidor: 9.7.1
+-- Versión de PHP: 8.2.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -69,6 +69,8 @@ CREATE TABLE `projects` (
   `avance` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `estatus` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'Por Ejecutar',
   `salud` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'En control',
+  `decision_dir` varchar(200) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Por asignar',
+  `justificacion_dir` varchar(300) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'En revisión ',
   `activo` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -76,41 +78,21 @@ CREATE TABLE `projects` (
 -- Volcado de datos para la tabla `projects`
 --
 
-INSERT INTO `projects` (`id_proyecto`, `id_solicitante`, `id_manager`, `id_validador`, `id_aprobador`, `nombre`, `descripcion`, `unidad`, `tipo`, `prioridad`, `sponsor`, `fecha_inicio`, `fecha_fin`, `presupuesto_est`, `problema`, `objetivos`, `beneficios`, `dimension`, `evaluacion`, `comentario`, `avance`, `estatus`, `salud`, `activo`) VALUES
-(1, 1, 0, 0, 0, '12to proceso', 'Nuevo avance 24', 1, 'Proyecto', 'Baja', 'ABAE', '2026-09-14', '2026-10-10', '77', '8', 'Ingreso', 'Funciona', '', '', '', '0', 'Aprobacion', 'Critico', 1),
-(2, 2, 0, 0, 0, '12to', 'Nuevo avance 9', 1, 'Proyecto', 'Alta', 'ABAE', '2026-10-22', '2026-10-20', '44747', 'Trabajo', 'Funciona', 'Ner', '', '', '', '100', 'Propuesto', 'En riesgo', 1),
-(3, 1, 0, 2, 0, '98to proceso', 'Nuevo avance 578', 2, 'Proyecto', 'Media', 'ABAE', '2026-10-06', '2026-10-22', '7', '1', '22', '333', '', '', '', '50', 'Evaluacion', 'En control', 1),
-(4, 1, 0, 0, 0, 'Nueva version', 'Nueva proyecto', 1, 'Mantenimiento', 'Alta', 'ABAE', '2026-10-05', '2026-10-21', '22442', 'Pocas pruebas', 'Ver los nuevos añadidos', 'Nuevos avances', '', '', '', '0', 'Propuesto', 'En control', 1),
-(5, 1, 0, 0, 0, 'Practica de cambios', 'afffafffa', 1, 'Mantenimiento', 'Media', 'ABAE', '2026-10-13', '2026-10-30', '255', 'affaff', 'adffg', 'faff', '', '', '', '0', 'Completado', 'En control', 1),
-(6, 1, 0, 0, 0, 'Nueva version de borrador', 'Prueba de nueva tabla', 2, 'Proyecto', 'Media', 'ABAE', '2026-10-14', '2026-10-29', '74746', 'Nueva revisión', 'Verificar', 'Revisión', '', '', '', '0', 'Aprobacion', 'En control', 1),
-(7, 1, 0, 0, 0, 'Practica 8', 'dadadadadad', 2, 'Mantenimiento', 'Media', 'ABAE', '2026-10-07', '2026-11-07', '2424', 'rwrrwr', '31331', '42424', '', '', '', '0', 'Propuesto', 'En control', 1),
-(8, 1, 0, 0, 0, 'Ingreso 7', 'ffffffffff', 2, 'Mantenimiento', 'Crítica', 'ABAE', '2026-07-26', '2026-10-28', '5787', 'sdggd', 'etyg', 'tyuhb', '', '', '', '0', 'Propuesto', 'En control', 1),
-(9, 4, 0, 0, 0, 'Ingreso trabajador', 'sfsfsf', 1, 'Mantenimiento', 'Media', 'ABAE', '2026-10-05', '2026-10-29', '4443', 'srwr', 'wrr', 'www', '', '', '', '0', 'Evaluacion', 'En control', 1),
-(10, 1, 0, 0, 0, 'Practica tecnica', 'Prueba en la oficina', 2, 'Mantenimiento', 'Baja', 'ABAE', '2026-10-14', '2026-10-29', '856', 'Practica', 'Funcionamiento', 'Modulo 1', '', '', '', '0', 'Propuesto', 'En control', 1),
-(11, 1, 0, 0, 0, 'Practica tecnica 2', 'Prueba de ingreso', 1, 'Reparación', 'Baja', 'ABAE', '2026-10-29', '2026-10-23', '754', 'Prueba de funcionamiento', 'Ver avance', 'Modulo 1', '', '', '', '0', 'Propuesto', 'En control', 1),
-(12, 4, 0, 2, 0, 'Proyecto trabajador', 'Prueba de la pagina', 1, 'Proyecto', 'Alta', 'ABAE', '2026-10-08', '2026-10-15', '434', 'Practica de usuario', 'Prueba', 'Funcionamiento', '', '', '', '0', 'Evaluacion', 'En control', 1),
-(13, 1, 0, 0, 0, 'Select', 'Multiple', 1, 'Proyecto', 'Baja', 'ABAE', '2026-10-13', '2026-10-16', '634', 'Prueba', 'Prueba', 'Prueba', '', '', '', '0', 'Propuesto', 'En control', 1),
-(14, 1, 0, 0, 0, 'Select Admid', 'hrhr', 2, 'Mantenimiento', 'Baja', 'ABAE', '2026-10-01', '2026-10-23', '37', 'tww', 'yyy', 'eee', '', '', '', '0', 'Propuesto', 'En control', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `projects_co_autors`
---
-
-CREATE TABLE `projects_co_autors` (
-  `id_projects_solicitante` int NOT NULL,
-  `id_projects` int NOT NULL,
-  `id_autor_user` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Volcado de datos para la tabla `projects_co_autors`
---
-
-INSERT INTO `projects_co_autors` (`id_projects_solicitante`, `id_projects`, `id_autor_user`) VALUES
-(1, 14, 2),
-(2, 14, 5);
+INSERT INTO `projects` (`id_proyecto`, `id_solicitante`, `id_manager`, `id_validador`, `id_aprobador`, `nombre`, `descripcion`, `unidad`, `tipo`, `prioridad`, `sponsor`, `fecha_inicio`, `fecha_fin`, `presupuesto_est`, `problema`, `objetivos`, `beneficios`, `dimension`, `evaluacion`, `comentario`, `avance`, `estatus`, `salud`, `decision_dir`, `justificacion_dir`, `activo`) VALUES
+(1, 1, 0, 0, 0, '12to proceso', 'Nuevo avance 24', 1, 'Proyecto', 'Baja', 'ABAE', '2026-09-14', '2026-10-10', '77', '8', 'Ingreso', 'Funciona', '', '', '', '0', 'Evaluacion', 'Critico', '2', 'Falta información', 1),
+(2, 2, 0, 0, 0, '12to', 'Nuevo avance 9', 1, 'Proyecto', 'Alta', 'ABAE', '2026-10-22', '2026-10-20', '44747', 'Trabajo', 'Funciona', 'Ner', '', '', '', '100', 'Propuesto', 'En riesgo', 'Por asignar', 'En revisión ', 1),
+(3, 1, 0, 2, 0, '98to proceso', 'Nuevo avance 578', 2, 'Proyecto', 'Media', 'ABAE', '2026-10-06', '2026-10-22', '7', '1', '22', '333', '70x30 mm', '3', '3', '50', 'Planificacion', 'En control', '1', 'Cumple', 1),
+(4, 1, 0, 0, 0, 'Nueva version', 'Nueva proyecto', 1, 'Mantenimiento', 'Alta', 'ABAE', '2026-10-05', '2026-10-21', '22442', 'Pocas pruebas', 'Ver los nuevos añadidos', 'Nuevos avances', '', '', '', '0', 'Evaluacion', 'En control', 'Por asignar', 'En revisión ', 1),
+(5, 1, 0, 0, 0, 'Practica de cambios', 'afffafffa', 1, 'Mantenimiento', 'Media', 'ABAE', '2026-10-13', '2026-10-30', '255', 'affaff', 'adffg', 'faff', '', '', '', '0', 'Completado', 'En control', 'Por asignar', 'En revisión ', 1),
+(6, 1, 0, 0, 0, 'Nueva version de borrador', 'Prueba de nueva tabla', 2, 'Proyecto', 'Media', 'ABAE', '2026-10-14', '2026-10-29', '74746', 'Nueva revisión', 'Verificar', 'Revisión', '', '', '', '0', 'Aprobacion', 'En control', 'Por asignar', 'En revisión ', 1),
+(7, 1, 0, 0, 0, 'Practica 8', 'dadadadadad', 2, 'Mantenimiento', 'Media', 'ABAE', '2026-10-07', '2026-11-07', '2424', 'rwrrwr', '31331', '42424', '', '', '', '0', 'Propuesto', 'En control', 'Por asignar', 'En revisión ', 1),
+(8, 1, 0, 0, 0, 'Ingreso 7', 'ffffffffff', 2, 'Mantenimiento', 'Crítica', 'ABAE', '2026-07-26', '2026-10-28', '5787', 'sdggd', 'etyg', 'tyuhb', '', '', '', '0', 'Evaluacion', 'En control', 'Por asignar', 'En revisión ', 1),
+(9, 4, 0, 0, 0, 'Ingreso trabajador', 'sfsfsf', 1, 'Mantenimiento', 'Media', 'ABAE', '2026-10-05', '2026-10-29', '4443', 'srwr', 'wrr', 'www', '', '', '', '0', 'Evaluacion', 'En control', 'Por asignar', 'En revisión ', 1),
+(10, 1, 0, 0, 0, 'Practica tecnica', 'Prueba en la oficina', 2, 'Mantenimiento', 'Baja', 'ABAE', '2026-10-14', '2026-10-29', '856', 'Practica', 'Funcionamiento', 'Modulo 1', '', '', '', '0', 'Propuesto', 'En control', 'Por asignar', 'En revisión ', 1),
+(11, 1, 0, 0, 0, 'Practica tecnica 2', 'Prueba de ingreso', 1, 'Reparación', 'Baja', 'ABAE', '2026-10-29', '2026-10-23', '754', 'Prueba de funcionamiento', 'Ver avance', 'Modulo 1', '', '', '', '0', 'Propuesto', 'En control', 'Por asignar', 'En revisión ', 1),
+(12, 4, 0, 2, 0, 'Proyecto trabajador', 'Prueba de la pagina', 1, 'Proyecto', 'Alta', 'ABAE', '2026-10-08', '2026-10-15', '434', 'Practica de usuario', 'Prueba', 'Funcionamiento', '', '', '', '0', 'Evaluacion', 'En control', 'Por asignar', 'En revisión ', 1),
+(13, 1, 0, 0, 0, 'Select', 'Multiple', 1, 'Proyecto', 'Baja', 'ABAE', '2026-10-13', '2026-10-16', '634', 'Prueba', 'Prueba', 'Prueba', '', '', '', '0', 'Propuesto', 'En control', 'Por asignar', 'En revisión ', 1),
+(14, 1, 0, 0, 0, 'Select Admid', 'hrhr', 2, 'Mantenimiento', 'Baja', 'ABAE', '2026-10-01', '2026-10-23', '37', 'tww', 'yyy', 'eee', '', '', '', '0', 'Evaluacion', 'En control', 'Por asignar', 'En revisión ', 1);
 
 -- --------------------------------------------------------
 
@@ -247,6 +229,26 @@ INSERT INTO `users` (`id_usuario`, `id_user_type`, `id_unidad`, `nombre_user`, `
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `users_projects`
+--
+
+CREATE TABLE `users_projects` (
+  `id_users_projects` int NOT NULL,
+  `id_projects` int NOT NULL,
+  `id_autor_user` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `users_projects`
+--
+
+INSERT INTO `users_projects` (`id_users_projects`, `id_projects`, `id_autor_user`) VALUES
+(1, 14, 2),
+(2, 14, 5);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `user_history`
 --
 
@@ -326,14 +328,6 @@ ALTER TABLE `projects`
   ADD KEY `unidad` (`unidad`);
 
 --
--- Indices de la tabla `projects_co_autors`
---
-ALTER TABLE `projects_co_autors`
-  ADD PRIMARY KEY (`id_projects_solicitante`),
-  ADD KEY `id_projects` (`id_projects`),
-  ADD KEY `id_autor_user` (`id_autor_user`);
-
---
 -- Indices de la tabla `projects_draft`
 --
 ALTER TABLE `projects_draft`
@@ -374,6 +368,14 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id_usuario`),
   ADD KEY `id_user_type` (`id_user_type`),
   ADD KEY `id_unidad` (`id_unidad`);
+
+--
+-- Indices de la tabla `users_projects`
+--
+ALTER TABLE `users_projects`
+  ADD PRIMARY KEY (`id_users_projects`) USING BTREE,
+  ADD KEY `id_projects` (`id_projects`),
+  ADD KEY `id_autor_user` (`id_autor_user`);
 
 --
 -- Indices de la tabla `user_history`
@@ -421,12 +423,6 @@ ALTER TABLE `projects`
   MODIFY `id_proyecto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT de la tabla `projects_co_autors`
---
-ALTER TABLE `projects_co_autors`
-  MODIFY `id_projects_solicitante` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT de la tabla `projects_draft`
 --
 ALTER TABLE `projects_draft`
@@ -463,6 +459,12 @@ ALTER TABLE `users`
   MODIFY `id_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT de la tabla `users_projects`
+--
+ALTER TABLE `users_projects`
+  MODIFY `id_users_projects` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `user_history`
 --
 ALTER TABLE `user_history`
@@ -491,11 +493,11 @@ ALTER TABLE `usuario_roles`
 --
 
 --
--- Filtros para la tabla `projects_co_autors`
+-- Filtros para la tabla `users_projects`
 --
-ALTER TABLE `projects_co_autors`
-  ADD CONSTRAINT `projects_co_autors_ibfk_1` FOREIGN KEY (`id_projects`) REFERENCES `projects` (`id_proyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `projects_co_autors_ibfk_2` FOREIGN KEY (`id_autor_user`) REFERENCES `users` (`id_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE `users_projects`
+  ADD CONSTRAINT `users_projects_ibfk_1` FOREIGN KEY (`id_projects`) REFERENCES `projects` (`id_proyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `users_projects_ibfk_2` FOREIGN KEY (`id_autor_user`) REFERENCES `users` (`id_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
