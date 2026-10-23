@@ -1,24 +1,20 @@
 
 
 <?php
-/*session_start();
 
-$NombreUser = $_SESSION['name_user'];
-$iduser = $_SESSION['id_user'];
-$accion = "";
-$cedulauser = $_SESSION['cedula_user'];
-
-require_once "../../config/database.php";
-
-
-if (empty($_SESSION['username']) && empty($_SESSION['password'])){
-	echo "<meta http-equiv='refresh' content='0; url=index.php?alert=1'>";
-}*/
 
 require_once('../databases/conexion.php');
 
+if (session_status() === PHP_SESSION_NONE) {
+	session_start();
+}
 
-/*else {*/
+$query_2 = mysqli_query($conn, "SELECT * FROM users WHERE users.cedula = '$_SESSION[cedula]'")
+	or die('error: ' . mysqli_error($conn));
+
+$data  = mysqli_fetch_assoc($query_2);
+$val_Type_User = $data['id_user_type'];
+
 
 if ($_GET['act'] == 'insert_init_dir') {
 	if (isset($_POST['Guardar'])) {
@@ -236,7 +232,17 @@ if ($_GET['act'] == 'insert_init_dir') {
 
 	if ($query) {
 
-		header("location: ../pages/project_tables_trab?alert=1");
+		if ($val_Type_User == 1) {
+			header("location: ../pages/project_tables_direct.php");
+		}
+
+		if ($val_Type_User == 2) {
+			header("location: ../pages/project_tables_jef.php?alert=1");
+		}
+
+		if ($val_Type_User == 3) {
+			header("location: ../pages/project_tables_trab.php?alert=1");
+		}
 	}
 } elseif ($_GET['act'] == 'update_asig_eval') {
 

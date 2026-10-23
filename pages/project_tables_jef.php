@@ -732,6 +732,7 @@ if (!isset($_SESSION['id_usuario'])) {
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="../assets/jqery/jquery.js"></script>
   <script src="../assets/DataTable/datatables.min.js"></script>
+  <script src="../assets/js/sweetalert2.js"></script>
 
 
   <script>

@@ -85,19 +85,19 @@
                 <ul class="nav nav-pills flex-row p-1" id="proyectosTabs" role="tablist">
 
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="proyectos-tab" data-bs-toggle="tab" data-bs-target="#proyectos-pane" type="button" role="tab" aria-controls="proyectos-pane" aria-selected="true">Vista General</button>
+                    <button class="nav-link active" id="proyectos_gen-tab" data-bs-toggle="tab" data-bs-target="#proyectos_gen-pane" type="button" role="tab" aria-controls="proyectos_gen-pane" aria-selected="true">Vista General</button>
                   </li>
 
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="borradores-tab" data-bs-toggle="tab" data-bs-target="#borradores-pane" type="button" role="tab" aria-controls="borradores-pane" aria-selected="false">Propuestas para Validación</button>
+                    <button class="nav-link" id="asig_valid-tab" data-bs-toggle="tab" data-bs-target="#asig_valid-pane" type="button" role="tab" aria-controls="asig_valid-pane" aria-selected="false">Propuestas para Validación</button>
                   </li>
 
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="cerrados-tab" data-bs-toggle="tab" data-bs-target="#cerrados-pane" type="button" role="tab" aria-controls="cerrados-pane" aria-selected="false">Propuestas para Aprobación</button>
+                    <button class="nav-link" id="aprob_proy-tab" data-bs-toggle="tab" data-bs-target="#aprob_proy-pane" type="button" role="tab" aria-controls="aprob_proy-pane" aria-selected="false">Propuestas para Aprobación</button>
                   </li>
 
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="cerrados-tab" data-bs-toggle="tab" data-bs-target="#perosnal-pane" type="button" role="tab" aria-controls="perosnal-pane" aria-selected="false">Propuestas Propias</button>
+                    <button class="nav-link" id="proy_personal-tab" data-bs-toggle="tab" data-bs-target="#proy_personal-pane" type="button" role="tab" aria-controls="proy_personal-pane" aria-selected="false">Propuestas Propias</button>
                   </li>
 
                 </ul>
@@ -113,7 +113,7 @@
 
             <div class="tab-content" id="proyectosTabsContent">
 
-              <div class="tab-pane fade show active" id="proyectos-pane" role="tabpanel" aria-labelledby="proyectos-tab" tabindex="0">
+              <div class="tab-pane fade show active" id="proyectos_gen-pane" role="tabpanel" aria-labelledby="proyectos_gen-tab" tabindex="0">
 
                 <div class="table-responsive">
 
@@ -141,7 +141,7 @@
                 </div>
               </div>
 
-              <div class="tab-pane fade" id="borradores-pane" role="tabpanel" aria-labelledby="borradores-tab" tabindex="0">
+              <div class="tab-pane fade" id="asig_valid-pane" role="tabpanel" aria-labelledby="asig_valid-tab" tabindex="0">
 
                 <div class="table-responsive">
 
@@ -171,7 +171,7 @@
 
               </div>
 
-              <div class="tab-pane fade" id="cerrados-pane" role="tabpanel" aria-labelledby="cerrados-tab" tabindex="0">
+              <div class="tab-pane fade" id="aprob_proy-pane" role="tabpanel" aria-labelledby="aprob_proy-tab" tabindex="0">
 
                 <div class="table-responsive">
 
@@ -201,7 +201,7 @@
 
               </div>
 
-              <div class="tab-pane fade" id="perosnal-pane" role="tabpanel" aria-labelledby="perosnal-tab" tabindex="0">
+              <div class="tab-pane fade" id="proy_personal-pane" role="tabpanel" aria-labelledby="proy_personal-tab" tabindex="0">
 
                 <div class="table-responsive">
 
@@ -218,7 +218,6 @@
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progreso</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prioridad</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opciones</th>
-
                       </tr>
                     </thead>
 
@@ -270,7 +269,7 @@
 
               <div class="col-md-5" style="color:black">
                 <label for="Cond" class="form-label">Solicitante: </label>
-                <select class="form-select" id="edit_id_solic_proy_1" name="edit_id_solic_proy_1" required>
+                <select class="form-select" id="edit_id_solic_proy_1" name="edit_id_solic_proy_1" disabled>
                   <?php
                   $query_data = mysqli_query($conn, "SELECT * FROM users");
                   while ($miembro = mysqli_fetch_assoc($query_data)) {
@@ -469,7 +468,7 @@
 
               <div class="col-md-4" style="color:black">
                 <label for="Cond" class="form-label">Solicitante: </label>
-                <select class="form-select" id="edit_id_solic_proy_2" name="edit_id_solic_proy_2" readonly>
+                <select class="form-select" id="edit_id_solic_proy_2" name="edit_id_solic_proy_2" disabled>
                   <?php
                   $query_data = mysqli_query($conn, "SELECT * FROM users");
                   while ($miembro = mysqli_fetch_assoc($query_data)) {
@@ -626,6 +625,7 @@
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="../assets/jqery/jquery.js"></script>
   <script src="../assets/DataTable/datatables.min.js"></script>
+  <script src="../assets/js/sweetalert2.js"></script>
 
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
@@ -908,22 +908,27 @@
           {
             "data": "prioridad"
           },
+
           {
             "data": null,
             "render": function(data, type, row) {
-              return `
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <button 
-                    type="button"
-                    onclick="abrirModalEditar(${row.id_proyecto})"
-                    class="btn-editar"
-                    title="Editar Datos">
 
-                    <i class="fa-regular fa-pen-to-square"></i>
-
-                </button>
+              let buttonHTML = `
+            <div class="btn-group" role="group">
+                <button type="button" onclick="abrirModalEditar(${row.id_proyecto})" class="btn-editar" title="Editar Datos"><i class="fa-regular fa-pen-to-square"></i></button>
             </div>
         `;
+              if (row.estatus === "Propuesto") {
+
+                buttonHTML += `
+                <div class="btn-group" role="group">
+                    <button type="button" onclick="confirmarValidacion(${row.id_proyecto})"class="btn-editar"title="Validar proyecto"><i class="fa-solid fa-bell" style="color: rgb(0, 92, 255);"></i></button>
+                </div>
+            `;
+
+              }
+
+              return buttonHTML;
             }
           }
         ]
@@ -1093,6 +1098,43 @@
           alert('Error al obtener los datos del proyecto.');
 
         }
+      });
+    }
+  </script>
+
+  <script>
+    function confirmarValidacion(idProyecto) {
+
+      Swal.fire({
+        title: "¿Validar proyecto?",
+        text: "¿Estás seguro de que solicitar la validacion del proyecto?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, validar",
+        cancelButtonText: "Cancelar"
+      }).then((result) => {
+
+        if (result.isConfirmed) {
+
+          const formulario = document.createElement("form");
+
+          formulario.method = "POST";
+          formulario.action = "./proses_proyecto.php?act=update_valid_proy_trab";
+
+          const campoId = document.createElement("input");
+
+          campoId.type = "hidden";
+          campoId.name = "id_proyecto";
+          campoId.value = idProyecto;
+
+          formulario.appendChild(campoId);
+          document.body.appendChild(formulario);
+
+          formulario.submit();
+        }
+
       });
     }
   </script>
