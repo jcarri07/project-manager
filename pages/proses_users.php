@@ -121,24 +121,4 @@ if ($_GET['act'] == 'insert_users') {
 	}
 }
 
-/*
-	elseif ($_GET['act']=='off' && $_SESSION['permisos_acceso'] == "Super Admin") {
-		if (isset($_GET['id'])) {
-			
-			$id_user = $_GET['id'];
-			$status  = "bloqueado";
-
-		
-            $query = mysqli_query($conn, "UPDATE usuarios SET status  = '$status'
-                                                          WHERE id_user = '$id_user'")
-                                            or die('Error : '.mysqli_error($conn));
-
-        
-            if ($query) {
-              
-                header("location: ../../main.php?module=user&alert=4");
-            }
-		}
-	}*/
-
 ?>

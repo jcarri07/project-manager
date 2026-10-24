@@ -603,7 +603,7 @@
 
             <div class="d-grid gap-2 col-6 mx-auto">
 
-              <button type="submit" class="btn btn-primary" id="Redirect" data-bs-dismiss="modal">Editar</button>
+              <button type="submit" class="btn btn-primary" id="Redirect" data-bs-dismiss="modal">Guardar</button>
 
             </div>
 
@@ -1460,7 +1460,8 @@
             type: 'GET',
             dataType: 'json',
             data: {
-              id_excluir: proyecto.id_solicitante
+              id_excluir: proyecto.id_solicitante,
+              id_proyecto: proyecto.id_proyecto
             },
             success: function(usuarios) {
               const select = $('#select_id_eval_proy');

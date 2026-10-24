@@ -77,7 +77,7 @@
 
               <div class="d-flex flex-wrap align-items-center gap-3">
 
-                <a href="../pages/nuevo_proyecto_trab.php?form=add" class="nav-link mb-0 px-3 py-2">
+                <a href="../pages/nuevo_proyecto_direct.php?form=add" class="nav-link mb-0 px-3 py-2">
                   <i class="material-icons text-lg position-relative">person</i>
                   <span class="ms-1">Nuevo Proyecto</span>
                 </a>
@@ -86,10 +86,6 @@
 
                   <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="vista_gen-tab" data-bs-toggle="tab" data-bs-target="#vista_gen-pane" type="button" role="tab" aria-controls="vista_gen-pane" aria-selected="true">Propuestas Propias</button>
-                  </li>
-
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="new_pro-tab" data-bs-toggle="tab" data-bs-target="#new_pro-pane" type="button" role="tab" aria-controls="new_pro-pane" aria-selected="false">Nuevas Propuestas</button>
                   </li>
 
                   <li class="nav-item" role="presentation">
@@ -118,35 +114,6 @@
                 <div class="table-responsive">
 
                   <table id="tabla_proyectos_pers" class="table align-items-center justify-content-center" style="width:100%">
-                    <thead>
-                      <tr>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proyecto</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unidad</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salud</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Inicio</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fin</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progreso</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prioridad</th>
-
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                    </tbody>
-
-                  </table>
-
-                </div>
-
-              </div>
-
-              <div class="tab-pane fade show" id="new_pro-pane" role="tabpanel" aria-labelledby="new_pro-tab" tabindex="0">
-
-                <div class="table-responsive">
-
-                  <table id="tabla_proyectos_new_pro" class="table align-items-center justify-content-center" style="width:100%">
                     <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
@@ -513,103 +480,27 @@
           },
           {
             "data": "prioridad"
-          }
-        ]
-      });
-    });
-  </script>
-
-  <script>
-    $(document).ready(function() {
-      $('#tabla_proyectos_new_pro').DataTable({
-        //autoWidth: false,
-        //responsive: true,    consul_proyectos_aprob_direct
-        //pageLength: 5,
-        "language": {
-          "url": "../assets/js/DataEsp.json"
-        },
-        "ajax": {
-          "url": "./consultas/consul_proyectos_pers_new_pro.php",
-          "dataSrc": ""
-        },
-        "columns": [{
-            "data": "id_proyecto"
           },
           {
-            "data": "nombre"
-          },
-          {
-            "data": "nombre_unid"
-          },
-          {
-            "data": "estatus"
-          },
-          {
-            "data": "salud",
-            "render": function(data, type, row) {
-              let clase = "";
-              if (data === "En control") {
-                clase = "estado-progreso";
-              } else if (data === "En riesgo") {
-                clase = "estado-ejecutar";
-              } else if (data === "Critico") {
-                clase = "estado-listo";
-              }
-              return `
-            <span class="estado-badge ${clase}">
-                ${data}
-            </span>
-        `;
-            }
-          },
-          {
-            "data": "fecha_inicio"
-          },
-          {
-            "data": "fecha_fin"
-          },
-          {
-
-            "data": "avance",
+            "data": null,
             "render": function(data, type, row) {
 
-              let porcentaje = data ? parseInt(data) : 0;
-              porcentaje = Math.max(0, Math.min(100, porcentaje));
-
-              return `
-            <div class="progreso-contenedor">
-
-                <span class="progreso-porcentaje">
-                    ${porcentaje}%
-                </span>
-
-                <div class="progreso-barra">
-
-                    <div 
-                        class="progreso-relleno"
-                        style="width: ${porcentaje}%;">
-                    </div>
-
-                </div>
-
-            </div>
-        `;
-            }
-
-          },
-          {
-            "data": "prioridad"
-          },
-          {
-            data: null,
-            render: function(data, type, row) {
-              return `
+              let buttonHTML = `
             <div class="btn-group" role="group">
-                <button type="button" onclick="confirmarValidacion(${row.id_proyecto})" class="btn-editar" title="Validar proyecto">
-                    <i class="fa-solid fa-bell"style="color: rgb(0, 92, 255);"></i>
-                </button>
+                <button type="button" onclick="abrirModalEditar(${row.id_proyecto})" class="btn-editar" title="Editar Datos"><i class="fa-regular fa-pen-to-square"></i></button>
             </div>
         `;
+              if (row.estatus === "Propuesto") {
+
+                buttonHTML += `
+                <div class="btn-group" role="group">
+                    <button type="button" onclick="confirmarValidacion(${row.id_proyecto})"class="btn-editar"title="Validar proyecto"><i class="fa-solid fa-bell" style="color: rgb(0, 92, 255);"></i></button>
+                </div>
+            `;
+
+              }
+
+              return buttonHTML;
             }
           }
         ]
