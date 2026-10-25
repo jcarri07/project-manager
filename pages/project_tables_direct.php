@@ -242,12 +242,14 @@
 
   <!-- --------------------------------------------------------------------------------------------------------------- -->
 
-  <div class="modal w3-container" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false">
+  <!-- ------------------Codigo del modal para editar las propuestas propias ------------------ -->
+
+  <div class="modal w3-container" id="Modal_edit" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog">
       <div class="modal-content w3-animate-opacity">
         <div class="w3-container w3-teal">
           <br>
-          <p class="modal-title" style="color: black;">Datos Registrados</p>
+          <p class="modal-title" style="color: black;">Propuesta Propia</p>
           <br>
           <div class="w3-center">
             <span
@@ -266,35 +268,14 @@
 
             <div class="row g-3">
 
-              <div class="col-md-3" style="color:black">
+              <div class="col-md-4" style="color:black">
                 <label for="Comando" class="form-label">Nombre del Proyecto: </label>
-                <input type="text" class="form-control" id="edit_nombre_proy_1" name="edit_nombre_proy_1" required>
+                <input type="text" class="form-control" id="edit_nombre_proy_1" name="edit_nombre_proy_1">
               </div>
 
-              <div class="col-md-5" style="color:black">
-                <label for="Cond" class="form-label">Solicitante: </label>
-                <select class="form-select" id="edit_id_solic_proy_1" name="edit_id_solic_proy_1" disabled>
-                  <?php
-                  $query_data = mysqli_query($conn, "SELECT * FROM users");
-                  while ($miembro = mysqli_fetch_assoc($query_data)) {
-                    $id = $miembro['id_usuario'];
-                    $nombre = ($miembro['nombre_user']);
-                    $apell = ($miembro['apellido_user']);
-                    echo "<option value=\"$id\">$nombre $apell</option>";
-                  }
-                  ?>
-                </select>
-              </div>
-
-            </div>
-
-            <br>
-
-            <div class="row g-3">
-
-              <div class="col-md-3" style="color:black">
+              <div class="col-md-4" style="color:black">
                 <label for="Cond" class="form-label">Unidad: </label>
-                <select class="form-select" id="edit_unidad_proy_1" name="edit_unidad_proy_1" required>
+                <select class="form-select" id="edit_unidad_proy_1" name="edit_unidad_proy_1">
                   <?php
                   $query_data = mysqli_query($conn, "SELECT * FROM unidad");
                   while ($miembro = mysqli_fetch_assoc($query_data)) {
@@ -306,24 +287,25 @@
                 </select>
               </div>
 
+            </div>
+
+            <br>
+
+            <div class="row g-3">
+
               <div class="col-md-3" style="color:black">
                 <label for="Comando" class="form-label">Tipo: </label>
-                <input type="text" class="form-control" id="edit_tipo_proy_1" name="edit_tipo_proy_1" required>
+                <input type="text" class="form-control" id="edit_tipo_proy_1" name="edit_tipo_proy_1">
               </div>
 
               <div class="col-md-3" style="color:black">
                 <label for="Comando" class="form-label">Prioridad: </label>
-                <select name="edit_prioridad_proy_1" id="edit_prioridad_proy_1" class="form-select border px-3" required>
-                  <option value="Baja">Baja</option>
-                  <option value="Media">Media</option>
-                  <option value="Alta">Alta</option>
-                  <option value="Crítica">Crítica</option>
-                </select>
+                <input type="text" class="form-control" id="edit_prioridad_proy_1" name="edit_prioridad_proy_1">
               </div>
 
               <div class="col-md-3" style="color:black">
                 <label for="Comando" class="form-label">Sponsor: </label>
-                <input type="text" class="form-control" id="edit_sponsor_proy_1" name="edit_sponsor_proy_1" required>
+                <input type="text" class="form-control" id="edit_sponsor_proy_1" name="edit_sponsor_proy_1">
               </div>
 
             </div>
@@ -334,27 +316,19 @@
 
               <div class="col-md-3" style="color:black">
                 <label class="form-label">Inicio estimado</label>
-                <input type="date" name="edit_fecha_inicio_proy_1" id="edit_fecha_inicio_proy_1" class="form-control border px-3" required>
+                <input type="date" name="edit_fecha_inicio_proy_1" id="edit_fecha_inicio_proy_1" class="form-control border px-3">
               </div>
 
               <div class="col-md-3">
                 <label class="form-label">Final estimado</label>
-                <input type="date" name="edit_fecha_fin_proy_1" id="edit_fecha_fin_proy_1" class="form-control border px-3" required>
+                <input type="date" name="edit_fecha_fin_proy_1" id="edit_fecha_fin_proy_1" class="form-control border px-3">
               </div>
 
               <div class="col-md-3" style="color:black">
                 <label for="Comando" class="form-label">Presupesto: </label>
                 <div class="input-group col-md-">
-                  <input type="number" class="form-control" id="edit_presupuesto_est_proy_1" name="edit_presupuesto_est_proy_1" required>
+                  <input type="number" class="form-control" id="edit_presupuesto_est_proy_1" name="edit_presupuesto_est_proy_1">
                   <span class="input-group-text">$</span>
-                </div>
-              </div>
-
-              <div class="col-md-3" style="color:black">
-                <label for="Comando" class="form-label">Avance: </label>
-                <div class="input-group col-md-">
-                  <input type="number" min="0" max="100" class="form-control" id="edit_avance_proy_1" name="edit_avance_proy_1" required>
-                  <span class="input-group-text">%</span>
                 </div>
               </div>
 
@@ -363,27 +337,27 @@
             <div class="row g-3">
 
               <div class="col-md-3" style="color:black">
-                <label for="Grafica" class="form-label">Descripción del Proyecto: </label>
-                <textarea name="edit_descripcion_proy_1" id="edit_descripcion_proy_1" cols="40" rows="4" class="form-control" required></textarea>
-                <div id="contador_edit_descripcion_proy_1">300</div>
-              </div>
-
-              <div class="col-md-3" style="color:black">
                 <label for="Grafica" class="form-label">Problematica: </label>
-                <textarea name="edit_problema_proy_1" id="edit_problema_proy_1" cols="40" rows="4" class="form-control" required></textarea>
-                <div id="contador_edit_problema_proy_1">300</div>
+                <textarea name="edit_problema_proy_1" id="edit_problema_proy_1" cols="40" rows="4" class="form-control"></textarea>
+                <div id="contador_edit_problema_proy_1"></div>
               </div>
 
               <div class="col-md-3" style="color:black">
                 <label for="Grafica" class="form-label">Objetivos del Proyecto: </label>
-                <textarea name="edit_objetivos_proy_1" id="edit_objetivos_proy_1" cols="40" rows="4" class="form-control" required></textarea>
-                <div id="contador_edit_objetivos_proy_1">300</div>
+                <textarea name="edit_objetivos_proy_1" id="edit_objetivos_proy_1" cols="40" rows="4" class="form-control"></textarea>
+                <div id="contador_edit_objetivos_proy_1"></div>
               </div>
 
               <div class="col-md-3" style="color:black">
                 <label for="Grafica" class="form-label">Beneficios del Proyecto: </label>
-                <textarea name="edit_beneficios_proy_1" id="edit_beneficios_proy_1" cols="40" rows="4" class="form-control" required></textarea>
-                <div id="contador_edit_beneficios_proy_1">300</div>
+                <textarea name="edit_beneficios_proy_1" id="edit_beneficios_proy_1" cols="40" rows="4" class="form-control"></textarea>
+                <div id="contador_edit_beneficios_proy_1"></div>
+              </div>
+
+              <div class="col-md-3" style="color:black">
+                <label for="Grafica" class="form-label">Descripción del Proyecto: </label>
+                <textarea name="edit_descripcion_proy_1" id="edit_descripcion_proy_1" cols="40" rows="4" class="form-control"></textarea>
+                <div id="contador_edit_descripcion_proy_1"></div>
               </div>
 
               <script>
@@ -422,6 +396,9 @@
 
             </div>
 
+
+            <br>
+
             <br><br><br>
 
             <div class="d-grid gap-2 col-6 mx-auto">
@@ -443,6 +420,8 @@
       </div>
     </div>
   </div>
+
+  <!-- ------------------Codigo del modal para seleccionar un evaluador de proyecto ------------------ -->
 
   <div class="modal w3-container" id="Modal_Select_Eval" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog">
@@ -620,6 +599,8 @@
       </div>
     </div>
   </div>
+
+  <!-- ------------------Codigo del modal para aprobar el proyecto ------------------ -->
 
   <div class="modal w3-container" id="Modal_Decision_Proy" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog">
@@ -1313,7 +1294,7 @@
 
       document.getElementById('edit_id_Proy_1').value = id;
 
-      const modalElement = document.getElementById('myModal');
+      const modalElement = document.getElementById('Modal_edit');
       const modal = new bootstrap.Modal(modalElement);
 
       modal.show();

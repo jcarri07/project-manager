@@ -341,7 +341,7 @@
                     "dataSrc": ""
                 },
                 "columns": [{
-                        "data": "id_draf_proy"
+                        "data": "id_proyecto"
                     },
                     {
                         "data": "nombre"
@@ -397,7 +397,7 @@
               <div class="btn-group" role="group" aria-label="Basic example">
                 <button 
                     type="button"
-                    onclick="abrirModalBorrador(${row.id_draf_proy})"
+                    onclick="abrirModalBorrador(${row.id_proyecto})"
                     class="btn-editar"
                     title="Retomar Propuesta">
 
@@ -463,7 +463,7 @@
                     }
 
                     const proyecto = respuesta.data;
-                    $('#borra_id_Proy').val(proyecto.id_draf_proy);
+                    $('#borra_id_Proy').val(proyecto.id_proyecto);
                     $('#borra_solic_proy').val(proyecto.id_solicitante);
                     $('#borra_nombre_proy').val(proyecto.nombre);
                     $('#borra_descrip_proy').val(proyecto.descripcion);

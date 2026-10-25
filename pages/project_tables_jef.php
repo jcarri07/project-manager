@@ -287,7 +287,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
         <div class="w3-container modal-body" id="modalBody">
 
-          <form class="row g-3" action="./proses_proyecto.php?act=update_asig_eval" id="form-upload" enctype="multipart/form-data" method="POST">
+          <form class="row g-3" action="./proses_proyecto.php?act=update_proy_propio" id="form-upload" enctype="multipart/form-data" method="POST">
 
             <input type="hidden" style="display:none" class="form-control" id="edit_id_Proy_1" name="edit_id_Proy_1" readonly>
 
@@ -296,21 +296,6 @@ if (!isset($_SESSION['id_usuario'])) {
               <div class="col-md-4" style="color:black">
                 <label for="Comando" class="form-label">Nombre del Proyecto: </label>
                 <input type="text" class="form-control" id="edit_nombre_proy_1" name="edit_nombre_proy_1">
-              </div>
-
-              <div class="col-md-4" style="color:black">
-                <label for="Cond" class="form-label">Solicitante: </label>
-                <select class="form-select" id="edit_id_solic_proy_1" name="edit_id_solic_proy_1" disabled>
-                  <?php
-                  $query_data = mysqli_query($conn, "SELECT * FROM users");
-                  while ($miembro = mysqli_fetch_assoc($query_data)) {
-                    $id = $miembro['id_usuario'];
-                    $nombre = ($miembro['nombre_user']);
-                    $apell = ($miembro['apellido_user']);
-                    echo "<option value=\"$id\">$nombre $apell</option>";
-                  }
-                  ?>
-                </select>
               </div>
 
               <div class="col-md-4" style="color:black">
@@ -369,14 +354,6 @@ if (!isset($_SESSION['id_usuario'])) {
                 <div class="input-group col-md-">
                   <input type="number" class="form-control" id="edit_presupuesto_est_proy_1" name="edit_presupuesto_est_proy_1">
                   <span class="input-group-text">$</span>
-                </div>
-              </div>
-
-              <div class="col-md-3" style="color:black">
-                <label for="Comando" class="form-label">Avance: </label>
-                <div class="input-group col-md-">
-                  <input type="number" class="form-control" id="edit_avance_proy_1" name="edit_avance_proy_1">
-                  <span class=" input-group-text">%</span>
                 </div>
               </div>
 
@@ -468,6 +445,8 @@ if (!isset($_SESSION['id_usuario'])) {
       </div>
     </div>
   </div>
+
+  <!-- ------------------Codigo del modal para realizar la evaluación de los proyectos asignados ------------------ -->
 
   <div class="modal w3-container" id="Modal_valid" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog">
