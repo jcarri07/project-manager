@@ -1,59 +1,49 @@
 
-#tabla_miembros,
-#tabla_managers {
+.tabla-proyectos {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
     border: 1px solid #e8e8e8;
 }
 
-#tabla_miembros th,
-#tabla_miembros td,
-#tabla_managers th,
-#tabla_managers td {
+.tabla-proyectos th,
+.tabla-proyectos td {
     border-bottom: 1px solid #e8e8e8;
     border-right: 1px solid #e8e8e8;
     vertical-align: middle !important;
     text-align: center !important;
 }
 
-#tabla_miembros thead th,
-#tabla_managers thead th {
+.tabla-proyectos thead th {
     color: #616161 !important;
     font-weight: 700;
     text-align: center !important;
     vertical-align: middle !important;
 }
 
-#tabla_miembros tbody tr:nth-child(odd),
-#tabla_managers tbody tr:nth-child(odd) {
+.tabla-proyectos tbody tr:nth-child(odd){
     background-color: #ffffff !important;
 }
 
-#tabla_miembros tbody tr:nth-child(even),
-#tabla_managers tbody tr:nth-child(even) {
+.tabla-proyectos tbody tr:nth-child(even) {
     background-color: #fafafa !important;
 }
 
-#tabla_miembros tbody tr:hover,
-#tabla_managers tbody tr:hover {
+.tabla-proyectos tbody tr:hover {
     background-color: #fce4ec !important;
 }
 
-#tabla_miembros tbody td,
-#tabla_managers tbody td {
+.tabla-proyectos tbody td {
     color: #1a1a1a;
 }
 
-#tabla_miembros td .d-flex,
-#tabla_managers td .d-flex {
+.tabla-proyectos td .d-flex {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#tabla_miembros td .btn-editar,
-#tabla_managers td .btn-editar {
+.tabla-proyectos td .btn-editar {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -280,8 +270,7 @@ textarea:focus {
     background-color: #ffffff;
 }
 
-#tabla_proyectos td img,
-#tabla_proyectos_elim td img {
+#tabla_proyectos td img {
     display: block;
 
     margin: auto;

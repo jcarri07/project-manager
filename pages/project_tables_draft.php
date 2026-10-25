@@ -9,16 +9,24 @@
     <title>
         Sistema de Gestion de Proyectos
     </title>
+    <!-- 1. Material Dashboard -->
     <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
 
+    <!-- 2. CoreUI -->
+    <link rel="stylesheet" href="../assets/coreui/coreui_min_css.css">
+
+    <!-- 3. Bootstrap: una sola vez -->
     <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
+
+    <!-- 4. Iconos -->
     <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
-    <link href="../assets/css/code_icon_navbar.css" rel="stylesheet">
 
-
-    <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
+    <!-- 5. Estilos propios del proyecto y de los modales -->
+    <link rel="stylesheet" href="../assets/css/code_icon_navbar.css">
     <link rel="stylesheet" href="../assets/css/material-modal.css">
     <link rel="stylesheet" href="../assets/css/dash-modal_miemb.css">
+
+    <!-- 6. DataTables -->
     <link rel="stylesheet" href="../assets/DataTable/datatables.min.css">
     <link rel="stylesheet" href="../assets/css/code_tables_miemb_users.css">
 </head>

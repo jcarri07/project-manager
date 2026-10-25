@@ -15,12 +15,27 @@
   <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
   <link href="../assets/css/code_icon_navbar.css" rel="stylesheet">
 
+  <!-- 1. Material Dashboard -->
+  <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
 
+  <!-- 2. CoreUI -->
+  <link rel="stylesheet" href="../assets/coreui/coreui_min_css.css">
+
+  <!-- 3. Bootstrap: una sola vez -->
   <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
+
+  <!-- 4. Iconos -->
+  <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
+
+  <!-- 5. Estilos propios del proyecto y de los modales -->
+  <link rel="stylesheet" href="../assets/css/code_icon_navbar.css">
   <link rel="stylesheet" href="../assets/css/material-modal.css">
   <link rel="stylesheet" href="../assets/css/dash-modal_miemb.css">
+
+  <!-- 6. DataTables -->
   <link rel="stylesheet" href="../assets/DataTable/datatables.min.css">
   <link rel="stylesheet" href="../assets/css/code_tables_miemb_users.css">
+
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
@@ -113,7 +128,7 @@
 
                 <div class="table-responsive">
 
-                  <table id="tabla_proyectos_pers" class="table align-items-center justify-content-center" style="width:100%">
+                  <table id="tabla_proyectos_pers" class="table tabla-proyectos align-items-center justify-content-center" style="width:100%">
                     <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
@@ -143,7 +158,7 @@
 
                 <div class="table-responsive">
 
-                  <table id="tabla_proyectos_pers_espera" class="table align-items-center justify-content-center" style="width:100%">
+                  <table id="tabla_proyectos_pers_espera" class="table tabla-proyectos align-items-center justify-content-center" style="width:100%">
                     <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
@@ -172,7 +187,7 @@
 
                 <div class="table-responsive">
 
-                  <table id="tabla_proyectos_pers_aprob" class="table align-items-center justify-content-center" style="width:100%">
+                  <table id="tabla_proyectos_pers_aprob" class="table tabla-proyectos align-items-center justify-content-center" style="width:100%">
                     <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
@@ -207,7 +222,9 @@
 
   </main>
 
-  <!-- --------------------------------------- Modal para editar las propuestas propias  ------------------------------------------------------------ -->
+  <!-- ------------------------------------------------------------------------------------------------------------------ -->
+
+  <!-- ------------------Codigo del modal para editar las propuestas propias ------------------ -->
 
   <div class="modal w3-container" id="Modal_edit" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog">
@@ -409,13 +426,14 @@
     }
   </script>
 
+  <!-- ------------------ Codigo del script para ver las propuestas propias ------------------ -->
 
   <script>
     $(document).ready(function() {
       $('#tabla_proyectos_pers').DataTable({
-        //autoWidth: false,
-        //responsive: true, consul_proyectos_pers_espera
-        //pageLength: 5,
+        autoWidth: false,
+        responsive: true,
+        pageLength: 5,
         "language": {
           "url": "../assets/js/DataEsp.json"
         },
@@ -518,6 +536,8 @@
     });
   </script>
 
+  <!-- ------------------ Codigo del script para ver las propuestas en estado espera ------------------ -->
+
   <script>
     $(document).ready(function() {
       $('#tabla_proyectos_pers_espera').DataTable({
@@ -604,6 +624,8 @@
     });
   </script>
 
+  <!-- ------------------ Codigo del script para ver las propuestas vigentes ------------------ -->
+
   <script>
     $(document).ready(function() {
       $('#tabla_proyectos_pers_aprob').DataTable({
@@ -684,11 +706,26 @@
           },
           {
             "data": "prioridad"
+          },
+          {
+            "data": null,
+            "render": function(data, type, row) {
+
+              let buttonHTML = `
+            <div class="btn-group" role="group">
+                <button type="button" onclick="abrirModalEditar(${row.id_proyecto})" class="btn-editar" title="Editar Datos"><i class="fa-solid fa-gears" style="color: rgb(0, 92, 255);"></i></button>
+            </div>
+        `;
+
+              return buttonHTML;
+            }
           }
         ]
       });
     });
   </script>
+
+  <!-- ------------------ Codigo del script para solicitar la validación del proyecto ------------------ -->
 
   <script>
     function confirmarValidacion(idProyecto) {
@@ -726,6 +763,8 @@
       });
     }
   </script>
+
+  <!-- ------------------Codigo del script del modal para editar las propuestas propias ------------------ -->
 
   <script>
     function abrirModalEditar(id) {
@@ -818,7 +857,7 @@
     document.addEventListener("DOMContentLoaded", function() {
       document.querySelectorAll(".closeAndRedirect").forEach(function(boton) {
         boton.addEventListener("click", function() {
-          window.location.href = "./project_tables_direct.php";
+          window.location.href = "./project_tables_jef.php";
         });
       });
     });

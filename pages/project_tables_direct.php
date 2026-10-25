@@ -9,18 +9,28 @@
   <title>
     Sistema de Gestion de Proyectos
   </title>
+
+  <!-- 1. Material Dashboard -->
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
 
+  <!-- 2. CoreUI -->
+  <link rel="stylesheet" href="../assets/coreui/coreui_min_css.css">
+
+  <!-- 3. Bootstrap: una sola vez -->
   <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
+
+  <!-- 4. Iconos -->
   <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
-  <link href="../assets/css/code_icon_navbar.css" rel="stylesheet">
 
-
-  <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
+  <!-- 5. Estilos propios del proyecto y de los modales -->
+  <link rel="stylesheet" href="../assets/css/code_icon_navbar.css">
   <link rel="stylesheet" href="../assets/css/material-modal.css">
   <link rel="stylesheet" href="../assets/css/dash-modal_miemb.css">
+
+  <!-- 6. DataTables -->
   <link rel="stylesheet" href="../assets/DataTable/datatables.min.css">
   <link rel="stylesheet" href="../assets/css/code_tables_miemb_users.css">
+
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
@@ -97,6 +107,10 @@
                   </li>
 
                   <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="proy_vig-tab" data-bs-toggle="tab" data-bs-target="#proy_vig-pane" type="button" role="tab" aria-controls="proy_vig-pane" aria-selected="false">Proyectos Vigentes</button>
+                  </li>
+
+                  <li class="nav-item" role="presentation">
                     <button class="nav-link" id="proy_personal-tab" data-bs-toggle="tab" data-bs-target="#proy_personal-pane" type="button" role="tab" aria-controls="proy_personal-pane" aria-selected="false">Propuestas Propias</button>
                   </li>
 
@@ -117,7 +131,7 @@
 
                 <div class="table-responsive">
 
-                  <table id="tabla_proyectos_gen" class="table align-items-center justify-content-center" style="width:100%">
+                  <table id="tabla_proyectos_gen" class="table tabla-proyectos align-items-center justify-content-center" style="width:100%">
                     <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
@@ -145,7 +159,7 @@
 
                 <div class="table-responsive">
 
-                  <table id="tabla_proyectos_eval" class="table align-items-center justify-content-center" style="width:100%">
+                  <table id="tabla_proyectos_eval" class="table tabla-proyectos align-items-center justify-content-center" style="width:100%">
                     <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
@@ -175,7 +189,7 @@
 
                 <div class="table-responsive">
 
-                  <table id="tabla_proyectos_aprob" class="table align-items-center justify-content-center" style="width:100%">
+                  <table id="tabla_proyectos_aprob" class="table tabla-proyectos align-items-center justify-content-center" style="width:100%">
                     <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
@@ -201,11 +215,40 @@
 
               </div>
 
+              <div class="tab-pane fade show" id="proy_vig-pane" role="tabpanel" aria-labelledby="proy_vig-tab" tabindex="0">
+
+                <div class="table-responsive">
+
+                  <table id="tabla_proyectos_pers_aprob" class="table tabla-proyectos align-items-center justify-content-center" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proyecto</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unidad</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salud</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Inicio</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fin</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progreso</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prioridad</th>
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+
+                  </table>
+
+                </div>
+
+              </div>
+
               <div class="tab-pane fade" id="proy_personal-pane" role="tabpanel" aria-labelledby="proy_personal-tab" tabindex="0">
 
                 <div class="table-responsive">
 
-                  <table id="tabla_proyectos_pers" class="table align-items-center justify-content-center" style="width:100%">
+                  <table id="tabla_proyectos_pers" class="table tabla-proyectos align-items-center justify-content-center" style="width:100%">
                     <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
@@ -268,12 +311,12 @@
 
             <div class="row g-3">
 
-              <div class="col-md-4" style="color:black">
+              <div class="col-md-3" style="color:black">
                 <label for="Comando" class="form-label">Nombre del Proyecto: </label>
                 <input type="text" class="form-control" id="edit_nombre_proy_1" name="edit_nombre_proy_1">
               </div>
 
-              <div class="col-md-4" style="color:black">
+              <div class="col-md-3" style="color:black">
                 <label for="Cond" class="form-label">Unidad: </label>
                 <select class="form-select" id="edit_unidad_proy_1" name="edit_unidad_proy_1">
                   <?php
@@ -285,6 +328,34 @@
                   }
                   ?>
                 </select>
+              </div>
+
+              <div class="col-md-3" style="color:black">
+                <label for="fecha" class="form-label">Agregar nuevos Co-Autores: </label>
+                <select class="form-multi-select" id="edit_new_co_autor_1" name="edit_new_co_autor_1[]" multiple data-coreui-search="global">
+                  <?php
+                  $query_data = mysqli_query($conn, "SELECT * FROM users");
+
+                  while ($miembro = mysqli_fetch_assoc($query_data)) {
+                    $id = $miembro['id_usuario'];
+                    $nombre = ($miembro['nombre_user']);
+                    $apell = ($miembro['apellido_user']);
+                    $esp = ($miembro['especialidad']);
+                    echo "<option value=\"$id\">$nombre $apell | Especialidad: $esp</option>";
+                  }
+                  ?>
+                </select>
+              </div>
+
+              <div class="col-md-3" style="color:black">
+                <label for="fecha" class="form-label">Quitar Co-Autores: </label>
+                <select
+                  class="form-multi-select" id="edit_quitar_co_autor_1" name="edit_quitar_co_autor_1[]" multiple data-coreui-multi-select data-coreui-search="global">
+                </select>
+
+                <small class="text-muted">
+                  Selecciona únicamente los coautores que deseas quitar.
+                </small>
               </div>
 
             </div>
@@ -867,6 +938,7 @@
   <!--   Core JS Files  -->
   <script src="../assets/js/material-dashboard.min.js?v=3.0.4"></script>
   <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/coreui/coreui_bundle_min_js.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
@@ -1287,6 +1359,107 @@
     });
   </script>
 
+  <!-- ------------------ Codigo del script para ver las propuestas vigentes ------------------ -->
+
+  <script>
+    $(document).ready(function() {
+      $('#tabla_proyectos_pers_aprob').DataTable({
+        //autoWidth: false,
+        //responsive: true, 
+        //pageLength: 5,
+        "language": {
+          "url": "../assets/js/DataEsp.json"
+        },
+        "ajax": {
+          "url": "./consultas/consul_proyectos_pers_aprob.php",
+          "dataSrc": ""
+        },
+        "columns": [{
+            "data": "id_proyecto"
+          },
+          {
+            "data": "nombre"
+          },
+          {
+            "data": "nombre_unid"
+          },
+          {
+            "data": "estatus"
+          },
+          {
+            "data": "salud",
+            "render": function(data, type, row) {
+              let clase = "";
+              if (data === "En control") {
+                clase = "estado-progreso";
+              } else if (data === "En riesgo") {
+                clase = "estado-ejecutar";
+              } else if (data === "Critico") {
+                clase = "estado-listo";
+              }
+              return `
+            <span class="estado-badge ${clase}">
+                ${data}
+            </span>
+        `;
+            }
+          },
+          {
+            "data": "fecha_inicio"
+          },
+          {
+            "data": "fecha_fin"
+          },
+          {
+
+            "data": "avance",
+            "render": function(data, type, row) {
+
+              let porcentaje = data ? parseInt(data) : 0;
+              porcentaje = Math.max(0, Math.min(100, porcentaje));
+
+              return `
+            <div class="progreso-contenedor">
+
+                <span class="progreso-porcentaje">
+                    ${porcentaje}%
+                </span>
+
+                <div class="progreso-barra">
+
+                    <div 
+                        class="progreso-relleno"
+                        style="width: ${porcentaje}%;">
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+            }
+
+          },
+          {
+            "data": "prioridad"
+          },
+          {
+            "data": null,
+            "render": function(data, type, row) {
+
+              let buttonHTML = `
+            <div class="btn-group" role="group">
+                <button type="button" onclick="abrirModalEditar(${row.id_proyecto})" class="btn-editar" title="Editar Datos"><i class="fa-solid fa-gears" style="color: rgb(0, 92, 255);"></i></button>
+            </div>
+        `;
+
+              return buttonHTML;
+            }
+          }
+        ]
+      });
+    });
+  </script>
+
   <script>
     function abrirModalEditar(id) {
 
@@ -1335,6 +1508,8 @@
           $('#edit_est_proy_1').val(proyecto.estatus);
           $('#edit_salud_proy_1').val(proyecto.salud);
 
+          cargarCoautoresParaQuitar(proyecto.id_proyecto);
+
         },
 
         error: function(xhr) {
@@ -1344,6 +1519,117 @@
 
           alert('Error al obtener los datos del proyecto.');
 
+        }
+      });
+    }
+
+    function cargarCoautoresParaQuitar(idProyecto) {
+
+      const elemento = document.getElementById('edit_quitar_co_autor_1');
+
+      if (!elemento) {
+        console.error(
+          'No existe el selector #edit_quitar_co_autor_1. Revisa el ID del HTML.'
+        );
+        return;
+      }
+
+      console.log('Cargando coautores del proyecto:', idProyecto);
+
+      $.ajax({
+        url: './consultas/consul_coautores_proy_elim.php',
+        type: 'GET',
+        data: {
+          id_proyecto: idProyecto
+        },
+        dataType: 'json',
+
+        success: function(respuesta) {
+
+          console.log('Respuesta de coautores:', respuesta);
+
+          const coautores = Array.isArray(respuesta) ?
+            respuesta :
+            respuesta.data;
+
+          if (!Array.isArray(coautores)) {
+            console.error(
+              'La respuesta del servidor no contiene una lista de coautores.',
+              respuesta
+            );
+            return;
+          }
+
+          const opciones = coautores.map(function(usuario) {
+            return {
+              value: String(usuario.id_usuario),
+              text: usuario.nombre_user + ' ' +
+                usuario.apellido_user +
+                ' | Especialidad: ' +
+                (usuario.especialidad || 'No especificada')
+            };
+          });
+
+          const MultiSelect = window.coreui &&
+            window.coreui.MultiSelect;
+
+          if (!MultiSelect) {
+            console.error(
+              'CoreUI MultiSelect no está disponible. Revisa coreui_bundle_min_js.js.'
+            );
+            return;
+          }
+
+          const instancia = typeof MultiSelect.getInstance === 'function' ?
+            MultiSelect.getInstance(elemento) :
+            null;
+
+          if (instancia) {
+
+            if (typeof instancia.update === 'function') {
+
+              instancia.update({
+                options: opciones,
+                resetSelectionOnOptionsChange: true
+              });
+
+              console.log('Selector de coautores actualizado.');
+
+            } else {
+              console.error(
+                'La instancia de CoreUI no dispone del método update().',
+                instancia
+              );
+              return;
+            }
+
+          } else {
+
+            elemento.replaceChildren();
+
+            new MultiSelect(elemento, {
+              name: elemento.name,
+              multiple: true,
+              search: true,
+              options: opciones,
+              resetSelectionOnOptionsChange: true
+            });
+          }
+
+          console.log(
+            'Cantidad de coautores encontrados:',
+            coautores.length
+          );
+        },
+
+        error: function(xhr, estado, error) {
+
+          console.error('Error al cargar los coautores.');
+          console.error('Estado:', estado);
+          console.error('Error:', error);
+          console.error('Respuesta PHP:', xhr.responseText);
+
+          alert('No se pudieron cargar los coautores del proyecto.');
         }
       });
     }

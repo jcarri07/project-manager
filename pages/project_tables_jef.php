@@ -21,26 +21,26 @@ if (!isset($_SESSION['id_usuario'])) {
     Sistema de Gestion de Proyectos
   </title>
 
-  <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../assets/css/material-modal.css">
-  <link rel="stylesheet" href="../assets/css/dash-modal.css">
-
-  <!--
-  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
--->
-
-  <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
-
-  <link href="../assets/css/code_icon_navbar.css" rel="stylesheet">
-
+  <!-- 1. Material Dashboard -->
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
 
+  <!-- 2. CoreUI -->
+  <link rel="stylesheet" href="../assets/coreui/coreui_min_css.css">
+
+  <!-- 3. Bootstrap: una sola vez -->
   <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
+
+  <!-- 4. Iconos -->
+  <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
+
+  <!-- 5. Estilos propios del proyecto y de los modales -->
+  <link rel="stylesheet" href="../assets/css/code_icon_navbar.css">
   <link rel="stylesheet" href="../assets/css/material-modal.css">
-  <link rel="stylesheet" href="../assets/css/dash-modal.css">
+  <link rel="stylesheet" href="../assets/css/dash-modal_miemb.css">
+
+  <!-- 6. DataTables -->
   <link rel="stylesheet" href="../assets/DataTable/datatables.min.css">
-  <link rel="stylesheet" href="../assets/css/code_tables_proyectos.css">
+  <link rel="stylesheet" href="../assets/css/code_tables_miemb_users.css">
 </head>
 
 
@@ -140,7 +140,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
                 <div class="table-responsive">
 
-                  <table id="tabla_proyectos_pers" class="table align-items-center justify-content-center" style="width:100%">
+                  <table id="tabla_proyectos_pers" class="table tabla-proyectos align-items-center justify-content-center" style="width:100%">
                     <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
@@ -169,7 +169,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
                 <div class="table-responsive">
 
-                  <table id="tabla_proyectos_new_pro" class="table align-items-center justify-content-center" style="width:100%">
+                  <table id="tabla_proyectos_new_pro" class="table tabla-proyectos align-items-center justify-content-center" style="width:100%">
                     <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
@@ -199,7 +199,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
                 <div class="table-responsive">
 
-                  <table id="tabla_valid_proyectos_pro" class="table align-items-center justify-content-center" style="width:100%">
+                  <table id="tabla_valid_proyectos_pro" class="table tabla-proyectos align-items-center justify-content-center" style="width:100%">
                     <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
@@ -229,7 +229,36 @@ if (!isset($_SESSION['id_usuario'])) {
 
                 <div class="table-responsive">
 
-                  <table id="tabla_proyectos_pers_espera" class="table align-items-center justify-content-center" style="width:100%">
+                  <table id="tabla_proyectos_pers_espera" class="table tabla-proyectos align-items-center justify-content-center" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proyecto</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unidad</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salud</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Inicio</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fin</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progreso</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prioridad</th>
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+
+                  </table>
+
+                </div>
+
+              </div>
+
+              <div class="tab-pane fade show" id="proy_vig-pane" role="tabpanel" aria-labelledby="proy_vig-tab" tabindex="0">
+
+                <div class="table-responsive">
+
+                  <table id="tabla_proyectos_pers_aprob" class="table tabla-proyectos align-items-center justify-content-center" style="width:100%">
                     <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
@@ -1133,6 +1162,107 @@ if (!isset($_SESSION['id_usuario'])) {
     });
   </script>
 
+  <!-- ------------------ Codigo del script para ver las propuestas vigentes ------------------ -->
+
+  <script>
+    $(document).ready(function() {
+      $('#tabla_proyectos_pers_aprob').DataTable({
+        //autoWidth: false,
+        //responsive: true, 
+        //pageLength: 5,
+        "language": {
+          "url": "../assets/js/DataEsp.json"
+        },
+        "ajax": {
+          "url": "./consultas/consul_proyectos_pers_aprob.php",
+          "dataSrc": ""
+        },
+        "columns": [{
+            "data": "id_proyecto"
+          },
+          {
+            "data": "nombre"
+          },
+          {
+            "data": "nombre_unid"
+          },
+          {
+            "data": "estatus"
+          },
+          {
+            "data": "salud",
+            "render": function(data, type, row) {
+              let clase = "";
+              if (data === "En control") {
+                clase = "estado-progreso";
+              } else if (data === "En riesgo") {
+                clase = "estado-ejecutar";
+              } else if (data === "Critico") {
+                clase = "estado-listo";
+              }
+              return `
+            <span class="estado-badge ${clase}">
+                ${data}
+            </span>
+        `;
+            }
+          },
+          {
+            "data": "fecha_inicio"
+          },
+          {
+            "data": "fecha_fin"
+          },
+          {
+
+            "data": "avance",
+            "render": function(data, type, row) {
+
+              let porcentaje = data ? parseInt(data) : 0;
+              porcentaje = Math.max(0, Math.min(100, porcentaje));
+
+              return `
+            <div class="progreso-contenedor">
+
+                <span class="progreso-porcentaje">
+                    ${porcentaje}%
+                </span>
+
+                <div class="progreso-barra">
+
+                    <div 
+                        class="progreso-relleno"
+                        style="width: ${porcentaje}%;">
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+            }
+
+          },
+          {
+            "data": "prioridad"
+          },
+          {
+            "data": null,
+            "render": function(data, type, row) {
+
+              let buttonHTML = `
+            <div class="btn-group" role="group">
+                <button type="button" onclick="abrirModalEditar(${row.id_proyecto})" class="btn-editar" title="Editar Datos"><i class="fa-solid fa-gears" style="color: rgb(0, 92, 255);"></i></button>
+            </div>
+        `;
+
+              return buttonHTML;
+            }
+          }
+        ]
+      });
+    });
+  </script>
+
   <script>
     function confirmarValidacion(idProyecto) {
 
@@ -1431,7 +1561,7 @@ if (!isset($_SESSION['id_usuario'])) {
     document.addEventListener("DOMContentLoaded", function() {
       document.querySelectorAll(".closeAndRedirect").forEach(function(boton) {
         boton.addEventListener("click", function() {
-          window.location.href = "./project_tables_direct.php";
+          window.location.href = "./project_tables_jef.php";
         });
       });
     });
