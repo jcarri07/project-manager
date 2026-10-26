@@ -287,8 +287,8 @@ if ($_GET['act'] == 'insert_init_dir') {
 			}
 		}
 
-		if (!empty($_POST['edit_new_co_autor_1'])) {
-			foreach ($_POST['edit_new_co_autor_1'] as $id_autor_elim) {
+		if (!empty($_POST['edit_quitar_co_autor_1'])) {
+			foreach ($_POST['edit_quitar_co_autor_1'] as $id_autor_elim) {
 				$id_autor_elim = intval($id_autor_elim);
 				$sql2 = "DELETE FROM users_projects WHERE id_projects = '$d_id_proy' AND id_autor_user = '$id_autor_elim'";
 				mysqli_query($conn, $sql2);
@@ -296,6 +296,7 @@ if ($_GET['act'] == 'insert_init_dir') {
 		}
 
 		if ($val_Type_User == 1) {
+			//echo ($sql1 . "  -----  " . $sql2);
 			header("location: ../pages/project_tables_direct.php?alert=1");
 		}
 		if ($val_Type_User == 2) {

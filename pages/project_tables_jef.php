@@ -322,12 +322,12 @@ if (!isset($_SESSION['id_usuario'])) {
 
             <div class="row g-3">
 
-              <div class="col-md-4" style="color:black">
+              <div class="col-md-3" style="color:black">
                 <label for="Comando" class="form-label">Nombre del Proyecto: </label>
                 <input type="text" class="form-control" id="edit_nombre_proy_1" name="edit_nombre_proy_1">
               </div>
 
-              <div class="col-md-4" style="color:black">
+              <div class="col-md-3" style="color:black">
                 <label for="Cond" class="form-label">Unidad: </label>
                 <select class="form-select" id="edit_unidad_proy_1" name="edit_unidad_proy_1">
                   <?php
@@ -339,6 +339,34 @@ if (!isset($_SESSION['id_usuario'])) {
                   }
                   ?>
                 </select>
+              </div>
+
+              <div class="col-md-3" style="color:black">
+                <label for="fecha" class="form-label">Agregar nuevos Co-Autores: </label>
+                <select class="form-multi-select" id="edit_new_co_autor_1" name="edit_new_co_autor_1[]" multiple data-coreui-search="global">
+                  <?php
+                  $query_data = mysqli_query($conn, "SELECT * FROM users");
+
+                  while ($miembro = mysqli_fetch_assoc($query_data)) {
+                    $id = $miembro['id_usuario'];
+                    $nombre = ($miembro['nombre_user']);
+                    $apell = ($miembro['apellido_user']);
+                    $esp = ($miembro['especialidad']);
+                    echo "<option value=\"$id\">$nombre $apell | Especialidad: $esp</option>";
+                  }
+                  ?>
+                </select>
+              </div>
+
+              <div class="col-md-3" style="color:black">
+                <label for="fecha" class="form-label">Quitar Co-Autores: </label>
+                <select
+                  class="form-multi-select" id="edit_quitar_co_autor_1" name="edit_quitar_co_autor_1[]" multiple data-coreui-multi-select data-coreui-search="global">
+                </select>
+
+                <small class="text-muted">
+                  Selecciona únicamente los coautores que deseas quitar.
+                </small>
               </div>
 
             </div>
@@ -744,6 +772,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/coreui/coreui_bundle_min_js.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="../assets/jqery/jquery.js"></script>
@@ -1373,6 +1402,8 @@ if (!isset($_SESSION['id_usuario'])) {
           $('#edit_est_proy_1').val(proyecto.estatus);
           $('#edit_salud_proy_1').val(proyecto.salud);
 
+          cargarCoautoresParaQuitar(proyecto.id_proyecto);
+
         },
 
         error: function(xhr) {
@@ -1382,6 +1413,117 @@ if (!isset($_SESSION['id_usuario'])) {
 
           alert('Error al obtener los datos del proyecto.');
 
+        }
+      });
+    }
+
+    function cargarCoautoresParaQuitar(idProyecto) {
+
+      const elemento = document.getElementById('edit_quitar_co_autor_1');
+
+      if (!elemento) {
+        console.error(
+          'No existe el selector #edit_quitar_co_autor_1. Revisa el ID del HTML.'
+        );
+        return;
+      }
+
+      console.log('Cargando coautores del proyecto:', idProyecto);
+
+      $.ajax({
+        url: './consultas/consul_coautores_proy_elim.php',
+        type: 'GET',
+        data: {
+          id_proyecto: idProyecto
+        },
+        dataType: 'json',
+
+        success: function(respuesta) {
+
+          console.log('Respuesta de coautores:', respuesta);
+
+          const coautores = Array.isArray(respuesta) ?
+            respuesta :
+            respuesta.data;
+
+          if (!Array.isArray(coautores)) {
+            console.error(
+              'La respuesta del servidor no contiene una lista de coautores.',
+              respuesta
+            );
+            return;
+          }
+
+          const opciones = coautores.map(function(usuario) {
+            return {
+              value: String(usuario.id_usuario),
+              text: usuario.nombre_user + ' ' +
+                usuario.apellido_user +
+                ' | Especialidad: ' +
+                (usuario.especialidad || 'No especificada')
+            };
+          });
+
+          const MultiSelect = window.coreui &&
+            window.coreui.MultiSelect;
+
+          if (!MultiSelect) {
+            console.error(
+              'CoreUI MultiSelect no está disponible. Revisa coreui_bundle_min_js.js.'
+            );
+            return;
+          }
+
+          const instancia = typeof MultiSelect.getInstance === 'function' ?
+            MultiSelect.getInstance(elemento) :
+            null;
+
+          if (instancia) {
+
+            if (typeof instancia.update === 'function') {
+
+              instancia.update({
+                options: opciones,
+                resetSelectionOnOptionsChange: true
+              });
+
+              console.log('Selector de coautores actualizado.');
+
+            } else {
+              console.error(
+                'La instancia de CoreUI no dispone del método update().',
+                instancia
+              );
+              return;
+            }
+
+          } else {
+
+            elemento.replaceChildren();
+
+            new MultiSelect(elemento, {
+              name: elemento.name,
+              multiple: true,
+              search: true,
+              options: opciones,
+              resetSelectionOnOptionsChange: true
+            });
+          }
+
+          console.log(
+            'Cantidad de coautores encontrados:',
+            coautores.length
+          );
+        },
+
+        error: function(xhr, estado, error) {
+
+          console.error('Error al cargar los coautores.');
+          console.error('Estado:', estado);
+          console.error('Error:', error);
+          console.error('Respuesta PHP:', xhr.responseText);
+
+          alert('No se pudieron cargar los coautores del proyecto.');
         }
       });
     }

@@ -1,34 +1,53 @@
-
 <?php
 
 include_once __DIR__ . '/../../databases/conexion_crud.php';
+
 $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 
 $consulta = "SELECT
-projects.estatus AS estatus,
-SUM( CASE
-    WHEN projects.estatus = 'Propuesto' THEN 1
-    WHEN projects.estatus = 'Evaluacion' THEN 1 
-    WHEN projects.estatus = 'Aprobacion' THEN 1
-    WHEN projects.estatus = 'Planificacion' THEN 1
-    WHEN projects.estatus = 'Ejecucion' THEN 1
-    WHEN projects.estatus = 'Completado' THEN 1
-    WHEN projects.estatus = 'Cerrado' THEN 1
-    WHEN projects.estatus IN ('En Espera', 'Por Ejecutar') THEN 1
-    ELSE 0
-  END
-) AS Cantidad
-FROM projects
-GROUP BY CASE WHEN projects.estatus IN ('En Espera', 'Por Ejecutar') THEN 'En Espera/Por Ejecutar' ELSE projects.estatus END";
+        CASE
+            WHEN projects.estatus IN ('En Espera', 'Por Ejecutar')
+                THEN 'En Espera/Por Ejecutar'
+            ELSE projects.estatus
+        END AS estatus,
+
+        SUM(
+            CASE
+                WHEN projects.estatus IN (
+                    'Propuesto',
+                    'Evaluacion',
+                    'Aprobacion',
+                    'Planificacion',
+                    'Ejecucion',
+                    'Completado',
+                    'Cerrado',
+                    'En Espera',
+                    'Por Ejecutar'
+                )
+                THEN 1
+                ELSE 0
+            END
+        ) AS Cantidad
+
+    FROM projects
+
+    WHERE projects.estatus <> 'Borrador'
+
+    GROUP BY
+        CASE
+            WHEN projects.estatus IN ('En Espera', 'Por Ejecutar')
+                THEN 'En Espera/Por Ejecutar'
+            ELSE projects.estatus
+        END
+";
 
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
+
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
-echo json_encode($data);
+header('Content-Type: application/json; charset=utf-8');
+echo json_encode($data, JSON_UNESCAPED_UNICODE);
 
 $conexion = null;
-
-
-?>
