@@ -34,7 +34,7 @@ if ($val_typ == 1) {
         <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link text-white active bg-gradient-primary" href="../pages/dashboard_admin_director.php">
+                    <a class="nav-link text-white bg-gradient-primary" href="../pages/dashboard_admin_director.php">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">dashboard</i>
                         </div>
@@ -142,7 +142,7 @@ if ($val_typ == 2) { ?>
         <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link text-white active bg-gradient-primary" href="../pages/dashboard_jefe_unid.php">
+                    <a class="nav-link text-white bg-gradient-primary" href="../pages/dashboard_jefe_unid.php">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">dashboard</i>
                         </div>
@@ -226,7 +226,7 @@ if ($val_typ == 3) { ?>
         <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link text-white active bg-gradient-primary" href="../pages/dashboard_trab.php">
+                    <a class="nav-link text-white bg-gradient-primary" href="../pages/dashboard_trab.php">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">dashboard</i>
                         </div>

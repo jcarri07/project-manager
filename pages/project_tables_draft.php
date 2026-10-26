@@ -88,7 +88,7 @@
                     <div class="card-body px-3 pb-3">
                         <div class="table-responsive">
 
-                            <table id="tabla_proyectos" class="table align-items-center justify-content-center" style="width:100%">
+                            <table id="tabla_proyectos" class="table tabla-proyectos align-items-center justify-content-center" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>

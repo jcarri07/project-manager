@@ -888,7 +888,7 @@
 
               <div class="col-md-6" style="color:black">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="decision_proy" id="flexRadioDefault1" value="1" checked>
+                  <input class="form-check-input" type="radio" name="decision_proy" id="flexRadioDefault1" value="1" required>
                   <label class="form-check-label" for="flexRadioDefault1">
                     Aprobar el proyecto
                   </label>
@@ -905,6 +905,21 @@
                     No aprobar
                   </label>
                 </div>
+              </div>
+
+              <div class="col-md-6" style="color:black">
+                <label for="Cond" class="form-label">Progect Manager: </label>
+                <select class="form-select" id="PM_proy" name="PM_proy" disabled>
+                  <?php
+                  $query_data = mysqli_query($conn, "SELECT * FROM users WHERE users.id_user_type != '3'");
+                  while ($miembro = mysqli_fetch_assoc($query_data)) {
+                    $id = $miembro['id_usuario'];
+                    $nombre = ($miembro['nombre_user']);
+                    $apell = ($miembro['apellido_user']);
+                    echo "<option value=\"$id\">$nombre $apell</option>";
+                  }
+                  ?>
+                </select>
               </div>
 
             </div>
@@ -1866,6 +1881,39 @@
           window.location.href = "./project_tables_direct.php";
         });
       });
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+      const selectPM = document.getElementById('PM_proy');
+
+      const decisiones = document.querySelectorAll(
+        'input[name="decision_proy"]'
+      );
+
+      function actualizarProjectManager() {
+
+        const decisionSeleccionada = document.querySelector(
+          'input[name="decision_proy"]:checked'
+        );
+
+        const aprobado = decisionSeleccionada !== null &&
+          decisionSeleccionada.value === '1';
+
+        selectPM.disabled = !aprobado;
+
+        if (!aprobado) {
+          selectPM.value = '';
+        }
+      }
+
+      decisiones.forEach(function(radio) {
+        radio.addEventListener('change', actualizarProjectManager);
+      });
+      actualizarProjectManager();
+
     });
   </script>
 

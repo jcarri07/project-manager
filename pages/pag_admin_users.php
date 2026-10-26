@@ -198,7 +198,7 @@
               <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
 
                 <div class="table-responsive">
-                  <table id="tabla_users" class="table align-items-center justify-content-center" style="width:100%">
+                  <table id="tabla_users" class="table tabla-proyectos align-items-center justify-content-center" style="width:100%">
                     <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">CEDULA</th>

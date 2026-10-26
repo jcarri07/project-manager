@@ -238,6 +238,7 @@ if ($_GET['act'] == 'insert_init_dir') {
 	$id_proy = mysqli_real_escape_string($conn, trim($_POST['edit_id_Proy_3']));
 	$just_proy = mysqli_real_escape_string($conn, trim($_POST['justificacion_proy_3']));
 	$decis_proy = mysqli_real_escape_string($conn, trim($_POST['decision_proy']));
+	$PM_proy = mysqli_real_escape_string($conn, trim($_POST['PM_proy']));
 	$status_val = "Evaluacion";
 
 	switch ($decis_proy) {
@@ -252,7 +253,7 @@ if ($_GET['act'] == 'insert_init_dir') {
 			break;
 	}
 
-	$query = mysqli_query($conn, "UPDATE projects SET decision_dir = '$decis_proy', justificacion_dir = '$just_proy', estatus='$status_val' WHERE projects.id_proyecto = '$id_proy'");
+	$query = mysqli_query($conn, "UPDATE projects SET id_manager = '$PM_proy', decision_dir = '$decis_proy', justificacion_dir = '$just_proy', estatus='$status_val' WHERE projects.id_proyecto = '$id_proy'");
 
 	if ($query) {
 
