@@ -20,7 +20,7 @@
     align-items: center;
     gap: 8px;
     padding: 14px 18px;
-    border-left: 4px solid #e91e63;
+    border-left: 4px solid #194070;
 }
 
 .dashboard-heading h4 {
@@ -47,7 +47,7 @@
     min-width: 0;
     padding: 14px 16px 12px;
     border: 1px solid #e8e8e8;
-    border-top: 3px solid #e91e63;
+    border-top: 3px solid #194070;
     border-radius: 9px;
     background: #fff;
     box-shadow: 0 2px 8px rgba(52, 71, 103, 0.05);
@@ -111,7 +111,7 @@
 
 .dashboard-heading-attention h5 i {
     margin-right: 6px;
-    color: #e91e63;
+    color: #194070;
 }
 
 .dashboard-panel-body {
@@ -184,7 +184,7 @@
 }
 
 .dashboard-table thead th {
-    background: #fce4ec;
+    background: #e8eef5;
     color: #344767;
     font-weight: 700;
     text-align: center;
@@ -196,7 +196,7 @@
 }
 
 .dashboard-table tbody tr:hover td {
-    background: #fce4ec;
+    background: #e8eef5;
 }
 
 .dashboard-table tbody td:first-child {
@@ -211,8 +211,8 @@
     display: inline-block;
     padding: 4px 8px;
     border-radius: 20px;
-    background: #fce4ec;
-    color: #c2185b;
+    background: #e8eef5;
+    color: #0f2d52;
     font-size: .72rem;
     font-weight: 600;
     white-space: nowrap;

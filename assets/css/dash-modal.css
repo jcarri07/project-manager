@@ -25,7 +25,7 @@
 } 
 
 .w3-teal{ 
-    background: linear-gradient(135deg,#e91e63 0%, #ff2e7a 100%) !important; 
+    background: linear-gradient(135deg,#194070 0%, #2a5a96 100%) !important; 
     padding: 22px 28px !important; 
 } 
 
@@ -56,8 +56,8 @@
 
 .form-control:focus, .form-select:focus{ 
     background: #fff !important; 
-    border-color: #e91e63 !important; 
-    box-shadow: 0 0 0 .2rem rgba(233,30,99,.15) !important; 
+    border-color: #194070 !important; 
+    box-shadow: 0 0 0 .2rem rgba(25,64,112,.15) !important; 
 } 
 
 textarea.form-control{ 
@@ -72,8 +72,8 @@ textarea.form-control{
 } 
 
 .form-check-input:checked{ 
-    background-color: #e91e63 !important; 
-    border-color: #e91e63 !important; 
+    background-color: #194070 !important; 
+    border-color: #194070 !important; 
 } 
 
 .modal-footer{ 
@@ -83,15 +83,15 @@ textarea.form-control{
 } 
 
 #Redirect{ 
-    background: linear-gradient(135deg,#e91e63 0%, #ff2e7a 100%) !important; 
+    background: linear-gradient(135deg,#194070 0%, #2a5a96 100%) !important; 
     border: none !important; border-radius: 999px !important; 
     padding: .7rem 1.6rem !important; 
     font-weight: 600; 
-    box-shadow: 0 4px 12px rgba(233,30,99,.25); 
+    box-shadow: 0 4px 12px rgba(25,64,112,.25); 
 } 
 #Redirect:hover{ 
     transform: translateY(-1px); 
-    box-shadow: 0 6px 16px rgba(233,30,99,.35); 
+    box-shadow: 0 6px 16px rgba(25,64,112,.35); 
 } 
 
 #closeAndRedirect{ 

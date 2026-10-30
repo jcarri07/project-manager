@@ -1,0 +1,198 @@
+/* ==========================================================================
+   THEME OVERRIDE — Corporate Blue (#194070)
+   Cargado DESPUÉS de material-dashboard.css para sobreescribir el tema pink.
+   ========================================================================== */
+
+/* ---------- 1. Custom Properties (Design Tokens) ---------- */
+:root {
+  /* Brand palette */
+  --brand-primary:        #194070;
+  --brand-primary-dark:   #0f2d52;
+  --brand-primary-light:  #2a5a96;
+  --brand-primary-subtle: #e8eef5;
+  --brand-primary-rgb:    25, 64, 112;
+
+  /* Bootstrap variable overrides */
+  --bs-primary:           #194070;
+  --bs-primary-rgb:       25, 64, 112;
+  --bs-link-color:        #194070;
+  --bs-link-hover-color:  #2a5a96;
+}
+
+/* ---------- 2. Sidebar ---------- */
+.sidenav.bg-gradient-dark,
+aside.bg-gradient-dark {
+  background-image: linear-gradient(195deg, #2a5a96 0%, #194070 100%) !important;
+}
+
+.sidenav .navbar-nav .nav-link.bg-gradient-primary,
+.sidenav .navbar-nav .nav-link.active.bg-gradient-primary {
+  background-image: linear-gradient(195deg, #3a6daa 0%, #194070 100%) !important;
+}
+
+/* ---------- 3. Buttons ---------- */
+
+/* bg-gradient-primary used as button class in Material Dashboard */
+.btn.bg-gradient-primary,
+.bg-gradient-primary {
+  background-image: linear-gradient(195deg, #2a5a96 0%, #194070 100%) !important;
+}
+
+.btn.bg-gradient-primary:hover,
+.bg-gradient-primary:hover {
+  background-image: linear-gradient(195deg, #194070 0%, #0f2d52 100%) !important;
+  box-shadow: 0 4px 12px rgba(25, 64, 112, 0.35) !important;
+}
+
+.btn.bg-gradient-primary:focus,
+.btn.bg-gradient-primary:active {
+  box-shadow: 0 0 0 0.2rem rgba(25, 64, 112, 0.25) !important;
+}
+
+/* Standard Bootstrap .btn-primary */
+.btn-primary {
+  background-color: #194070 !important;
+  border-color: #194070 !important;
+  color: #fff !important;
+}
+
+.btn-primary:hover {
+  background-color: #0f2d52 !important;
+  border-color: #0f2d52 !important;
+  color: #fff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(25, 64, 112, 0.35);
+}
+
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
+  background-color: #0f2d52 !important;
+  border-color: #0f2d52 !important;
+  box-shadow: 0 0 0 0.2rem rgba(25, 64, 112, 0.25) !important;
+}
+
+/* Outline variant */
+.btn-outline-primary {
+  color: #194070 !important;
+  border-color: #194070 !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:active {
+  background-color: #194070 !important;
+  border-color: #194070 !important;
+  color: #fff !important;
+}
+
+/* ---------- 4. Links ---------- */
+a {
+  color: #194070;
+}
+
+a:hover {
+  color: #2a5a96;
+}
+
+/* ---------- 5. Form Focus States ---------- */
+.form-control:focus,
+.form-select:focus {
+  border-color: #194070 !important;
+  box-shadow: 0 0 0 0.2rem rgba(25, 64, 112, 0.15) !important;
+}
+
+.form-check-input:checked {
+  background-color: #194070 !important;
+  border-color: #194070 !important;
+}
+
+.form-check-input:focus {
+  border-color: #194070 !important;
+  box-shadow: 0 0 0 0.2rem rgba(25, 64, 112, 0.25) !important;
+}
+
+/* ---------- 6. Nav / Tabs / Pills ---------- */
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  background-color: #194070 !important;
+  color: #fff !important;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: #2a5a96;
+}
+
+/* ---------- 7. Badges ---------- */
+.badge.bg-primary,
+.badge.bg-gradient-primary {
+  background-color: #194070 !important;
+  background-image: none !important;
+  color: #fff !important;
+}
+
+/* ---------- 8. Progress Bars ---------- */
+.progress-bar,
+.progress-bar.bg-gradient-primary {
+  background-color: #194070 !important;
+  background-image: linear-gradient(195deg, #2a5a96 0%, #194070 100%) !important;
+}
+
+/* ---------- 9. Pagination ---------- */
+.page-item.active .page-link {
+  background-color: #194070 !important;
+  border-color: #194070 !important;
+  color: #fff !important;
+}
+
+.page-link {
+  color: #194070;
+}
+
+.page-link:hover {
+  color: #0f2d52;
+  background-color: #e8eef5;
+}
+
+/* ---------- 10. Alerts & Misc ---------- */
+.alert-primary {
+  background-color: #e8eef5;
+  border-color: #c5d5e8;
+  color: #194070;
+}
+
+/* Text utility */
+.text-primary {
+  color: #194070 !important;
+}
+
+/* Border utility */
+.border-primary {
+  border-color: #194070 !important;
+}
+
+/* Background utility */
+.bg-primary {
+  background-color: #194070 !important;
+}
+
+/* ---------- 11. Material Dashboard specifics ---------- */
+
+/* Fixed plugin button (floating settings gear) */
+.fixed-plugin .badge {
+  background-color: #194070 !important;
+}
+
+/* Input group focus */
+.input-group.input-group-outline.is-focused .form-label,
+.input-group.input-group-outline.is-focused .form-label + .form-notch .form-notch-leading,
+.input-group.input-group-outline.is-focused .form-label + .form-notch .form-notch-middle,
+.input-group.input-group-outline.is-focused .form-label + .form-notch .form-notch-trailing {
+  border-color: #194070 !important;
+  color: #194070 !important;
+}
+
+.input-group.input-group-outline.is-focused .form-label {
+  color: #194070 !important;
+}
+
