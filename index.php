@@ -1,140 +1,152 @@
-<!--
-=========================================================
-* Material Dashboard 2 - v3.0.4
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
+<?php
+// Mantener la lógica del inicio de sesión en login_check.php.
+// Este archivo únicamente muestra el formulario.
+?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-  <title>
-    Material Dashboard 2 by Creative Tim
-  </title>
-  <!--     Fonts and icons     -->
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-  <!-- Nucleo Icons -->
-  <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
-  <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-  <!-- CSS Files -->
-  <link id="pagestyle" href="assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SIGPR - Sistema de Información para la Gestión de Proyectos</title>
+
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+
+  <link rel="stylesheet" href="assets/css/material-menu.css">
+
+  <style>
+    .index_admin i label[for="ShowPassword"] {
+      display: inline;
+    }
+
+    /* Pie del formulario */
+    .index_admin .footer-logo-area {
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid #e8eef5;
+      color: #6c757d;
+      font-size: 0.75rem;
+      letter-spacing: 0.3px;
+    }
+  </style>
 </head>
 
-<body class="bg-gray-200">
-  <div class="container position-sticky z-index-sticky top-0">
-    <div class="row">
-      <div class="col-12">
+<body>
 
-      </div>
-    </div>
-  </div>
-  <main class="main-content  mt-0">
-    <div class="page-header align-items-start min-vh-100" style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80');">
-      <span class="mask bg-gradient-dark opacity-6"></span>
-      <div class="container my-auto">
-        <div class="row">
-          <?php
+  <!-- Fondo principal -->
+  <main class="gallery-container">
 
-          if (empty($_GET['alert'])) {
-            echo "";
-          } elseif ($_GET['alert'] == 1) {
-            echo "<div class='alert alert-light alert-dismissible text-black  py-2' role='alert'>
-  <span class='text-lg'>Error al iniciar sesión <a href='index.php' class='alert-link text-black'>datos invalidos o incorrectos</a>!</span>
-  <button type='button' class='btn-close text-lg py-2 opacity-10' data-bs-dismiss='alert' aria-label='Close'>
-  <span aria-hidden='true'>&times;</span>
-  </button>
-</div>
- <div> </br></br></br></br> </div>";
-          }
-          ?>
 
-          <div class="col-lg-4 col-md-8 col-12 mx-auto">
-            <div class="card z-index-0 fadeIn3 fadeInBottom">
-              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
-                  <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Iniciar Sesión</h4>
-                  <div class="row mt-3">
-                    <div class="col-2 text-center ms-auto">
-                      <a class="btn btn-link px-3" href="javascript:;">
-                        <i class="fa fa-facebook text-white text-lg"></i>
-                      </a>
-                    </div>
-                    <div class="col-2 text-center px-1">
-                      <a class="btn btn-link px-3" href="javascript:;">
-                        <i class="fa fa-github text-white text-lg"></i>
-                      </a>
-                    </div>
-                    <div class="col-2 text-center me-auto">
-                      <a class="btn btn-link px-3" href="javascript:;">
-                        <i class="fa fa-google text-white text-lg"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body">
-                <form action="login_check.php" method="POST">
-                  <div class="form-floating">
-                    <input style="border: 1px solid #ced4da; margin-bottom: 15px; padding-left: 20px;  height: 50px;" type="text" class="form-control" name="cedula" placeholder="Cédula de Identidad">
-                    <label>Cédula de Identidad</label>
-                  </div>
+    <form class="index_admin" name="Menu" action="login_check.php" method="POST" autocomplete="on">
 
-                  <div class="form-floating">
-                    <input style="border: 1px solid #ced4da;  padding-left: 20px;  height: 50px;" type="password" class="form-control" name="password" placeholder="Contraseña">
-                    <label>Contraseña</label>
+      <h2>
 
-                  </div>
-                  <!--<div class="form-check form-switch d-flex align-items-center mb-3">
-                    <input class="form-check-input" type="checkbox" id="rememberMe" checked>
-                    <label class="form-check-label mb-0 ms-3" for="rememberMe">Recordar contraseña</label>
-                  </di>-->
-                  <div class="text-center">
-                    <!-- <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Iniciar sesion</button>-->
-                    <input type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2" name="login" value="Iniciar Sesion" />
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
+        <div class="texto-adi">SIGPR</div>
+
+        <div class="texto-encima">
+          Sistema de Información para la Gestión de Proyectos
         </div>
+
+      </h2>
+
+      <!-- Mensaje de error -->
+      <?php if (isset($_GET['alert']) && $_GET['alert'] == '1'){ ?>
+
+        <div class="error" role="alert">
+          Error al iniciar sesión.
+          Los datos ingresados son inválidos o incorrectos.
+        </div>
+
+      <?php } ?>
+
+      <!-- Cédula -->
+      <div class="form-group">
+
+        <label for="cedula">Cédula de identidad</label>
+
+        <input
+          class="control"
+          type="text"
+          name="cedula"
+          id="cedula"
+          placeholder="Cédula de Identidad"
+          autocomplete="username"
+          required>
+
       </div>
-    </div>
+
+      <!-- Contraseña -->
+      <div class="form-group">
+
+        <label for="Contraseña">Contraseña</label>
+
+        <input
+          class="control"
+          type="password"
+          name="password"
+          id="Contraseña"
+          placeholder="Contraseña"
+          autocomplete="current-password"
+          required>
+
+      </div>
+
+      <!-- Visualizar contraseña -->
+      <i>
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="ShowPassword">
+
+        <label
+          class="form-check-label"
+          for="ShowPassword">
+
+          Visualizar contraseña
+
+        </label>
+      </i>
+
+      <!-- Botón de acceso -->
+      <div>
+
+        <input
+          class="botton"
+          type="submit"
+          name="login"
+          id="Bot"
+          value="Iniciar Sesión">
+
+      </div>
+
+      <!-- Pie del formulario -->
+      <div class="footer-logo-area">
+        Sistema de Gestión de Proyectos
+      </div>
+
+    </form>
+
   </main>
-  <!--   Core JS Files   -->
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+
+  <!-- Scripts -->
   <script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-      var options = {
-        damping: '0.5'
-      }
-      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
+    document.addEventListener('DOMContentLoaded', function() {
+
+      const checkbox = document.getElementById('ShowPassword');
+      const password = document.getElementById('Contraseña');
+
+      checkbox.addEventListener('change', function() {
+
+        password.type = this.checked ? 'text' : 'password';
+
+      });
+
+    });
   </script>
-  <!-- Github buttons -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/material-dashboard.min.js?v=3.0.4"></script>
+
 </body>
 
 </html>

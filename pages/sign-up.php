@@ -17,6 +17,8 @@ require_once('../databases/conexion.php');
   <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
+  <!-- Theme Override: Corporate Blue #194070 -->
+  <link href="../assets/css/theme-override.css" rel="stylesheet">
 </head>
 
 <body class="">

@@ -58,6 +58,8 @@ $proyectosAtencion = mysqli_query($conn, $sqlAtencion);
   <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
   <link href="../assets/css/code_icon_navbar.css" rel="stylesheet">
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet">
+  <!-- Theme Override: Corporate Blue #194070 -->
+  <link href="../assets/css/theme-override.css" rel="stylesheet">
   <!-- <link rel="stylesheet" href="../assets/css/dashboard-resumen.css?v=1.0"> -->
   <link rel="stylesheet" href="../assets/css/new_dashboard-resumen.css">
 </head>

@@ -47,6 +47,8 @@ if (!isset($_SESSION['id'])) {
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
+  <!-- Theme Override: Corporate Blue #194070 -->
+  <link href="../assets/css/theme-override.css" rel="stylesheet">
 
 </head>
 

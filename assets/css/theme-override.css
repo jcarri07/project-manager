@@ -28,6 +28,38 @@ aside.bg-gradient-dark {
 .sidenav .navbar-nav .nav-link.bg-gradient-primary,
 .sidenav .navbar-nav .nav-link.active.bg-gradient-primary {
   background-image: linear-gradient(195deg, #3a6daa 0%, #194070 100%) !important;
+  box-shadow: 0 4px 10px rgba(25, 64, 112, 0.4) !important;
+}
+
+/* Sidebar nav-link hover (non-active items) */
+.sidenav .navbar-nav .nav-link:not(.bg-gradient-primary):hover {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  border-radius: 0.375rem;
+}
+
+/* Sidebar nav-link transition */
+.sidenav .navbar-nav .nav-link {
+  transition: background-color 0.25s ease, opacity 0.25s ease;
+}
+
+/* Sidebar brand text */
+.sidenav .sidenav-header .navbar-brand span {
+  color: #fff !important;
+}
+
+/* Sidebar horizontal rule */
+.sidenav hr.horizontal.light {
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.35),
+    rgba(255, 255, 255, 0)
+  ) !important;
+}
+
+/* Sidebar section headers */
+.sidenav .navbar-nav h6 {
+  color: rgba(255, 255, 255, 0.8) !important;
 }
 
 /* ---------- 3. Buttons ---------- */
@@ -42,6 +74,7 @@ aside.bg-gradient-dark {
 .bg-gradient-primary:hover {
   background-image: linear-gradient(195deg, #194070 0%, #0f2d52 100%) !important;
   box-shadow: 0 4px 12px rgba(25, 64, 112, 0.35) !important;
+  transform: translateY(-1px);
 }
 
 .btn.bg-gradient-primary:focus,
@@ -85,7 +118,13 @@ aside.bg-gradient-dark {
   color: #fff !important;
 }
 
-/* ---------- 4. Links ---------- */
+/* ---------- 4. Shadows (override Material pink shadow) ---------- */
+.shadow-primary {
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14),
+              0 7px 10px -5px rgba(25, 64, 112, 0.4) !important;
+}
+
+/* ---------- 5. Links ---------- */
 a {
   color: #194070;
 }
@@ -94,7 +133,7 @@ a:hover {
   color: #2a5a96;
 }
 
-/* ---------- 5. Form Focus States ---------- */
+/* ---------- 6. Form Focus States ---------- */
 .form-control:focus,
 .form-select:focus {
   border-color: #194070 !important;
@@ -111,7 +150,7 @@ a:hover {
   box-shadow: 0 0 0 0.2rem rgba(25, 64, 112, 0.25) !important;
 }
 
-/* ---------- 6. Nav / Tabs / Pills ---------- */
+/* ---------- 7. Nav / Tabs / Pills ---------- */
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   background-color: #194070 !important;
@@ -123,7 +162,7 @@ a:hover {
   color: #2a5a96;
 }
 
-/* ---------- 7. Badges ---------- */
+/* ---------- 8. Badges ---------- */
 .badge.bg-primary,
 .badge.bg-gradient-primary {
   background-color: #194070 !important;
@@ -131,14 +170,14 @@ a:hover {
   color: #fff !important;
 }
 
-/* ---------- 8. Progress Bars ---------- */
+/* ---------- 9. Progress Bars ---------- */
 .progress-bar,
 .progress-bar.bg-gradient-primary {
   background-color: #194070 !important;
   background-image: linear-gradient(195deg, #2a5a96 0%, #194070 100%) !important;
 }
 
-/* ---------- 9. Pagination ---------- */
+/* ---------- 10. Pagination ---------- */
 .page-item.active .page-link {
   background-color: #194070 !important;
   border-color: #194070 !important;
@@ -154,7 +193,7 @@ a:hover {
   background-color: #e8eef5;
 }
 
-/* ---------- 10. Alerts & Misc ---------- */
+/* ---------- 11. Alerts & Misc ---------- */
 .alert-primary {
   background-color: #e8eef5;
   border-color: #c5d5e8;
@@ -176,7 +215,37 @@ a:hover {
   background-color: #194070 !important;
 }
 
-/* ---------- 11. Material Dashboard specifics ---------- */
+/* ---------- 12. Cards & Login Header ---------- */
+.card-header .bg-gradient-primary {
+  background-image: linear-gradient(195deg, #2a5a96 0%, #194070 100%) !important;
+}
+
+/* ---------- 13. Dropdowns (menus desplegables) ---------- */
+.dropdown-menu {
+  background-color: #fff !important;
+  border: 1px solid #e0e0e0 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 0.5rem !important;
+}
+
+.dropdown-item {
+  color: #344767 !important;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: #e8eef5 !important;
+  color: #194070 !important;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: #194070 !important;
+  color: #fff !important;
+}
+
+/* ---------- 14. Material Dashboard specifics ---------- */
 
 /* Fixed plugin button (floating settings gear) */
 .fixed-plugin .badge {
@@ -196,3 +265,21 @@ a:hover {
   color: #194070 !important;
 }
 
+/* ---------- 15. Hero / Page Header (login page) ---------- */
+.page-header .mask.bg-gradient-dark {
+  background-image: linear-gradient(195deg, rgba(25, 64, 112, 0.7) 0%, rgba(15, 45, 82, 0.85) 100%) !important;
+}
+
+/* ---------- 16. Top Navbar (breadcrumb bar) ---------- */
+.navbar-main {
+  background-color: transparent;
+}
+
+.navbar-main .breadcrumb-item a {
+  color: #194070 !important;
+}
+
+/* ---------- 17. Tables ---------- */
+.table thead th {
+  border-bottom-color: #194070 !important;
+}

@@ -49,6 +49,8 @@ if (!isset($_SESSION['id_usuario'])) {
   <link href="../assets/css/code_icon_navbar.css" rel="stylesheet">
 
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
+  <!-- Theme Override: Corporate Blue #194070 -->
+  <link href="../assets/css/theme-override.css" rel="stylesheet">
 
   <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="../assets/css/material-modal.css">

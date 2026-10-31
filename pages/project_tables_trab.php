@@ -10,6 +10,8 @@
     Sistema de Gestion de Proyectos
   </title>
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
+  <!-- Theme Override: Corporate Blue #194070 -->
+  <link href="../assets/css/theme-override.css" rel="stylesheet">
 
   <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
@@ -17,6 +19,8 @@
 
   <!-- 1. Material Dashboard -->
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
+  <!-- Theme Override: Corporate Blue #194070 -->
+  <link href="../assets/css/theme-override.css" rel="stylesheet">
 
   <!-- 2. CoreUI -->
   <link rel="stylesheet" href="../assets/coreui/coreui_min_css.css">

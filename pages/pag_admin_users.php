@@ -10,6 +10,8 @@
     Sistema de Gestion de Proyectos
   </title>
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
+  <!-- Theme Override: Corporate Blue #194070 -->
+  <link href="../assets/css/theme-override.css" rel="stylesheet">
 
   <link rel="stylesheet" href="../assets/Bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
