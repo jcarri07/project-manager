@@ -19,14 +19,32 @@ require_once('../databases/conexion.php');
 session_start();
 
 if (!isset($_SESSION['id_usuario'])) {
-  // Redirigir al usuario a la página de inicio de sesión
   header("Location: ../index.php");
 }
 
 $Data_ced = $_SESSION['id_usuario'];
 $Nomb_solic = $_SESSION['nombre'] . " " . $_SESSION['apellido'];
 
-//echo ("Hola $Data_ced");
+$query_2 = mysqli_query($conn, "SELECT * FROM users WHERE users.cedula = '$_SESSION[cedula]'");
+
+$data  = mysqli_fetch_assoc($query_2);
+$t_user = $data['id_user_type'];
+
+?>
+
+<?php
+
+  if(($t_user == 1)){
+    $paginaRetorno = 'project_tables_direct.php';
+  }
+  if(($t_user == 2)){
+    $paginaRetorno = 'project_tables_jef.php';
+  }
+  if(($t_user == 3)){
+    $paginaRetorno = 'project_tables_trab.php';
+  }
+
+$urlRetorno = '../pages/' . $paginaRetorno;
 
 ?>
 
@@ -41,16 +59,23 @@ $Nomb_solic = $_SESSION['nombre'] . " " . $_SESSION['apellido'];
   <title>
     Sistema de Gestion de Proyectos
   </title>
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  
+<!-- 1. Material Dashboard -->
+  <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
+  <link href="../assets/css/theme-override.css" rel="stylesheet">
+
+  <!-- 2. CoreUI -->
   <link rel="stylesheet" href="../assets/coreui/coreui_min_css.css">
   <script src="../assets/coreui/coreui_bundle_min_js.js"></script>
 
+  <!-- 3. Iconos -->
+  <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/code_icon_navbar.css">
+
+
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
-  <!-- Theme Override: Corporate Blue #194070 -->
   <link href="../assets/css/theme-override.css" rel="stylesheet">
 
 </head>
@@ -204,25 +229,6 @@ $Nomb_solic = $_SESSION['nombre'] . " " . $_SESSION['apellido'];
 
 
 
-
-                  <!--
-                    <div class="col-md-4 mb-3">
-                      <label class="form-label">PM</label>
-                      <select name="lider_proy" id="lider_proy" class="form-select border px-3">
-                        <option value="">Seleccione un responsable</option>
-                        <?php
-                        $query_data = mysqli_query($conn, "SELECT * FROM users WHERE users.id_usuario !=  '$Data_ced'");
-
-                        while ($miembro = mysqli_fetch_assoc($query_data)) {
-                          $id = $miembro['id_usuario'];
-                          $nombre = ($miembro['nombre'] . ' ' . $miembro['apellido'] . ' | ' . $miembro['especialidad']);
-                          echo "<option value=\"$id\">$nombre</option>";
-                        }
-                        ?>
-                      </select>
-                    </div>
-                  -->
-
                 </div>
               </div>
             </div>
@@ -307,16 +313,10 @@ $Nomb_solic = $_SESSION['nombre'] . " " . $_SESSION['apellido'];
 
             <div class="d-flex flex-column flex-sm-row justify-content-end gap-2 pb-2">
 
-              <a href="../pages/project_tables.php"
+              <a href="<?php echo htmlspecialchars($urlRetorno, ENT_QUOTES, 'UTF-8'); ?>"
                 class="btn btn-outline-secondary mb-0">
-                Cancelar
+                  Cancelar
               </a>
-
-              <button type="submit" name="Borrador" value="Borrador"
-                class="btn btn-outline-primary mb-0">
-                <i class="material-icons-round me-1">save</i>
-                Guardar borrador
-              </button>
 
               <button type="submit" name="Guardar" value="Guardar"
                 class="btn bg-gradient-primary mb-0">

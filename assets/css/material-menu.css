@@ -5,19 +5,19 @@
 
 /* ---------- 1. Variables ---------- */
 :root {
-    --menu-primary:        #194070;
-    --menu-primary-dark:   #0f2d52;
-    --menu-primary-light:  #2a5a96;
+    --menu-primary: #194070;
+    --menu-primary-dark: #0f2d52;
+    --menu-primary-light: #2a5a96;
     --menu-primary-subtle: #e8eef5;
-    --menu-white:          #ffffff;
-    --menu-gray-light:     #f4f6f9;
-    --menu-gray-border:    #ced4da;
-    --menu-text-dark:      #344767;
-    --menu-text-muted:     #6c757d;
-    --menu-shadow:         0 10px 40px rgba(25, 64, 112, 0.18);
-    --menu-shadow-hover:   0 14px 50px rgba(25, 64, 112, 0.28);
-    --menu-radius:         14px;
-    --menu-transition:     0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --menu-white: #ffffff;
+    --menu-gray-light: #f4f6f9;
+    --menu-gray-border: #ced4da;
+    --menu-text-dark: #344767;
+    --menu-text-muted: #6c757d;
+    --menu-shadow: 0 10px 40px rgba(25, 64, 112, 0.18);
+    --menu-shadow-hover: 0 14px 50px rgba(25, 64, 112, 0.28);
+    --menu-radius: 14px;
+    --menu-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ---------- 2. Reset base ---------- */
@@ -46,7 +46,7 @@ body {
     padding: 20px;
 
     /* Imagen original con filtro azul corporativo */
-    background-image:url("../img/photo-index_space.png");
+    background-image: url("../img/photo-index_space.png");
 
     background-size: cover;
     background-position: center center;
@@ -72,9 +72,17 @@ body {
 }
 
 @keyframes gradientShift {
-    0%   { background-position: 0% 50%;   }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%;   }
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 /* ---------- 4. Form Card (index_admin) ---------- */
@@ -97,29 +105,100 @@ body {
 }
 
 /* ---------- 5. Header / Logo Section ---------- */
-.index_admin h2 {
-    text-align: center;
-    margin-bottom: 28px;
-    padding: 0 10px 20px;
-    border-bottom: 2px solid var(--menu-primary-subtle);
-    background: none;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    border-radius: 0;
-    width: 100%;
+
+
+/* Nombre del sistema */
+
+.index_admin .texto-adi {
+
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+
+    font-size: 1.65rem;
+
+    font-weight: 700;
+
     color: var(--menu-primary);
-    font-size: inherit;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 6px;
+
+    text-transform: uppercase;
+
+    line-height: 1.2;
+
 }
 
-.index_admin h2 .ubilog {
-    display: block;
-    margin: 0 auto 14px;
-    max-height: 80px;
-    width: auto !important;
-    max-width: 45% !important;
-    height: auto !important;
-    object-fit: contain;
+/* Descripción */
+
+.index_admin .texto-encima {
+
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+
+    font-size: 0.73rem;
+
+    font-weight: 400;
+
+    color: var(--menu-text-muted);
+
+    letter-spacing: 0.1px;
+
+    line-height: 1.45;
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 480px) {
+
+    .index_admin .login-header {
+
+        grid-template-columns: 48px minmax(0, 1fr) 48px;
+
+        gap: 7px;
+
+        min-height: 75px;
+
+    }
+
+    .login-logo-container {
+
+        height: 55px;
+
+    }
+
+    .login-logo-left {
+
+        width: 48px;
+
+        height: 48px;
+
+    }
+
+    .login-logo-right {
+
+        width: 43px;
+
+        height: 43px;
+
+    }
+
+    .index_admin .texto-adi {
+
+        font-size: 1.25rem;
+
+        letter-spacing: 2px;
+
+    }
+
+    .index_admin .texto-encima {
+
+        font-size: 0.65rem;
+
+    }
+
 }
 
 .texto-adi {
@@ -141,6 +220,47 @@ body {
     line-height: 1.4;
 }
 
+.index_admin .login-logo:hover {
+    transform: scale(1.08);
+    opacity: 0.85;
+}
+
+.index_admin .texto-adi {
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--menu-primary);
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.index_admin .texto-encima {
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--menu-text-muted);
+    letter-spacing: 0.2px;
+    line-height: 1.4;
+}
+
+@media (max-width: 480px) {
+
+    .index_admin .login-logo {
+        width: 45px;
+        height: 45px;
+    }
+
+    .index_admin .texto-adi {
+        font-size: 1.25rem;
+        letter-spacing: 2px;
+    }
+
+    .index_admin .texto-encima {
+        font-size: 0.65rem;
+    }
+}
+
 /* ---------- 6. Error Message ---------- */
 .index_admin .error {
     background-color: #fef2f2;
@@ -157,7 +277,8 @@ body {
 
 /* ---------- 7. Form Labels ---------- */
 .index_admin label[for] {
-    display: none; /* Hidden because we use placeholders */
+    display: none;
+    /* Hidden because we use placeholders */
 }
 
 /* ---------- 8. Form Inputs (.control) ---------- */
@@ -177,9 +298,22 @@ body {
     margin-bottom: 16px;
     outline: none;
     transition: border-color var(--menu-transition),
-                box-shadow var(--menu-transition),
-                background-color var(--menu-transition);
+        box-shadow var(--menu-transition),
+        background-color var(--menu-transition);
     box-sizing: border-box;
+}
+
+.index_admin i label[for="ShowPassword"] {
+    display: inline;
+}
+
+.index_admin .footer-logo-area {
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px solid #e8eef5;
+    color: #6c757d;
+    font-size: 0.75rem;
+    letter-spacing: 0.3px;
 }
 
 /* Input icon via background image (user icon for cedula) */
@@ -285,7 +419,7 @@ body {
 .index_admin .botton:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(25, 64, 112, 0.25),
-                0 4px 14px rgba(25, 64, 112, 0.35);
+        0 4px 14px rgba(25, 64, 112, 0.35);
 }
 
 /* ---------- 11. Footer Logo Area ---------- */
@@ -340,7 +474,9 @@ body {
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* ---------- 13. Responsive ---------- */
