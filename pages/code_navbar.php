@@ -22,10 +22,6 @@ if (!isset($_SESSION['id_usuario'])) {
 ?>
 
 <style>
-    /* ==========================================
-    DROPDOWN PROYECTOS - CODE NAVBAR
-    ========================================== */
-
     #sidenav-main .nav-item-dropdown {
         width: 100% !important;
         margin: 0 0 12px 0 !important;
@@ -53,11 +49,9 @@ if (!isset($_SESSION['id_usuario'])) {
         padding: 12px 16px !important;
         margin: 0 auto !important;
 
-        background: linear-gradient(
-            110deg,
-            #1879ed 0%,
-            #419ce9 100%
-        ) !important;
+        background: linear-gradient(110deg,
+                #1879ed 0%,
+                #419ce9 100%) !important;
 
         border: none !important;
         border-radius: 9px !important;
@@ -67,7 +61,7 @@ if (!isset($_SESSION['id_usuario'])) {
     }
 
     /* Icono */
-    #sidenav-main .sidenav-project-toggle > div {
+    #sidenav-main .sidenav-project-toggle>div {
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
@@ -128,7 +122,7 @@ if (!isset($_SESSION['id_usuario'])) {
         padding: 0 !important;
     }
 
-    #sidenav-main .nav-item-dropdown + .nav-item {
+    #sidenav-main .nav-item-dropdown+.nav-item {
         margin-top: 0 !important;
     }
 </style>
@@ -157,35 +151,22 @@ if ($val_typ == 1) {
                     </a>
                 </li>
 
-                <li class="nav-item nav-item-dropdown">
-
+                <li class="nav-item mb-3">
                     <div class="dropdown">
-
-                        <button class="btn nav-link text-white dropdown-toggle sidenav-project-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-
+                        <button class="btn nav-link text-white dropdown-toggle sidenav-project-toggle" type="button" id="dropdownMenuButton2" data-coreui-toggle="dropdown" aria-expanded="false">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10">table_view</i>
                             </div>
                             <span class="nav-link-text ms-1">Proyectos</span>
                         </button>
-
                         <ul class="dropdown-menu dropdown-menu-dark sidenav-project-menu" aria-labelledby="dropdownMenuButton2">
-                            <li>
-                                <a class="dropdown-item" href="../pages/project_tables_direct.php"> Propuestas</a>
-                            </li>
-
+                            <li><a class="dropdown-item" href="../pages/project_gen_tables_direct.php">V.General de los Proyectos</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-
-                            <li>
-                                <a class="dropdown-item" href="../pages/project_tables_direct.php"> Gestión de proyectos </a>
-                            </li>
-
+                            <li><a class="dropdown-item" href="../pages/project_indiv_tables_direct.php">V.Proyectos Propios</a></li>
                         </ul>
-
                     </div>
-
                 </li>
 
                 <li class="nav-item mb-3">
@@ -217,8 +198,8 @@ if ($val_typ == 1) {
                         <span class="nav-link-text ms-1">Cerrar Sesión</span>
                     </a>
                 </li>
-        </ul>
-    </div>
+            </ul>
+        </div>
     </aside>
 
 <?php
@@ -237,7 +218,7 @@ if ($val_typ == 2) { ?>
         <hr class="horizontal light mt-0 mb-2">
         <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
             <ul class="navbar-nav">
-                <li class="nav-item">
+                <li class="nav-item mb-3">
                     <a class="nav-link text-white bg-gradient-info sidenav-project-toggle" href="../pages/dashboard_jefe_unid.php">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">dashboard</i>
@@ -245,16 +226,26 @@ if ($val_typ == 2) { ?>
                         <span class="nav-link-text ms-1">Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white bg-gradient-info sidenav-project-toggle" href="../pages/project_tables_jef.php">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">table_view</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Proyectos</span>
-                    </a>
+
+                <li class="nav-item mb-3">
+                    <div class="dropdown">
+                        <button class="btn nav-link text-white dropdown-toggle sidenav-project-toggle" type="button" id="dropdownMenuButton2" data-coreui-toggle="dropdown" aria-expanded="false">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10">table_view</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Proyectos</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark sidenav-project-menu" aria-labelledby="dropdownMenuButton2">
+                            <li><a class="dropdown-item" href="../pages/project_gen_tables_jef.php">V.General de los Proyectos</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="../pages/project_indiv_tables_jef.php">V.Proyectos Propios</a></li>
+                        </ul>
+                    </div>
                 </li>
-                
-                <li class="nav-item">
+
+                <li class="nav-item mb-3">
                     <a class="nav-link text-white bg-gradient-info sidenav-project-toggle" href="../pages/reportes.php">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">notifications</i>
@@ -265,17 +256,7 @@ if ($val_typ == 2) { ?>
                 <li class="nav-item mt-3">
                     <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Cuenta:</h6>
                 </li>
-                <!--     
-                <li class="nav-item">
-                    <a class="nav-link text-white " href="../pages/profile.php">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">person</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Perfil</span>
-                    </a>
-                </li>
-                -->
-                <li class="nav-item">
+                <li class="nav-item mb-3">
                     <a class="nav-link text-white bg-gradient-info sidenav-project-toggle" href="../logout.php">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">login</i>
@@ -283,21 +264,8 @@ if ($val_typ == 2) { ?>
                         <span class="nav-link-text ms-1">Cerrar Sesión</span>
                     </a>
                 </li>
-                <!--<li class="nav-item">
-          <a class="nav-link text-white " href="../pages/sign-up.php">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">assignment</i>
-            </div>
-            <span class="nav-link-text ms-1">Sign Up</span>
-          </a>
-        </li>-->
-      </ul>
-    </div>
-                <!-- <div class="sidenav-footer position-absolute w-100 bottom-0 ">
-      <div class="mx-3">
-        <a class="btn bg-gradient-primary mt-4 w-100" href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
-      </div>
-    </div>-->
+            </ul>
+        </div>
     </aside>
 
 <?php
@@ -316,7 +284,7 @@ if ($val_typ == 3) { ?>
         <hr class="horizontal light mt-0 mb-2">
         <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
             <ul class="navbar-nav">
-                <li class="nav-item">
+                <li class="nav-item mb-3">
                     <a class="nav-link text-white bg-gradient-info sidenav-project-toggle" href="../pages/dashboard_trab.php">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">dashboard</i>
@@ -324,7 +292,7 @@ if ($val_typ == 3) { ?>
                         <span class="nav-link-text ms-1">Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item mb-3">
                     <a class="nav-link text-white bg-gradient-info sidenav-project-toggle" href="../pages/project_tables_trab.php">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">table_view</i>
@@ -335,17 +303,7 @@ if ($val_typ == 3) { ?>
                 <li class="nav-item mt-3">
                     <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Cuenta:</h6>
                 </li>
-           <!--       
-                <li class="nav-item">
-                    <a class="nav-link text-white " href="../pages/profile.php">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">person</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Perfil</span>
-                    </a>
-                </li>
-           -->     
-                <li class="nav-item">
+                <li class="nav-item mb-3">
                     <a class="nav-link text-white sidenav-project-toggle" href="../logout.php">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">login</i>
@@ -353,21 +311,8 @@ if ($val_typ == 3) { ?>
                         <span class="nav-link-text ms-1">Cerrar Sesión</span>
                     </a>
                 </li>
-                <!--<li class="nav-item">
-          <a class="nav-link text-white " href="../pages/sign-up.php">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">assignment</i>
-            </div>
-            <span class="nav-link-text ms-1">Sign Up</span>
-          </a>
-        </li>-->
-      </ul>
-    </div>
-                <!-- <div class="sidenav-footer position-absolute w-100 bottom-0 ">
-      <div class="mx-3">
-        <a class="btn bg-gradient-primary mt-4 w-100" href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
-      </div>
-    </div>-->
+            </ul>
+        </div>
     </aside>
 
 <?php

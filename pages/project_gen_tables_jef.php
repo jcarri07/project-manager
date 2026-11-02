@@ -99,7 +99,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
               <div class="d-flex flex-wrap align-items-center gap-3">
 
-                <a href="../pages/nuevo_proyecto_trab.php?form=add" class="nav-link mb-0 px-3 py-2">
+                <a href="../pages/nuevo_proyecto_direct.php?form=add" class="nav-link mb-0 px-3 py-2">
                   <i class="material-icons text-lg position-relative">person</i>
                   <span class="ms-1">Nuevo Proyecto</span>
                 </a>

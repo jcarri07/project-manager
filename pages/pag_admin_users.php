@@ -360,6 +360,7 @@
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="../assets/jqery/jquery.js"></script>
   <script src="../assets/DataTable/datatables.min.js"></script>
+  <script src="../assets/coreui/coreui_bundle_min_js.js"></script>
 
   <script>
     var win = navigator.platform.indexOf('Win') > -1;

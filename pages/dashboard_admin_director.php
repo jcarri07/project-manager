@@ -231,6 +231,7 @@ $proyectosAtencion = mysqli_query($conn, $sqlAtencion);
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/chartjs.min.js"></script>
+  <script src="../assets/coreui/coreui_bundle_min_js.js"></script>
 
   <script>
     $(document).ready(function() {

@@ -34,15 +34,15 @@ $t_user = $data['id_user_type'];
 
 <?php
 
-  if(($t_user == 1)){
-    $paginaRetorno = 'project_tables_direct.php';
-  }
-  if(($t_user == 2)){
-    $paginaRetorno = 'project_tables_jef.php';
-  }
-  if(($t_user == 3)){
-    $paginaRetorno = 'project_tables_trab.php';
-  }
+if (($t_user == 1)) {
+  $paginaRetorno = 'project_indiv_tables_direct.php';
+}
+if (($t_user == 2)) {
+  $paginaRetorno = 'project_tables_jef.php';
+}
+if (($t_user == 3)) {
+  $paginaRetorno = 'project_tables_trab.php';
+}
 
 $urlRetorno = '../pages/' . $paginaRetorno;
 
@@ -59,31 +59,28 @@ $urlRetorno = '../pages/' . $paginaRetorno;
   <title>
     Sistema de Gestion de Proyectos
   </title>
-  
-<!-- 1. Material Dashboard -->
-  <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
-  <link href="../assets/css/theme-override.css" rel="stylesheet">
 
-  <!-- 2. CoreUI -->
+  <!-- 1. CoreUI -->
   <link rel="stylesheet" href="../assets/coreui/coreui_min_css.css">
-  <script src="../assets/coreui/coreui_bundle_min_js.js"></script>
 
-  <!-- 3. Iconos -->
+  <!-- 2. Iconos -->
   <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
   <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/css/code_icon_navbar.css">
 
-
+  <!-- 3. Material Dashboard -->
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
   <link href="../assets/css/theme-override.css" rel="stylesheet">
 
 </head>
 
 <body class="g-sidenav-show bg-gray-200">
+
   <?php
   include("./code_navbar.php");
   ?>
+
   <div class="main-content position-relative max-height-vh-100 h-100">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
@@ -105,7 +102,7 @@ $urlRetorno = '../pages/' . $paginaRetorno;
 
         <!-- Encabezado -->
         <div class="page-header min-height-200 border-radius-xl mt-4"
-          style="background-image: url('../assets/img/curved-images/curved0.jpg');">
+          style="background-image: url('../assets/img/bg-pricing.jpg');">
           <span class="mask bg-gradient-primary opacity-6"></span>
           <div class="position-relative p-4">
             <h3 class="text-white mb-1">Nuevo proyecto</h3>
@@ -315,7 +312,7 @@ $urlRetorno = '../pages/' . $paginaRetorno;
 
               <a href="<?php echo htmlspecialchars($urlRetorno, ENT_QUOTES, 'UTF-8'); ?>"
                 class="btn btn-outline-secondary mb-0">
-                  Cancelar
+                Cancelar
               </a>
 
               <button type="submit" name="Guardar" value="Guardar"
@@ -368,6 +365,8 @@ $urlRetorno = '../pages/' . $paginaRetorno;
 </body>
 
 </html>
+
+<script src="../assets/coreui/coreui_bundle_min_js.js"></script>
 
 <script>
   function updateRangeValue(value) {

@@ -75,7 +75,7 @@ if ($_GET['act'] == 'insert_init_dir') {
 			}
 
 			if ($val_Type_User == 1) {
-				header("location: ../pages/project_tables_direct.php?alert=1");
+				header("location: ../pages/project_indiv_tables_direct.php?alert=1");
 			}
 			if ($val_Type_User == 2) {
 				header("location: ../pages/project_tables_jef.php?alert=1");
@@ -95,7 +95,7 @@ if ($_GET['act'] == 'insert_init_dir') {
 	if ($query) {
 
 		if ($val_Type_User == 1) {
-			header("location: ../pages/project_tables_direct.php");
+			header("location: ../pages/project_indiv_tables_direct.php");
 		}
 
 		if ($val_Type_User == 2) {
@@ -119,7 +119,7 @@ if ($_GET['act'] == 'insert_init_dir') {
 
 		//echo ($Carg);
 
-		header("location: ../pages/project_tables_direct.php?alert=1");
+		header("location: ../pages/project_gen_tables_direct.php?alert=1");
 	}
 } elseif ($_GET['act'] == 'insert_eval_proy') {
 
@@ -159,7 +159,7 @@ if ($_GET['act'] == 'insert_init_dir') {
 
 	if ($query) {
 
-		header("location: ../pages/project_tables_direct.php?alert=1");
+		header("location: ../pages/project_gen_tables_direct.php?alert=1");
 	}
 } elseif ($_GET['act'] == 'update_proy_propio') {
 	$d_id_proy = mysqli_real_escape_string($conn, trim($_POST['edit_id_Proy_1']));
@@ -200,7 +200,7 @@ if ($_GET['act'] == 'insert_init_dir') {
 
 		if ($val_Type_User == 1) {
 			//echo ($sql1 . "  -----  " . $sql2);
-			header("location: ../pages/project_tables_direct.php?alert=1");
+			header("location: ../pages/project_indiv_tables_direct.php?alert=1");
 		}
 		if ($val_Type_User == 2) {
 			header("location: ../pages/project_tables_jef.php?alert=1");
