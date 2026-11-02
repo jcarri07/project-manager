@@ -78,7 +78,7 @@ if ($_GET['act'] == 'insert_init_dir') {
 				header("location: ../pages/project_indiv_tables_direct.php?alert=1");
 			}
 			if ($val_Type_User == 2) {
-				header("location: ../pages/project_tables_jef.php?alert=1");
+				header("location: ../pages/project_indiv_tables_jef.php?alert=1");
 			}
 			if ($val_Type_User == 3) {
 				header("location: ../pages/project_tables_trab.php?alert=1");
@@ -99,7 +99,7 @@ if ($_GET['act'] == 'insert_init_dir') {
 		}
 
 		if ($val_Type_User == 2) {
-			header("location: ../pages/project_tables_jef.php?alert=1");
+			header("location: ../pages/project_indiv_tables_jef.php?alert=1");
 		}
 
 		if ($val_Type_User == 3) {
@@ -133,7 +133,7 @@ if ($_GET['act'] == 'insert_init_dir') {
 
 	if ($query) {
 
-		header("location: ../pages/project_tables_jef.php?alert=1");
+		header("location: ../pages/project_gen_tables_jef.php?alert=1");
 	}
 } elseif ($_GET['act'] == 'insert_decision_proy') {
 
@@ -203,7 +203,7 @@ if ($_GET['act'] == 'insert_init_dir') {
 			header("location: ../pages/project_indiv_tables_direct.php?alert=1");
 		}
 		if ($val_Type_User == 2) {
-			header("location: ../pages/project_tables_jef.php?alert=1");
+			header("location: ../pages/project_indiv_tables_jef.php?alert=1");
 		}
 		if ($val_Type_User == 3) {
 			header("location: ../pages/project_tables_trab.php?alert=1");

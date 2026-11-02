@@ -514,7 +514,7 @@
 
                 buttonHTML += `
                 <div class="btn-group" role="group">
-                    <button type="button" onclick="confirmarValidacion(${row.id_proyecto})"class="btn-editar"title="Validar proyecto"><i class="fa-solid fa-bell" style="color: rgb(0, 92, 255);"></i></button>
+                    <button type="button" onclick="confirmarValidacion(${row.id_proyecto})"class="btn-editar"title="Validar proyecto"><i class="fa-solid fa-paper-plane" style="color: rgb(0, 92, 255);"></i></button>
                 </div>
             `;
 

@@ -38,7 +38,7 @@ if (($t_user == 1)) {
   $paginaRetorno = 'project_indiv_tables_direct.php';
 }
 if (($t_user == 2)) {
-  $paginaRetorno = 'project_tables_jef.php';
+  $paginaRetorno = 'project_indiv_tables_jef.php';
 }
 if (($t_user == 3)) {
   $paginaRetorno = 'project_tables_trab.php';
