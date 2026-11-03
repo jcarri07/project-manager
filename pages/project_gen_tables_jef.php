@@ -49,6 +49,11 @@ if (!isset($_SESSION['id_usuario'])) {
 <body class="g-sidenav-show  bg-gray-200">
   <?php
   include("./code_navbar.php");
+  $query_users = mysqli_query($conn, "SELECT id_usuario, CONCAT(nombre_user, ' ', apellido_user) AS nombre_completo FROM users");
+  $mapa_pm = [];
+  while ($u = mysqli_fetch_assoc($query_users)) {
+    $mapa_pm[$u['id_usuario']] = $u['nombre_completo'];
+  }
   ?>
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
@@ -127,6 +132,7 @@ if (!isset($_SESSION['id_usuario'])) {
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proyecto</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unidad</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">PM</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salud</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Inicio</th>
@@ -479,6 +485,18 @@ if (!isset($_SESSION['id_usuario'])) {
             "data": "nombre_unid"
           },
           {
+            "data": null,
+            "render": function(data, type, row) {
+              let dat_pm_proy = "Sin asignar";
+              if (row.estatus !== "Propuesto" && row.estatus !== "Evaluacion" && row.estatus !== "Aprobacion" && row.estatus !== "Cancelado") {
+                if (row.id_manager && mapaPM[row.id_manager]) {
+                  dat_pm_proy = mapaPM[row.id_manager];
+                }
+              }
+              return dat_pm_proy;
+            }
+          },
+          {
             "data": "estatus"
           },
           {
@@ -546,9 +564,9 @@ if (!isset($_SESSION['id_usuario'])) {
                     type="button"
                     onclick="abrirModalValidacion(${row.id_proyecto})"
                     class="btn-editar"
-                    title="Editar Datos">
+                    title="Realizar validación">
 
-                    <i class="fa-regular fa-pen-to-square"></i>
+                    <i class="fa-solid fa-hourglass-half fa-beat" style="color: rgba(255, 213, 0, 1);"></i>
 
                 </button>
             </div>
@@ -766,6 +784,10 @@ if (!isset($_SESSION['id_usuario'])) {
         });
       });
     });
+  </script>
+
+  <script>
+    const mapaPM = <?php echo json_encode($mapa_pm, JSON_UNESCAPED_UNICODE); ?>;
   </script>
 
 </body>

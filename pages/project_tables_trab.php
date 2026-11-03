@@ -1,3 +1,7 @@
+<?php
+include("../databases/conexion.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,6 +49,11 @@
 <body class="g-sidenav-show  bg-gray-200">
   <?php
   include("./code_navbar.php");
+  $query_users = mysqli_query($conn, "SELECT id_usuario, CONCAT(nombre_user, ' ', apellido_user) AS nombre_completo FROM users");
+  $mapa_pm = [];
+  while ($u = mysqli_fetch_assoc($query_users)) {
+    $mapa_pm[$u['id_usuario']] = $u['nombre_completo'];
+  }
   ?>
 
 
@@ -108,10 +117,6 @@
                   </li>
 
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="espera_pro-tab" data-bs-toggle="tab" data-bs-target="#espera_pro-pane" type="button" role="tab" aria-controls="espera_pro-pane" aria-selected="false">Propuestas en Espera</button>
-                  </li>
-
-                  <li class="nav-item" role="presentation">
                     <button class="nav-link" id="proy_vig-tab" data-bs-toggle="tab" data-bs-target="#proy_vig-pane" type="button" role="tab" aria-controls="proy_vig-pane" aria-selected="false">Proyectos Vigentes</button>
                   </li>
 
@@ -145,35 +150,6 @@
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progreso</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prioridad</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opciones</th>
-
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                    </tbody>
-
-                  </table>
-
-                </div>
-
-              </div>
-
-              <div class="tab-pane fade show" id="espera_pro-pane" role="tabpanel" aria-labelledby="espera_pro-tab" tabindex="0">
-
-                <div class="table-responsive">
-
-                  <table id="tabla_proyectos_pers_espera" class="table tabla-proyectos align-items-center justify-content-center" style="width:100%">
-                    <thead>
-                      <tr>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proyecto</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unidad</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salud</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Inicio</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fin</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progreso</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prioridad</th>
 
                       </tr>
                     </thead>
@@ -484,6 +460,18 @@
             "data": "nombre_unid"
           },
           {
+            "data": null,
+            "render": function(data, type, row) {
+              let dat_pm_proy = "Sin asignar";
+              if (row.estatus !== "Propuesto" && row.estatus !== "Evaluacion" && row.estatus !== "Aprobacion" && row.estatus !== "Cancelado") {
+                if (row.id_manager && mapaPM[row.id_manager]) {
+                  dat_pm_proy = mapaPM[row.id_manager];
+                }
+              }
+              return dat_pm_proy;
+            }
+          },
+          {
             "data": "estatus"
           },
           {
@@ -546,111 +534,54 @@
             "data": null,
             "render": function(data, type, row) {
 
-              let buttonHTML = `
+              let buttonHTML = ` `;
+              if (row.estatus === "Propuesto") {
+                buttonHTML = `
             <div class="btn-group" role="group">
-                <button type="button" onclick="abrirModalEditar(${row.id_proyecto})" class="btn-editar" title="Editar Datos"><i class="fa-regular fa-pen-to-square"></i></button>
+                <button type="button" onclick="abrirModalEditar(${row.id_proyecto})" class="btn-editar" title="Editar Datos"><i class="fa-regular fa-pen-to-square" style="color: rgba(0, 30, 255, 1);"></i></button>
             </div>
         `;
-              if (row.estatus === "Propuesto") {
-
                 buttonHTML += `
                 <div class="btn-group" role="group">
-                    <button type="button" onclick="confirmarValidacion(${row.id_proyecto})"class="btn-editar"title="Validar proyecto"><i class="fa-solid fa-paper-plane" style="color: rgb(0, 92, 255);"></i></button>
+                    <button type="button" onclick="confirmarValidacion(${row.id_proyecto})"class="btn-editar"title="Validar proyecto"><i class="fa-solid fa-paper-plane" style="color: rgba(0, 153, 255, 0.73);"></i></button>
                 </div>
             `;
+              };
 
-              }
+              if (row.estatus === "Evaluacion") {
+                buttonHTML = `
+            <div class="btn-group" role="group">
+                <button type="button" class="btn-editar" title="Evaluación en desarrollo" disabled><i class="fa-solid fa-hourglass-half fa-beat" style="color: rgba(255, 213, 0, 1);"></i></button>
+            </div>
+        `;
+              };
+
+              if (row.estatus === "Aprobacion") {
+                buttonHTML = `
+            <div class="btn-group" role="group">
+                <button type="button" class="btn-editar" title="Aprobación en desarrollo" disabled><i class="fa-solid fa-square-check fa-beat" style="color: rgba(0, 255, 145, 1);"></i></button>
+            </div>
+        `;
+              };
+
+              if (row.estatus === "Cancelado") {
+                buttonHTML = `
+            <div class="btn-group" role="group">
+                <button type="button" class="btn-editar" title="Propuesta cancelada" disabled><i class="fa-solid fa-ban fa-beat" style="color: rgba(255, 0, 0, 1);"></i></button>
+            </div>
+        `;
+              };
+
+              if ((row.estatus !== "Propuesto") && (row.estatus !== "Evaluacion") && (row.estatus !== "Aprobacion") && (row.estatus !== "Cancelado")) {
+                buttonHTML = `
+            <div class="btn-group" role="group">
+                <button type="button" class="btn-editar" title="Propuesta aprobada"><i class="fa-solid fa-check-double fa-beat" style="color: rgb(34, 255, 0, 1);"></i></button>
+            </div>
+        `;
+              };
 
               return buttonHTML;
             }
-          }
-        ]
-      });
-    });
-  </script>
-
-  <!-- ------------------ Codigo del script para ver las propuestas en estado espera ------------------ -->
-
-  <script>
-    $(document).ready(function() {
-      $('#tabla_proyectos_pers_espera').DataTable({
-        //autoWidth: false,
-        //responsive: true, 
-        //pageLength: 5,
-        "language": {
-          "url": "../assets/js/DataEsp.json"
-        },
-        "ajax": {
-          "url": "./consultas/consul_proyectos_pers_espera.php",
-          "dataSrc": ""
-        },
-        "columns": [{
-            "data": "id_proyecto"
-          },
-          {
-            "data": "nombre"
-          },
-          {
-            "data": "nombre_unid"
-          },
-          {
-            "data": "estatus"
-          },
-          {
-            "data": "salud",
-            "render": function(data, type, row) {
-              let clase = "";
-              if (data === "En control") {
-                clase = "estado-progreso";
-              } else if (data === "En riesgo") {
-                clase = "estado-ejecutar";
-              } else if (data === "Critico") {
-                clase = "estado-listo";
-              }
-              return `
-            <span class="estado-badge ${clase}">
-                ${data}
-            </span>
-        `;
-            }
-          },
-          {
-            "data": "fecha_inicio"
-          },
-          {
-            "data": "fecha_fin"
-          },
-          {
-
-            "data": "avance",
-            "render": function(data, type, row) {
-
-              let porcentaje = data ? parseInt(data) : 0;
-              porcentaje = Math.max(0, Math.min(100, porcentaje));
-
-              return `
-            <div class="progreso-contenedor">
-
-                <span class="progreso-porcentaje">
-                    ${porcentaje}%
-                </span>
-
-                <div class="progreso-barra">
-
-                    <div 
-                        class="progreso-relleno"
-                        style="width: ${porcentaje}%;">
-                    </div>
-
-                </div>
-
-            </div>
-        `;
-            }
-
-          },
-          {
-            "data": "prioridad"
           }
         ]
       });
@@ -680,6 +611,18 @@
           },
           {
             "data": "nombre_unid"
+          },
+          {
+            "data": null,
+            "render": function(data, type, row) {
+              let dat_pm_proy = "Sin asignar";
+              if (row.estatus !== "Propuesto" && row.estatus !== "Evaluacion" && row.estatus !== "Aprobacion" && row.estatus !== "Cancelado") {
+                if (row.id_manager && mapaPM[row.id_manager]) {
+                  dat_pm_proy = mapaPM[row.id_manager];
+                }
+              }
+              return dat_pm_proy;
+            }
           },
           {
             "data": "estatus"
@@ -1007,6 +950,10 @@
         });
       });
     });
+  </script>
+
+  <script>
+    const mapaPM = <?php echo json_encode($mapa_pm, JSON_UNESCAPED_UNICODE); ?>;
   </script>
 
 

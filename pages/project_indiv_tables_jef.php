@@ -49,6 +49,11 @@ if (!isset($_SESSION['id_usuario'])) {
 <body class="g-sidenav-show  bg-gray-200">
   <?php
   include("./code_navbar.php");
+  $query_users = mysqli_query($conn, "SELECT id_usuario, CONCAT(nombre_user, ' ', apellido_user) AS nombre_completo FROM users");
+  $mapa_pm = [];
+  while ($u = mysqli_fetch_assoc($query_users)) {
+    $mapa_pm[$u['id_usuario']] = $u['nombre_completo'];
+  }
   ?>
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
@@ -136,6 +141,7 @@ if (!isset($_SESSION['id_usuario'])) {
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proyecto</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unidad</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">PM</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salud</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Inicio</th>
@@ -166,6 +172,7 @@ if (!isset($_SESSION['id_usuario'])) {
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proyecto</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unidad</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">PM</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salud</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Inicio</th>
@@ -457,6 +464,18 @@ if (!isset($_SESSION['id_usuario'])) {
             "data": "nombre_unid"
           },
           {
+            "data": null,
+            "render": function(data, type, row) {
+              let dat_pm_proy = "Sin asignar";
+              if (row.estatus !== "Propuesto" && row.estatus !== "Evaluacion" && row.estatus !== "Aprobacion" && row.estatus !== "Cancelado") {
+                if (row.id_manager && mapaPM[row.id_manager]) {
+                  dat_pm_proy = mapaPM[row.id_manager];
+                }
+              }
+              return dat_pm_proy;
+            }
+          },
+          {
             "data": "estatus"
           },
           {
@@ -567,6 +586,18 @@ if (!isset($_SESSION['id_usuario'])) {
             "data": "nombre_unid"
           },
           {
+            "data": null,
+            "render": function(data, type, row) {
+              let dat_pm_proy = "Sin asignar";
+              if (row.estatus !== "Propuesto" && row.estatus !== "Evaluacion" && row.estatus !== "Aprobacion" && row.estatus !== "Cancelado") {
+                if (row.id_manager && mapaPM[row.id_manager]) {
+                  dat_pm_proy = mapaPM[row.id_manager];
+                }
+              }
+              return dat_pm_proy;
+            }
+          },
+          {
             "data": "estatus"
           },
           {
@@ -629,11 +660,51 @@ if (!isset($_SESSION['id_usuario'])) {
             "data": null,
             "render": function(data, type, row) {
 
-              let buttonHTML = `
+              let buttonHTML = ` `;
+              if (row.estatus === "Propuesto") {
+                buttonHTML = `
             <div class="btn-group" role="group">
-                <button type="button" onclick="abrirModalEditar(${row.id_proyecto})" class="btn-editar" title="Editar Datos"><i class="fa-solid fa-gears" style="color: rgb(0, 92, 255);"></i></button>
+                <button type="button" onclick="abrirModalEditar(${row.id_proyecto})" class="btn-editar" title="Editar Datos"><i class="fa-regular fa-pen-to-square" style="color: rgba(0, 30, 255, 1);"></i></button>
             </div>
         `;
+                buttonHTML += `
+                <div class="btn-group" role="group">
+                    <button type="button" onclick="confirmarValidacion(${row.id_proyecto})"class="btn-editar"title="Validar proyecto"><i class="fa-solid fa-paper-plane" style="color: rgba(0, 153, 255, 0.73);"></i></button>
+                </div>
+            `;
+              };
+
+              if (row.estatus === "Evaluacion") {
+                buttonHTML = `
+            <div class="btn-group" role="group">
+                <button type="button" class="btn-editar" title="Evaluación en desarrollo" disabled><i class="fa-solid fa-hourglass-half fa-beat" style="color: rgba(255, 213, 0, 1);"></i></button>
+            </div>
+        `;
+              };
+
+              if (row.estatus === "Aprobacion") {
+                buttonHTML = `
+            <div class="btn-group" role="group">
+                <button type="button" class="btn-editar" title="Aprobación en desarrollo" disabled><i class="fa-solid fa-square-check fa-beat" style="color: rgba(0, 255, 145, 1);"></i></button>
+            </div>
+        `;
+              };
+
+              if (row.estatus === "Cancelado") {
+                buttonHTML = `
+            <div class="btn-group" role="group">
+                <button type="button" class="btn-editar" title="Propuesta cancelada" disabled><i class="fa-solid fa-ban fa-beat" style="color: rgba(255, 0, 0, 1);"></i></button>
+            </div>
+        `;
+              };
+
+              if ((row.estatus !== "Propuesto") && (row.estatus !== "Evaluacion") && (row.estatus !== "Aprobacion") && (row.estatus !== "Cancelado")) {
+                buttonHTML = `
+            <div class="btn-group" role="group">
+                <button type="button" class="btn-editar" title="Propuesta aprobada"><i class="fa-solid fa-check-double fa-beat" style="color: rgb(34, 255, 0, 1);"></i></button>
+            </div>
+        `;
+              };
 
               return buttonHTML;
             }
@@ -995,6 +1066,10 @@ if (!isset($_SESSION['id_usuario'])) {
         });
       });
     });
+  </script>
+
+  <script>
+    const mapaPM = <?php echo json_encode($mapa_pm, JSON_UNESCAPED_UNICODE); ?>;
   </script>
 
 </body>
