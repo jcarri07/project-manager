@@ -192,7 +192,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" id="check_data_proyValid" checked>
-              <label class="form-check-label" for="check_data_proyValid">Informacion del Proyecto</label>
+              <label class="form-check-label" for="check_data_proyValid">Información de la Propusta</label>
             </div>
 
             <div id="data_proy_container">
@@ -357,8 +357,21 @@ if (!isset($_SESSION['id_usuario'])) {
             <div class="row g-3">
 
               <div class="col-md-6" style="color:black">
-                <label for="Comando" class="form-label">Dimensiones: </label>
-                <input type="text" class="form-control" id="dimen_proy_valid" name="dimen_proy_valid" required>
+                <label for="Comando" class="form-label">Técnica: </label>
+                <select name="tecnica_proy_valid" id="tecnica_proy_valid" class="form-select border px-3" required>
+                  <option value="">Seleccione la técnica</option>
+                  <option value="Viable">Viable</option>
+                  <option value="No viable">No viable</option>
+                </select>
+              </div>
+
+              <div class="col-md-6" style="color:black">
+                <label for="Comando" class="form-label">Operativa: </label>
+                <select class="form-select border px-3" id="operativa_proy_valid" name="operativa_proy_valid" required>
+                  <option value="">Seleccione la Operatividad</option>
+                  <option value="Viable">Viable</option>
+                  <option value="No viable">No viable</option>
+                </select>
               </div>
 
             </div>
@@ -366,15 +379,168 @@ if (!isset($_SESSION['id_usuario'])) {
             <div class="row g-3">
 
               <div class="col-md-6" style="color:black">
-                <label for="Grafica" class="form-label">Evaluacion: </label>
-                <textarea name="eval_proy_valid" id="eval_proy_valid" cols="40" rows="4" class="form-control" required></textarea>
-                <div id="contador_eval_proy_valid"></div>
+                <label for="Comando" class="form-label">Financiera: </label>
+                <select class="form-select border px-3" id="financiera_proy_valid" name="financiera_proy_valid" required>
+                  <option value="">Seleccione la Operatividad</option>
+                  <option value="Viable">Viable</option>
+                  <option value="Viable con condiciones">Viable con condiciones</option>
+                  <option value="Intermedio">Intermedio</option>
+                  <option value="No viable">No viable</option>
+                </select>
               </div>
 
               <div class="col-md-6" style="color:black">
-                <label for="Grafica" class="form-label">Comentario: </label>
-                <textarea name="coment_proy_valid" id="coment_proy_valid" cols="40" rows="4" class="form-control" required></textarea>
-                <div id="contador_coment_proy_valid"></div>
+                <label for="Comando" class="form-label">Organizacional: </label>
+                <input type="text" class="form-control" id="organizacional_proy_valid" name="organizacional_proy_valid" required>
+              </div>
+
+            </div>
+
+            <div class="row g-3">
+
+              <div class="col-md-6" style="color:black">
+                <label for="Comando" class="form-label">Areas Impactadas: </label>
+                <input type="text" class="form-control" id="areas_imp_proy_valid" name="areas_imp_proy_valid" required>
+              </div>
+
+              <div class="col-md-6" style="color:black">
+                <label for="Comando" class="form-label">Nivel de Impacto: </label>
+                <select class="form-select border px-3" id="nivel_imp_proy_valid" name="nivel_imp_proy_valid" required>
+                  <option value="">Seleccione el nivel de impacto</option>
+                  <option value="Baja">Baja</option>
+                  <option value="Media">Media</option>
+                  <option value="Alta">Alta</option>
+                  <option value="Crítica">Crítica</option>
+                </select>
+              </div>
+
+            </div>
+
+            <div class="row g-3">
+
+              <div class="col-md-12" style="color:black">
+                <label for="Grafica" class="form-label">Observaciones: </label>
+                <textarea name="observa_eval_proy_valid" id="observa_eval_proy_valid" cols="40" rows="4" class="form-control" required></textarea>
+                <div id="contador_observa_eval_proy_valid"></div>
+              </div>
+
+            </div>
+
+            <div class="row g-3">
+
+              <div class="col-md-4" style="color:black">
+                <label for="Comando" class="form-label">Presupuesto Estimado (Actualizacion): </label>
+                <input type="text" class="form-control" id="nivel_imp_proy_valid" name="nivel_imp_proy_valid" required>
+              </div>
+
+              <div class="col-md-4" style="color:black">
+                <label for="Comando" class="form-label">Duración Estimada: </label>
+                <input type="text" class="form-control" id="areas_imp_proy_valid" name="areas_imp_proy_valid" required>
+              </div>
+
+              <div class="col-md-4" style="color:black">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="check_ver_riesgos" checked>
+                  <label class="form-check-label" for="check_ver_riesgos">Asignar riesgos</label>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-12 mb-3" id="ver_riesgos_container">
+
+              <div class="row g-3">
+                <div class="col-md-12" style="color:black">
+
+                  <label class="form-label">Riesgos registrados:</label>
+
+                  <button type="button" class="btn btn-outline-primary btn-sm mb-3" onclick="abrirModalAgregarRiesgo()">
+                    <i class="material-icons text-sm">add_circle</i>
+                    Agregar Riesgo
+                  </button>
+
+                  <div class="table-responsive">
+                    <table class="table table-hover table-striped align-middle">
+
+                      <thead class="table-light">
+                        <tr>
+                          <th class="text-center">Seleccionar</th>
+                          <th class="text-center">Riesgo</th>
+                          <th class="text-center">Probabilidad</th>
+                          <th class="text-center">Impacto</th>
+                          <th class="text-center">Acciones</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+
+                        <?php
+                        $query_riesgos = mysqli_query($conn, "SELECT * FROM risk");
+
+                        if ($query_riesgos && mysqli_num_rows($query_riesgos) > 0) {
+
+                          while ($riesgo = mysqli_fetch_assoc($query_riesgos)) {
+
+                            $id_riesgo = (int)$riesgo['id_risk'];
+                            $nombre_riesgo = htmlspecialchars($riesgo['riesgo']);
+                            $probabilidad = htmlspecialchars($riesgo['probabilidad']);
+                            $impacto = htmlspecialchars($riesgo['impacto']);
+                            $acciones = htmlspecialchars($riesgo['acciones']);
+                        ?>
+
+                            <tr>
+                              <td>
+                                <input type="checkbox" class="form-check-input" id="riesgos_proy_valid" name="riesgos_proy_valid[]" value="<?php echo $id_riesgo; ?>">
+                              </td>
+                              <td class="text-center"><?php echo $nombre_riesgo; ?></td>
+                              <td class="text-center"><?php echo $probabilidad; ?></td>
+                              <td class="text-center"><?php echo $impacto; ?></td>
+                              <td class="text-center"><?php echo $acciones; ?></td>
+                            </tr>
+
+                          <?php
+                          }
+                        } else {
+                          ?>
+
+                          <tr>
+                            <td colspan="5" class="text-center text-secondary">
+                              No hay riesgos registrados.
+                            </td>
+                          </tr>
+
+                        <?php } ?>
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <small class="text-secondary">
+                    Seleccione los riesgos que correspondan al proyecto.
+                  </small>
+
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row g-3">
+
+              <div class="col-md-12" style="color:black">
+                <label for="Grafica" class="form-label">Recursos Requeridos: </label>
+                <textarea name="recur_requer_proy_valid" id="recur_requer_proy_valid" cols="40" rows="4" class="form-control" required></textarea>
+                <div id="contador_recur_requer_proy_valid"></div>
+              </div>
+
+            </div>
+
+
+            <div class="row g-3">
+
+              <div class="col-md-12" style="color:black">
+                <label for="Grafica" class="form-label">Justificación: </label>
+                <textarea name="just_eval_proy_valid" id="just_eval_proy_valid" cols="40" rows="4" class="form-control" required></textarea>
+                <div id="contador_just_eval_proy_valid"></div>
               </div>
 
               <script>
@@ -405,8 +571,9 @@ if (!isset($_SESSION['id_usuario'])) {
                   actualizarContador();
                 }
 
-                limitarTextarea("eval_proy_valid", "contador_eval_proy_valid", 300);
-                limitarTextarea("coment_proy_valid", "contador_coment_proy_valid", 300);
+                limitarTextarea("just_eval_proy_valid", "contador_just_eval_proy_valid", 300);
+                limitarTextarea("recur_requer_proy_valid", "contador_recur_requer_proy_valid", 300);
+                limitarTextarea("observa_eval_proy_valid", "contador_observa_eval_proy_valid", 300);
               </script>
 
             </div>
@@ -430,6 +597,98 @@ if (!isset($_SESSION['id_usuario'])) {
         </div>
 
       </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="Modal_agregar_riesgo" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="titulo_modal_riesgo" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+      <div class="modal-content">
+
+        <div class="modal-header bg-primary">
+
+          <h5 class="modal-title text-white" id="titulo_modal_riesgo">
+            Registrar nuevo riesgo
+          </h5>
+
+          <button type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Cerrar">
+          </button>
+
+        </div>
+
+        <form id="form_agregar_riesgo" action="./proses_proyecto.php?act=#" method="POST">
+
+          <div class="modal-body" style="color:black">
+
+            <div class="mb-3">
+
+              <label class="form-label">Nombre del riesgo *</label>
+
+              <input type="text" class="form-control" id="new_riesgo" name="new_riesgo" required>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-md-6 mb-3">
+
+                <label class="form-label">Probabilidad *</label>
+
+                <select class="form-select" name="new_riesgo_probabilidad" id="new_riesgo_probabilidad" required>
+                  <option value="">Seleccione</option>
+                  <option value="Baja">Baja</option>
+                  <option value="Media">Media</option>
+                  <option value="Alta">Alta</option>
+                </select>
+
+              </div>
+
+              <div class="col-md-6 mb-3">
+
+                <label class="form-label">Impacto *</label>
+
+                <select class="form-select" name="new_riesgo_impacto" id="new_riesgo_impacto" required>
+
+                  <option value="">Seleccione</option>
+                  <option value="Baja">Baja</option>
+                  <option value="Media">Media</option>
+                  <option value="Alta">Alta</option>
+                  <option value="Crítica">Crítica</option>
+
+                </select>
+
+              </div>
+
+            </div>
+
+            <div class="mb-3">
+
+              <label class="form-label">Acciones recomendadas *</label>
+
+              <textarea class="form-control" name="new_riesgo_acciones" id="new_riesgo_acciones" rows="4" maxlength="300" placeholder="Describa las acciones preventivas." required></textarea>
+
+            </div>
+
+            <div id="mensaje_riesgo"></div>
+
+          </div>
+
+          <div class="modal-footer">
+
+            <button type="button" class="btn btn-secondary mb-0" data-bs-dismiss="modal"> Cancelar </button>
+
+            <button type="submit" class="btn btn-primary mb-0" id="btn_guardar_riesgo"> <i class="material-icons text-sm">save</i> Guardar </button>
+
+          </div>
+
+        </form>
+
+      </div>
+
     </div>
   </div>
 
@@ -607,16 +866,22 @@ if (!isset($_SESSION['id_usuario'])) {
 
 
   <script>
+    const modalValidElemento = document.getElementById('Modal_valid');
+    const modalRiesgoElemento = document.getElementById('Modal_agregar_riesgo');
+
+    const modalValid = bootstrap.Modal.getOrCreateInstance(modalValidElemento);
+    const modalRiesgo = bootstrap.Modal.getOrCreateInstance(modalRiesgoElemento);
+
     function abrirModalValidacion(id) {
 
       console.log("ID seleccionado:", id);
 
       document.getElementById('edit_id_Proy_2').value = id;
 
-      const modalElement = document.getElementById('Modal_valid');
-      const modal = new bootstrap.Modal(modalElement);
+      //const modalElement = document.getElementById('Modal_valid');
+      //const modal = new bootstrap.Modal(modalElement);
 
-      modal.show();
+      modalValid.show();
 
       $.ajax({
         url: './consultas/consul_obtener_proyecto.php',
@@ -665,6 +930,32 @@ if (!isset($_SESSION['id_usuario'])) {
 
         }
       });
+
+    }
+
+    function abrirModalAgregarRiesgo() {
+
+      // Al cerrarse el primer modal, abrir el segundo.
+      modalValidElemento.addEventListener('hidden.bs.modal', function() {
+
+        modalRiesgo.show();
+
+      }, {
+        once: true
+      });
+
+      // Al cerrarse el segundo modal, regresar al primero.
+      modalRiesgoElemento.addEventListener('hidden.bs.modal', function() {
+
+        modalValid.show();
+
+      }, {
+        once: true
+      });
+
+      // Cerrar el primer modal.
+      modalValid.hide();
+
     }
   </script>
 
@@ -788,6 +1079,20 @@ if (!isset($_SESSION['id_usuario'])) {
 
   <script>
     const mapaPM = <?php echo json_encode($mapa_pm, JSON_UNESCAPED_UNICODE); ?>;
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const checkbox = document.getElementById('check_ver_riesgos');
+      const contenedor = document.getElementById('ver_riesgos_container');
+
+      function toggle() {
+        contenedor.style.display = checkbox.checked ? 'none' : 'block';
+      }
+
+      toggle(); // estado inicial
+      checkbox.addEventListener('change', toggle);
+    });
   </script>
 
 </body>
