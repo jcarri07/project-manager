@@ -432,40 +432,217 @@
 
               <input type="hidden" style="display:none" class="form-control" id="edit_id_Proy_3" name="edit_id_Proy_3" readonly>
 
-              <div class="row g-3">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="check_data_propuesta" checked>
+                <label class="form-check-label" for="check_data_propuesta">Información de la Propusta</label>
+              </div>
 
-                <div class="col-md-4" style="color:black">
-                  <label for="Comando" class="form-label">Nombre del Proyecto: </label>
-                  <input type="text" class="form-control" id="edit_nombre_proy_3" name="edit_nombre_proy_3" disabled>
+              <div id="data_proy_conten_pro">
+
+                <div class="row g-3">
+
+                  <div class="col-md-4" style="color:black">
+                    <label for="Comando" class="form-label">Nombre del Proyecto: </label>
+                    <input type="text" class="form-control" id="edit_nombre_proy_3" name="edit_nombre_proy_3" disabled>
+                  </div>
+
+                  <div class="col-md-4" style="color:black">
+                    <label for="Cond" class="form-label">Solicitante: </label>
+                    <select class="form-select" id="edit_id_solic_proy_3" name="edit_id_solic_proy_3" disabled>
+                      <?php
+                      $query_data = mysqli_query($conn, "SELECT * FROM users");
+                      while ($miembro = mysqli_fetch_assoc($query_data)) {
+                        $id = $miembro['id_usuario'];
+                        $nombre = ($miembro['nombre_user']);
+                        $apell = ($miembro['apellido_user']);
+                        echo "<option value=\"$id\">$nombre $apell</option>";
+                      }
+                      ?>
+                    </select>
+                  </div>
+
+                  <div class="col-md-4" style="color:black">
+                    <label for="Cond" class="form-label">Unidad: </label>
+                    <select class="form-select" id="edit_unidad_proy_3" name="edit_unidad_proy_3" disabled>
+                      <?php
+                      $query_data = mysqli_query($conn, "SELECT * FROM unidad");
+                      while ($miembro = mysqli_fetch_assoc($query_data)) {
+                        $id = $miembro['id_unidad'];
+                        $nombre = ($miembro['nombre_unid']);
+                        echo "<option value=\"$id\">$nombre</option>";
+                      }
+                      ?>
+                    </select>
+                  </div>
+
                 </div>
 
-                <div class="col-md-4" style="color:black">
-                  <label for="Cond" class="form-label">Solicitante: </label>
-                  <select class="form-select" id="edit_id_solic_proy_3" name="edit_id_solic_proy_3" disabled>
-                    <?php
-                    $query_data = mysqli_query($conn, "SELECT * FROM users");
-                    while ($miembro = mysqli_fetch_assoc($query_data)) {
-                      $id = $miembro['id_usuario'];
-                      $nombre = ($miembro['nombre_user']);
-                      $apell = ($miembro['apellido_user']);
-                      echo "<option value=\"$id\">$nombre $apell</option>";
-                    }
-                    ?>
-                  </select>
+                <br>
+
+                <div class="row g-3">
+
+                  <div class="col-md-3" style="color:black">
+                    <label for="Comando" class="form-label">Tipo: </label>
+                    <input type="text" class="form-control" id="edit_tipo_proy_3" name="edit_tipo_proy_3" disabled>
+                  </div>
+
+                  <div class="col-md-3" style="color:black">
+                    <label for="Comando" class="form-label">Prioridad: </label>
+                    <input type="text" class="form-control" id="edit_prioridad_proy_3" name="edit_prioridad_proy_3" disabled>
+                  </div>
+
+                  <div class="col-md-3" style="color:black">
+                    <label for="Comando" class="form-label">Sponsor: </label>
+                    <input type="text" class="form-control" id="edit_sponsor_proy_3" name="edit_sponsor_proy_3" disabled>
+                  </div>
+
                 </div>
 
-                <div class="col-md-4" style="color:black">
-                  <label for="Cond" class="form-label">Unidad: </label>
-                  <select class="form-select" id="edit_unidad_proy_3" name="edit_unidad_proy_3" disabled>
-                    <?php
-                    $query_data = mysqli_query($conn, "SELECT * FROM unidad");
-                    while ($miembro = mysqli_fetch_assoc($query_data)) {
-                      $id = $miembro['id_unidad'];
-                      $nombre = ($miembro['nombre_unid']);
-                      echo "<option value=\"$id\">$nombre</option>";
-                    }
-                    ?>
-                  </select>
+                <br>
+
+                <div class="row g-3">
+
+                  <div class="col-md-3" style="color:black">
+                    <label class="form-label">Inicio estimado</label>
+                    <input type="date" name="edit_fecha_inicio_proy_3" id="edit_fecha_inicio_proy_3" class="form-control border px-3" disabled>
+                  </div>
+
+                  <div class="col-md-3">
+                    <label class="form-label">Final estimado</label>
+                    <input type="date" name="edit_fecha_fin_proy_3" id="edit_fecha_fin_proy_3" class="form-control border px-3" disabled>
+                  </div>
+
+                  <div class="col-md-3" style="color:black">
+                    <label for="Comando" class="form-label">Presupesto: </label>
+                    <div class="input-group col-md-">
+                      <input type="number" class="form-control" id="edit_presupuesto_est_proy_3" name="edit_presupuesto_est_proy_3" disabled>
+                      <span class="input-group-text">$</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3" style="color:black">
+                    <label for="Comando" class="form-label">Avance: </label>
+                    <div class="input-group col-md-">
+                      <input type="number" class="form-control" id="edit_avance_proy_3" name="edit_avance_proy_3" disabled>
+                      <span class="input-group-text">%</span>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row g-3">
+
+                  <div class="col-md-12" style="color:black">
+                    <label for="Grafica" class="form-label">Problematica: </label>
+                    <textarea name="edit_problema_proy_3" id="edit_problema_proy_3" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
+                    <div id="contador_edit_problema_proy_3"></div>
+                  </div>
+
+                  <div class="col-md-12" style="color:black">
+                    <label for="Grafica" class="form-label">Objetivos del Proyecto: </label>
+                    <textarea name="edit_objetivos_proy_3" id="edit_objetivos_proy_3" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
+                    <div id="contador_edit_objetivos_proy_3"></div>
+                  </div>
+
+                  <div class="col-md-12" style="color:black">
+                    <label for="Grafica" class="form-label">Beneficios del Proyecto: </label>
+                    <textarea name="edit_beneficios_proy_2" id="edit_beneficios_proy_3" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
+                    <div id="contador_edit_beneficios_proy_3"></div>
+                  </div>
+
+                  <div class="col-md-12" style="color:black">
+                    <label for="Grafica" class="form-label">Descripción del Proyecto: </label>
+                    <textarea name="edit_descripcion_proy_3" id="edit_descripcion_proy_3" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
+                    <div id="contador_edit_descripcion_proy_3"></div>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <br>
+
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="check_data_eval" checked>
+                <label class="form-check-label" for="check_data_eval">Información de la Evaluacion</label>
+              </div>
+
+              <div id="data_proy_conten_eval">
+
+                <div class="row g-3">
+
+                  <div class="col-md-4" style="color:black">
+                    <label for="Comando" class="form-label">Técnica: </label>
+                    <div class="input-group col-md-4">
+                      <input type="text" class="form-control" id="ver_tecnica_proy_valid" name="ver_tecnica_proy_valid" disabled>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4" style="color:black">
+                    <label for="Grafica" class="form-label">Operativa: </label>
+                    <div class="input-group col-md-4">
+                      <input type="text" class="form-control" id="ver_operativa_proy_valid" name="ver_operativa_proy_valid" disabled>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4" style="color:black">
+                    <label for="Grafica" class="form-label">Financiera: </label>
+                    <div class="input-group col-md-4">
+                      <input type="text" class="form-control" id="ver_financiera_proy_valid" name="ver_financiera_proy_valid" disabled>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row g-3">
+
+                  <div class="col-md-3" style="color:black">
+                    <label for="Grafica" class="form-label">Organizacional: </label>
+                    <div class="input-group col-md-4">
+                      <input type="text" class="form-control" id="ver_organizacional_proy_valid" name="ver_organizacional_proy_valid" disabled>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3" style="color:black">
+                    <label for="Grafica" class="form-label">Areas de impacto: </label>
+                    <div class="input-group col-md-4">
+                      <input type="text" class="form-control" id="ver_areas_imp_proy_valid" name="ver_areas_imp_proy_valid" disabled>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3" style="color:black">
+                    <label for="Grafica" class="form-label">Nivel de impacto: </label>
+                    <div class="input-group col-md-4">
+                      <input type="text" class="form-control" id="ver_nivel_imp_proy_valid" name="ver_nivel_imp_proy_valid" disabled>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3" style="color:black">
+                    <label for="Grafica" class="form-label">Duracion estimada: </label>
+                    <div class="input-group col-md-4">
+                      <input type="text" class="form-control" id="ver_dur_est_proy_valid" name="ver_dur_est_proy_valid" disabled>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row g-3">
+
+                  <div class="col-md-4" style="color:black">
+                    <label for="Grafica" class="form-label">Observacion: </label>
+                    <textarea name="ver_observa_eval_proy_valid" id="ver_observa_eval_proy_valid" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
+                  </div>
+
+                  <div class="col-md-4" style="color:black">
+                    <label for="Grafica" class="form-label">Recursos Requeridos: </label>
+                    <textarea name="ver_recur_requer_proy_valid" id="ver_recur_requer_proy_valid" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
+                  </div>
+
+                  <div class="col-md-4" style="color:black">
+                    <label for="Grafica" class="form-label">Justificación del Evaluador: </label>
+                    <textarea name="ver_just_eval_proy_valid" id="ver_just_eval_proy_valid" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
+                  </div>
+
                 </div>
 
               </div>
@@ -474,116 +651,8 @@
 
               <div class="row g-3">
 
-                <div class="col-md-3" style="color:black">
-                  <label for="Comando" class="form-label">Tipo: </label>
-                  <input type="text" class="form-control" id="edit_tipo_proy_3" name="edit_tipo_proy_3" disabled>
-                </div>
-
-                <div class="col-md-3" style="color:black">
-                  <label for="Comando" class="form-label">Prioridad: </label>
-                  <input type="text" class="form-control" id="edit_prioridad_proy_3" name="edit_prioridad_proy_3" disabled>
-                </div>
-
-                <div class="col-md-3" style="color:black">
-                  <label for="Comando" class="form-label">Sponsor: </label>
-                  <input type="text" class="form-control" id="edit_sponsor_proy_3" name="edit_sponsor_proy_3" disabled>
-                </div>
-
-              </div>
-
-              <br>
-
-              <div class="row g-3">
-
-                <div class="col-md-3" style="color:black">
-                  <label class="form-label">Inicio estimado</label>
-                  <input type="date" name="edit_fecha_inicio_proy_3" id="edit_fecha_inicio_proy_3" class="form-control border px-3" disabled>
-                </div>
-
-                <div class="col-md-3">
-                  <label class="form-label">Final estimado</label>
-                  <input type="date" name="edit_fecha_fin_proy_3" id="edit_fecha_fin_proy_3" class="form-control border px-3" disabled>
-                </div>
-
-                <div class="col-md-3" style="color:black">
-                  <label for="Comando" class="form-label">Presupesto: </label>
-                  <div class="input-group col-md-">
-                    <input type="number" class="form-control" id="edit_presupuesto_est_proy_3" name="edit_presupuesto_est_proy_3" disabled>
-                    <span class="input-group-text">$</span>
-                  </div>
-                </div>
-
-                <div class="col-md-3" style="color:black">
-                  <label for="Comando" class="form-label">Avance: </label>
-                  <div class="input-group col-md-">
-                    <input type="number" class="form-control" id="edit_avance_proy_3" name="edit_avance_proy_3" disabled>
-                    <span class="input-group-text">%</span>
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="row g-3">
-
                 <div class="col-md-12" style="color:black">
-                  <label for="Grafica" class="form-label">Problematica: </label>
-                  <textarea name="edit_problema_proy_3" id="edit_problema_proy_3" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
-                  <div id="contador_edit_problema_proy_3"></div>
-                </div>
-
-                <div class="col-md-12" style="color:black">
-                  <label for="Grafica" class="form-label">Objetivos del Proyecto: </label>
-                  <textarea name="edit_objetivos_proy_3" id="edit_objetivos_proy_3" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
-                  <div id="contador_edit_objetivos_proy_3"></div>
-                </div>
-
-                <div class="col-md-12" style="color:black">
-                  <label for="Grafica" class="form-label">Beneficios del Proyecto: </label>
-                  <textarea name="edit_beneficios_proy_2" id="edit_beneficios_proy_3" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
-                  <div id="contador_edit_beneficios_proy_3"></div>
-                </div>
-
-                <div class="col-md-12" style="color:black">
-                  <label for="Grafica" class="form-label">Descripción del Proyecto: </label>
-                  <textarea name="edit_descripcion_proy_3" id="edit_descripcion_proy_3" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
-                  <div id="contador_edit_descripcion_proy_3"></div>
-                </div>
-
-              </div>
-
-
-              <br>
-
-              <div class="row g-3">
-
-                <div class="col-md-6" style="color:black">
-                  <label for="Comando" class="form-label">Dimensiones: </label>
-                  <div class="input-group col-md-">
-                    <input type="text" class="form-control" id="edit_dimension_proy_3" name="edit_dimension_proy_3" disabled>
-                  </div>
-                </div>
-
-              </div>
-              <div class="row g-3">
-
-                <div class="col-md-6" style="color:black">
-                  <label for="Grafica" class="form-label">Evaluación del Proyecto: </label>
-                  <textarea name="edit_evaluacion_proy_3" id="edit_evaluacion_proy_3" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
-                  <div id="contador_edit_evaluacion_proy_3"></div>
-                </div>
-
-                <div class="col-md-6" style="color:black">
-                  <label for="Grafica" class="form-label">Comentario del Proyecto: </label>
-                  <textarea name="edit_comentario_proy_3" id="edit_comentario_proy_3" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
-                  <div id="contador_edit_comentario_proy_3"></div>
-                </div>
-
-              </div>
-
-              <div class="row g-3">
-
-                <div class="col-md-6" style="color:black">
-                  <label for="Grafica" class="form-label">Justificacion del Proyecto: </label>
+                  <label for="Grafica" class="form-label">Justificacion del director: </label>
                   <textarea name="justificacion_proy_3" id="justificacion_proy_3" maxlength="300" cols="40" rows="4" class="form-control"></textarea>
                   <div id="contador_justificacion_proy_3">300</div>
                 </div>
@@ -1182,9 +1251,17 @@
             $('#edit_avance_proy_3').val(proyecto.avance);
             $('#edit_est_proy_3').val(proyecto.estatus);
             $('#edit_salud_proy_3').val(proyecto.salud);
-            $('#edit_dimension_proy_3').val(proyecto.dimension);
-            $('#edit_evaluacion_proy_3').val(proyecto.evaluacion);
-            $('#edit_comentario_proy_3').val(proyecto.comentario);
+
+            $('#ver_tecnica_proy_valid').val(proyecto.tecnica);
+            $('#ver_operativa_proy_valid').val(proyecto.operativa);
+            $('#ver_financiera_proy_valid').val(proyecto.financiera);
+            $('#ver_organizacional_proy_valid').val(proyecto.organizacional);
+            $('#ver_areas_imp_proy_valid').val(proyecto.areas_impacto);
+            $('#ver_nivel_imp_proy_valid').val(proyecto.nivel_impacto);
+            $('#ver_observa_eval_proy_valid').val(proyecto.observaciones_eval);
+            $('#ver_dur_est_proy_valid').val(proyecto.duracion_estimada);
+            $('#ver_recur_requer_proy_valid').val(proyecto.recursos_requeridos);
+            $('#ver_just_eval_proy_valid').val(proyecto.justificacion_eval);
 
           },
 
@@ -1266,6 +1343,34 @@
         actualizarProjectManager();
 
       });
+    </script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+
+        const checkbox2 = document.getElementById('check_data_eval');
+        const contenedor2 = document.getElementById('data_proy_conten_eval');
+
+        function toggle() {
+          contenedor2.style.display = checkbox2.checked ? 'none' : 'block';
+        }
+
+        toggle();
+        checkbox2.addEventListener('change', toggle);
+
+      });
+    </script>
+
+    <script>
+      const checkbox1 = document.getElementById('check_data_propuesta');
+      const contenedor1 = document.getElementById('data_proy_conten_pro');
+
+      function toggle() {
+        contenedor1.style.display = checkbox1.checked ? 'none' : 'block';
+      }
+
+      toggle();
+      checkbox1.addEventListener('change', toggle);
     </script>
 
     <script>
