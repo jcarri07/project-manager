@@ -132,7 +132,7 @@ $urlRetorno = '../pages/' . $paginaRetorno;
 
                   <div class="col-md-12 mb-3">
                     <label class="form-label">Descripción *</label>
-                    <textarea name="descripcion_proy" id="descripcion_proy" class="form-control border px-3" rows="3" placeholder="Describa brevemente el proyecto" required></textarea>
+                    <textarea name="descripcion_proy" id="descripcion_proy" class="form-control border px-3" maxlength="300" rows="3" placeholder="Describa brevemente el proyecto" required></textarea>
                     <div id="contador_descrip_proy">300</div>
                   </div>
 
@@ -280,19 +280,19 @@ $urlRetorno = '../pages/' . $paginaRetorno;
 
                   <div class="col-md-12 mb-3">
                     <label class="form-label">Problema / Necesidad *</label>
-                    <textarea name="problema_proy" id="problema_proy" class="form-control border px-3" rows="3" placeholder="Describa el problema o la necesidad que se desea resolver" required></textarea>
+                    <textarea name="problema_proy" id="problema_proy" class="form-control border px-3" maxlength="300" rows="3" placeholder="Describa el problema o la necesidad que se desea resolver" required></textarea>
                     <div id="contador_problema_proy">300</div>
                   </div>
 
                   <div class="col-md-12 mb-3">
                     <label class="form-label">Objetivos *</label>
-                    <textarea name="objetivos_proy" class="form-control border px-3" rows="3" placeholder="Indique el objetivo principal del proyecto" required></textarea>
+                    <textarea name="objetivos_proy" class="form-control border px-3" maxlength="300" rows="3" placeholder="Indique el objetivo principal del proyecto" required></textarea>
                     <div id="contador_objetivos_proy">300</div>
                   </div>
 
                   <div class="col-md-12 mb-3">
                     <label class="form-label">Beneficios esperados *</label>
-                    <textarea name="beneficios_esperados_proy" id="beneficios_esperados_proy" class="form-control border px-3" rows="3" placeholder="Describa los beneficios que se esperan obtener" required></textarea>
+                    <textarea name="beneficios_esperados_proy" id="beneficios_esperados_proy" class="form-control border px-3" maxlength="300" rows="3" placeholder="Describa los beneficios que se esperan obtener" required></textarea>
                     <div id="contador_beneficios_esperados_proy">300</div>
                   </div>
 

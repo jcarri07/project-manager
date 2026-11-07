@@ -124,14 +124,32 @@ if ($_GET['act'] == 'insert_init_dir') {
 } elseif ($_GET['act'] == 'insert_eval_proy') {
 
 	$id_proy = mysqli_real_escape_string($conn, trim($_POST['edit_id_Proy_2']));
-	$dimen_proy = mysqli_real_escape_string($conn, trim($_POST['dimen_proy_valid']));
-	$eval_proy = mysqli_real_escape_string($conn, trim($_POST['eval_proy_valid']));
-	$coment_proy = mysqli_real_escape_string($conn, trim($_POST['coment_proy_valid']));
+
+	$new_tecnica_proy_valid = mysqli_real_escape_string($conn, trim($_POST['tecnica_proy_valid']));
+	$new_operativa_proy_valid = mysqli_real_escape_string($conn, trim($_POST['operativa_proy_valid']));
+	$new_financiera_proy_valid = mysqli_real_escape_string($conn, trim($_POST['financiera_proy_valid']));
+	$new_organizacional_proy_valid = mysqli_real_escape_string($conn, trim($_POST['organizacional_proy_valid']));
+	$new_areas_imp_proy_valid = mysqli_real_escape_string($conn, trim($_POST['areas_imp_proy_valid']));
+	$new_nivel_imp_proy_valid = mysqli_real_escape_string($conn, trim($_POST['nivel_imp_proy_valid']));
+	$new_observa_eval_proy_valid = mysqli_real_escape_string($conn, trim($_POST['observa_eval_proy_valid']));
+	$new_presu_est_proy_valid = mysqli_real_escape_string($conn, trim($_POST['presu_est_proy_valid']));
+	$new_dur_est_proy_valid = mysqli_real_escape_string($conn, trim($_POST['dur_est_proy_valid']));
+	$new_recur_requer_proy_valid = mysqli_real_escape_string($conn, trim($_POST['recur_requer_proy_valid']));
+	$new_just_eval_proy_valid = mysqli_real_escape_string($conn, trim($_POST['just_eval_proy_valid']));
 	$status_val = "Aprobacion";
 
-	$query = mysqli_query($conn, "UPDATE projects SET dimension = '$dimen_proy', evaluacion = '$eval_proy', comentario = '$coment_proy',estatus='$status_val' WHERE projects.id_proyecto = '$id_proy'");
+	$query = mysqli_query($conn, "UPDATE projects SET presupuesto_est='$new_presu_est_proy_valid', tecnica='$new_tecnica_proy_valid', operativa ='$new_operativa_proy_valid', financiera='$new_financiera_proy_valid', organizacional='$new_organizacional_proy_valid', areas_impacto='$new_areas_imp_proy_valid', nivel_impacto='$new_nivel_imp_proy_valid', observaciones_eval='$new_observa_eval_proy_valid', duracion_estimada='$new_dur_est_proy_valid', recursos_requeridos='$new_recur_requer_proy_valid', justificacion_eval='$new_just_eval_proy_valid', estatus='$status_val' WHERE projects.id_proyecto = '$id_proy'");
 
 	if ($query) {
+
+		if (!empty($_POST['riesgos_proy_valid'])) {
+			foreach ($_POST['riesgos_proy_valid'] as $id_riesgo_e) {
+				$id_riesgo_e = intval($id_riesgo_e);
+				$sql_riesgo = "INSERT INTO projects_risk (id_proyecto, id_risk) 
+						VALUES ('$id_proy', '$id_riesgo_e')";
+				mysqli_query($conn, $sql_riesgo);
+			}
+		}
 
 		header("location: ../pages/project_gen_tables_jef.php?alert=1");
 	}
@@ -204,6 +222,27 @@ if ($_GET['act'] == 'insert_init_dir') {
 		}
 		if ($val_Type_User == 2) {
 			header("location: ../pages/project_indiv_tables_jef.php?alert=1");
+		}
+		if ($val_Type_User == 3) {
+			header("location: ../pages/project_tables_trab.php?alert=1");
+		}
+	}
+} elseif ($_GET['act'] == 'insert_risk') {
+	$d_new_riesgo = mysqli_real_escape_string($conn, trim($_POST['new_riesgo']));
+	$d_new_riesgo_probabilidad = mysqli_real_escape_string($conn, trim($_POST['new_riesgo_probabilidad']));
+	$d_new_riesgo_impacto  = mysqli_real_escape_string($conn, trim($_POST['new_riesgo_impacto']));
+	$d_new_riesgo_acciones = mysqli_real_escape_string($conn, trim($_POST['new_riesgo_acciones']));
+
+	$query = mysqli_query($conn, "INSERT INTO risk(riesgo, probabilidad, impacto, acciones) VALUES ('$d_new_riesgo','$d_new_riesgo_probabilidad','$d_new_riesgo_impacto','$d_new_riesgo_acciones')");
+
+	if ($query) {
+
+		if ($val_Type_User == 1) {
+			//echo ($sql1 . "  -----  " . $sql2);
+			header("location: ../pages/project_indiv_tables_direct.php?alert=1");
+		}
+		if ($val_Type_User == 2) {
+			header("location: ../pages/project_gen_tables_jef.php?alert=1");
 		}
 		if ($val_Type_User == 3) {
 			header("location: ../pages/project_tables_trab.php?alert=1");

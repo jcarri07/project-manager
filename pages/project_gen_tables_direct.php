@@ -348,25 +348,25 @@
 
                 <div class="col-md-3" style="color:black">
                   <label for="Grafica" class="form-label">Problematica: </label>
-                  <textarea name="edit_problema_proy_2" id="edit_problema_proy_2" cols="40" rows="4" class="form-control" readonly></textarea>
+                  <textarea name="edit_problema_proy_2" id="edit_problema_proy_2" cols="40" maxlength="300" rows="4" class="form-control" readonly></textarea>
                   <div id="contador_edit_problema_proy_2"></div>
                 </div>
 
                 <div class="col-md-3" style="color:black">
                   <label for="Grafica" class="form-label">Objetivos del Proyecto: </label>
-                  <textarea name="edit_objetivos_proy_2" id="edit_objetivos_proy_2" cols="40" rows="4" class="form-control" readonly></textarea>
+                  <textarea name="edit_objetivos_proy_2" id="edit_objetivos_proy_2" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
                   <div id="contador_edit_objetivos_proy_2"></div>
                 </div>
 
                 <div class="col-md-3" style="color:black">
                   <label for="Grafica" class="form-label">Beneficios del Proyecto: </label>
-                  <textarea name="edit_beneficios_proy_2" id="edit_beneficios_proy_2" cols="40" rows="4" class="form-control" readonly></textarea>
+                  <textarea name="edit_beneficios_proy_2" id="edit_beneficios_proy_2" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
                   <div id="contador_edit_beneficios_proy_2"></div>
                 </div>
 
                 <div class="col-md-3" style="color:black">
                   <label for="Grafica" class="form-label">Descripción del Proyecto: </label>
-                  <textarea name="edit_descripcion_proy_2" id="edit_descripcion_proy_2" cols="40" rows="4" class="form-control" readonly></textarea>
+                  <textarea name="edit_descripcion_proy_2" id="edit_descripcion_proy_2" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
                   <div id="contador_edit_descripcion_proy_2"></div>
                 </div>
 
@@ -527,25 +527,25 @@
 
                 <div class="col-md-12" style="color:black">
                   <label for="Grafica" class="form-label">Problematica: </label>
-                  <textarea name="edit_problema_proy_3" id="edit_problema_proy_3" cols="40" rows="4" class="form-control" readonly></textarea>
+                  <textarea name="edit_problema_proy_3" id="edit_problema_proy_3" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
                   <div id="contador_edit_problema_proy_3"></div>
                 </div>
 
                 <div class="col-md-12" style="color:black">
                   <label for="Grafica" class="form-label">Objetivos del Proyecto: </label>
-                  <textarea name="edit_objetivos_proy_3" id="edit_objetivos_proy_3" cols="40" rows="4" class="form-control" readonly></textarea>
+                  <textarea name="edit_objetivos_proy_3" id="edit_objetivos_proy_3" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
                   <div id="contador_edit_objetivos_proy_3"></div>
                 </div>
 
                 <div class="col-md-12" style="color:black">
                   <label for="Grafica" class="form-label">Beneficios del Proyecto: </label>
-                  <textarea name="edit_beneficios_proy_2" id="edit_beneficios_proy_3" cols="40" rows="4" class="form-control" readonly></textarea>
+                  <textarea name="edit_beneficios_proy_2" id="edit_beneficios_proy_3" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
                   <div id="contador_edit_beneficios_proy_3"></div>
                 </div>
 
                 <div class="col-md-12" style="color:black">
                   <label for="Grafica" class="form-label">Descripción del Proyecto: </label>
-                  <textarea name="edit_descripcion_proy_3" id="edit_descripcion_proy_3" cols="40" rows="4" class="form-control" readonly></textarea>
+                  <textarea name="edit_descripcion_proy_3" id="edit_descripcion_proy_3" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
                   <div id="contador_edit_descripcion_proy_3"></div>
                 </div>
 
@@ -568,13 +568,13 @@
 
                 <div class="col-md-6" style="color:black">
                   <label for="Grafica" class="form-label">Evaluación del Proyecto: </label>
-                  <textarea name="edit_evaluacion_proy_3" id="edit_evaluacion_proy_3" cols="40" rows="4" class="form-control" readonly></textarea>
+                  <textarea name="edit_evaluacion_proy_3" id="edit_evaluacion_proy_3" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
                   <div id="contador_edit_evaluacion_proy_3"></div>
                 </div>
 
                 <div class="col-md-6" style="color:black">
                   <label for="Grafica" class="form-label">Comentario del Proyecto: </label>
-                  <textarea name="edit_comentario_proy_3" id="edit_comentario_proy_3" cols="40" rows="4" class="form-control" readonly></textarea>
+                  <textarea name="edit_comentario_proy_3" id="edit_comentario_proy_3" maxlength="300" cols="40" rows="4" class="form-control" readonly></textarea>
                   <div id="contador_edit_comentario_proy_3"></div>
                 </div>
 
@@ -584,7 +584,7 @@
 
                 <div class="col-md-6" style="color:black">
                   <label for="Grafica" class="form-label">Justificacion del Proyecto: </label>
-                  <textarea name="justificacion_proy_3" id="justificacion_proy_3" cols="40" rows="4" class="form-control"></textarea>
+                  <textarea name="justificacion_proy_3" id="justificacion_proy_3" maxlength="300" cols="40" rows="4" class="form-control"></textarea>
                   <div id="contador_justificacion_proy_3">300</div>
                 </div>
 

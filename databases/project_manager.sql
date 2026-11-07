@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-10-2026 a las 15:24:55
+-- Tiempo de generación: 07-11-2026 a las 14:16:51
 -- Versión del servidor: 9.7.1
--- Versión de PHP: 8.2.33
+-- Versión de PHP: 8.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -63,9 +63,16 @@ CREATE TABLE `projects` (
   `problema` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `objetivos` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `beneficios` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `dimension` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `evaluacion` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `comentario` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `tecnica` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `operativa` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `financiera` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `organizacional` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `areas_impacto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nivel_impacto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `observaciones_eval` varchar(300) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `duracion_estimada` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `recursos_requeridos` varchar(300) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `justificacion_eval` varchar(300) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `avance` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `estatus` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'Por Ejecutar',
   `salud` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'En control',
@@ -78,23 +85,45 @@ CREATE TABLE `projects` (
 -- Volcado de datos para la tabla `projects`
 --
 
-INSERT INTO `projects` (`id_proyecto`, `id_solicitante`, `id_manager`, `id_validador`, `id_aprobador`, `nombre`, `descripcion`, `unidad`, `tipo`, `prioridad`, `sponsor`, `fecha_inicio`, `fecha_fin`, `presupuesto_est`, `problema`, `objetivos`, `beneficios`, `dimension`, `evaluacion`, `comentario`, `avance`, `estatus`, `salud`, `decision_dir`, `justificacion_dir`, `activo`) VALUES
-(1, 1, 0, 2, 0, '12to proceso', 'Nuevo avance 24', 1, 'Proyecto', 'Baja', 'ABAE', '2026-09-14', '2026-10-10', '77', '8', 'Ingreso', 'Ingreso', '', '', '', '0', 'Evaluacion', 'Critico', '2', 'Falta información', 1),
-(2, 2, 0, 0, 0, '12to', 'Nuevo avance 19', 2, 'Proyecto', 'Alta', 'ABAE', '2026-10-22', '2026-10-20', '44747', 'Trabajo', 'Funciona', 'Funciona', '', '', '', '100', 'Propuesto', 'En riesgo', 'Por asignar', 'En revisión ', 1),
-(3, 1, 0, 2, 0, '98to proceso', 'Nuevo avance 578', 2, 'Proyecto', 'Media', 'ABAE', '2026-10-06', '2026-10-22', '7', '1', '22', '333', '70x30 mm', '3', '3', '50', 'Planificacion', 'En control', '1', 'Cumple', 1),
-(4, 1, 0, 2, 0, 'Nueva version', 'Nueva proyecto', 1, 'Mantenimiento', 'Alta', 'ABAE', '2026-10-05', '2026-10-21', '22442', 'Pocas pruebas', 'Ver los nuevos añadidos', 'Nuevos avances', '', '', '', '0', 'Evaluacion', 'En control', 'Por asignar', 'En revisión ', 1),
-(5, 1, 0, 0, 0, 'Practica de cambios', 'afffafffa', 1, 'Mantenimiento', 'Media', 'ABAE', '2026-10-13', '2026-10-30', '255', 'affaff', 'adffg', 'faff', '', '', '', '0', 'Planificacion', 'En control', 'Por asignar', 'En revisión ', 1),
-(6, 1, 5, 0, 0, 'Nueva version de borrador', 'Prueba de nueva tabla', 2, 'Proyecto', 'Media', 'ABAE', '2026-10-14', '2026-10-29', '74746', 'Nueva revisión', 'Verificar', 'Revisión', '', '', '', '0', 'Planificacion', 'En control', '1', '', 1),
-(7, 1, 0, 0, 0, 'Practica 8', 'dadadadadad', 2, 'Mantenimiento', 'Media', 'ABAE', '2026-10-07', '2026-11-07', '2424', 'rwrrwr', '31331', '42424', '', '', '', '0', 'Propuesto', 'En control', 'Por asignar', 'En revisión ', 1),
-(8, 1, 0, 0, 0, 'Ingreso 7', 'ffffffffff', 2, 'Mantenimiento', 'Crítica', 'ABAE', '2026-07-26', '2026-10-28', '5787', 'sdggd', 'etyg', 'tyuhb', '', '', '', '0', 'Evaluacion', 'En control', 'Por asignar', 'En revisión ', 1),
-(9, 4, 0, 1, 0, 'Ingreso trabajador', 'sfsfsf', 1, 'Mantenimiento y Revisión', 'Media', 'ABAE', '2026-10-05', '2026-10-29', '4443', 'srwr', 'wrr', 'wrr', '', '', '', '0', 'Evaluacion', 'En control', 'Por asignar', 'En revisión ', 1),
-(10, 1, 0, 0, 0, 'Practica tecnica', 'Prueba en la oficina', 2, 'Mantenimiento', 'Baja', 'ABAE', '2026-10-14', '2026-10-29', '856', 'Practica', 'Funcionamiento', 'Modulo 1', '', '', '', '0', 'Propuesto', 'En control', 'Por asignar', 'En revisión ', 1),
-(11, 1, 0, 0, 0, 'Practica tecnica 2', 'Prueba de ingreso', 1, 'Reparación', 'Baja', 'ABAE', '2026-10-29', '2026-10-23', '754', 'Prueba de funcionamiento', 'Ver avance', 'Modulo 1', '', '', '', '0', 'Propuesto', 'En control', 'Por asignar', 'En revisión ', 1),
-(12, 4, 0, 2, 0, 'Proyecto trabajador', 'Prueba de la pagina 2', 1, 'Proyecto', 'Alta', 'ABAE', '2026-10-08', '2026-10-15', '434', 'Practica de usuario', 'Prueba', 'Prueba', '', '', '', '0', 'Evaluacion', 'En control', 'Por asignar', 'En revisión ', 1),
-(13, 1, 0, 0, 0, 'Select', 'Multiple', 1, 'Proyecto', 'Baja', 'ABAE', '2026-10-13', '2026-10-16', '634', 'Prueba', 'Prueba', 'Prueba', '', '', '', '0', 'Propuesto', 'En control', 'Por asignar', 'En revisión ', 1),
-(14, 1, 0, 2, 0, 'Select Admid', 'hrhr', 2, 'Mantenimiento', 'Baja', 'ABAE', '2026-10-01', '2026-10-23', '37', 'tww', 'yyy', 'yyy', '', '', '', '0', 'Evaluacion', 'En control', 'Por asignar', 'En revisión ', 1),
-(15, 4, 0, 0, 0, 'Ingreso nuevo select', 'Nuevas mejoras no', 1, 'Reparación', 'Baja', 'ABAE', '2026-10-07', '2026-10-21', '3313', 'jsddd', 'dssdd', 'dssdd', '', '', '', '0', 'Planificacion', 'En control', 'Por asignar', 'En revisión ', 1),
-(16, 4, 0, 2, 0, 'Ingreso de la nueva versión', 'Otra prueba', 1, 'Proyecto', 'Alta', 'ABAE', '2026-10-15', '2026-11-07', '766881', 'Uno y medio', 'Dos', 'Dos', '50 x 30 mm', 'fifif', 'lol', '0', 'Planificacion', 'En control', '1', 'Aceptable', 1);
+INSERT INTO `projects` (`id_proyecto`, `id_solicitante`, `id_manager`, `id_validador`, `id_aprobador`, `nombre`, `descripcion`, `unidad`, `tipo`, `prioridad`, `sponsor`, `fecha_inicio`, `fecha_fin`, `presupuesto_est`, `problema`, `objetivos`, `beneficios`, `tecnica`, `operativa`, `financiera`, `organizacional`, `areas_impacto`, `nivel_impacto`, `observaciones_eval`, `duracion_estimada`, `recursos_requeridos`, `justificacion_eval`, `avance`, `estatus`, `salud`, `decision_dir`, `justificacion_dir`, `activo`) VALUES
+(1, 1, 0, 2, 0, '12to proceso', 'Nuevo avance 24', 1, 'Proyecto', 'Baja', 'ABAE', '2026-09-14', '2026-10-10', '77', '8', 'Ingreso', 'Ingreso', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Evaluacion', 'Critico', '2', 'Falta información', 1),
+(2, 2, 0, 0, 0, '12to', 'Nuevo avance 19', 2, 'Proyecto', 'Alta', 'ABAE', '2026-10-22', '2026-10-20', '44747', 'Trabajo', 'Funciona', 'Funciona', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '100', 'Propuesto', 'En riesgo', 'Por asignar', 'En revisión ', 1),
+(3, 1, 0, 2, 0, '98to proceso', 'Nuevo avance 578', 2, 'Proyecto', 'Media', 'ABAE', '2026-10-06', '2026-10-22', '7', '1', '22', '333', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '50', 'Planificacion', 'En control', '1', 'Cumple', 1),
+(4, 1, 0, 2, 0, 'Nueva version', 'Nueva proyecto', 1, 'Mantenimiento', 'Alta', 'ABAE', '2026-10-05', '2026-10-21', '22442', 'Pocas pruebas', 'Ver los nuevos añadidos', 'Nuevos avances', 'No viable', 'Viable', 'Intermedio', 'USMI', 'UDLP', 'Crítica', 'Prueba de evaluación', '3 meses', 'Prueba 2002', 'En desarrollo 1999', '0', 'Aprobacion', 'En control', 'Por asignar', 'En revisión ', 1),
+(5, 1, 0, 0, 0, 'Practica de cambios', 'afffafffa', 1, 'Mantenimiento', 'Media', 'ABAE', '2026-10-13', '2026-10-30', '255', 'affaff', 'adffg', 'faff', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Planificacion', 'En control', 'Por asignar', 'En revisión ', 1),
+(6, 1, 5, 0, 0, 'Nueva version de borrador', 'Prueba de nueva tabla', 2, 'Proyecto', 'Media', 'ABAE', '2026-10-14', '2026-10-29', '74746', 'Nueva revisión', 'Verificar', 'Revisión', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Planificacion', 'Critico', '1', '', 1),
+(7, 1, 0, 0, 0, 'Practica 8', 'dadadadadad', 2, 'Mantenimiento', 'Media', 'ABAE', '2026-10-07', '2026-11-07', '2424', 'rwrrwr', '31331', '42424', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Propuesto', 'En control', 'Por asignar', 'En revisión ', 1),
+(8, 1, 0, 0, 0, 'Ingreso 7', 'ffffffffff', 2, 'Mantenimiento', 'Crítica', 'ABAE', '2026-07-26', '2026-10-28', '5787', 'sdggd', 'etyg', 'tyuhb', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Aprobacion', 'En control', 'Por asignar', 'En revisión ', 1),
+(9, 4, 0, 1, 0, 'Ingreso trabajador', 'sfsfsf', 1, 'Mantenimiento y Revisión', 'Media', 'ABAE', '2026-10-05', '2026-10-29', '4443', 'srwr', 'wrr', 'wrr', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Aprobacion', 'En control', 'Por asignar', 'En revisión ', 1),
+(10, 1, 0, 0, 0, 'Practica tecnica', 'Prueba en la oficina', 2, 'Mantenimiento', 'Baja', 'ABAE', '2026-10-14', '2026-10-29', '856', 'Practica', 'Funcionamiento', 'Modulo 1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Propuesto', 'Critico', 'Por asignar', 'En revisión ', 1),
+(11, 1, 0, 0, 0, 'Practica tecnica 2', 'Prueba de ingreso', 1, 'Reparación', 'Baja', 'ABAE', '2026-10-29', '2026-10-23', '754', 'Prueba de funcionamiento', 'Ver avance', 'Modulo 1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Propuesto', 'En control', 'Por asignar', 'En revisión ', 1),
+(12, 4, 0, 2, 0, 'Proyecto trabajador', 'Prueba de la pagina 2', 1, 'Proyecto', 'Alta', 'ABAE', '2026-10-08', '2026-10-15', '434', 'Practica de usuario', 'Prueba', 'Prueba', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Evaluacion', 'En control', 'Por asignar', 'En revisión ', 1),
+(13, 1, 0, 0, 0, 'Select', 'Multiple', 1, 'Proyecto', 'Baja', 'ABAE', '2026-10-13', '2026-10-16', '634', 'Prueba', 'Prueba', 'Prueba', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Evaluacion', 'En control', 'Por asignar', 'En revisión ', 1),
+(14, 1, 0, 2, 0, 'Select Admid', 'hrhr', 2, 'Mantenimiento', 'Baja', 'ABAE', '2026-10-01', '2026-10-23', '37', 'tww', 'yyy', 'yyy', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Evaluacion', 'En control', 'Por asignar', 'En revisión ', 1),
+(15, 4, 0, 0, 0, 'Ingreso nuevo select', 'Nuevas mejoras no', 1, 'Reparación', 'Baja', 'ABAE', '2026-10-07', '2026-10-21', '3313', 'jsddd', 'dssdd', 'dssdd', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Planificacion', 'En control', 'Por asignar', 'En revisión ', 1),
+(16, 4, 0, 2, 0, 'Ingreso de la nueva versión', 'Otra prueba', 1, 'Proyecto', 'Alta', 'ABAE', '2026-10-15', '2026-11-07', '766881', 'Uno y medio', 'Dos', 'Dos', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Planificacion', 'En control', '1', 'Aceptable', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `projects_risk`
+--
+
+CREATE TABLE `projects_risk` (
+  `id_projects_risk` int NOT NULL,
+  `id_proyecto` int NOT NULL,
+  `id_risk` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `projects_risk`
+--
+
+INSERT INTO `projects_risk` (`id_projects_risk`, `id_proyecto`, `id_risk`) VALUES
+(1, 4, 10),
+(2, 4, 14),
+(3, 4, 15),
+(4, 4, 16);
 
 -- --------------------------------------------------------
 
@@ -133,6 +162,46 @@ CREATE TABLE `responsibility` (
   `descripcion_resp` varchar(300) DEFAULT NULL,
   `activo` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `risk`
+--
+
+CREATE TABLE `risk` (
+  `id_risk` int NOT NULL,
+  `riesgo` varchar(300) DEFAULT NULL,
+  `probabilidad` varchar(300) DEFAULT NULL,
+  `impacto` varchar(300) DEFAULT NULL,
+  `acciones` varchar(300) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `risk`
+--
+
+INSERT INTO `risk` (`id_risk`, `riesgo`, `probabilidad`, `impacto`, `acciones`) VALUES
+(1, 'Retraso en el cronograma de actividades.', 'Alta', 'Alta', 'Establecer fechas de control, supervisar avances y reorganizar las actividades pendientes.'),
+(2, 'Falta de presupuesto', 'Media', 'Bajo', 'Investigar alternativas de financiamiento'),
+(3, 'Insuficiencia de presupuesto para completar el proyecto.', 'Media', 'Alta', 'Revisar los costos, priorizar actividades y gestionar recursos financieros adicionales.'),
+(4, 'Falta de personal técnico especializado.', 'Media', 'Alta', 'Identificar las competencias necesarias, capacitar al personal o contratar especialistas.'),
+(5, 'Cambios frecuentes en los requerimientos del proyecto.', 'Alta', 'Alta', 'Establecer un alcance definido y formalizar cualquier solicitud de cambio.'),
+(6, 'Fallas en equipos, herramientas o infraestructura.', 'Media', 'Alta', 'Realizar mantenimiento preventivo, disponer de equipos de respaldo y establecer protocolos de contingencia.'),
+(7, 'Retraso en la adquisición de materiales o equipos.', 'Media', 'Media', 'Planificar las compras con anticipación, evaluar proveedores alternativos y hacer seguimiento a los pedidos.'),
+(8, 'Falta de comunicación entre los integrantes del equipo.', 'Media', 'Alta', 'Establecer canales oficiales de comunicación, reuniones periódicas y responsables por actividad.'),
+(9, 'Bajo rendimiento o incumplimiento de responsabilidades del personal.', 'Media', 'Media', 'Definir responsabilidades, establecer indicadores de desempeño y realizar evaluaciones periódicas.'),
+(10, 'Problemas técnicos durante la implementación.', 'Media', 'Alta', 'Realizar pruebas preliminares, documentar procedimientos y disponer de un plan de contingencia.'),
+(11, 'Resultados que no cumplen con los requisitos establecidos.', 'Media', 'Alta', 'Definir criterios de aceptación, ejecutar controles de calidad y realizar pruebas de validación.'),
+(12, 'Dependencia de proveedores externos.', 'Media', 'Alta', 'Identificar proveedores alternativos, establecer acuerdos de servicio y supervisar los tiempos de entrega.'),
+(13, 'Falta de aprobación o autorización para continuar con el proyecto.', 'Media', 'Alta', 'Identificar a los responsables de aprobación, presentar la documentación requerida y realizar seguimiento a las solicitudes.'),
+(14, 'Pérdida o corrupción de información del proyecto.', 'Baja', 'Alta', 'Implementar copias de seguridad, controlar los accesos y establecer procedimientos de recuperación.'),
+(15, 'Accidentes laborales o incidentes durante la ejecución.', 'Baja', 'Alta', 'Aplicar protocolos de seguridad, capacitar al personal y suministrar los equipos de protección necesarios.'),
+(16, 'Condiciones externas que afectan la ejecución del proyecto.', 'Media', 'Media', 'Identificar factores externos, monitorear su evolución y preparar alternativas de ejecución.'),
+(17, 'Falta de seguimiento y supervisión del proyecto.', 'Media', 'Alta', 'Establecer reuniones de seguimiento, informes periódicos e indicadores de avance.'),
+(18, 'Conflictos entre las áreas involucradas.', 'Media', 'Media', 'Definir responsables, establecer acuerdos de trabajo y gestionar oportunamente los desacuerdos.'),
+(19, 'Entrega de resultados fuera de los estándares de calidad.', 'Media', 'Alta', 'Aplicar controles de calidad, inspecciones y pruebas antes de la entrega final.'),
+(20, 'Equipo quemado', 'Baja', 'Alta', 'Solicitar equipo nuevo.');
 
 -- --------------------------------------------------------
 
@@ -303,6 +372,14 @@ ALTER TABLE `projects`
   ADD KEY `unidad` (`unidad`);
 
 --
+-- Indices de la tabla `projects_risk`
+--
+ALTER TABLE `projects_risk`
+  ADD PRIMARY KEY (`id_projects_risk`),
+  ADD KEY `id_proyecto` (`id_proyecto`),
+  ADD KEY `id_risk` (`id_risk`);
+
+--
 -- Indices de la tabla `project_miembro`
 --
 ALTER TABLE `project_miembro`
@@ -315,6 +392,12 @@ ALTER TABLE `project_miembro`
 --
 ALTER TABLE `responsibility`
   ADD PRIMARY KEY (`id_responsabilidad`);
+
+--
+-- Indices de la tabla `risk`
+--
+ALTER TABLE `risk`
+  ADD PRIMARY KEY (`id_risk`);
 
 --
 -- Indices de la tabla `roles`
@@ -391,6 +474,12 @@ ALTER TABLE `projects`
   MODIFY `id_proyecto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
+-- AUTO_INCREMENT de la tabla `projects_risk`
+--
+ALTER TABLE `projects_risk`
+  MODIFY `id_projects_risk` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de la tabla `project_miembro`
 --
 ALTER TABLE `project_miembro`
@@ -401,6 +490,12 @@ ALTER TABLE `project_miembro`
 --
 ALTER TABLE `responsibility`
   MODIFY `id_responsabilidad` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `risk`
+--
+ALTER TABLE `risk`
+  MODIFY `id_risk` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -453,6 +548,13 @@ ALTER TABLE `usuario_roles`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `projects_risk`
+--
+ALTER TABLE `projects_risk`
+  ADD CONSTRAINT `projects_risk_ibfk_1` FOREIGN KEY (`id_proyecto`) REFERENCES `projects` (`id_proyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `projects_risk_ibfk_2` FOREIGN KEY (`id_risk`) REFERENCES `risk` (`id_risk`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Filtros para la tabla `users_projects`

@@ -420,7 +420,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
               <div class="col-md-12" style="color:black">
                 <label for="Grafica" class="form-label">Observaciones: </label>
-                <textarea name="observa_eval_proy_valid" id="observa_eval_proy_valid" cols="40" rows="4" class="form-control" required></textarea>
+                <textarea name="observa_eval_proy_valid" id="observa_eval_proy_valid" maxlength="300" cols="40" rows="4" class="form-control" required></textarea>
                 <div id="contador_observa_eval_proy_valid"></div>
               </div>
 
@@ -430,12 +430,12 @@ if (!isset($_SESSION['id_usuario'])) {
 
               <div class="col-md-4" style="color:black">
                 <label for="Comando" class="form-label">Presupuesto Estimado (Actualizacion): </label>
-                <input type="text" class="form-control" id="nivel_imp_proy_valid" name="nivel_imp_proy_valid" required>
+                <input type="text" class="form-control" id="presu_est_proy_valid" name="presu_est_proy_valid" required>
               </div>
 
               <div class="col-md-4" style="color:black">
                 <label for="Comando" class="form-label">Duración Estimada: </label>
-                <input type="text" class="form-control" id="areas_imp_proy_valid" name="areas_imp_proy_valid" required>
+                <input type="text" class="form-control" id="dur_est_proy_valid" name="dur_est_proy_valid" required>
               </div>
 
               <div class="col-md-4" style="color:black">
@@ -453,11 +453,12 @@ if (!isset($_SESSION['id_usuario'])) {
                 <div class="col-md-12" style="color:black">
 
                   <label class="form-label">Riesgos registrados:</label>
-
+                  <br>
                   <button type="button" class="btn btn-outline-primary btn-sm mb-3" onclick="abrirModalAgregarRiesgo()">
                     <i class="material-icons text-sm">add_circle</i>
                     Agregar Riesgo
                   </button>
+                  <br>
 
                   <div class="table-responsive">
                     <table class="table table-hover table-striped align-middle">
@@ -528,7 +529,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
               <div class="col-md-12" style="color:black">
                 <label for="Grafica" class="form-label">Recursos Requeridos: </label>
-                <textarea name="recur_requer_proy_valid" id="recur_requer_proy_valid" cols="40" rows="4" class="form-control" required></textarea>
+                <textarea name="recur_requer_proy_valid" id="recur_requer_proy_valid" maxlength="300" cols="40" rows="4" class="form-control" required></textarea>
                 <div id="contador_recur_requer_proy_valid"></div>
               </div>
 
@@ -539,8 +540,8 @@ if (!isset($_SESSION['id_usuario'])) {
 
               <div class="col-md-12" style="color:black">
                 <label for="Grafica" class="form-label">Justificación: </label>
-                <textarea name="just_eval_proy_valid" id="just_eval_proy_valid" cols="40" rows="4" class="form-control" required></textarea>
-                <div id="contador_just_eval_proy_valid"></div>
+                <textarea name="just_eval_proy_valid" id="just_eval_proy_valid" maxlength="300" cols="40" rows="4" class="form-control" required></textarea>
+                <div id="contador_just_eval_proy_valid">300</div>
               </div>
 
               <script>
@@ -620,7 +621,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
         </div>
 
-        <form id="form_agregar_riesgo" action="./proses_proyecto.php?act=#" method="POST">
+        <form id="form_agregar_riesgo" action="./proses_proyecto.php?act=insert_risk" method="POST">
 
           <div class="modal-body" style="color:black">
 
@@ -672,8 +673,6 @@ if (!isset($_SESSION['id_usuario'])) {
               <textarea class="form-control" name="new_riesgo_acciones" id="new_riesgo_acciones" rows="4" maxlength="300" placeholder="Describa las acciones preventivas." required></textarea>
 
             </div>
-
-            <div id="mensaje_riesgo"></div>
 
           </div>
 
@@ -918,7 +917,17 @@ if (!isset($_SESSION['id_usuario'])) {
           $('#edit_avance_proy_2').val(proyecto.avance);
           $('#edit_est_proy_2').val(proyecto.estatus);
           $('#edit_salud_proy_2').val(proyecto.salud);
-
+          $('#presu_est_proy_valid').val(proyecto.presupuesto_est);
+          $('#tecnica_proy_valid').val(proyecto.tecnica);
+          $('#operativa_proy_valid').val(proyecto.operativa);
+          $('#financiera_proy_valid').val(proyecto.financiera);
+          $('#organizacional_proy_valid').val(proyecto.organizacional);
+          $('#areas_imp_proy_valid').val(proyecto.areas_impacto);
+          $('#nivel_imp_proy_valid').val(proyecto.nivel_impacto);
+          $('#observa_eval_proy_valid').val(proyecto.observaciones_eval);
+          $('#dur_est_proy_valid').val(proyecto.duracion_estimada);
+          $('#recur_requer_proy_valid').val(proyecto.recursos_requeridos);
+          $('#just_eval_proy_valid').val(proyecto.justificacion_eval);
         },
 
         error: function(xhr) {
@@ -935,7 +944,6 @@ if (!isset($_SESSION['id_usuario'])) {
 
     function abrirModalAgregarRiesgo() {
 
-      // Al cerrarse el primer modal, abrir el segundo.
       modalValidElemento.addEventListener('hidden.bs.modal', function() {
 
         modalRiesgo.show();
@@ -944,7 +952,6 @@ if (!isset($_SESSION['id_usuario'])) {
         once: true
       });
 
-      // Al cerrarse el segundo modal, regresar al primero.
       modalRiesgoElemento.addEventListener('hidden.bs.modal', function() {
 
         modalValid.show();
@@ -953,7 +960,6 @@ if (!isset($_SESSION['id_usuario'])) {
         once: true
       });
 
-      // Cerrar el primer modal.
       modalValid.hide();
 
     }
