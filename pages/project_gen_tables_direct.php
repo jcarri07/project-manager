@@ -692,24 +692,49 @@
 
               <div class="row g-3">
 
-                <div class="col-md-6" style="color:black">
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="decision_proy" id="flexRadioDefault1" value="1" required>
-                    <label class="form-check-label" for="flexRadioDefault1">
-                      Aprobar el proyecto
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="decision_proy" id="flexRadioDefault2" value="2">
-                    <label class="form-check-label" for="flexRadioDefault2">
-                      Solicitar información adicional
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="decision_proy" id="flexRadioDefault3" value="3">
-                    <label class="form-check-label" for="flexRadioDefault3">
-                      No aprobar
-                    </label>
+                <div class="col-12">
+                  <p class="form-label fw-semibold mb-2" style="color:#194070;">Decisión <span class="text-danger">*</span></p>
+                  <div class="decision-card-group">
+
+                    <div class="decision-card decision-card--aprobar">
+                      <input class="decision-card__input" type="radio"
+                        name="decision_proy" id="flexRadioDefault1"
+                        value="1" required>
+                      <label class="decision-card__label" for="flexRadioDefault1">
+                        <span class="decision-card__icon">
+                          <i class="fa-solid fa-circle-check"></i>
+                        </span>
+                        <span class="decision-card__title">Aprobar</span>
+                        <span class="decision-card__desc">El proyecto queda autorizado para continuar.</span>
+                      </label>
+                    </div>
+
+                    <div class="decision-card decision-card--info">
+                      <input class="decision-card__input" type="radio"
+                        name="decision_proy" id="flexRadioDefault2"
+                        value="2">
+                      <label class="decision-card__label" for="flexRadioDefault2">
+                        <span class="decision-card__icon">
+                          <i class="fa-solid fa-circle-exclamation"></i>
+                        </span>
+                        <span class="decision-card__title">Solicitar información adicional</span>
+                        <span class="decision-card__desc">Regresar al evaluador.</span>
+                      </label>
+                    </div>
+
+                    <div class="decision-card decision-card--rechazar">
+                      <input class="decision-card__input" type="radio"
+                        name="decision_proy" id="flexRadioDefault3"
+                        value="3">
+                      <label class="decision-card__label" for="flexRadioDefault3">
+                        <span class="decision-card__icon">
+                          <i class="fa-solid fa-circle-xmark"></i>
+                        </span>
+                        <span class="decision-card__title">No aprobar</span>
+                        <span class="decision-card__desc">La iniciativa sera cancelada.</span>
+                      </label>
+                    </div>
+
                   </div>
                 </div>
 

@@ -457,3 +457,134 @@ input[type="checkbox"].form-check-input:not(.form-switch .form-check-input):focu
   border-color: #194070 !important;
   box-shadow:   0 0 0 0.2rem rgba(25, 64, 112, 0.25) !important;
 }
+
+/* ============================================================
+   21. Decision Radio-Cards  (#194070 palette)
+   ============================================================ */
+
+/* ── Contenedor de las tres tarjetas ── */
+.decision-card-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+/* ── Tarjeta base (oculta el <input> real) ── */
+.decision-card {
+  position: relative;
+  flex: 1 1 160px;
+  min-width: 150px;
+  max-width: 220px;
+}
+
+.decision-card__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* ── Etiqueta = superficie visual de la tarjeta ── */
+.decision-card__label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 18px 14px 16px;
+  border: 2px solid #dee2e6;
+  border-radius: 10px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.22s ease,
+              box-shadow   0.22s ease,
+              background   0.22s ease,
+              transform    0.15s ease;
+  height: 100%;
+  user-select: none;
+}
+
+.decision-card__label:hover {
+  border-color: #8fa8c8;
+  box-shadow:   0 4px 12px rgba(25, 64, 112, 0.1);
+  transform:    translateY(-2px);
+}
+
+/* Ícono grande */
+.decision-card__icon {
+  font-size: 2rem;
+  line-height: 1;
+  display: block;
+}
+
+/* Título en negrita */
+.decision-card__title {
+  font-size:   0.88rem;
+  font-weight: 700;
+  color:       #344767;
+  line-height: 1.25;
+}
+
+/* Descripción pequeña */
+.decision-card__desc {
+  font-size:   0.76rem;
+  color:       #6c757d;
+  line-height: 1.4;
+}
+
+/* ── Estado SELECCIONADO (checked) ── */
+.decision-card__input:checked + .decision-card__label {
+  border-color: #194070 !important;
+  background:   #f0f5fb;
+  box-shadow:   0 0 0 3px rgba(25, 64, 112, 0.18),
+                0 4px 14px rgba(25, 64, 112, 0.12);
+  transform:    translateY(-2px);
+}
+
+.decision-card__input:checked + .decision-card__label .decision-card__title {
+  color: #194070;
+}
+
+/* ── Colores de ícono por variante ── */
+
+/* Aprobar → verde */
+.decision-card--aprobar .decision-card__icon {
+  color: #22c55e;
+}
+.decision-card--aprobar .decision-card__input:checked + .decision-card__label .decision-card__icon {
+  color: #16a34a;
+}
+
+/* Información adicional → naranja */
+.decision-card--info .decision-card__icon {
+  color: #f59e0b;
+}
+.decision-card--info .decision-card__input:checked + .decision-card__label .decision-card__icon {
+  color: #d97706;
+}
+
+/* No aprobar → rojo */
+.decision-card--rechazar .decision-card__icon {
+  color: #ef4444;
+}
+.decision-card--rechazar .decision-card__input:checked + .decision-card__label .decision-card__icon {
+  color: #dc2626;
+}
+
+/* ── Focus ring accesible ── */
+.decision-card__input:focus-visible + .decision-card__label {
+  outline:      3px solid rgba(25, 64, 112, 0.5);
+  outline-offset: 2px;
+}
+
+/* ── Responsive: una sola fila en desktop, apilado en mobile ── */
+@media (max-width: 576px) {
+  .decision-card-group {
+    flex-direction: column;
+  }
+  .decision-card {
+    max-width: 100%;
+  }
+}

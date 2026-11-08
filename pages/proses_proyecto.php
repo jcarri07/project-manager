@@ -136,7 +136,20 @@ if ($_GET['act'] == 'insert_init_dir') {
 	$new_dur_est_proy_valid = mysqli_real_escape_string($conn, trim($_POST['dur_est_proy_valid']));
 	$new_recur_requer_proy_valid = mysqli_real_escape_string($conn, trim($_POST['recur_requer_proy_valid']));
 	$new_just_eval_proy_valid = mysqli_real_escape_string($conn, trim($_POST['just_eval_proy_valid']));
+	$decis_proyEval = mysqli_real_escape_string($conn, trim($_POST['decision_proy_eval']));
 	$status_val = "Aprobacion";
+
+	switch ($decis_proyEval) {
+		case 1:
+			$status_val = "Aprobacion";
+			break;
+		case 2:
+			$status_val = "Propuesto";
+			break;
+		case 3:
+			$status_val = "Cancelado";
+			break;
+	}
 
 	$query = mysqli_query($conn, "UPDATE projects SET presupuesto_est='$new_presu_est_proy_valid', tecnica='$new_tecnica_proy_valid', operativa ='$new_operativa_proy_valid', financiera='$new_financiera_proy_valid', organizacional='$new_organizacional_proy_valid', areas_impacto='$new_areas_imp_proy_valid', nivel_impacto='$new_nivel_imp_proy_valid', observaciones_eval='$new_observa_eval_proy_valid', duracion_estimada='$new_dur_est_proy_valid', recursos_requeridos='$new_recur_requer_proy_valid', justificacion_eval='$new_just_eval_proy_valid', estatus='$status_val' WHERE projects.id_proyecto = '$id_proy'");
 
