@@ -645,6 +645,38 @@
 
                 </div>
 
+                <div class="row g-3">
+                  <div class="col-md-12" style="color:black">
+
+                    <label class="form-label">Posibles riesgos:</label>
+                    <br>
+
+                    <div class="table-responsive">
+                      <table class="table table-hover table-striped align-middle">
+
+                        <thead class="table-light">
+                          <tr>
+                            <th class="text-center">Riesgo</th>
+                            <th class="text-center">Probabilidad</th>
+                            <th class="text-center">Impacto</th>
+                            <th class="text-center">Acciones</th>
+                          </tr>
+                        </thead>
+
+                        <tbody id="tabla_riesgos_proy_3">
+                          <tr>
+                            <td colspan="4" class="text-center text-secondary">
+                              Seleccione un proyecto para consultar sus riesgos.
+                            </td>
+                          </tr>
+                        </tbody>
+
+                      </table>
+                    </div>
+
+                  </div>
+                </div>
+
               </div>
 
               <br>
@@ -1299,6 +1331,85 @@
 
           }
         });
+
+        $.ajax({
+
+          url: './consultas/consul_riesgos_deci_proyecto.php',
+
+          type: 'GET',
+
+          data: {
+            id: id
+          },
+
+          dataType: 'json',
+
+          success: function(respuesta) {
+
+            console.log("Riesgos del proyecto:", respuesta);
+
+            const tbody = document.getElementById('tabla_riesgos_proy_3');
+
+            tbody.innerHTML = '';
+
+            if (!respuesta.success || !respuesta.data || respuesta.data.length === 0) {
+
+              tbody.innerHTML = `
+                <tr>
+                    <td colspan="4" class="text-center text-secondary">
+                        Este proyecto no tiene riesgos asociados.
+                    </td>
+                </tr>
+            `;
+
+              return;
+            }
+
+            respuesta.data.forEach(function(riesgo) {
+
+              const fila = document.createElement('tr');
+
+              const columnas = [
+                riesgo.riesgo,
+                riesgo.probabilidad,
+                riesgo.impacto,
+                riesgo.acciones
+              ];
+
+              columnas.forEach(function(dato) {
+
+                const td = document.createElement('td');
+
+                td.className = 'text-center';
+                td.textContent = dato ?? '';
+
+                fila.appendChild(td);
+
+              });
+
+              tbody.appendChild(fila);
+
+            });
+
+          },
+
+          error: function(xhr) {
+
+            console.error("Error al consultar riesgos:");
+            console.error(xhr.responseText);
+
+            document.getElementById('tabla_riesgos_proy_3').innerHTML = `
+            <tr>
+                <td colspan="4" class="text-center text-danger">
+                    Error al cargar los riesgos.
+                </td>
+            </tr>
+        `;
+
+          }
+
+        });
+
       }
     </script>
 
