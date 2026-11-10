@@ -655,17 +655,26 @@ if (!isset($_SESSION['id_usuario'])) {
 
       <div class="modal-content">
 
-        <div class="modal-header bg-primary">
-
-          <h5 class="modal-title text-white" id="titulo_modal_riesgo">
-            Registrar nuevo riesgo
-          </h5>
-
-          <button type="button"
+        <div class="w3-container w3-teal">
+          <br>
+          <p class="modal-title" style="color: black;">Registrar nuevo riesgo</p>
+          <br>
+          <!--
+          <div class="w3-center">
+            <span
+              class="closeAndRedirect w3-button w3-xlarge w3-hover-red w3-display-topright"
+              title="Cerrar modal">
+              &times;
+            </span>
+          </div>
+              -->
+              <!--
+              <button type="button"
             class="btn-close"
             data-bs-dismiss="modal"
             aria-label="Cerrar">
           </button>
+           -->
 
         </div>
 
