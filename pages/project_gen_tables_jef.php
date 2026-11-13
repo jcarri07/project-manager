@@ -110,6 +110,10 @@ if (!isset($_SESSION['id_usuario'])) {
                     <button class="nav-link active" id="valid_pro-tab" data-bs-toggle="tab" data-bs-target="#valid_pro-pane" type="button" role="tab" aria-controls="valid_pro-pane" aria-selected="false">Propuestas a Validar</button>
                   </li>
 
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="plan_pro_mana-tab" data-bs-toggle="tab" data-bs-target="#plan_pro_mana-pane" type="button" role="tab" aria-controls="plan_pro_mana-pane" aria-selected="false">Planificacion Project Manager</button>
+                  </li>
+
                 </ul>
 
               </div>
@@ -127,6 +131,37 @@ if (!isset($_SESSION['id_usuario'])) {
                 <div class="table-responsive">
 
                   <table id="tabla_valid_proyectos_pro" class="table tabla-proyectos align-items-center justify-content-center" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Proyecto</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unidad</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">PM</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Salud</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Inicio</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fin</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progreso</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prioridad</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Opciones</th>
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+
+                  </table>
+
+                </div>
+
+              </div>
+
+              <div class="tab-pane fade show" id="plan_pro_mana-pane" role="tabpanel" aria-labelledby="plan_pro_mana-tab" tabindex="0">
+
+                <div class="table-responsive">
+
+                  <table id="tabla_planinn_proyectos" class="table tabla-proyectos align-items-center justify-content-center" style="width:100%">
                     <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
@@ -668,7 +703,7 @@ if (!isset($_SESSION['id_usuario'])) {
             </span>
           </div>
               -->
-              <!--
+          <!--
               <button type="button"
             class="btn-close"
             data-bs-dismiss="modal"
@@ -885,6 +920,114 @@ if (!isset($_SESSION['id_usuario'])) {
 
                 </button>
             </div>
+        `;
+            }
+          }
+        ]
+      });
+    });
+  </script>
+
+  <script>
+    $(document).ready(function() {
+      $('#tabla_planinn_proyectos').DataTable({
+        //autoWidth: false,
+        //responsive: true,    
+        //pageLength: 5,
+        "language": {
+          "url": "../assets/js/DataEsp.json"
+        },
+        "ajax": {
+          "url": "./consultas/consul_proyectos_pm.php",
+          "dataSrc": ""
+        },
+        "columns": [{
+            "data": "id_proyecto"
+          },
+          {
+            "data": "nombre"
+          },
+          {
+            "data": "nombre_unid"
+          },
+          {
+            "data": null,
+            "render": function(data, type, row) {
+              let dat_pm_proy = "Sin asignar";
+              if (row.estatus !== "Propuesto" && row.estatus !== "Evaluacion" && row.estatus !== "Aprobacion" && row.estatus !== "Cancelado") {
+                if (row.id_manager && mapaPM[row.id_manager]) {
+                  dat_pm_proy = mapaPM[row.id_manager];
+                }
+              }
+              return dat_pm_proy;
+            }
+          },
+          {
+            "data": "estatus"
+          },
+          {
+            "data": "salud",
+            "render": function(data, type, row) {
+              let clase = "";
+              if (data === "En control") {
+                clase = "estado-progreso";
+              } else if (data === "En riesgo") {
+                clase = "estado-ejecutar";
+              } else if (data === "Critico") {
+                clase = "estado-listo";
+              }
+              return `
+            <span class="estado-badge ${clase}">
+                ${data}
+            </span>
+        `;
+            }
+          },
+          {
+            "data": "fecha_inicio"
+          },
+          {
+            "data": "fecha_fin"
+          },
+          {
+
+            "data": "avance",
+            "render": function(data, type, row) {
+
+              let porcentaje = data ? parseInt(data) : 0;
+              porcentaje = Math.max(0, Math.min(100, porcentaje));
+
+              return `
+            <div class="progreso-contenedor">
+
+                <span class="progreso-porcentaje">
+                    ${porcentaje}%
+                </span>
+
+                <div class="progreso-barra">
+
+                    <div 
+                        class="progreso-relleno"
+                        style="width: ${porcentaje}%;">
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+            }
+
+          },
+          {
+            "data": "prioridad"
+          },
+          {
+            "data": null,
+            "render": function(data, type, row) {
+              return `
+            <a href="./new_project_planning.php?id=${row.id_proyecto}" class="btn-editar" title="Elaborar la Planificacion">
+                <i class="material-icons-round">edit_calendar</i>
+            </a>
         `;
             }
           }
