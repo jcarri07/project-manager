@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-11-2026 a las 14:16:51
+-- Tiempo de generación: 14-11-2026 a las 22:52:06
 -- Versión del servidor: 9.7.1
 -- Versión de PHP: 8.5.12
 
@@ -20,24 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `project_manager`
 --
-CREATE DATABASE IF NOT EXISTS `project_manager` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE `project_manager`;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `homework`
---
-
-CREATE TABLE `homework` (
-  `id_tarea` int NOT NULL,
-  `id_proyecto` int NOT NULL,
-  `id_miembro` int NOT NULL,
-  `titulo` varchar(100) NOT NULL,
-  `descripcion` varchar(300) NOT NULL,
-  `estado` varchar(100) NOT NULL,
-  `fecha_vencimiento` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -86,10 +68,10 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`id_proyecto`, `id_solicitante`, `id_manager`, `id_validador`, `id_aprobador`, `nombre`, `descripcion`, `unidad`, `tipo`, `prioridad`, `sponsor`, `fecha_inicio`, `fecha_fin`, `presupuesto_est`, `problema`, `objetivos`, `beneficios`, `tecnica`, `operativa`, `financiera`, `organizacional`, `areas_impacto`, `nivel_impacto`, `observaciones_eval`, `duracion_estimada`, `recursos_requeridos`, `justificacion_eval`, `avance`, `estatus`, `salud`, `decision_dir`, `justificacion_dir`, `activo`) VALUES
-(1, 1, 0, 2, 0, '12to proceso', 'Nuevo avance 24', 1, 'Proyecto', 'Baja', 'ABAE', '2026-09-14', '2026-10-10', '77', '8', 'Ingreso', 'Ingreso', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Evaluacion', 'Critico', '2', 'Falta información', 1),
-(2, 2, 0, 0, 0, '12to', 'Nuevo avance 19', 2, 'Proyecto', 'Alta', 'ABAE', '2026-10-22', '2026-10-20', '44747', 'Trabajo', 'Funciona', 'Funciona', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '100', 'Propuesto', 'En riesgo', 'Por asignar', 'En revisión ', 1),
+(1, 1, 0, 2, 0, '12to proceso', 'Nuevo avance 24', 1, 'Proyecto', 'Baja', 'ABAE', '2026-09-14', '2026-10-10', '77', '8', 'Ingreso', 'Ingreso', 'No viable', 'No viable', 'No viable', 'USMI', 'UDLP', 'Crítica', 'tttt', '8 meses', 'gg', 'y', '0', 'Cancelado', 'Critico', '2', 'Falta información', 1),
+(2, 2, 2, 0, 1, '12to', 'Nuevo avance 19', 2, 'Proyecto', 'Alta', 'ABAE', '2026-10-22', '2026-10-20', '44747', 'Trabajo', 'Funciona', 'Funciona', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '100', 'Evaluacion', 'En control', 'Por asignar', 'En revisión ', 1),
 (3, 1, 0, 2, 0, '98to proceso', 'Nuevo avance 578', 2, 'Proyecto', 'Media', 'ABAE', '2026-10-06', '2026-10-22', '7', '1', '22', '333', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '50', 'Planificacion', 'En control', '1', 'Cumple', 1),
-(4, 1, 0, 2, 0, 'Nueva version', 'Nueva proyecto', 1, 'Mantenimiento', 'Alta', 'ABAE', '2026-10-05', '2026-10-21', '22442', 'Pocas pruebas', 'Ver los nuevos añadidos', 'Nuevos avances', 'No viable', 'Viable', 'Intermedio', 'USMI', 'UDLP', 'Crítica', 'Prueba de evaluación', '3 meses', 'Prueba 2002', 'En desarrollo 1999', '0', 'Aprobacion', 'En control', 'Por asignar', 'En revisión ', 1),
+(4, 1, 2, 2, 1, 'Nueva version', 'Nueva proyecto', 1, 'Mantenimiento', 'Alta', 'ABAE', '2026-10-05', '2026-10-21', '22442', 'Pocas pruebas', 'Ver los nuevos añadidos', 'Nuevos avances', 'No viable', 'Viable', 'Intermedio', 'USMI', 'UDLP', 'Crítica', 'Prueba de evaluación', '3 meses', 'Prueba 2002', 'En desarrollo 1999', '0', 'Planificacion', 'En control', 'Por asignar', 'En revisión ', 1),
 (5, 1, 0, 0, 0, 'Practica de cambios', 'afffafffa', 1, 'Mantenimiento', 'Media', 'ABAE', '2026-10-13', '2026-10-30', '255', 'affaff', 'adffg', 'faff', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Planificacion', 'En control', 'Por asignar', 'En revisión ', 1),
 (6, 1, 5, 0, 0, 'Nueva version de borrador', 'Prueba de nueva tabla', 2, 'Proyecto', 'Media', 'ABAE', '2026-10-14', '2026-10-29', '74746', 'Nueva revisión', 'Verificar', 'Revisión', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Planificacion', 'Critico', '1', '', 1),
 (7, 1, 0, 0, 0, 'Practica 8', 'dadadadadad', 2, 'Mantenimiento', 'Media', 'ABAE', '2026-10-07', '2026-11-07', '2424', 'rwrrwr', '31331', '42424', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Propuesto', 'En control', 'Por asignar', 'En revisión ', 1),
@@ -123,7 +105,46 @@ INSERT INTO `projects_risk` (`id_projects_risk`, `id_proyecto`, `id_risk`) VALUE
 (1, 4, 10),
 (2, 4, 14),
 (3, 4, 15),
-(4, 4, 16);
+(4, 4, 16),
+(5, 1, 1),
+(6, 1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `project_activities`
+--
+
+CREATE TABLE `project_activities` (
+  `id_project_activities` int NOT NULL,
+  `id_project_plans` int DEFAULT NULL,
+  `id_project_deliverables` int DEFAULT NULL,
+  `nombre_actividad` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `descripcion_actividad` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `id_responsable_actividad` int DEFAULT NULL,
+  `fecha_inicio_plan_actividad` datetime DEFAULT NULL,
+  `fecha_fin_plan_actividad` datetime DEFAULT NULL,
+  `duracion_actividad` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `estado_actividad` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `orden_actividad` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `observaciones_actividad` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `fecha_creacion_actividad` datetime DEFAULT NULL,
+  `fecha_modificacion_actividad` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `project_activity_dependencies`
+--
+
+CREATE TABLE `project_activity_dependencies` (
+  `id_project_activity_dependencies` int NOT NULL,
+  `id_project_activities` int NOT NULL,
+  `id_project_activities_previous` int DEFAULT NULL,
+  `tipo_dependencia` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `desfase_dias` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -149,6 +170,112 @@ INSERT INTO `project_miembro` (`id_project_miembro`, `id_proyecto`, `id_miembro`
 (5, 3, 1, 'Lider', '2026-10-01'),
 (6, 1, 3, 'Ayudante', '2026-10-04'),
 (7, 4, 1, 'Lider', '2026-10-05');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `project_plans`
+--
+
+CREATE TABLE `project_plans` (
+  `id_project_plans` int NOT NULL,
+  `id_proyecto` int NOT NULL,
+  `n_version_mayor` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `n_version_menor` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `estado_plan` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `resumen_ejecutivo` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `alcance_incluido` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `alcance_excluido` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `supuestos` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `restricciones` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `dependencias_externas` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `fecha_inicio_plan` datetime DEFAULT NULL,
+  `fecha_fin_plan` datetime DEFAULT NULL,
+  `frecuencia_seguimiento` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `indicadores_seguimiento` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `tipo_moneda` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `id_responsable_reporte` int DEFAULT NULL,
+  `recomendacion_manager` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `id_project_manager` int DEFAULT NULL,
+  `fecha_creacion_plan` datetime DEFAULT NULL,
+  `fecha_modificacion_plan` datetime DEFAULT NULL,
+  `fecha_envio_revision_plan` datetime DEFAULT NULL,
+  `fecha_validacion_plan` datetime DEFAULT NULL,
+  `fecha_autorizacion_plan` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `project_plans`
+--
+
+INSERT INTO `project_plans` (`id_project_plans`, `id_proyecto`, `n_version_mayor`, `n_version_menor`, `estado_plan`, `resumen_ejecutivo`, `alcance_incluido`, `alcance_excluido`, `supuestos`, `restricciones`, `dependencias_externas`, `fecha_inicio_plan`, `fecha_fin_plan`, `frecuencia_seguimiento`, `indicadores_seguimiento`, `tipo_moneda`, `id_responsable_reporte`, `recomendacion_manager`, `id_project_manager`, `fecha_creacion_plan`, `fecha_modificacion_plan`, `fecha_envio_revision_plan`, `fecha_validacion_plan`, `fecha_autorizacion_plan`) VALUES
+(1, 4, '1', '0', 'Propuesto', 'svssdd', NULL, NULL, 'sdds', 'ffff', 'ssss', '2026-11-18 00:00:00', '2026-12-01 00:00:00', NULL, NULL, NULL, NULL, NULL, 2, '2026-11-14 18:47:00', NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `project_plan_deliverables`
+--
+
+CREATE TABLE `project_plan_deliverables` (
+  `id_project_deliverables` int NOT NULL,
+  `id_project_plans` int NOT NULL,
+  `nombre_entregable` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `descripcion_entregable` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `criterio_aceptacion_entregable` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `id_user_responsable` int NOT NULL,
+  `fecha_objetivo_entregable` datetime NOT NULL,
+  `estado_entregable` varchar(100) NOT NULL DEFAULT 'Pendiente',
+  `orden_entregable` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `fecha_creacion_entregable` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `project_plan_resources`
+--
+
+CREATE TABLE `project_plan_resources` (
+  `id_project_resources` int NOT NULL,
+  `id_project_plans` int NOT NULL,
+  `nombre_recurso` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `tipo_recurso` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `descripcion_recurso` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `cantidad_recurso` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `unidad_medida_recurso` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `id_unidad_recurso` int DEFAULT NULL,
+  `id_responsable_recurso` int DEFAULT NULL,
+  `disponibilidad_recurso` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `observaciones_recurso` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `project_plan_reviews`
+--
+
+CREATE TABLE `project_plan_reviews` (
+  `id_project_plan_reviews` int NOT NULL,
+  `id_project_plans` int NOT NULL,
+  `id_user_reviews` int NOT NULL,
+  `accion_reseña` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `observaciones_reseña` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `fecha_reseña` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `project_plan_risks`
+--
+
+CREATE TABLE `project_plan_risks` (
+  `id_project_plan_risks` int NOT NULL,
+  `id_project_plans` int NOT NULL,
+  `id_risk` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -356,14 +483,6 @@ CREATE TABLE `usuario_roles` (
 --
 
 --
--- Indices de la tabla `homework`
---
-ALTER TABLE `homework`
-  ADD PRIMARY KEY (`id_tarea`),
-  ADD KEY `id_proyecto` (`id_proyecto`),
-  ADD KEY `id_miembro` (`id_miembro`);
-
---
 -- Indices de la tabla `projects`
 --
 ALTER TABLE `projects`
@@ -380,12 +499,66 @@ ALTER TABLE `projects_risk`
   ADD KEY `id_risk` (`id_risk`);
 
 --
+-- Indices de la tabla `project_activities`
+--
+ALTER TABLE `project_activities`
+  ADD PRIMARY KEY (`id_project_activities`);
+
+--
+-- Indices de la tabla `project_activity_dependencies`
+--
+ALTER TABLE `project_activity_dependencies`
+  ADD PRIMARY KEY (`id_project_activity_dependencies`),
+  ADD KEY `id_project_activities` (`id_project_activities`);
+
+--
 -- Indices de la tabla `project_miembro`
 --
 ALTER TABLE `project_miembro`
   ADD PRIMARY KEY (`id_project_miembro`),
   ADD KEY `manager_project` (`id_proyecto`),
   ADD KEY `id_miembro` (`id_miembro`);
+
+--
+-- Indices de la tabla `project_plans`
+--
+ALTER TABLE `project_plans`
+  ADD PRIMARY KEY (`id_project_plans`),
+  ADD KEY `id_proyecto` (`id_proyecto`),
+  ADD KEY `id_project_manager` (`id_project_manager`);
+
+--
+-- Indices de la tabla `project_plan_deliverables`
+--
+ALTER TABLE `project_plan_deliverables`
+  ADD PRIMARY KEY (`id_project_deliverables`),
+  ADD KEY `id_project_plans` (`id_project_plans`),
+  ADD KEY `id_user_responsable` (`id_user_responsable`);
+
+--
+-- Indices de la tabla `project_plan_resources`
+--
+ALTER TABLE `project_plan_resources`
+  ADD PRIMARY KEY (`id_project_resources`),
+  ADD KEY `id_project_plans` (`id_project_plans`),
+  ADD KEY `id_unidad_recurso` (`id_unidad_recurso`),
+  ADD KEY `id_responsable_recurso` (`id_responsable_recurso`);
+
+--
+-- Indices de la tabla `project_plan_reviews`
+--
+ALTER TABLE `project_plan_reviews`
+  ADD PRIMARY KEY (`id_project_plan_reviews`),
+  ADD KEY `id_project_plans` (`id_project_plans`),
+  ADD KEY `id_user_reviews` (`id_user_reviews`);
+
+--
+-- Indices de la tabla `project_plan_risks`
+--
+ALTER TABLE `project_plan_risks`
+  ADD PRIMARY KEY (`id_project_plan_risks`),
+  ADD KEY `id_project_plans` (`id_project_plans`),
+  ADD KEY `id_risk` (`id_risk`);
 
 --
 -- Indices de la tabla `responsibility`
@@ -462,12 +635,6 @@ ALTER TABLE `usuario_roles`
 --
 
 --
--- AUTO_INCREMENT de la tabla `homework`
---
-ALTER TABLE `homework`
-  MODIFY `id_tarea` int NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `projects`
 --
 ALTER TABLE `projects`
@@ -477,13 +644,55 @@ ALTER TABLE `projects`
 -- AUTO_INCREMENT de la tabla `projects_risk`
 --
 ALTER TABLE `projects_risk`
-  MODIFY `id_projects_risk` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_projects_risk` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `project_activities`
+--
+ALTER TABLE `project_activities`
+  MODIFY `id_project_activities` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `project_activity_dependencies`
+--
+ALTER TABLE `project_activity_dependencies`
+  MODIFY `id_project_activity_dependencies` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `project_miembro`
 --
 ALTER TABLE `project_miembro`
   MODIFY `id_project_miembro` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `project_plans`
+--
+ALTER TABLE `project_plans`
+  MODIFY `id_project_plans` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `project_plan_deliverables`
+--
+ALTER TABLE `project_plan_deliverables`
+  MODIFY `id_project_deliverables` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `project_plan_resources`
+--
+ALTER TABLE `project_plan_resources`
+  MODIFY `id_project_resources` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `project_plan_reviews`
+--
+ALTER TABLE `project_plan_reviews`
+  MODIFY `id_project_plan_reviews` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `project_plan_risks`
+--
+ALTER TABLE `project_plan_risks`
+  MODIFY `id_project_plan_risks` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `responsibility`
@@ -555,6 +764,48 @@ ALTER TABLE `usuario_roles`
 ALTER TABLE `projects_risk`
   ADD CONSTRAINT `projects_risk_ibfk_1` FOREIGN KEY (`id_proyecto`) REFERENCES `projects` (`id_proyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `projects_risk_ibfk_2` FOREIGN KEY (`id_risk`) REFERENCES `risk` (`id_risk`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Filtros para la tabla `project_activity_dependencies`
+--
+ALTER TABLE `project_activity_dependencies`
+  ADD CONSTRAINT `project_activity_dependencies_ibfk_1` FOREIGN KEY (`id_project_activities`) REFERENCES `project_activities` (`id_project_activities`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Filtros para la tabla `project_plans`
+--
+ALTER TABLE `project_plans`
+  ADD CONSTRAINT `project_plans_ibfk_1` FOREIGN KEY (`id_proyecto`) REFERENCES `projects` (`id_proyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `project_plans_ibfk_2` FOREIGN KEY (`id_project_manager`) REFERENCES `users` (`id_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Filtros para la tabla `project_plan_deliverables`
+--
+ALTER TABLE `project_plan_deliverables`
+  ADD CONSTRAINT `project_plan_deliverables_ibfk_1` FOREIGN KEY (`id_project_plans`) REFERENCES `project_plans` (`id_project_plans`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `project_plan_deliverables_ibfk_2` FOREIGN KEY (`id_user_responsable`) REFERENCES `users` (`id_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Filtros para la tabla `project_plan_resources`
+--
+ALTER TABLE `project_plan_resources`
+  ADD CONSTRAINT `project_plan_resources_ibfk_1` FOREIGN KEY (`id_project_plans`) REFERENCES `project_plans` (`id_project_plans`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `project_plan_resources_ibfk_2` FOREIGN KEY (`id_unidad_recurso`) REFERENCES `unidad` (`id_unidad`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `project_plan_resources_ibfk_3` FOREIGN KEY (`id_responsable_recurso`) REFERENCES `users` (`id_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Filtros para la tabla `project_plan_reviews`
+--
+ALTER TABLE `project_plan_reviews`
+  ADD CONSTRAINT `project_plan_reviews_ibfk_1` FOREIGN KEY (`id_project_plans`) REFERENCES `project_plans` (`id_project_plans`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `project_plan_reviews_ibfk_2` FOREIGN KEY (`id_user_reviews`) REFERENCES `users` (`id_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Filtros para la tabla `project_plan_risks`
+--
+ALTER TABLE `project_plan_risks`
+  ADD CONSTRAINT `project_plan_risks_ibfk_1` FOREIGN KEY (`id_project_plans`) REFERENCES `project_plans` (`id_project_plans`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `project_plan_risks_ibfk_2` FOREIGN KEY (`id_risk`) REFERENCES `risk` (`id_risk`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Filtros para la tabla `users_projects`
