@@ -1008,12 +1008,12 @@ if (!isset($_SESSION['id_usuario'])) {
 
             <div class="mb-4">
               <label for="alcance_incluido" class="form-label"> Alcance incluido <span class="text-danger">*</span> </label>
-              <textarea class="form-control" id="alcance_incluido" name="alcance_incluido" rows="5" placeholder="Describa los trabajos, actividades, servicios y resultados que estarán contemplados dentro del proyecto." required></textarea>
+              <textarea class="form-control" id="alcance_incluido" name="alcance_incluido" rows="5" required></textarea>
             </div>
 
             <div class="mb-3">
               <label for="alcance_excluido" class="form-label"> Alcance excluido </label>
-              <textarea class="form-control" id="alcance_excluido" name="alcance_excluido" rows="5" placeholder="Describa las actividades, servicios o resultados que no estarán contemplados dentro del proyecto."></textarea>
+              <textarea class="form-control" id="alcance_excluido" name="alcance_excluido" rows="5" required></textarea>
             </div>
 
             <div class="mb-4">
@@ -1081,11 +1081,64 @@ if (!isset($_SESSION['id_usuario'])) {
 
           <div class="row g-3" id="ver_form_entregables_container">
 
-            <form id="formRegEntregable" action="./procesos/guardar_entregable.php" method="POST">
+            <form id="formRegEntregable" action="./proses_proyecto.php?act=insert_entregable_plan_proy" method="POST">
 
               <input type="hidden" id="id_project_plans_entregable" name="id_project_plans" value="">
 
               <!-- inputs en desarrollo -->
+
+              <div class="row g-3">
+
+                <div class="col-md-6">
+                  <label class="form-label">Nombre del entregable: <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control border px-3" id="nom_entregable" name="nom_entregable" required>
+                </div>
+
+                <div class="mb-4">
+                  <label for="alcance_incluido" class="form-label">Descripción del entregable: <span class="text-danger">*</span> </label>
+                  <textarea class="form-control" id="descripcion_entre" name="descripcion_entre" rows="5" required></textarea>
+                </div>
+
+                <div class="mb-4">
+                  <label for="alcance_incluido" class="form-label">Criterios de aceptación: <span class="text-danger">*</span> </label>
+                  <textarea class="form-control" id="criterios_acept" name="criterios_acept" rows="5" required></textarea>
+                </div>
+
+                <div class="mb-4">
+
+                  <input type="datetime-local" class="form-control" id="fecha_reg_entreg" name="fecha_reg_entreg" style="display:none" readonly>
+                  <script>
+                    var fechaActual = new Date();
+                    var formattedDateTime = fechaActual.getFullYear() + '-' + ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '-' + ('0' + fechaActual.getDate()).slice(-2) + 'T' + ('0' + fechaActual.getHours()).slice(-2) + ':' + ('0' + fechaActual.getMinutes()).slice(-2);
+                    document.getElementById('fecha_reg').value = formattedDateTime;
+                  </script>
+
+                </div>
+
+                <div class="mb-4">
+                  <label for="responsable" class="form-label">Responsable: </label>
+                  <select class="form-select" id="id_respon_select" name="id_respon_select">
+                    <option value="">Seleccione un reponsable</option>
+                    <?php
+                    $query_data = mysqli_query($conn, "SELECT * FROM users");
+
+                    while ($miembro = mysqli_fetch_assoc($query_data)) {
+                      $id_user = $miembro['id_usuario'];
+                      $nombre = ($miembro['nombre_user']);
+                      $apell = ($miembro['apellido_user']);
+                      $esp = ($miembro['especialidad']);
+                      echo "<option value=\"$id_user\">$nombre $apell | Especialidad: $esp</option>";
+                    }
+                    ?>
+                  </select>
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label">Fecha de Entrega: <span class="text-danger">*</span></label>
+                  <input type="date" class="form-control border px-3" id="fech_entregable" name="fech_entregable" required>
+                </div>
+
+              </div>
 
               <div class="mb-4">
                 <button type="submit" class="btn btn-primary mb-0" id="Guardar"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar Entregable </button>
