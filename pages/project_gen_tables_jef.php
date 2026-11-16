@@ -684,6 +684,8 @@ if (!isset($_SESSION['id_usuario'])) {
     </div>
   </div>
 
+  <!-- ------------------Codigo del modal para gestionar los riesgos para las riesgos ------------------ -->
+
   <div class="modal fade" id="Modal_agregar_riesgo" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="titulo_modal_riesgo" aria-hidden="true">
 
     <div class="modal-dialog modal-dialog-centered">
@@ -782,6 +784,337 @@ if (!isset($_SESSION['id_usuario'])) {
 
     </div>
   </div>
+
+  <!-- ------------------Codigo del modal menu para completar el plan de proyecto ------------------ -->
+
+  <div class="modal fade" id="modal_menu_multiple" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="titulo_menu_multiple" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+      <div class="modal-content">
+
+        <div class="w3-container w3-teal modal-header">
+
+          <div>
+            <h5 class="modal-title" id="titulo_menu_multiple">
+              Gestión de la planificación
+            </h5>
+
+            <p class="modal-title">
+              Seleccione el componente que desea completar.
+            </p>
+
+            <small class="modal-title">
+              Identificador del plan:
+              <strong id="numero_plan_seleccionado"></strong>
+            </small>
+          </div>
+
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+
+        </div>
+
+        <div class="modal-body">
+
+          <input type="hidden" id="id_project_plans_menu" name="id_project_plans_menu">
+
+          <div class="row g-3">
+
+            <div class="col-md-4 col-sm-6">
+
+              <div class="card border h-100 mb-0">
+
+                <div class="card-body">
+
+                  <div class="mb-3">
+                    <i class="fa-solid fa-bullseye fa-xl text-primary"></i>
+                  </div>
+
+                  <h6>Alcance y entregables</h6>
+
+                  <p class="text-sm text-secondary"> Definición del alcance, entregables y criterios de aceptación. </p>
+
+                  <button type="button" class="btn btn-outline-primary btn-sm mb-0" onclick="abrirModal_componente('modalAlcancePlan')">
+                    <i class="fa-solid fa-pen-to-square me-1"></i>
+                    Completar
+                  </button>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+
+              <div class="card border h-100 mb-0">
+
+                <div class="card-body">
+
+                  <div class="mb-3">
+                    <i class="fa-solid fa-list-check fa-xl text-primary"></i>
+                  </div>
+
+                  <h6>Actividades y cronograma</h6>
+
+                  <p class="text-sm text-secondary"> Actividades, responsables, fechas, hitos y dependencias.</p>
+
+                  <button type="button" class="btn btn-outline-primary btn-sm mb-0" onclick="abrirModal_componente('modalActividadesPlan')">
+                    <i class="fa-solid fa-pen-to-square me-1"></i>
+                    Completar
+                  </button>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+
+              <div class="card border h-100 mb-0">
+
+                <div class="card-body">
+
+                  <div class="mb-3">
+                    <i class="fa-solid fa-boxes-stacked fa-xl text-primary"></i>
+                  </div>
+
+                  <h6>Recursos</h6>
+
+                  <p class="text-sm text-secondary"> Recursos humanos, materiales, tecnológicos y disponibilidad. </p>
+
+                  <button type="button" class="btn btn-outline-primary btn-sm mb-0" onclick="abrirModal_componente('modalRecursosPlan')">
+                    <i class="fa-solid fa-pen-to-square me-1"></i>
+                    Completar
+                  </button>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+
+              <div class="card border h-100 mb-0">
+
+                <div class="card-body">
+
+                  <div class="mb-3">
+                    <i class="fa-solid fa-money-bill-wave fa-xl text-primary"></i>
+                  </div>
+
+                  <h6>Presupuesto</h6>
+
+                  <p class="text-sm text-secondary">
+                    Partidas, cantidades, costos unitarios
+                    y monto planificado.
+                  </p>
+
+                  <button type="button"
+                    class="btn btn-outline-primary btn-sm mb-0"
+                    onclick="abrirModal_componente('modalPresupuestoPlan')">
+                    <i class="fa-solid fa-pen-to-square me-1"></i>
+                    Completar
+                  </button>
+
+                </div>
+              </div>
+            </div>
+
+
+            <!-- RIESGOS -->
+            <div class="col-md-4 col-sm-6">
+
+              <div class="card border h-100 mb-0">
+
+                <div class="card-body">
+
+                  <div class="mb-3">
+                    <i class="fa-solid fa-triangle-exclamation fa-xl text-primary"></i>
+                  </div>
+
+                  <h6>Riesgos y supuestos</h6>
+
+                  <p class="text-sm text-secondary">
+                    Riesgos identificados, probabilidad,
+                    impacto y respuestas previstas.
+                  </p>
+
+                  <button type="button"
+                    class="btn btn-outline-primary btn-sm mb-0"
+                    onclick="abrirModal_componente('modalRiesgosPlan')">
+                    <i class="fa-solid fa-pen-to-square me-1"></i>
+                    Completar
+                  </button>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+
+              <div class="card border h-100 mb-0">
+
+                <div class="card-body">
+
+                  <div class="mb-3">
+                    <i class="fa-solid fa-chart-line fa-xl text-primary"></i>
+                  </div>
+
+                  <h6>Seguimiento y comunicación</h6>
+
+                  <p class="text-sm text-secondary">
+                    Indicadores, frecuencia de reportes
+                    y responsables.
+                  </p>
+
+                  <button type="button" class="btn btn-outline-primary btn-sm mb-0" onclick="abrirModal_componente('modalSeguimientoPlan')"> <i class="fa-solid fa-pen-to-square me-1"></i> Completar </button>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ------------------Codigos de los sub-modal menu para completar el plan de proyecto ------------------ -->
+
+  <!--  MODAL: ALCANCE Y ENTREGABLES -->
+
+  <div class="modal fade" id="modalAlcancePlan" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="titulo_modal_alcance" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+
+      <div class="modal-content">
+
+        <div class="w3-container w3-teal modal-header">
+
+          <div>
+            <h5 class="modal-title" id="titulo_modal_alcance">
+              <i class="fa-solid fa-bullseye text-primary me-2"></i>
+              Alcance y entregables
+            </h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"> </button>
+
+        </div>
+
+        <div class="modal-body">
+
+          <form id="formAlcancePlan" action="./procesos/guardar_alcance.php" method="POST">
+
+            <input type="hidden" id="id_project_plans_alcance" name="id_project_plans" value="">
+
+            <div class="mb-4">
+              <label for="alcance_incluido" class="form-label"> Alcance incluido <span class="text-danger">*</span> </label>
+              <textarea class="form-control" id="alcance_incluido" name="alcance_incluido" rows="5" placeholder="Describa los trabajos, actividades, servicios y resultados que estarán contemplados dentro del proyecto." required></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label for="alcance_excluido" class="form-label"> Alcance excluido </label>
+              <textarea class="form-control" id="alcance_excluido" name="alcance_excluido" rows="5" placeholder="Describa las actividades, servicios o resultados que no estarán contemplados dentro del proyecto."></textarea>
+            </div>
+
+            <div class="mb-4">
+              <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar alcance </button>
+            </div>
+
+          </form>
+
+          <br><br>
+
+          <div class="row g-3">
+
+            <div class="col-md-12 mb-3">
+
+              <div class="col-md-4" style="color:black">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="check_form_entregable" checked>
+                  <label class="form-check-label" for="check_form_entregable">Registrar Entregable</label>
+                </div>
+              </div>
+
+              <div class="row g-3">
+                <div class="col-md-12" style="color:black">
+
+                  <label class="form-label">Entregables registrados:</label>
+                  <br>
+                  <br>
+
+                  <div class="table-responsive">
+                    <table class="table table-hover table-striped align-middle">
+
+                      <thead class="table-light">
+                        <tr>
+                          <th class="text-center">ID</th>
+                          <th class="text-center">Entregable</th>
+                          <th class="text-center">Crit. Aceptacion</th>
+                          <th class="text-center">Fecha Estimada</th>
+                          <th class="text-center">Responsable</th>
+                        </tr>
+                      </thead>
+
+                      <tbody id="tbody_entregables_plan">
+                        <tr>
+                          <td colspan="5" class="text-center text-secondary">
+                            Seleccione una planificación para consultar sus entregables.
+                          </td>
+                        </tr>
+                      </tbody>
+
+                    </table>
+                  </div>
+
+                </div>
+              </div>
+
+              <div>
+
+              </div>
+
+
+
+            </div>
+
+          </div>
+
+          <div class="row g-3" id="ver_form_entregables_container">
+
+            <form id="formRegEntregable" action="./procesos/guardar_entregable.php" method="POST">
+
+              <input type="hidden" id="id_project_plans_entregable" name="id_project_plans" value="">
+
+              <!-- inputs en desarrollo -->
+
+              <div class="mb-4">
+                <button type="submit" class="btn btn-primary mb-0" id="Guardar"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar Entregable </button>
+              </div>
+
+            </form>
+
+          </div>
+
+          <div class="modal-footer">
+
+            <br><br><br>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+  </div>
+
+
+
+  <!-- ------------------Codigos de los sub-modal menu para completar el plan de proyecto ------------------ -->
 
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
@@ -908,19 +1241,30 @@ if (!isset($_SESSION['id_usuario'])) {
           {
             "data": null,
             "render": function(data, type, row) {
-              return `
+
+              let buttonHTML = `
               <div class="btn-group" role="group" aria-label="Basic example">
-                <button 
-                    type="button"
-                    onclick="abrirModalValidacion(${row.id_proyecto})"
-                    class="btn-editar"
-                    title="Realizar validación">
+                    <button 
+                        type="button"
+                        onclick="abrirModalValidacion(${row.id_proyecto})"
+                        class="btn-editar"
+                        title="Realizar validación">
 
-                    <i class="fa-solid fa-hourglass-half fa-beat" style="color: rgba(255, 213, 0, 1);"></i>
+                        <i class="fa-solid fa-hourglass-half fa-beat" style="color: rgba(255, 213, 0, 1);"></i>
 
-                </button>
-            </div>
+                    </button>
+                </div>
+                `;
+
+              if (row.estatus === "Planificacion") {
+                buttonHTML = `
+                <a href="./new_project_planning.php?id=${row.id_proyecto}" class="btn-editar" title="Elaborar la Planificacion">
+                      <i class="material-icons-round">edit_calendar</i>
+                </a>
         `;
+              };
+
+              return buttonHTML;
             }
           }
         ]
@@ -1024,16 +1368,139 @@ if (!isset($_SESSION['id_usuario'])) {
           {
             "data": null,
             "render": function(data, type, row) {
-              return `
-            <a href="./new_project_planning.php?id=${row.id_proyecto}" class="btn-editar" title="Elaborar la Planificacion">
-                <i class="material-icons-round">edit_calendar</i>
-            </a>
+
+              let buttonHTML = ` `;
+              if (row.estado_plan === "Propuesto") {
+                buttonHTML = `
+            <div class="btn-group" role="group">
+                <button type="button" onclick="abrirModal_menu_multiple(${row.id_project_plans})" class="btn-editar" title="Editar Datos"><i class="fa-solid fa-layer-group" style="color: rgb(35, 77, 217);"></i></button>
+            </div>
         `;
+              };
+
+              if (row.estado_plan === "Evaluacion") {
+                buttonHTML = `
+            <div class="btn-group" role="group">
+                <button type="button" class="btn-editar" title="Evaluación en desarrollo" disabled><i class="fa-solid fa-hourglass-half fa-beat" style="color: rgba(255, 213, 0, 1);"></i></button>
+            </div>
+        `;
+              };
+
+              return buttonHTML;
             }
           }
         ]
       });
     });
+  </script>
+
+  <script>
+    function cargarEntregablesPlan(idPlan) {
+
+      const tbody = document.getElementById('tbody_entregables_plan');
+
+      tbody.innerHTML = `
+        <tr>
+            <td colspan="5" class="text-center text-secondary">
+                Cargando entregables...
+            </td>
+        </tr>
+    `;
+      $.ajax({
+
+        url: './consultas/consul_obtener_entregables_plan.php',
+
+        type: 'GET',
+
+        data: {
+          id_project_plans: idPlan
+        },
+
+        dataType: 'json',
+
+        success: function(respuesta) {
+
+          console.log('Entregables recibidos:', respuesta);
+
+          tbody.innerHTML = '';
+
+          if (!respuesta.success) {
+
+            tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center text-danger">
+                            ${respuesta.message}
+                        </td>
+                    </tr>
+                `;
+
+            return;
+          }
+
+
+          if (respuesta.data.length === 0) {
+
+            tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center text-secondary">
+                            No hay entregables registrados.
+                        </td>
+                    </tr>
+                `;
+
+            return;
+          }
+
+
+          // Recorrer los entregables recibidos.
+          respuesta.data.forEach(function(entregable) {
+
+            const fila = document.createElement('tr');
+
+            const valores = [
+              entregable.id_project_deliverables,
+              entregable.nombre_entregable,
+              entregable.descripcion_entregable,
+              entregable.criterio_aceptacion_entregable,
+              entregable.fecha_objetivo_entregable
+            ];
+
+            valores.forEach(function(valor) {
+
+              const celda = document.createElement('td');
+
+              celda.className = 'text-center';
+
+              // textContent evita interpretar el contenido como HTML.
+              celda.textContent = valor ?? '';
+
+              fila.appendChild(celda);
+
+            });
+
+            tbody.appendChild(fila);
+
+          });
+
+        },
+
+        error: function(xhr) {
+
+          console.error('Error al consultar entregables:', xhr.responseText);
+
+          tbody.innerHTML = `
+                <tr>
+                    <td colspan="5" class="text-center text-danger">
+                        Error al obtener los entregables.
+                    </td>
+                </tr>
+            `;
+
+        }
+
+      });
+
+    }
   </script>
 
   <!-- ------------------ Codigo del script para ver las propuestas vigentes ------------------ -->
@@ -1165,6 +1632,155 @@ if (!isset($_SESSION['id_usuario'])) {
     }
   </script>
 
+  <script>
+    let idProjectPlansSeleccionado = 0;
+
+    const modalMenuMultipleElemento = document.getElementById('modal_menu_multiple');
+
+    const modalMenuMultiple = bootstrap.Modal.getOrCreateInstance(
+      modalMenuMultipleElemento
+    );
+
+    const submodalesPlanMenu = {};
+
+    const idsSubmodalesPlan = [
+      'modalAlcancePlan',
+      'modalActividadesPlan',
+      'modalRecursosPlan',
+      'modalPresupuestoPlan',
+      'modalRiesgosPlan',
+      'modalSeguimientoPlan'
+    ];
+
+
+    idsSubmodalesPlan.forEach(function(idModal) {
+
+      const elemento = document.getElementById(idModal);
+      if (!elemento) {
+
+        console.warn('Submodal pendiente de crear:', idModal);
+
+        return;
+      }
+
+      submodalesPlanMenu[idModal] = {
+
+        elemento: elemento,
+
+        instancia: bootstrap.Modal.getOrCreateInstance(elemento)
+
+      };
+
+      elemento.addEventListener('hidden.bs.modal', function() {
+
+        if (idProjectPlansSeleccionado > 0) {
+
+          modalMenuMultiple.show();
+
+        }
+
+      });
+
+    });
+
+    function abrirModal_menu_multiple(id) {
+
+      id = parseInt(id, 10);
+
+      if (!Number.isInteger(id) || id <= 0) {
+
+        console.error('Identificador de planificación inválido:', id);
+
+        alert('No se pudo identificar la planificación seleccionada.');
+
+        return;
+      }
+
+      console.log('ID de planificación seleccionado:', id);
+
+      idProjectPlansSeleccionado = id;
+
+      document.getElementById('id_project_plans_menu').value = id;
+
+      document.getElementById('numero_plan_seleccionado').textContent = id;
+
+      modalMenuMultiple.show();
+
+    }
+
+
+    // ==========================================
+    // ABRIR SUBMODAL SELECCIONADO
+    // ==========================================
+
+    function abrirModal_componente(idModal) {
+
+      const submodal = submodalesPlanMenu[idModal];
+
+      if (!submodal || !submodal.elemento) {
+
+        console.error('El submodal no existe:', idModal);
+
+        return;
+      }
+
+
+      // Obtener ID desde el menú principal.
+      const idPlan = parseInt(
+        document.getElementById('id_project_plans_menu').value,
+        10
+      );
+
+
+      if (!Number.isInteger(idPlan) || idPlan <= 0) {
+
+        alert('Primero debe seleccionar una planificación.');
+
+        return;
+      }
+
+
+      console.log('ID de planificación:', idPlan);
+
+
+      // Asignar el ID al submodal.
+      submodal.elemento.dataset.idProjectPlans = idPlan;
+
+
+      // Asignar el ID a TODOS los formularios del submodal.
+      submodal.elemento.querySelectorAll(
+        'input[name="id_project_plans"]'
+      ).forEach(function(input) {
+
+        input.value = idPlan;
+
+      });
+
+
+      // Cerrar el menú y abrir el submodal.
+      modalMenuMultipleElemento.addEventListener(
+        'hidden.bs.modal',
+        function() {
+
+          submodal.instancia.show();
+
+          // Consultar entregables cuando se abra el modal de alcance.
+          if (idModal === 'modalAlcancePlan') {
+
+            cargarEntregablesPlan(idPlan);
+
+          }
+
+        }, {
+          once: true
+        }
+      );
+
+
+      modalMenuMultiple.hide();
+
+    }
+  </script>
 
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
@@ -1291,6 +1907,20 @@ if (!isset($_SESSION['id_usuario'])) {
     document.addEventListener('DOMContentLoaded', function() {
       const checkbox = document.getElementById('check_ver_riesgos');
       const contenedor = document.getElementById('ver_riesgos_container');
+
+      function toggle() {
+        contenedor.style.display = checkbox.checked ? 'none' : 'block';
+      }
+
+      toggle(); // estado inicial
+      checkbox.addEventListener('change', toggle);
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const checkbox = document.getElementById('check_form_entregable');
+      const contenedor = document.getElementById('ver_form_entregables_container');
 
       function toggle() {
         contenedor.style.display = checkbox.checked ? 'none' : 'block';

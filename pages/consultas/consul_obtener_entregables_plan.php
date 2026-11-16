@@ -1,0 +1,67 @@
+<?php
+
+session_start();
+
+header('Content-Type: application/json; charset=utf-8');
+
+require_once('../databases/conexion.php');
+
+
+// ==========================================
+// RECIBIR ID DE LA PLANIFICACIÓN
+// ==========================================
+
+$idPlan = filter_input(INPUT_GET, 'id_project_plans', FILTER_VALIDATE_INT);
+
+if (!$idPlan || $idPlan <= 0) {
+
+    http_response_code(400);
+
+    echo json_encode([
+        'success' => false,
+        'message' => 'Identificador de planificación inválido.'
+    ]);
+
+    exit;
+}
+
+$sql = "SELECT * FROM project_plan_deliverables WHERE id_project_plans = ? ORDER BY id_project_deliverables ASC";
+
+
+$stmt = mysqli_prepare($conn, $sql);
+
+if (!$stmt) {
+
+    http_response_code(500);
+
+    echo json_encode([
+        'success' => false,
+        'message' => 'Error al preparar la consulta.'
+    ]);
+
+    exit;
+}
+
+
+mysqli_stmt_bind_param($stmt, "i", $idPlan);
+
+mysqli_stmt_execute($stmt);
+
+$resultado = mysqli_stmt_get_result($stmt);
+
+$entregables = [];
+
+while ($fila = mysqli_fetch_assoc($resultado)) {
+
+    $entregables[] = $fila;
+}
+
+
+mysqli_stmt_close($stmt);
+
+echo json_encode([
+    'success' => true,
+    'data' => $entregables
+], JSON_UNESCAPED_UNICODE);
+
+exit;
