@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-11-2026 a las 01:03:41
--- Versión del servidor: 9.7.1
+-- Tiempo de generación: 17-11-2026 a las 17:35:22
+-- Versión del servidor: 9.7.2
 -- Versión de PHP: 8.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -47,21 +47,21 @@ CREATE TABLE `projects` (
   `problema` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `objetivos` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `beneficios` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `tecnica` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `operativa` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `financiera` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `organizacional` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `areas_impacto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nivel_impacto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `observaciones_eval` varchar(300) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `duracion_estimada` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `recursos_requeridos` varchar(300) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `justificacion_eval` varchar(300) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `tecnica` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `operativa` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `financiera` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `organizacional` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `areas_impacto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nivel_impacto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `observaciones_eval` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `duracion_estimada` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `recursos_requeridos` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `justificacion_eval` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `avance` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `estatus` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'Por Ejecutar',
   `salud` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'En control',
-  `decision_dir` varchar(200) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Por asignar',
-  `justificacion_dir` varchar(300) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'En revisión ',
+  `decision_dir` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Por asignar',
+  `justificacion_dir` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'En revisión ',
   `activo` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -77,7 +77,7 @@ INSERT INTO `projects` (`id_proyecto`, `id_solicitante`, `id_manager`, `id_valid
 (5, 1, 0, 0, 0, 'Practica de cambios', 'afffafffa', 1, 'Mantenimiento', 'Media', 'ABAE', '2026-10-13', '2026-10-30', '255', 'affaff', 'adffg', 'faff', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Planificacion', 'En control', 'Por asignar', 'En revisión ', 1),
 (6, 1, 5, 0, 0, 'Nueva version de borrador', 'Prueba de nueva tabla', 2, 'Proyecto', 'Media', 'ABAE', '2026-10-14', '2026-10-29', '74746', 'Nueva revisión', 'Verificar', 'Revisión', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Planificacion', 'Critico', '1', '', 1),
 (7, 1, 0, 0, 0, 'Practica 8', 'dadadadadad', 2, 'Mantenimiento', 'Media', 'ABAE', '2026-10-07', '2026-11-07', '2424', 'rwrrwr', '31331', '42424', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Propuesto', 'En control', 'Por asignar', 'En revisión ', 1),
-(8, 1, 0, 0, 0, 'Ingreso 7', 'ffffffffff', 2, 'Mantenimiento', 'Crítica', 'ABAE', '2026-07-26', '2026-10-28', '5787', 'sdggd', 'etyg', 'tyuhb', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Aprobacion', 'En control', 'Por asignar', 'En revisión ', 1),
+(8, 1, 2, 0, 0, 'Ingreso 7', 'ffffffffff', 2, 'Mantenimiento', 'Crítica', 'ABAE', '2026-07-26', '2026-10-28', '5787', 'sdggd', 'etyg', 'tyuhb', 'innovación ', 'Viable', 'Optima', 'Institucional', 'USMI', 'Critica', 'Nivel aceptable', '2 meses', 'Multiples', 'Cumple con lo minimo', '0', 'Planificacion', 'En control', '1', 'Listo', 1),
 (9, 4, 0, 1, 0, 'Ingreso trabajador', 'sfsfsf', 1, 'Mantenimiento y Revisión', 'Media', 'ABAE', '2026-10-05', '2026-10-29', '4443', 'srwr', 'wrr', 'wrr', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Aprobacion', 'En control', 'Por asignar', 'En revisión ', 1),
 (10, 1, 0, 0, 0, 'Practica tecnica', 'Prueba en la oficina', 2, 'Mantenimiento', 'Baja', 'ABAE', '2026-10-14', '2026-10-29', '856', 'Practica', 'Funcionamiento', 'Modulo 1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Propuesto', 'Critico', 'Por asignar', 'En revisión ', 1),
 (11, 1, 0, 0, 0, 'Practica tecnica 2', 'Prueba de ingreso', 1, 'Reparación', 'Baja', 'ABAE', '2026-10-29', '2026-10-23', '754', 'Prueba de funcionamiento', 'Ver avance', 'Modulo 1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Propuesto', 'En control', 'Por asignar', 'En revisión ', 1),
@@ -120,7 +120,6 @@ INSERT INTO `projects_risk` (`id_projects_risk`, `id_proyecto`, `id_risk`) VALUE
 CREATE TABLE `project_activities` (
   `id_project_activities` int NOT NULL,
   `id_project_plans` int DEFAULT NULL,
-  `id_project_deliverables` int DEFAULT NULL,
   `nombre_actividad` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `descripcion_actividad` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `id_responsable_actividad` int DEFAULT NULL,
@@ -211,7 +210,7 @@ CREATE TABLE `project_plans` (
 --
 
 INSERT INTO `project_plans` (`id_project_plans`, `id_proyecto`, `n_version_mayor`, `n_version_menor`, `estado_plan`, `resumen_ejecutivo`, `alcance_incluido`, `alcance_excluido`, `supuestos`, `restricciones`, `dependencias_externas`, `fecha_inicio_plan`, `fecha_fin_plan`, `frecuencia_seguimiento`, `indicadores_seguimiento`, `tipo_moneda`, `id_responsable_reporte`, `recomendacion_manager`, `id_project_manager`, `fecha_creacion_plan`, `fecha_modificacion_plan`, `fecha_envio_revision_plan`, `fecha_validacion_plan`, `fecha_autorizacion_plan`) VALUES
-(1, 4, '1', '0', 'Propuesto', 'svssdd', 'hola', NULL, 'sdds', 'ffff', 'ssss', '2026-11-18 00:00:00', '2026-12-01 00:00:00', NULL, NULL, NULL, NULL, NULL, 2, '2026-11-14 18:47:00', NULL, NULL, NULL, NULL);
+(1, 4, '1', '0', 'Propuesto', 'svssdd', 'Nuevo avance', 'No hay', 'sdds', 'ffff', 'ssss', '2026-11-18 00:00:00', '2026-12-01 00:00:00', NULL, NULL, NULL, NULL, NULL, 2, '2026-11-14 18:47:00', '2026-11-17 11:04:00', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -230,6 +229,13 @@ CREATE TABLE `project_plan_deliverables` (
   `estado_entregable` varchar(100) NOT NULL DEFAULT 'Pendiente',
   `fecha_creacion_entregable` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `project_plan_deliverables`
+--
+
+INSERT INTO `project_plan_deliverables` (`id_project_deliverables`, `id_project_plans`, `nombre_entregable`, `descripcion_entregable`, `criterio_aceptacion_entregable`, `id_user_responsable`, `fecha_objetivo_entregable`, `estado_entregable`, `fecha_creacion_entregable`) VALUES
+(1, 1, 'Botellas de agua', 'Suministro de rehidratación', 'Que este limpia', 3, '2026-12-05 00:00:00', 'Pendiente', '2026-11-17 11:06:00');
 
 -- --------------------------------------------------------
 
@@ -675,7 +681,7 @@ ALTER TABLE `project_plans`
 -- AUTO_INCREMENT de la tabla `project_plan_deliverables`
 --
 ALTER TABLE `project_plan_deliverables`
-  MODIFY `id_project_deliverables` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_project_deliverables` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `project_plan_resources`

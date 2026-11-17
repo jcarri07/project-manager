@@ -919,8 +919,6 @@ if (!isset($_SESSION['id_usuario'])) {
               </div>
             </div>
 
-
-            <!-- RIESGOS -->
             <div class="col-md-4 col-sm-6">
 
               <div class="card border h-100 mb-0">
@@ -1158,6 +1156,76 @@ if (!isset($_SESSION['id_usuario'])) {
             </form>
 
           </div>
+
+          <div class="modal-footer">
+
+            <br><br><br>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!--  MODAL: ACTVIDADE Y PERSONAL -->
+
+  <div class="modal fade" id="modalActividadesPlan" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="titulo_modal_alcance" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+
+      <div class="modal-content">
+
+        <div class="w3-container w3-teal modal-header">
+
+          <div>
+            <h5 class="modal-title" id="titulo_modal_alcance">
+              <i class="fa-solid fa-bullseye text-primary me-2"></i>
+              Actividades y tareas
+            </h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"> </button>
+
+        </div>
+
+        <div class="modal-body">
+
+          <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_alcance_plan_proy" method="POST">
+
+            <input type="hidden" id="id_project_plans_alcance" name="id_project_plans" value="">
+
+            <div class="mb-4">
+              <label for="alcance_incluido" class="form-label"> Alcance incluido <span class="text-danger">*</span> </label>
+              <textarea class="form-control" id="proy_plan_alcance_incluido" name="proy_plan_alcance_incluido" rows="3" required></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label for="alcance_excluido" class="form-label"> Alcance excluido </label>
+              <textarea class="form-control" id="proy_plan_alcance_excluido" name="proy_plan_alcance_excluido" rows="3" required></textarea>
+            </div>
+
+            <div class="mb-4">
+
+              <input type="datetime-local" class="form-control" id="fecha_upt_plan_proy" name="fecha_upt_plan_proy" style="display:none" readonly>
+              <script>
+                var fechaActual = new Date();
+                var formattedDateTime = fechaActual.getFullYear() + '-' + ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '-' + ('0' + fechaActual.getDate()).slice(-2) + 'T' + ('0' + fechaActual.getHours()).slice(-2) + ':' + ('0' + fechaActual.getMinutes()).slice(-2);
+                document.getElementById('fecha_upt_plan_proy').value = formattedDateTime;
+              </script>
+
+            </div>
+
+            <div class="mb-4">
+              <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar alcance </button>
+            </div>
+
+          </form>
+
+          <br><br>
 
           <div class="modal-footer">
 
@@ -1530,14 +1598,9 @@ if (!isset($_SESSION['id_usuario'])) {
             ];
 
             valores.forEach(function(valor) {
-
               const celda = document.createElement('td');
-
               celda.className = 'text-center';
-
-              // textContent evita interpretar el contenido como HTML.
               celda.textContent = valor ?? '';
-
               fila.appendChild(celda);
 
             });
@@ -1885,6 +1948,10 @@ if (!isset($_SESSION['id_usuario'])) {
             cargarAlcancePlan(idPlan);
 
             cargarEntregablesPlan(idPlan);
+
+          }
+
+          if(idModal === 'modalActividadesPlan'){
 
           }
 

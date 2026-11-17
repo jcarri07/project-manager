@@ -283,7 +283,7 @@ $versionInicial = '1.0';
                         <div class="lifecycle-step completed"><i class="material-icons-round">check_circle</i><br>Evaluación</div>
                         <div class="lifecycle-step completed"><i class="material-icons-round">check_circle</i><br>Aprobado</div>
                         <div class="lifecycle-step active"><i class="material-icons-round">edit_calendar</i><br>Planificación</div>
-                        <div class="lifecycle-step"><i class="material-icons-round">play_circle</i><br>Ejecución</div>
+                       <!-- <div class="lifecycle-step"><i class="material-icons-round">play_circle</i><br>Ejecución</div> -->
                     </div>
                 </div>
             </section>
