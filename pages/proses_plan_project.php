@@ -48,6 +48,29 @@ if ($_GET['act'] == 'insert_init_plan_proj') {
 	}
 }
 
+if ($_GET['act'] == 'insert_alcance_plan_proy') {
+
+	$d_id_proyecto_plan = mysqli_real_escape_string($conn, trim($_POST['id_project_plans']));
+	$d_proy_plan_alcance_incluido = mysqli_real_escape_string($conn, trim($_POST['proy_plan_alcance_incluido']));
+	$d_proy_plan_alcance_excluido = mysqli_real_escape_string($conn, trim($_POST['proy_plan_alcance_excluido']));
+	$d_fecha_upt_plan_proy = mysqli_real_escape_string($conn, trim($_POST['fecha_upt_plan_proy']));
+
+	$query = mysqli_query($conn, "UPDATE project_plans SET alcance_incluido='$d_proy_plan_alcance_incluido', alcance_excluido='$d_proy_plan_alcance_excluido', fecha_modificacion_plan='$d_fecha_upt_plan_proy' WHERE project_plans.id_project_plans = '$d_id_proyecto_plan' ");
+
+	if ($query) {
+
+		if ($val_Type_User == 1) {
+			header("location: ../pages/project_indiv_tables_direct.php?alert=1");
+		}
+		if ($val_Type_User == 2) {
+			header("location: ../pages/project_gen_tables_jef.php?alert=1");
+		}
+		if ($val_Type_User == 3) {
+			header("location: ../pages/project_tables_trab.php?alert=1");
+		}
+	}
+}
+
 if ($_GET['act'] == 'insert_entregable_plan_proy') {
 
 	$d_id_proyecto_plan = mysqli_real_escape_string($conn, trim($_POST['id_project_plans']));

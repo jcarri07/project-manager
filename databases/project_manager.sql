@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-11-2026 a las 22:52:06
+-- Tiempo de generación: 17-11-2026 a las 01:03:41
 -- Versión del servidor: 9.7.1
 -- Versión de PHP: 8.5.12
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `project_manager`
 --
+CREATE DATABASE IF NOT EXISTS `project_manager` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE `project_manager`;
 
 -- --------------------------------------------------------
 
@@ -209,7 +211,7 @@ CREATE TABLE `project_plans` (
 --
 
 INSERT INTO `project_plans` (`id_project_plans`, `id_proyecto`, `n_version_mayor`, `n_version_menor`, `estado_plan`, `resumen_ejecutivo`, `alcance_incluido`, `alcance_excluido`, `supuestos`, `restricciones`, `dependencias_externas`, `fecha_inicio_plan`, `fecha_fin_plan`, `frecuencia_seguimiento`, `indicadores_seguimiento`, `tipo_moneda`, `id_responsable_reporte`, `recomendacion_manager`, `id_project_manager`, `fecha_creacion_plan`, `fecha_modificacion_plan`, `fecha_envio_revision_plan`, `fecha_validacion_plan`, `fecha_autorizacion_plan`) VALUES
-(1, 4, '1', '0', 'Propuesto', 'svssdd', NULL, NULL, 'sdds', 'ffff', 'ssss', '2026-11-18 00:00:00', '2026-12-01 00:00:00', NULL, NULL, NULL, NULL, NULL, 2, '2026-11-14 18:47:00', NULL, NULL, NULL, NULL);
+(1, 4, '1', '0', 'Propuesto', 'svssdd', 'hola', NULL, 'sdds', 'ffff', 'ssss', '2026-11-18 00:00:00', '2026-12-01 00:00:00', NULL, NULL, NULL, NULL, NULL, 2, '2026-11-14 18:47:00', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -226,7 +228,6 @@ CREATE TABLE `project_plan_deliverables` (
   `id_user_responsable` int NOT NULL,
   `fecha_objetivo_entregable` datetime NOT NULL,
   `estado_entregable` varchar(100) NOT NULL DEFAULT 'Pendiente',
-  `orden_entregable` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `fecha_creacion_entregable` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

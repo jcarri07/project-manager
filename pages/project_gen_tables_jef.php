@@ -1002,18 +1002,29 @@ if (!isset($_SESSION['id_usuario'])) {
 
         <div class="modal-body">
 
-          <form id="formAlcancePlan" action="./procesos/guardar_alcance.php" method="POST">
+          <form id="formAlcancePlan" action="./proses_proyecto.php?act=insert_alcance_plan_proy" method="POST">
 
             <input type="hidden" id="id_project_plans_alcance" name="id_project_plans" value="">
 
             <div class="mb-4">
               <label for="alcance_incluido" class="form-label"> Alcance incluido <span class="text-danger">*</span> </label>
-              <textarea class="form-control" id="alcance_incluido" name="alcance_incluido" rows="5" required></textarea>
+              <textarea class="form-control" id="proy_plan_alcance_incluido" name="proy_plan_alcance_incluido" rows="3" required></textarea>
             </div>
 
             <div class="mb-3">
               <label for="alcance_excluido" class="form-label"> Alcance excluido </label>
-              <textarea class="form-control" id="alcance_excluido" name="alcance_excluido" rows="5" required></textarea>
+              <textarea class="form-control" id="proy_plan_alcance_excluido" name="proy_plan_alcance_excluido" rows="3" required></textarea>
+            </div>
+
+            <div class="mb-4">
+
+              <input type="datetime-local" class="form-control" id="fecha_upt_plan_proy" name="fecha_upt_plan_proy" style="display:none" readonly>
+              <script>
+                var fechaActual = new Date();
+                var formattedDateTime = fechaActual.getFullYear() + '-' + ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '-' + ('0' + fechaActual.getDate()).slice(-2) + 'T' + ('0' + fechaActual.getHours()).slice(-2) + ':' + ('0' + fechaActual.getMinutes()).slice(-2);
+                document.getElementById('fecha_upt_plan_proy').value = formattedDateTime;
+              </script>
+
             </div>
 
             <div class="mb-4">
@@ -1085,8 +1096,6 @@ if (!isset($_SESSION['id_usuario'])) {
 
               <input type="hidden" id="id_project_plans_entregable" name="id_project_plans" value="">
 
-              <!-- inputs en desarrollo -->
-
               <div class="row g-3">
 
                 <div class="col-md-6">
@@ -1110,7 +1119,7 @@ if (!isset($_SESSION['id_usuario'])) {
                   <script>
                     var fechaActual = new Date();
                     var formattedDateTime = fechaActual.getFullYear() + '-' + ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '-' + ('0' + fechaActual.getDate()).slice(-2) + 'T' + ('0' + fechaActual.getHours()).slice(-2) + ':' + ('0' + fechaActual.getMinutes()).slice(-2);
-                    document.getElementById('fecha_reg').value = formattedDateTime;
+                    document.getElementById('fecha_reg_entreg').value = formattedDateTime;
                   </script>
 
                 </div>
@@ -1761,10 +1770,62 @@ if (!isset($_SESSION['id_usuario'])) {
 
     }
 
+    function cargarAlcancePlan(id) {
 
-    // ==========================================
-    // ABRIR SUBMODAL SELECCIONADO
-    // ==========================================
+      console.log("ID de planificación seleccionado:", id);
+
+      // Asignar ID al campo oculto.
+      $('#id_project_plans_alcance').val(id);
+
+      // Limpiar campos antes de consultar.
+      $('#proy_plan_alcance_incluido').val('');
+      $('#proy_plan_alcance_excluido').val('');
+
+      $.ajax({
+
+        url: './consultas/consul_obtener_alcance_plan.php',
+
+        type: 'GET',
+
+        data: {
+          id_project_plans: id
+        },
+
+        dataType: 'json',
+
+        success: function(respuesta) {
+
+          console.log("Respuesta del servidor:", respuesta);
+
+          if (!respuesta.success) {
+
+            alert(respuesta.message);
+
+            return;
+          }
+
+          const plan = respuesta.data;
+
+          $('#id_project_plans_alcance').val(plan.id_project_plans);
+          $('#proy_plan_alcance_incluido').val(plan.alcance_incluido);
+          $('#proy_plan_alcance_excluido').val(plan.alcance_excluido);
+
+        },
+
+        error: function(xhr, estado, error) {
+
+          console.error("Error AJAX:");
+          console.error("Estado:", estado);
+          console.error("Error:", error);
+          console.error("Respuesta PHP:", xhr.responseText);
+
+          alert('Error al obtener los datos del alcance.');
+
+        }
+
+      });
+
+    }
 
     function abrirModal_componente(idModal) {
 
@@ -1796,7 +1857,6 @@ if (!isset($_SESSION['id_usuario'])) {
       console.log('ID de planificación:', idPlan);
 
 
-      // Asignar el ID al submodal.
       submodal.elemento.dataset.idProjectPlans = idPlan;
 
 
@@ -1809,8 +1869,6 @@ if (!isset($_SESSION['id_usuario'])) {
 
       });
 
-
-      // Cerrar el menú y abrir el submodal.
       modalMenuMultipleElemento.addEventListener(
         'hidden.bs.modal',
         function() {
@@ -1819,6 +1877,8 @@ if (!isset($_SESSION['id_usuario'])) {
 
           // Consultar entregables cuando se abra el modal de alcance.
           if (idModal === 'modalAlcancePlan') {
+
+            cargarAlcancePlan(idPlan);
 
             cargarEntregablesPlan(idPlan);
 
