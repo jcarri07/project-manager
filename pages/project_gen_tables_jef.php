@@ -1177,11 +1177,8 @@ if (!isset($_SESSION['id_usuario'])) {
   <div class="modal fade" id="modalActividadesPlan" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="titulo_modal_alcance" aria-hidden="true">
 
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-
       <div class="modal-content">
-
         <div class="w3-container w3-teal modal-header">
-
           <div>
             <h5 class="modal-title" id="titulo_modal_alcance">
               <i class="fa-solid fa-bullseye text-primary me-2"></i>
@@ -1194,33 +1191,46 @@ if (!isset($_SESSION['id_usuario'])) {
 
         <div class="modal-body">
 
-          <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_alcance_plan_proy" method="POST">
+        <div class="row g-3">
+                <div class="col-md-12" style="color:black">
+
+                  <label class="form-label">Tareas registrados:</label>
+                  <br>
+                  <br>
+
+                  <div class="table-responsive">
+                    <table class="table table-hover table-striped align-middle">
+
+                      <thead class="table-light">
+                        <tr>
+                          <th class="text-center">ID</th>
+                          <th class="text-center">Entregable</th>
+                          <th class="text-center">Crit. Aceptacion</th>
+                          <th class="text-center">Fecha Estimada</th>
+                          <th class="text-center">Responsable</th>
+                        </tr>
+                      </thead>
+
+                      <tbody id="tbody_actividades_tareas_plan">
+                        <tr>
+                          <td colspan="5" class="text-center text-secondary">
+                            Seleccione una planificación para consultar sus tareas.
+                          </td>
+                        </tr>
+                      </tbody>
+
+                    </table>
+                  </div>
+
+                </div>
+              </div>
+
+          <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_actividad_tarea_plan_proy" method="POST">
 
             <input type="hidden" id="id_project_plans_alcance" name="id_project_plans" value="">
 
             <div class="mb-4">
-              <label for="alcance_incluido" class="form-label"> Alcance incluido <span class="text-danger">*</span> </label>
-              <textarea class="form-control" id="proy_plan_alcance_incluido" name="proy_plan_alcance_incluido" rows="3" required></textarea>
-            </div>
-
-            <div class="mb-3">
-              <label for="alcance_excluido" class="form-label"> Alcance excluido </label>
-              <textarea class="form-control" id="proy_plan_alcance_excluido" name="proy_plan_alcance_excluido" rows="3" required></textarea>
-            </div>
-
-            <div class="mb-4">
-
-              <input type="datetime-local" class="form-control" id="fecha_upt_plan_proy" name="fecha_upt_plan_proy" style="display:none" readonly>
-              <script>
-                var fechaActual = new Date();
-                var formattedDateTime = fechaActual.getFullYear() + '-' + ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '-' + ('0' + fechaActual.getDate()).slice(-2) + 'T' + ('0' + fechaActual.getHours()).slice(-2) + ':' + ('0' + fechaActual.getMinutes()).slice(-2);
-                document.getElementById('fecha_upt_plan_proy').value = formattedDateTime;
-              </script>
-
-            </div>
-
-            <div class="mb-4">
-              <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar alcance </button>
+              <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar tarea </button>
             </div>
 
           </form>
