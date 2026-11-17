@@ -39,22 +39,6 @@ mysqli_stmt_execute($stmt);
 
 $resultado = mysqli_stmt_get_result($stmt);
 
-if (!$resultado) {
-    echo json_encode([
-        'success' => false,
-        'message' => 'Error al obtener el resultado: ' . mysqli_error($conn)
-    ]);
-    exit;
-}
-
-if (mysqli_num_rows($resultado) === 0) {
-    echo json_encode([
-        'success' => false,
-        'message' => 'No se encontró el plan de proyecto.'
-    ]);
-    exit;
-}
-
 $proyecto = mysqli_fetch_assoc($resultado);
 
 echo json_encode([

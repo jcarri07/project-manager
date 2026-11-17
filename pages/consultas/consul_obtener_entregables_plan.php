@@ -4,7 +4,8 @@ session_start();
 
 header('Content-Type: application/json; charset=utf-8');
 
-require_once('../databases/conexion.php');
+include_once __DIR__ . ('/../../databases/conexion.php');
+
 
 
 // ==========================================

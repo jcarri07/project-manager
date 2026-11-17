@@ -1002,7 +1002,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
         <div class="modal-body">
 
-          <form id="formAlcancePlan" action="./proses_proyecto.php?act=insert_alcance_plan_proy" method="POST">
+          <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_alcance_plan_proy" method="POST">
 
             <input type="hidden" id="id_project_plans_alcance" name="id_project_plans" value="">
 
@@ -1092,7 +1092,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
           <div class="row g-3" id="ver_form_entregables_container">
 
-            <form id="formRegEntregable" action="./proses_proyecto.php?act=insert_entregable_plan_proy" method="POST">
+            <form id="formRegEntregable" action="./proses_plan_project.php?act=insert_entregable_plan_proy" method="POST">
 
               <input type="hidden" id="id_project_plans_entregable" name="id_project_plans" value="">
 
@@ -1111,17 +1111,6 @@ if (!isset($_SESSION['id_usuario'])) {
                 <div class="mb-4">
                   <label for="alcance_incluido" class="form-label">Criterios de aceptación: <span class="text-danger">*</span> </label>
                   <textarea class="form-control" id="criterios_acept" name="criterios_acept" rows="5" required></textarea>
-                </div>
-
-                <div class="mb-4">
-
-                  <input type="datetime-local" class="form-control" id="fecha_reg_entreg" name="fecha_reg_entreg" style="display:none" readonly>
-                  <script>
-                    var fechaActual = new Date();
-                    var formattedDateTime = fechaActual.getFullYear() + '-' + ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '-' + ('0' + fechaActual.getDate()).slice(-2) + 'T' + ('0' + fechaActual.getHours()).slice(-2) + ':' + ('0' + fechaActual.getMinutes()).slice(-2);
-                    document.getElementById('fecha_reg_entreg').value = formattedDateTime;
-                  </script>
-
                 </div>
 
                 <div class="mb-4">
@@ -1145,6 +1134,17 @@ if (!isset($_SESSION['id_usuario'])) {
                 <div class="col-md-4">
                   <label class="form-label">Fecha de Entrega: <span class="text-danger">*</span></label>
                   <input type="date" class="form-control border px-3" id="fech_entregable" name="fech_entregable" required>
+                </div>
+
+                <div class="mb-4">
+
+                  <input type="datetime-local" class="form-control" id="fecha_reg_entreg" name="fecha_reg_entreg" style="display:none" readonly>
+                  <script>
+                    var fechaActual = new Date();
+                    var formattedDateTime = fechaActual.getFullYear() + '-' + ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '-' + ('0' + fechaActual.getDate()).slice(-2) + 'T' + ('0' + fechaActual.getHours()).slice(-2) + ':' + ('0' + fechaActual.getMinutes()).slice(-2);
+                    document.getElementById('fecha_reg_entreg').value = formattedDateTime;
+                  </script>
+
                 </div>
 
               </div>
