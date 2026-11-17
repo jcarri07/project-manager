@@ -8,7 +8,7 @@ include_once __DIR__ . ('/../../databases/conexion_crud.php');
 $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 
-$consulta = "SELECT * FROM projects,unidad WHERE projects.unidad = unidad.id_unidad AND projects.estatus = 'Evaluacion' AND projects.id_validador='$id'";
+$consulta = "SELECT  * FROM projects,unidad WHERE projects.unidad = unidad.id_unidad AND (projects.estatus = 'Evaluacion' AND projects.id_validador='$id') OR (projects.estatus = 'Planificacion' AND projects.id_manager='$id') GROUP BY projects.id_proyecto";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
