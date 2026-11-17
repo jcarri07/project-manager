@@ -1774,23 +1774,29 @@ if (!isset($_SESSION['id_usuario'])) {
 
       console.log("ID de planificación seleccionado:", id);
 
-      // Asignar ID al campo oculto.
-      $('#id_project_plans_alcance').val(id);
+      const idPlan = Number(id);
+
+      console.log('ID recibido en cargarAlcancePlan:', id);
+      console.log('ID convertido:', idPlan);
+      if (!Number.isInteger(idPlan) || idPlan <= 0) {
+          console.error('ID de planificación inválido:', id);
+          alert('No se recibió un identificador válido de planificación.');
+          return;
+      }
+
+      //$('#id_project_plans_alcance').val(id);
 
       // Limpiar campos antes de consultar.
-      $('#proy_plan_alcance_incluido').val('');
-      $('#proy_plan_alcance_excluido').val('');
+      //$('#proy_plan_alcance_incluido').val('');
+      //$('#proy_plan_alcance_excluido').val('');
 
       $.ajax({
 
         url: './consultas/consul_obtener_alcance_plan.php',
-
         type: 'GET',
-
         data: {
-          id_project_plans: id
+          id: idPlan
         },
-
         dataType: 'json',
 
         success: function(respuesta) {
@@ -1800,10 +1806,8 @@ if (!isset($_SESSION['id_usuario'])) {
           if (!respuesta.success) {
 
             alert(respuesta.message);
-
             return;
           }
-
           const plan = respuesta.data;
 
           $('#id_project_plans_alcance').val(plan.id_project_plans);
@@ -1859,8 +1863,6 @@ if (!isset($_SESSION['id_usuario'])) {
 
       submodal.elemento.dataset.idProjectPlans = idPlan;
 
-
-      // Asignar el ID a TODOS los formularios del submodal.
       submodal.elemento.querySelectorAll(
         'input[name="id_project_plans"]'
       ).forEach(function(input) {
@@ -1938,51 +1940,6 @@ if (!isset($_SESSION['id_usuario'])) {
       if (previousEstado === 'Por Asignar' || previousEstado === '' || previousEstado === 'En Espera') {
         if (selectedUser !== '') {
           estadoSelect.value = 'Asignado';
-        }
-      }
-    });
-  </script>
-
-  <script>
-    const avance = document.getElementById("edit_avance");
-    const estado = document.getElementById("edit_est");
-
-    avance.addEventListener("input", function() {
-
-      let valor = parseInt(this.value);
-
-      if (isNaN(valor)) {
-        return;
-      }
-
-      if (valor < 0) {
-        this.value = 0;
-        valor = 0;
-      }
-
-      if (valor > 100) {
-        this.value = 100;
-        valor = 100;
-      }
-
-      if (valor === 100) {
-        estado.value = "Completado";
-      } else if (estado.value === "Completado") {
-        estado.value = "En progreso";
-      }
-    });
-
-    estado.addEventListener("change", function() {
-
-      if (this.value === "Completado") {
-        avance.value = 100;
-      } else if (
-        this.value === "En progreso" ||
-        this.value === "Por Ejecutar"
-      ) {
-
-        if (parseInt(avance.value) >= 100 || avance.value === "") {
-          avance.value = 99;
         }
       }
     });

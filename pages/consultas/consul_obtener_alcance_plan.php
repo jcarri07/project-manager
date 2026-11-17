@@ -1,91 +1,66 @@
 <?php
 
-session_start();
+include_once __DIR__ . ('/../../databases/conexion.php');
 
 header('Content-Type: application/json; charset=utf-8');
 
-include_once __DIR__ . '/../../databases/conexion_crud.php';
-
-// ==========================================
-// VALIDAR SESIÓN
-// ==========================================
-
-if (!isset($_SESSION['id_usuario'])) {
-
-    http_response_code(401);
-
+if (!isset($_GET['id']) || trim($_GET['id']) === '') {
     echo json_encode([
         'success' => false,
-        'message' => 'Sesión no válida.'
+        'message' => 'No se recibió el ID del plan.'
     ]);
-
     exit;
 }
 
+$id = (int) $_GET['id'];
 
-// ==========================================
-// RECIBIR ID DE LA PLANIFICACIÓN
-// ==========================================
-
-$idPlan = filter_input(INPUT_GET, 'id_project_plans', FILTER_VALIDATE_INT);
-
-if (!$idPlan || $idPlan <= 0) {
-
-    http_response_code(400);
-
+if ($id <= 0) {
     echo json_encode([
         'success' => false,
-        'message' => 'Identificador de planificación inválido.'
+        'message' => 'ID de plan inválido.'
     ]);
-
     exit;
 }
-
-
-// ==========================================
-// CONSULTAR INFORMACIÓN DEL ALCANCE
-// ==========================================
 
 $sql = "SELECT * FROM project_plans WHERE id_project_plans = ? LIMIT 1";
 
 $stmt = mysqli_prepare($conn, $sql);
 
 if (!$stmt) {
-
-    http_response_code(500);
-
     echo json_encode([
         'success' => false,
-        'message' => 'Error al preparar la consulta.'
+        'message' => 'Error al preparar la consulta: ' . mysqli_error($conn)
     ]);
-
     exit;
 }
 
-
-mysqli_stmt_bind_param($stmt, "i", $idPlan);
-
+mysqli_stmt_bind_param($stmt, 'i', $id);
 mysqli_stmt_execute($stmt);
 
 $resultado = mysqli_stmt_get_result($stmt);
 
-$plan = mysqli_fetch_assoc($resultado);
-
-mysqli_stmt_close($stmt);
-
-if (!$plan) {
-
+if (!$resultado) {
     echo json_encode([
         'success' => false,
-        'message' => 'No se encontró la planificación seleccionada.'
+        'message' => 'Error al obtener el resultado: ' . mysqli_error($conn)
     ]);
-
     exit;
 }
 
+if (mysqli_num_rows($resultado) === 0) {
+    echo json_encode([
+        'success' => false,
+        'message' => 'No se encontró el plan de proyecto.'
+    ]);
+    exit;
+}
+
+$proyecto = mysqli_fetch_assoc($resultado);
+
 echo json_encode([
     'success' => true,
-    'data' => $plan
-], JSON_UNESCAPED_UNICODE);
+    'data'    => $proyecto
+]);
 
-exit;
+mysqli_free_result($resultado);
+mysqli_stmt_close($stmt);
