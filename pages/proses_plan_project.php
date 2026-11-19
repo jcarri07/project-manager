@@ -99,4 +99,82 @@ if ($_GET['act'] == 'insert_entregable_plan_proy') {
 	}
 }
 
+if ($_GET['act'] == 'insert_actividad_tarea_plan_proy') {
+
+	$cont = 0;
+	$sql0 = ("SELECT * FROM project_activities");
+	$result = mysqli_query($conn, $sql0);
+	$datos = array();
+
+	while ($row = mysqli_fetch_array($result)) {
+		$cont++;
+	}
+
+	if ($cont == 0) {
+		$DIDM = 1;
+	} else {
+		$DIDM = $cont + 1;
+	}
+
+	$d_id_project_plans = mysqli_real_escape_string($conn, trim($_POST['id_project_plans']));
+	$d_nombre_actividad_proy = mysqli_real_escape_string($conn, trim($_POST['nombre_actividad_proy']));
+	$d_descripcion_actividad_proy = mysqli_real_escape_string($conn, trim($_POST['descripcion_actividad_proy']));
+	$d_fecha_ini_actividad_proy = mysqli_real_escape_string($conn, trim($_POST['fecha_ini_actividad_proy']));
+	$d_fecha_fin_actividad_proy = mysqli_real_escape_string($conn, trim($_POST['fecha_fin_actividad_proy']));
+	$d_durac_actividad_proy = mysqli_real_escape_string($conn, trim($_POST['durac_actividad_proy']));
+	$d_estado_actividad = "Pendiente";
+	$d_observacion_actividad_proy = mysqli_real_escape_string($conn, trim($_POST['observacion_actividad_proy']));
+	$d_fecha_creac_actividad_proy = mysqli_real_escape_string($conn, trim($_POST['fecha_creac_actividad_proy']));
+
+	$query = mysqli_query($conn, "INSERT INTO project_activities(id_project_activities, id_project_plans, nombre_actividad, descripcion_actividad, fecha_inicio_plan_actividad, fecha_fin_plan_actividad, duracion_actividad, estado_actividad, observaciones_actividad, fecha_creacion_actividad)
+											VALUES('$DIDM', '$d_id_project_plans', '$d_nombre_actividad_proy', '$d_descripcion_actividad_proy', '$d_fecha_ini_actividad_proy', '$d_fecha_fin_actividad_proy', '$d_durac_actividad_proy', '$d_estado_actividad', '$d_observacion_actividad_proy', '$d_fecha_creac_actividad_proy')");
+
+	if ($query) {
+
+		if (!empty($_POST['respon_act_tarea'])) {
+			foreach ($_POST['respon_act_tarea'] as $id_riesgo_e) {
+				$id_riesgo_e = intval($id_riesgo_e);
+				$sql_riesgo = "INSERT INTO users_project_activities(id_users, id_project_activities, id_project_plans) 
+						VALUES ('$id_riesgo_e', '$DIDM', '$d_id_project_plans')";
+				mysqli_query($conn, $sql_riesgo);
+			}
+		}
+
+		if ($val_Type_User == 1) {
+			header("location: ../pages/project_indiv_tables_direct.php?alert=1");
+		}
+		if ($val_Type_User == 2) {
+			header("location: ../pages/project_gen_tables_jef.php?alert=1");
+		}
+		if ($val_Type_User == 3) {
+			header("location: ../pages/project_tables_trab.php?alert=1");
+		}
+	}
+}
+
+if ($_GET['act'] == 'insert_hitos_plan_proy') {
+
+	$d_id_project_plans = mysqli_real_escape_string($conn, trim($_POST['id_project_plans']));
+	$d_nombre_hito_proy = mysqli_real_escape_string($conn, trim($_POST['nombre_hito_proy']));
+	$d_descripcion_hito_proy = mysqli_real_escape_string($conn, trim($_POST['descripcion_hito_proy']));
+	$d_fecha_ocurren_hito_proy = mysqli_real_escape_string($conn, trim($_POST['fecha_ocurren_hito_proy']));
+	$d_estado_hito = "Pendiente";
+
+	$query = mysqli_query($conn, "INSERT INTO project_plans_milestones(id_project_plans, nombre_hitos, descripcion_hitos, fecha_hito, estado_hito)
+											VALUES('$d_id_project_plans', '$d_nombre_hito_proy', '$d_descripcion_hito_proy', '$d_fecha_ocurren_hito_proy', '$d_estado_hito')");
+
+	if ($query) {
+
+		if ($val_Type_User == 1) {
+			header("location: ../pages/project_indiv_tables_direct.php?alert=1");
+		}
+		if ($val_Type_User == 2) {
+			header("location: ../pages/project_gen_tables_jef.php?alert=1");
+		}
+		if ($val_Type_User == 3) {
+			header("location: ../pages/project_tables_trab.php?alert=1");
+		}
+	}
+}
+
 ?>

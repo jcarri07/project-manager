@@ -109,11 +109,11 @@ if (!isset($_SESSION['id_usuario'])) {
                 <ul class="nav nav-pills flex-row p-1" id="proyectosTabs" role="tablist">
 
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="valid_pro-tab" data-bs-toggle="tab" data-bs-target="#valid_pro-pane" type="button" role="tab" aria-controls="valid_pro-pane" aria-selected="false">Propuestas a Validar</button>
+                    <button class="nav-link active" id="valid_pro-tab" data-bs-toggle="tab" data-bs-target="#valid_pro-pane" type="button" role="tab" aria-controls="valid_pro-pane" aria-selected="false">Propuestas</button>
                   </li>
 
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="plan_pro_mana-tab" data-bs-toggle="tab" data-bs-target="#plan_pro_mana-pane" type="button" role="tab" aria-controls="plan_pro_mana-pane" aria-selected="false">Planificacion Project Manager</button>
+                    <button class="nav-link" id="plan_pro_mana-tab" data-bs-toggle="tab" data-bs-target="#plan_pro_mana-pane" type="button" role="tab" aria-controls="plan_pro_mana-pane" aria-selected="false">Desarrollo de la planificación</button>
                   </li>
 
                 </ul>
@@ -580,39 +580,6 @@ if (!isset($_SESSION['id_usuario'])) {
                 <textarea name="just_eval_proy_valid" id="just_eval_proy_valid" maxlength="300" cols="40" rows="4" class="form-control" required></textarea>
                 <div id="contador_just_eval_proy_valid">300</div>
               </div>
-
-              <script>
-                function limitarTextarea(idTextarea, idContador, maximoCaracteres = 300) {
-                  const textarea = document.getElementById(idTextarea);
-                  const contador = document.getElementById(idContador);
-
-                  const mensajeError = document.createElement('p');
-                  mensajeError.classList.add('text-danger');
-                  mensajeError.textContent = 'Has superado el límite de caracteres (Reiniciar el Registro).';
-                  mensajeError.style.display = 'none';
-                  textarea.parentNode.appendChild(mensajeError);
-
-                  const actualizarContador = () => {
-                    const restantes = maximoCaracteres - textarea.value.length;
-                    contador.textContent = restantes;
-
-                    if (restantes < 0) {
-                      mensajeError.style.display = 'block';
-                      textarea.disabled = true;
-                    } else {
-                      mensajeError.style.display = 'none';
-                      textarea.disabled = false;
-                    }
-                  };
-
-                  textarea.addEventListener('input', actualizarContador);
-                  actualizarContador();
-                }
-
-                limitarTextarea("just_eval_proy_valid", "contador_just_eval_proy_valid", 300);
-                limitarTextarea("recur_requer_proy_valid", "contador_recur_requer_proy_valid", 300);
-                limitarTextarea("observa_eval_proy_valid", "contador_observa_eval_proy_valid", 300);
-              </script>
 
             </div>
 
@@ -1172,7 +1139,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
   </div>
 
-  <!--  MODAL: ACTVIDADE Y PERSONAL -->
+  <!--  MODAL: ACTVIDADES Y PERSONAL -->
 
   <div class="modal fade" id="modalActividadesPlan" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="titulo_modal_alcance" aria-hidden="true">
 
@@ -1181,7 +1148,7 @@ if (!isset($_SESSION['id_usuario'])) {
         <div class="w3-container w3-teal modal-header">
           <div>
             <h5 class="modal-title" id="titulo_modal_alcance">
-              <i class="fa-solid fa-bullseye text-primary me-2"></i>
+              <i class="fa-solid fa-list-check text-primary me-2"></i>
               Actividades y tareas
             </h5>
           </div>
@@ -1191,49 +1158,206 @@ if (!isset($_SESSION['id_usuario'])) {
 
         <div class="modal-body">
 
-        <div class="row g-3">
-                <div class="col-md-12" style="color:black">
+          <div class="row g-3">
+            <div class="col-md-12" style="color:black">
 
-                  <label class="form-label">Tareas registrados:</label>
-                  <br>
-                  <br>
+              <label class="form-label">Tareas registrados:</label>
+              <br>
+              <div class="col-md-4" style="color:black">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="check_form_actividades_tareas" checked>
+                  <label class="form-check-label" for="check_form_actividades_tareas">Registrar nueva tarea</label>
+                </div>
+              </div>
+              <br>
 
-                  <div class="table-responsive">
-                    <table class="table table-hover table-striped align-middle">
+              <div class="table-responsive">
+                <table class="table table-hover table-striped align-middle">
 
-                      <thead class="table-light">
-                        <tr>
-                          <th class="text-center">ID</th>
-                          <th class="text-center">Entregable</th>
-                          <th class="text-center">Crit. Aceptacion</th>
-                          <th class="text-center">Fecha Estimada</th>
-                          <th class="text-center">Responsable</th>
-                        </tr>
-                      </thead>
+                  <thead class="table-light">
+                    <tr>
+                      <th class="text-center">ID</th>
+                      <th class="text-center">Actividad</th>
+                      <th class="text-center">Descripción</th>
+                      <th class="text-center">Fecha Inicio</th>
+                      <th class="text-center">Fecha Fin</th>
+                      <th class="text-center">Estado</th>
+                    </tr>
+                  </thead>
 
-                      <tbody id="tbody_actividades_tareas_plan">
-                        <tr>
-                          <td colspan="5" class="text-center text-secondary">
-                            Seleccione una planificación para consultar sus tareas.
-                          </td>
-                        </tr>
-                      </tbody>
+                  <tbody id="tbody_actividades_tareas_plan">
+                    <tr>
+                      <td colspan="6" class="text-center text-secondary">
+                        Seleccione una planificación para consultar sus actividades.
+                      </td>
+                    </tr>
+                  </tbody>
 
-                    </table>
+                </table>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row g-3" id="ver_form_act_tar_container">
+
+            <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_actividad_tarea_plan_proy" method="POST">
+
+              <input type="hidden" id="id_project_plans_alcance" name="id_project_plans" value="">
+
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label">Nombre de la actividad *</label>
+                    <input type="text" name="nombre_actividad_proy" id="nombre_actividad_proy" class="form-control border px-3" required>
+                  </div>
+
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label">Descripción de la actividad *</label>
+                    <textarea name="descripcion_actividad_proy" id="descripcion_actividad_proy" class="form-control border px-3" maxlength="300" rows="3" required></textarea>
+                    <div id="contador_descripcion_actividad_proy">300</div>
+                  </div>
+
+                  <div class="col-md-4 mb-3" id="co_autor_container">
+                    <label for="fecha" class="form-label">Asignar responsable: </label>
+                    <select class="form-multi-select" id="respon_act_tarea" name="respon_act_tarea[]" multiple data-coreui-search="global">
+                      <?php
+                      $query_data = mysqli_query($conn, "SELECT * FROM users");
+
+                      while ($miembro = mysqli_fetch_assoc($query_data)) {
+                        $id = $miembro['id_usuario'];
+                        $nombre = ($miembro['nombre_user']);
+                        $apell = ($miembro['apellido_user']);
+                        $esp = ($miembro['especialidad']);
+                        echo "<option value=\"$id\">$nombre $apell | Especialidad: $esp</option>";
+                      }
+                      ?>
+                    </select>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Fecha de inicio *</label>
+                    <input type="date" name="fecha_ini_actividad_proy" id="fecha_ini_actividad_proy" class="form-control border px-3" required>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Fecha de finalización *</label>
+                    <input type="date" name="fecha_fin_actividad_proy" id="fecha_fin_actividad_proy" class="form-control border px-3" required>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Duración de la actividad</label>
+                    <input type="text" name="durac_actividad_proy" id="durac_actividad_proy" class="form-control border px-3" readonly>
+                  </div>
+
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label">Observación de la actividad *</label>
+                    <textarea name="observacion_actividad_proy" id="observacion_actividad_proy" class="form-control border px-3" maxlength="300" rows="3" required></textarea>
+                    <div id="contador_observacion_actividad_proy">300</div>
+                  </div>
+
+                  <div class="mb-4">
+                    <input type="datetime-local" class="form-control" id="fecha_creac_actividad_proy" name="fecha_creac_actividad_proy" style="display:none" readonly>
+                    <script>
+                      var fechaActual = new Date();
+                      var formattedDateTime = fechaActual.getFullYear() + '-' + ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '-' + ('0' + fechaActual.getDate()).slice(-2) + 'T' + ('0' + fechaActual.getHours()).slice(-2) + ':' + ('0' + fechaActual.getMinutes()).slice(-2);
+                      document.getElementById('fecha_creac_actividad_proy').value = formattedDateTime;
+                    </script>
                   </div>
 
                 </div>
+
+                <div class="mb-4">
+                  <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar tarea </button>
+                </div>
+
               </div>
 
-          <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_actividad_tarea_plan_proy" method="POST">
+            </form>
 
-            <input type="hidden" id="id_project_plans_alcance" name="id_project_plans" value="">
+          </div>
 
-            <div class="mb-4">
-              <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar tarea </button>
+          <br><br>
+
+          <div class="row g-3">
+            <div class="col-md-12" style="color:black">
+
+              <label class="form-label">Hitos Planificados:</label>
+              <br>
+              <div class="col-md-4" style="color:black">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="check_form_hitos_tareas" checked>
+                  <label class="form-check-label" for="check_form_hitos_tareas">Registrar nuevo hito</label>
+                </div>
+              </div>
+              <br>
+
+              <div class="table-responsive">
+                <table class="table table-hover table-striped align-middle">
+
+                  <thead class="table-light">
+                    <tr>
+                      <th class="text-center">ID</th>
+                      <th class="text-center">Hitos</th>
+                      <th class="text-center">Descripción</th>
+                      <th class="text-center">Fecha del hito</th>
+                      <th class="text-center">Estado</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="tbody_hitos_ocurr_plan">
+                    <tr>
+                      <td colspan="5" class="text-center text-secondary">
+                        Seleccione una planificación para consultar sus hitos.
+                      </td>
+                    </tr>
+                  </tbody>
+
+                </table>
+              </div>
+
             </div>
+          </div>
 
-          </form>
+          <div class="row g-3" id="ver_form_nuevo_hito_container">
+
+            <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_hitos_plan_proy" method="POST">
+
+              <input type="hidden" id="id_project_plans_alcance" name="id_project_plans" value="">
+
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label">Hito *</label>
+                    <input type="text" name="nombre_hito_proy" id="nombre_hito_proy" class="form-control border px-3" required>
+                  </div>
+
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label">Descripción del hito *</label>
+                    <textarea name="descripcion_hito_proy" id="descripcion_hito_proy" class="form-control border px-3" maxlength="300" rows="3" required></textarea>
+                    <div id="contador_descripcion_hito_proy">300</div>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Fecha de ocurrencia *</label>
+                    <input type="date" name="fecha_ocurren_hito_proy" id="fecha_ocurren_hito_proy" class="form-control border px-3" required>
+                  </div>
+
+                </div>
+
+                <br>
+
+                <div class="mb-4">
+                  <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar hito </button>
+                </div>
+
+              </div>
+
+            </form>
+
+          </div>
 
           <br><br>
 
@@ -1640,6 +1764,211 @@ if (!isset($_SESSION['id_usuario'])) {
     }
   </script>
 
+  <script>
+    function cargaractividadestareasPlan(idPlan) {
+
+      const tbody = document.getElementById('tbody_actividades_tareas_plan');
+
+      tbody.innerHTML = `
+        <tr>
+            <td colspan="6" class="text-center text-secondary">
+                Cargando Actividades...
+            </td>
+        </tr>
+    `;
+      $.ajax({
+
+        url: './consultas/consul_obtener_actividades_plan.php',
+
+        type: 'GET',
+
+        data: {
+          id_project_plans: idPlan
+        },
+
+        dataType: 'json',
+
+        success: function(respuesta) {
+
+          console.log('Actividades recibidos:', respuesta);
+
+          tbody.innerHTML = '';
+
+          if (!respuesta.success) {
+
+            tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center text-danger">
+                            ${respuesta.message}
+                        </td>
+                    </tr>
+                `;
+
+            return;
+          }
+
+
+          if (respuesta.data.length === 0) {
+
+            tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="text-center text-secondary">
+                            No hay entregables registrados.
+                        </td>
+                    </tr>
+                `;
+
+            return;
+          }
+
+          respuesta.data.forEach(function(actividad) {
+
+            const fila = document.createElement('tr');
+
+            const valores = [
+              actividad.id_project_activities,
+              actividad.nombre_actividad,
+              actividad.descripcion_actividad,
+              actividad.fecha_inicio_plan_actividad,
+              actividad.fecha_fin_plan_actividad,
+              actividad.estado_actividad
+            ];
+
+            valores.forEach(function(valor) {
+              const celda = document.createElement('td');
+              celda.className = 'text-center';
+              celda.textContent = valor ?? '';
+              fila.appendChild(celda);
+
+            });
+
+            tbody.appendChild(fila);
+
+          });
+
+        },
+
+        error: function(xhr) {
+
+          console.error('Error al consultar actividades:', xhr.responseText);
+
+          tbody.innerHTML = `
+                <tr>
+                    <td colspan="5" class="text-center text-danger">
+                        Error al obtener las Actividades.
+                    </td>
+                </tr>
+            `;
+
+        }
+
+      });
+
+    }
+  </script>
+
+  <script>
+    function cargarhitosPlan(idPlan) {
+
+      const tbody = document.getElementById('tbody_hitos_ocurr_plan');
+
+      tbody.innerHTML = `
+        <tr>
+            <td colspan="5" class="text-center text-secondary">
+                Cargando hitos...
+            </td>
+        </tr>
+    `;
+      $.ajax({
+
+        url: './consultas/consul_obtener_hitos_plan.php',
+
+        type: 'GET',
+
+        data: {
+          id_project_plans: idPlan
+        },
+
+        dataType: 'json',
+
+        success: function(respuesta) {
+
+          console.log('Hitos recibidos:', respuesta);
+
+          tbody.innerHTML = '';
+
+          if (!respuesta.success) {
+
+            tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center text-danger">
+                            ${respuesta.message}
+                        </td>
+                    </tr>
+                `;
+
+            return;
+          }
+
+
+          if (respuesta.data.length === 0) {
+
+            tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center text-secondary">
+                            No hay hitos registrados.
+                        </td>
+                    </tr>
+                `;
+
+            return;
+          }
+
+          respuesta.data.forEach(function(hitos) {
+
+            const fila = document.createElement('tr');
+
+            const valores = [
+              hitos.id_project_plans_milestones,
+              hitos.nombre_hitos,
+              hitos.descripcion_hitos,
+              hitos.fecha_hito,
+              hitos.estado_hito
+            ];
+
+            valores.forEach(function(valor) {
+              const celda = document.createElement('td');
+              celda.className = 'text-center';
+              celda.textContent = valor ?? '';
+              fila.appendChild(celda);
+
+            });
+
+            tbody.appendChild(fila);
+
+          });
+
+        },
+
+        error: function(xhr) {
+
+          console.error('Error al consultar los hitos:', xhr.responseText);
+
+          tbody.innerHTML = `
+                <tr>
+                    <td colspan="5" class="text-center text-danger">
+                        Error al obtener los hitos.
+                    </td>
+                </tr>
+            `;
+
+        }
+
+      });
+
+    }
+  </script>
+
   <!-- ------------------ Codigo del script para ver las propuestas vigentes ------------------ -->
 
   <script>
@@ -1854,9 +2183,9 @@ if (!isset($_SESSION['id_usuario'])) {
       console.log('ID recibido en cargarAlcancePlan:', id);
       console.log('ID convertido:', idPlan);
       if (!Number.isInteger(idPlan) || idPlan <= 0) {
-          console.error('ID de planificación inválido:', id);
-          alert('No se recibió un identificador válido de planificación.');
-          return;
+        console.error('ID de planificación inválido:', id);
+        alert('No se recibió un identificador válido de planificación.');
+        return;
       }
 
       //$('#id_project_plans_alcance').val(id);
@@ -1961,7 +2290,10 @@ if (!isset($_SESSION['id_usuario'])) {
 
           }
 
-          if(idModal === 'modalActividadesPlan'){
+          if (idModal === 'modalActividadesPlan') {
+
+            cargaractividadestareasPlan(idPlan);
+            cargarhitosPlan(idPlan);
 
           }
 
@@ -1985,8 +2317,6 @@ if (!isset($_SESSION['id_usuario'])) {
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
-
-
 
   <script>
     const checkboxes = document.querySelectorAll('.form-check-input');
@@ -2080,8 +2410,178 @@ if (!isset($_SESSION['id_usuario'])) {
     });
   </script>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const checkbox = document.getElementById('check_form_actividades_tareas');
+      const contenedor = document.getElementById('ver_form_act_tar_container');
+
+      function toggle() {
+        contenedor.style.display = checkbox.checked ? 'none' : 'block';
+      }
+
+      toggle(); // estado inicial
+      checkbox.addEventListener('change', toggle);
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const checkbox = document.getElementById('check_form_hitos_tareas');
+      const contenedor = document.getElementById('ver_form_nuevo_hito_container');
+
+      function toggle() {
+        contenedor.style.display = checkbox.checked ? 'none' : 'block';
+      }
+
+      toggle(); // estado inicial
+      checkbox.addEventListener('change', toggle);
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+      const fechaInicio = document.getElementById('fecha_ini_actividad_proy');
+      const fechaFin = document.getElementById('fecha_fin_actividad_proy');
+      const duracion = document.getElementById('durac_actividad_proy');
+
+      function convertirFecha(valor) {
+
+        const [anio, mes, dia] = valor.split('-').map(Number);
+
+        return new Date(Date.UTC(anio, mes - 1, dia));
+      }
+
+      function sumarMeses(fecha, cantidad) {
+
+        const anio = fecha.getUTCFullYear();
+        const mes = fecha.getUTCMonth();
+        const dia = fecha.getUTCDate();
+
+        const indiceMes = anio * 12 + mes + cantidad;
+
+        const nuevoAnio = Math.floor(indiceMes / 12);
+        const nuevoMes = indiceMes % 12;
+
+        const ultimoDia = new Date(
+          Date.UTC(nuevoAnio, nuevoMes + 1, 0)
+        ).getUTCDate();
+
+        return new Date(
+          Date.UTC(nuevoAnio, nuevoMes, Math.min(dia, ultimoDia))
+        );
+      }
+
+      function calcularDuracion() {
+
+        const inicioValor = fechaInicio.value;
+        const finValor = fechaFin.value;
+
+        duracion.value = '';
+
+        fechaFin.setCustomValidity('');
+
+        if (!inicioValor || !finValor) {
+          return;
+        }
+
+        const inicio = convertirFecha(inicioValor);
+        const fin = convertirFecha(finValor);
+
+        if (fin < inicio) {
+
+          fechaFin.setCustomValidity(
+            'La fecha de finalización no puede ser anterior a la fecha de inicio.'
+          );
+
+          return;
+        }
+
+        let mesesTotales =
+          (fin.getUTCFullYear() - inicio.getUTCFullYear()) * 12 +
+          (fin.getUTCMonth() - inicio.getUTCMonth());
+
+        let fechaBase = sumarMeses(inicio, mesesTotales);
+
+        if (fechaBase > fin) {
+
+          mesesTotales--;
+
+          fechaBase = sumarMeses(inicio, mesesTotales);
+        }
+
+        const dias = Math.round(
+          (fin.getTime() - fechaBase.getTime()) / 86400000
+        );
+
+        const anios = Math.floor(mesesTotales / 12);
+        const meses = mesesTotales % 12;
+        const resultado = [];
+
+        if (anios > 0) {
+          resultado.push(anios + (anios === 1 ? ' año' : ' años'));
+        }
+
+        if (meses > 0) {
+          resultado.push(meses + (meses === 1 ? ' mes' : ' meses'));
+        }
+
+        if (dias > 0 || resultado.length === 0) {
+          resultado.push(dias + (dias === 1 ? ' día' : ' días'));
+        }
+
+        duracion.value = resultado.join(' y ');
+      }
+
+      fechaInicio.addEventListener('change', function() {
+
+        fechaFin.min = fechaInicio.value;
+
+        calcularDuracion();
+
+      });
+
+      fechaFin.addEventListener('change', calcularDuracion);
+
+    });
+  </script>
+
+  <script>
+    function limitarTextarea(idTextarea, idContador, maximoCaracteres = 300) {
+      const textarea = document.getElementById(idTextarea);
+      const contador = document.getElementById(idContador);
+
+      const mensajeError = document.createElement('p');
+      mensajeError.classList.add('text-danger');
+      mensajeError.textContent = 'Has superado el límite de caracteres (Reiniciar el Registro).';
+      mensajeError.style.display = 'none';
+      textarea.parentNode.appendChild(mensajeError);
+
+      const actualizarContador = () => {
+        const restantes = maximoCaracteres - textarea.value.length;
+        contador.textContent = restantes;
+
+        if (restantes < 0) {
+          mensajeError.style.display = 'block';
+          textarea.disabled = true;
+        } else {
+          mensajeError.style.display = 'none';
+          textarea.disabled = false;
+        }
+      };
+
+      textarea.addEventListener('input', actualizarContador);
+      actualizarContador();
+    }
+
+    limitarTextarea("just_eval_proy_valid", "contador_just_eval_proy_valid", 300);
+    limitarTextarea("recur_requer_proy_valid", "contador_recur_requer_proy_valid", 300);
+    limitarTextarea("observa_eval_proy_valid", "contador_observa_eval_proy_valid", 300);
+    limitarTextarea("descripcion_actividad_proy", "contador_descripcion_actividad_proy", 300);
+    limitarTextarea("observacion_actividad_proy", "contador_observacion_actividad_proy", 300);
+    limitarTextarea("descripcion_hito_proy", "contador_descripcion_hito_proy", 300);
+  </script>
+
 </body>
-
-
 
 </html>

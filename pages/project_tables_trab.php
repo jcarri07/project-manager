@@ -93,7 +93,11 @@ include("../databases/conexion.php");
 
               <div class="d-flex align-items-center gap-3 px-3">
 
-                <h6 class="text-white text-capitalize mb-0">Proyectos</h6>
+                <div class="d-flex align-items-center gap-3 px-3">
+                  <h2 class="text-white fw-bold text-capitalize mb-0" style="font-size: 1.8rem;">
+                    <i class="fas fa-project-diagram me-2 text-white"></i> Proyectos
+                  </h2>
+                </div>
 
               </div>
 
