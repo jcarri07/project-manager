@@ -351,40 +351,6 @@ if (!isset($_SESSION['id_usuario'])) {
                   <div id="contador_edit_descripcion_proy_2"></div>
                 </div>
 
-                <script>
-                  function limitarTextarea(idTextarea, idContador, maximoCaracteres = 300) {
-                    const textarea = document.getElementById(idTextarea);
-                    const contador = document.getElementById(idContador);
-
-                    const mensajeError = document.createElement('p');
-                    mensajeError.classList.add('text-danger');
-                    mensajeError.textContent = 'Has superado el límite de caracteres (Reiniciar el Registro).';
-                    mensajeError.style.display = 'none';
-                    textarea.parentNode.appendChild(mensajeError);
-
-                    const actualizarContador = () => {
-                      const restantes = maximoCaracteres - textarea.value.length;
-                      contador.textContent = restantes;
-
-                      if (restantes < 0) {
-                        mensajeError.style.display = 'block';
-                        textarea.disabled = true;
-                      } else {
-                        mensajeError.style.display = 'none';
-                        textarea.disabled = false;
-                      }
-                    };
-
-                    textarea.addEventListener('input', actualizarContador);
-                    actualizarContador();
-                  }
-
-                  limitarTextarea("edit_descripcion_proy_2", "contador_edit_descripcion_proy_2", 300);
-                  limitarTextarea("edit_problema_proy_2", "contador_edit_problema_proy_2", 300);
-                  limitarTextarea("edit_objetivos_proy_2", "contador_edit_objetivos_proy_2", 300);
-                  limitarTextarea("edit_beneficios_proy_2", "contador_edit_beneficios_proy_2", 300);
-                </script>
-
               </div>
 
             </div>
@@ -842,42 +808,14 @@ if (!isset($_SESSION['id_usuario'])) {
                 <div class="card-body">
 
                   <div class="mb-3">
-                    <i class="fa-solid fa-boxes-stacked fa-xl text-primary"></i>
-                  </div>
-
-                  <h6>Recursos</h6>
-
-                  <p class="text-sm text-secondary"> Recursos humanos, materiales, tecnológicos y disponibilidad. </p>
-
-                  <button type="button" class="btn btn-outline-primary btn-sm mb-0" onclick="abrirModal_componente('modalRecursosPlan')">
-                    <i class="fa-solid fa-pen-to-square me-1"></i>
-                    Completar
-                  </button>
-
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6">
-
-              <div class="card border h-100 mb-0">
-
-                <div class="card-body">
-
-                  <div class="mb-3">
                     <i class="fa-solid fa-money-bill-wave fa-xl text-primary"></i>
                   </div>
 
-                  <h6>Presupuesto</h6>
+                  <h6>Recursos y presupuesto</h6>
 
-                  <p class="text-sm text-secondary">
-                    Partidas, cantidades, costos unitarios
-                    y monto planificado.
-                  </p>
+                  <p class="text-sm text-secondary"> Recursos humanos, materiales, tecnológicos y Presupuesto. </p>
 
-                  <button type="button"
-                    class="btn btn-outline-primary btn-sm mb-0"
-                    onclick="abrirModal_componente('modalPresupuestoPlan')">
+                  <button type="button" class="btn btn-outline-primary btn-sm mb-0" onclick="abrirModal_componente('modalRecursosPresupuestoPlan')">
                     <i class="fa-solid fa-pen-to-square me-1"></i>
                     Completar
                   </button>
@@ -1182,12 +1120,13 @@ if (!isset($_SESSION['id_usuario'])) {
                       <th class="text-center">Fecha Inicio</th>
                       <th class="text-center">Fecha Fin</th>
                       <th class="text-center">Estado</th>
+                      <th class="text-center">Acciones</th>
                     </tr>
                   </thead>
 
                   <tbody id="tbody_actividades_tareas_plan">
                     <tr>
-                      <td colspan="6" class="text-center text-secondary">
+                      <td colspan="7" class="text-center text-secondary">
                         Seleccione una planificación para consultar sus actividades.
                       </td>
                     </tr>
@@ -1219,8 +1158,8 @@ if (!isset($_SESSION['id_usuario'])) {
                     <div id="contador_descripcion_actividad_proy">300</div>
                   </div>
 
-                  <div class="col-md-4 mb-3" id="co_autor_container">
-                    <label for="fecha" class="form-label">Asignar responsable: </label>
+                  <div class="col-md-4 mb-3">
+                    <label for="fecha" class="form-label">Asignar responsables: </label>
                     <select class="form-multi-select" id="respon_act_tarea" name="respon_act_tarea[]" multiple data-coreui-search="global">
                       <?php
                       $query_data = mysqli_query($conn, "SELECT * FROM users");
@@ -1264,6 +1203,238 @@ if (!isset($_SESSION['id_usuario'])) {
                       var formattedDateTime = fechaActual.getFullYear() + '-' + ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '-' + ('0' + fechaActual.getDate()).slice(-2) + 'T' + ('0' + fechaActual.getHours()).slice(-2) + ':' + ('0' + fechaActual.getMinutes()).slice(-2);
                       document.getElementById('fecha_creac_actividad_proy').value = formattedDateTime;
                     </script>
+                  </div>
+
+                </div>
+
+                <div class="mb-4">
+                  <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar tarea </button>
+                </div>
+
+              </div>
+
+            </form>
+
+          </div>
+
+          <br><br>
+
+          <div class="row g-3">
+            <div class="col-md-12" style="color:black">
+
+              <label class="form-label">Hitos Planificados:</label>
+              <br>
+              <div class="col-md-4" style="color:black">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="check_form_hitos_tareas" checked>
+                  <label class="form-check-label" for="check_form_hitos_tareas">Registrar nuevo hito</label>
+                </div>
+              </div>
+              <br>
+
+              <div class="table-responsive">
+                <table class="table table-hover table-striped align-middle">
+
+                  <thead class="table-light">
+                    <tr>
+                      <th class="text-center">ID</th>
+                      <th class="text-center">Hitos</th>
+                      <th class="text-center">Descripción</th>
+                      <th class="text-center">Fecha del hito</th>
+                      <th class="text-center">Estado</th>
+                      <th class="text-center">Acciones</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="tbody_hitos_ocurr_plan">
+                    <tr>
+                      <td colspan="6" class="text-center text-secondary">
+                        Seleccione una planificación para consultar sus hitos.
+                      </td>
+                    </tr>
+                  </tbody>
+
+                </table>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row g-3" id="ver_form_nuevo_hito_container">
+
+            <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_hitos_plan_proy" method="POST">
+
+              <input type="hidden" id="id_project_plans_alcance" name="id_project_plans" value="">
+
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label">Hito *</label>
+                    <input type="text" name="nombre_hito_proy" id="nombre_hito_proy" class="form-control border px-3" required>
+                  </div>
+
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label">Descripción del hito *</label>
+                    <textarea name="descripcion_hito_proy" id="descripcion_hito_proy" class="form-control border px-3" maxlength="300" rows="3" required></textarea>
+                    <div id="contador_descripcion_hito_proy">300</div>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Fecha de ocurrencia *</label>
+                    <input type="date" name="fecha_ocurren_hito_proy" id="fecha_ocurren_hito_proy" class="form-control border px-3" required>
+                  </div>
+
+                </div>
+
+                <br>
+
+                <div class="mb-4">
+                  <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar hito </button>
+                </div>
+
+              </div>
+
+            </form>
+
+          </div>
+
+          <br><br>
+
+          <div class="modal-footer">
+
+            <br><br><br>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!--  MODAL: RECURSOS Y PRESUPUESTO -->
+
+  <div class="modal fade" id="modalRecursosPresupuestoPlan" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="titulo_modal_alcance" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+        <div class="w3-container w3-teal modal-header">
+          <div>
+            <h5 class="modal-title" id="titulo_modal_alcance">
+              <i class="fa-solid fa-money-bill-wave text-primary me-2"></i>
+              Recursos y Presupuesto
+            </h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"> </button>
+
+        </div>
+
+        <div class="modal-body">
+
+          <div class="row g-3">
+            <div class="col-md-12" style="color:black">
+
+              <label class="form-label">Recursos registrados:</label>
+              <br>
+              <div class="col-md-4" style="color:black">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="check_form_actividades_tareas" checked>
+                  <label class="form-check-label" for="check_form_actividades_tareas">Registrar recurso</label>
+                </div>
+              </div>
+              <br>
+
+              <div class="table-responsive">
+                <table class="table table-hover table-striped align-middle">
+
+                  <thead class="table-light">
+                    <tr>
+                      <th class="text-center">ID</th>
+                      <th class="text-center">Tipo de recurso</th>
+                      <th class="text-center">Descripción</th>
+                      <th class="text-center">Cantidad/Dedicación</th>
+                      <th class="text-center">Periodo</th>
+                      <th class="text-center">Disponibilidad</th>
+                      <th class="text-center">Responsable</th>
+                      <th class="text-center">Estado</th>
+                      <th class="text-center">Acciones</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="tbody_actividades_tareas_plan">
+                    <tr>
+                      <td colspan="9" class="text-center text-secondary">
+                        Seleccione una planificación para consultar sus actividades.
+                      </td>
+                    </tr>
+                  </tbody>
+
+                </table>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row g-3" id="ver_form_act_tar_container">
+
+            <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_recurso_plan_proy" method="POST">
+
+              <input type="hidden" id="id_project_plans_alcance" name="id_project_plans" value="">
+
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Tipo de Recurso *</label>
+                    <input type="text" name="tipo_recurso_proy" id="tipo_recurso_proy" class="form-control border px-3" required>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Descripción del Recurso *</label>
+                    <textarea name="descripcion_recurso_proy" id="descripcion_recurso_proy" class="form-control border px-3" maxlength="300" rows="3" required></textarea>
+                    <div id="contador_descripcion_recurso_proy">300</div>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Cantidad/Dedicación *</label>
+                    <input type="text" name="cant_dedic_recurso_proy" id="cant_dedic_recurso_proy" class="form-control border px-3" required>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Periodo *</label>
+                    <input type="text" name="periodo_recur_plan_proy" id="periodo_recur_plan_proy" class="form-control border px-3" required>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Disponibilidad *</label>
+                    <select name="disponib_recur_plan_proy" id="disponib_recur_plan_proy" class="form-select border px-3" required>
+                      <option value="">Seleccione un tipo</option>
+                      <option value="Confirmados">Confirmados</option>
+                      <option value="Por Confirmar">Por Confirmar</option>
+                      <option value="No disponibles">No disponibles</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label for="fecha" class="form-label">Asignar responsable: </label>
+                    <select class="form-select" id="id_respon_recurso_tarea" name="id_respon_recurso_tarea" required>
+                      <option value="" disabled>Seleccione un Responsable</option>
+                      <?php
+                      $query_data = mysqli_query($conn, "SELECT * FROM users");
+
+                      while ($miembro = mysqli_fetch_assoc($query_data)) {
+                        $id = $miembro['id_usuario'];
+                        $nombre = ($miembro['nombre_user']);
+                        $apell = ($miembro['apellido_user']);
+                        $esp = ($miembro['especialidad']);
+                        echo "<option value=\"$id\">$nombre $apell | Especialidad: $esp</option>";
+                      }
+                      ?>
+                    </select>
                   </div>
 
                 </div>
@@ -2112,8 +2283,7 @@ if (!isset($_SESSION['id_usuario'])) {
     const idsSubmodalesPlan = [
       'modalAlcancePlan',
       'modalActividadesPlan',
-      'modalRecursosPlan',
-      'modalPresupuestoPlan',
+      'modalRecursosPresupuestoPlan',
       'modalRiesgosPlan',
       'modalSeguimientoPlan'
     ];
@@ -2294,6 +2464,10 @@ if (!isset($_SESSION['id_usuario'])) {
 
             cargaractividadestareasPlan(idPlan);
             cargarhitosPlan(idPlan);
+
+          }
+
+          if (idModal === 'modalRecursosPresupuestoPlan') {
 
           }
 
@@ -2580,8 +2754,12 @@ if (!isset($_SESSION['id_usuario'])) {
     limitarTextarea("descripcion_actividad_proy", "contador_descripcion_actividad_proy", 300);
     limitarTextarea("observacion_actividad_proy", "contador_observacion_actividad_proy", 300);
     limitarTextarea("descripcion_hito_proy", "contador_descripcion_hito_proy", 300);
+    limitarTextarea("descripcion_recurso_proy", "contador_descripcion_recurso_proy", 300);
+    limitarTextarea("edit_descripcion_proy_2", "contador_edit_descripcion_proy_2", 300);
+    limitarTextarea("edit_problema_proy_2", "contador_edit_problema_proy_2", 300);
+    limitarTextarea("edit_objetivos_proy_2", "contador_edit_objetivos_proy_2", 300);
+    limitarTextarea("edit_beneficios_proy_2", "contador_edit_beneficios_proy_2", 300);
   </script>
-
 </body>
 
 </html>

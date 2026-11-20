@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-11-2026 a las 17:35:22
--- Versión del servidor: 9.7.2
+-- Tiempo de generación: 20-11-2026 a las 01:45:14
+-- Versión del servidor: 9.7.1
 -- Versión de PHP: 8.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -47,21 +47,21 @@ CREATE TABLE `projects` (
   `problema` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `objetivos` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `beneficios` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `tecnica` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `operativa` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `financiera` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `organizacional` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `areas_impacto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nivel_impacto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `observaciones_eval` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `duracion_estimada` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `recursos_requeridos` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `justificacion_eval` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `tecnica` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `operativa` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `financiera` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `organizacional` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `areas_impacto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nivel_impacto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `observaciones_eval` varchar(300) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `duracion_estimada` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `recursos_requeridos` varchar(300) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `justificacion_eval` varchar(300) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `avance` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `estatus` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'Por Ejecutar',
   `salud` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'En control',
-  `decision_dir` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Por asignar',
-  `justificacion_dir` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'En revisión ',
+  `decision_dir` varchar(200) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Por asignar',
+  `justificacion_dir` varchar(300) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'En revisión ',
   `activo` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -77,7 +77,7 @@ INSERT INTO `projects` (`id_proyecto`, `id_solicitante`, `id_manager`, `id_valid
 (5, 1, 0, 0, 0, 'Practica de cambios', 'afffafffa', 1, 'Mantenimiento', 'Media', 'ABAE', '2026-10-13', '2026-10-30', '255', 'affaff', 'adffg', 'faff', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Planificacion', 'En control', 'Por asignar', 'En revisión ', 1),
 (6, 1, 5, 0, 0, 'Nueva version de borrador', 'Prueba de nueva tabla', 2, 'Proyecto', 'Media', 'ABAE', '2026-10-14', '2026-10-29', '74746', 'Nueva revisión', 'Verificar', 'Revisión', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Planificacion', 'Critico', '1', '', 1),
 (7, 1, 0, 0, 0, 'Practica 8', 'dadadadadad', 2, 'Mantenimiento', 'Media', 'ABAE', '2026-10-07', '2026-11-07', '2424', 'rwrrwr', '31331', '42424', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Propuesto', 'En control', 'Por asignar', 'En revisión ', 1),
-(8, 1, 2, 0, 0, 'Ingreso 7', 'ffffffffff', 2, 'Mantenimiento', 'Crítica', 'ABAE', '2026-07-26', '2026-10-28', '5787', 'sdggd', 'etyg', 'tyuhb', 'innovación ', 'Viable', 'Optima', 'Institucional', 'USMI', 'Critica', 'Nivel aceptable', '2 meses', 'Multiples', 'Cumple con lo minimo', '0', 'Planificacion', 'En control', '1', 'Listo', 1),
+(8, 1, 0, 0, 0, 'Ingreso 7', 'ffffffffff', 2, 'Mantenimiento', 'Crítica', 'ABAE', '2026-07-26', '2026-10-28', '5787', 'sdggd', 'etyg', 'tyuhb', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Aprobacion', 'En control', 'Por asignar', 'En revisión ', 1),
 (9, 4, 0, 1, 0, 'Ingreso trabajador', 'sfsfsf', 1, 'Mantenimiento y Revisión', 'Media', 'ABAE', '2026-10-05', '2026-10-29', '4443', 'srwr', 'wrr', 'wrr', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Aprobacion', 'En control', 'Por asignar', 'En revisión ', 1),
 (10, 1, 0, 0, 0, 'Practica tecnica', 'Prueba en la oficina', 2, 'Mantenimiento', 'Baja', 'ABAE', '2026-10-14', '2026-10-29', '856', 'Practica', 'Funcionamiento', 'Modulo 1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Propuesto', 'Critico', 'Por asignar', 'En revisión ', 1),
 (11, 1, 0, 0, 0, 'Practica tecnica 2', 'Prueba de ingreso', 1, 'Reparación', 'Baja', 'ABAE', '2026-10-29', '2026-10-23', '754', 'Prueba de funcionamiento', 'Ver avance', 'Modulo 1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'Propuesto', 'En control', 'Por asignar', 'En revisión ', 1),
@@ -122,12 +122,10 @@ CREATE TABLE `project_activities` (
   `id_project_plans` int DEFAULT NULL,
   `nombre_actividad` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `descripcion_actividad` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `id_responsable_actividad` int DEFAULT NULL,
   `fecha_inicio_plan_actividad` datetime DEFAULT NULL,
   `fecha_fin_plan_actividad` datetime DEFAULT NULL,
   `duracion_actividad` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `estado_actividad` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `orden_actividad` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `observaciones_actividad` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `fecha_creacion_actividad` datetime DEFAULT NULL,
   `fecha_modificacion_actividad` datetime DEFAULT NULL
@@ -210,7 +208,29 @@ CREATE TABLE `project_plans` (
 --
 
 INSERT INTO `project_plans` (`id_project_plans`, `id_proyecto`, `n_version_mayor`, `n_version_menor`, `estado_plan`, `resumen_ejecutivo`, `alcance_incluido`, `alcance_excluido`, `supuestos`, `restricciones`, `dependencias_externas`, `fecha_inicio_plan`, `fecha_fin_plan`, `frecuencia_seguimiento`, `indicadores_seguimiento`, `tipo_moneda`, `id_responsable_reporte`, `recomendacion_manager`, `id_project_manager`, `fecha_creacion_plan`, `fecha_modificacion_plan`, `fecha_envio_revision_plan`, `fecha_validacion_plan`, `fecha_autorizacion_plan`) VALUES
-(1, 4, '1', '0', 'Propuesto', 'svssdd', 'Nuevo avance', 'No hay', 'sdds', 'ffff', 'ssss', '2026-11-18 00:00:00', '2026-12-01 00:00:00', NULL, NULL, NULL, NULL, NULL, 2, '2026-11-14 18:47:00', '2026-11-17 11:04:00', NULL, NULL, NULL);
+(1, 4, '1', '0', 'Propuesto', 'svssdd', 'hola', NULL, 'sdds', 'ffff', 'ssss', '2026-11-18 00:00:00', '2026-12-01 00:00:00', NULL, NULL, NULL, NULL, NULL, 2, '2026-11-14 18:47:00', NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `project_plans_milestones`
+--
+
+CREATE TABLE `project_plans_milestones` (
+  `id_project_plans_milestones` int NOT NULL,
+  `id_project_plans` int NOT NULL,
+  `nombre_hitos` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `descripcion_hitos` varchar(300) NOT NULL,
+  `fecha_hito` datetime NOT NULL,
+  `estado_hito` varchar(100) NOT NULL DEFAULT 'Pendiente'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `project_plans_milestones`
+--
+
+INSERT INTO `project_plans_milestones` (`id_project_plans_milestones`, `id_project_plans`, `nombre_hitos`, `descripcion_hitos`, `fecha_hito`, `estado_hito`) VALUES
+(1, 1, 'Modal funcional', 'Segundo modal listo', '2026-11-02 00:00:00', 'Pendiente');
 
 -- --------------------------------------------------------
 
@@ -230,13 +250,6 @@ CREATE TABLE `project_plan_deliverables` (
   `fecha_creacion_entregable` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Volcado de datos para la tabla `project_plan_deliverables`
---
-
-INSERT INTO `project_plan_deliverables` (`id_project_deliverables`, `id_project_plans`, `nombre_entregable`, `descripcion_entregable`, `criterio_aceptacion_entregable`, `id_user_responsable`, `fecha_objetivo_entregable`, `estado_entregable`, `fecha_creacion_entregable`) VALUES
-(1, 1, 'Botellas de agua', 'Suministro de rehidratación', 'Que este limpia', 3, '2026-12-05 00:00:00', 'Pendiente', '2026-11-17 11:06:00');
-
 -- --------------------------------------------------------
 
 --
@@ -246,15 +259,12 @@ INSERT INTO `project_plan_deliverables` (`id_project_deliverables`, `id_project_
 CREATE TABLE `project_plan_resources` (
   `id_project_resources` int NOT NULL,
   `id_project_plans` int NOT NULL,
-  `nombre_recurso` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `tipo_recurso` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `descripcion_recurso` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `cantidad_recurso` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `unidad_medida_recurso` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `id_unidad_recurso` int DEFAULT NULL,
+  `periodo_recurso` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `id_responsable_recurso` int DEFAULT NULL,
-  `disponibilidad_recurso` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `observaciones_recurso` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
+  `disponibilidad_recurso` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -427,6 +437,19 @@ INSERT INTO `users_projects` (`id_users_projects`, `id_projects`, `id_autor_user
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `users_project_activities`
+--
+
+CREATE TABLE `users_project_activities` (
+  `id_users_project_activities` int NOT NULL,
+  `id_users` int NOT NULL,
+  `id_project_activities` int NOT NULL,
+  `id_project_plans` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `user_history`
 --
 
@@ -535,6 +558,13 @@ ALTER TABLE `project_plans`
   ADD KEY `id_project_manager` (`id_project_manager`);
 
 --
+-- Indices de la tabla `project_plans_milestones`
+--
+ALTER TABLE `project_plans_milestones`
+  ADD PRIMARY KEY (`id_project_plans_milestones`),
+  ADD KEY `id_project_plans` (`id_project_plans`);
+
+--
 -- Indices de la tabla `project_plan_deliverables`
 --
 ALTER TABLE `project_plan_deliverables`
@@ -548,7 +578,6 @@ ALTER TABLE `project_plan_deliverables`
 ALTER TABLE `project_plan_resources`
   ADD PRIMARY KEY (`id_project_resources`),
   ADD KEY `id_project_plans` (`id_project_plans`),
-  ADD KEY `id_unidad_recurso` (`id_unidad_recurso`),
   ADD KEY `id_responsable_recurso` (`id_responsable_recurso`);
 
 --
@@ -607,6 +636,15 @@ ALTER TABLE `users_projects`
   ADD PRIMARY KEY (`id_users_projects`) USING BTREE,
   ADD KEY `id_projects` (`id_projects`),
   ADD KEY `id_autor_user` (`id_autor_user`);
+
+--
+-- Indices de la tabla `users_project_activities`
+--
+ALTER TABLE `users_project_activities`
+  ADD PRIMARY KEY (`id_users_project_activities`),
+  ADD KEY `id_users` (`id_users`),
+  ADD KEY `id_project_plans` (`id_project_plans`),
+  ADD KEY `id_project_activities` (`id_project_activities`);
 
 --
 -- Indices de la tabla `user_history`
@@ -678,10 +716,16 @@ ALTER TABLE `project_plans`
   MODIFY `id_project_plans` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de la tabla `project_plans_milestones`
+--
+ALTER TABLE `project_plans_milestones`
+  MODIFY `id_project_plans_milestones` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `project_plan_deliverables`
 --
 ALTER TABLE `project_plan_deliverables`
-  MODIFY `id_project_deliverables` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_project_deliverables` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `project_plan_resources`
@@ -738,6 +782,12 @@ ALTER TABLE `users_projects`
   MODIFY `id_users_projects` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT de la tabla `users_project_activities`
+--
+ALTER TABLE `users_project_activities`
+  MODIFY `id_users_project_activities` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `user_history`
 --
 ALTER TABLE `user_history`
@@ -786,6 +836,12 @@ ALTER TABLE `project_plans`
   ADD CONSTRAINT `project_plans_ibfk_2` FOREIGN KEY (`id_project_manager`) REFERENCES `users` (`id_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
+-- Filtros para la tabla `project_plans_milestones`
+--
+ALTER TABLE `project_plans_milestones`
+  ADD CONSTRAINT `project_plans_milestones_ibfk_1` FOREIGN KEY (`id_project_plans`) REFERENCES `project_plans` (`id_project_plans`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Filtros para la tabla `project_plan_deliverables`
 --
 ALTER TABLE `project_plan_deliverables`
@@ -797,7 +853,6 @@ ALTER TABLE `project_plan_deliverables`
 --
 ALTER TABLE `project_plan_resources`
   ADD CONSTRAINT `project_plan_resources_ibfk_1` FOREIGN KEY (`id_project_plans`) REFERENCES `project_plans` (`id_project_plans`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `project_plan_resources_ibfk_2` FOREIGN KEY (`id_unidad_recurso`) REFERENCES `unidad` (`id_unidad`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `project_plan_resources_ibfk_3` FOREIGN KEY (`id_responsable_recurso`) REFERENCES `users` (`id_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
@@ -820,6 +875,14 @@ ALTER TABLE `project_plan_risks`
 ALTER TABLE `users_projects`
   ADD CONSTRAINT `users_projects_ibfk_1` FOREIGN KEY (`id_projects`) REFERENCES `projects` (`id_proyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `users_projects_ibfk_2` FOREIGN KEY (`id_autor_user`) REFERENCES `users` (`id_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Filtros para la tabla `users_project_activities`
+--
+ALTER TABLE `users_project_activities`
+  ADD CONSTRAINT `users_project_activities_ibfk_1` FOREIGN KEY (`id_users`) REFERENCES `users` (`id_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `users_project_activities_ibfk_2` FOREIGN KEY (`id_project_plans`) REFERENCES `project_plans` (`id_project_plans`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `users_project_activities_ibfk_3` FOREIGN KEY (`id_project_activities`) REFERENCES `project_activities` (`id_project_activities`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
