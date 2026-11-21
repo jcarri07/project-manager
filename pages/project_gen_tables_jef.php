@@ -1343,8 +1343,8 @@ if (!isset($_SESSION['id_usuario'])) {
               <br>
               <div class="col-md-4" style="color:black">
                 <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" id="check_form_actividades_tareas" checked>
-                  <label class="form-check-label" for="check_form_actividades_tareas">Registrar recurso</label>
+                  <input class="form-check-input" type="checkbox" id="check_form_recursos_nuevos" checked>
+                  <label class="form-check-label" for="check_form_recursos_nuevos">Registrar recurso</label>
                 </div>
               </div>
               <br>
@@ -1366,10 +1366,10 @@ if (!isset($_SESSION['id_usuario'])) {
                     </tr>
                   </thead>
 
-                  <tbody id="tbody_actividades_tareas_plan">
+                  <tbody id="tbody_recursos_regist_plan">
                     <tr>
-                      <td colspan="9" class="text-center text-secondary">
-                        Seleccione una planificación para consultar sus actividades.
+                      <td colspan="10" class="text-center text-secondary">
+                        Seleccione una planificación para consultar sus recursos.
                       </td>
                     </tr>
                   </tbody>
@@ -1380,7 +1380,7 @@ if (!isset($_SESSION['id_usuario'])) {
             </div>
           </div>
 
-          <div class="row g-3" id="ver_form_act_tar_container">
+          <div class="row g-3" id="ver_form_recursos_new_container">
 
             <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_recurso_plan_proy" method="POST">
 
@@ -2145,6 +2145,107 @@ if (!isset($_SESSION['id_usuario'])) {
     }
   </script>
 
+  <script>
+    function cargarrecursosPlan(idPlan) {
+
+      const tbody = document.getElementById('tbody_recursos_regist_plan');
+
+      tbody.innerHTML = `
+        <tr>
+            <td colspan="10" class="text-center text-secondary">
+                Cargando recursos...
+            </td>
+        </tr>
+    `;
+      $.ajax({
+
+        url: './consultas/consul_obtener_recursos_plan.php',
+
+        type: 'GET',
+
+        data: {
+          id_project_plans: idPlan
+        },
+
+        dataType: 'json',
+
+        success: function(respuesta) {
+
+          console.log('Recursos recibidos:', respuesta);
+
+          tbody.innerHTML = '';
+
+          if (!respuesta.success) {
+
+            tbody.innerHTML = `
+                    <tr>
+                        <td colspan="10" class="text-center text-danger">
+                            ${respuesta.message}
+                        </td>
+                    </tr>
+                `;
+
+            return;
+          }
+
+
+          if (respuesta.data.length === 0) {
+
+            tbody.innerHTML = `
+                    <tr>
+                        <td colspan="10" class="text-center text-secondary">
+                            No hay recursos registrados.
+                        </td>
+                    </tr>
+                `;
+
+            return;
+          }
+
+          respuesta.data.forEach(function(hitos) {
+
+            const fila = document.createElement('tr');
+
+            const valores = [
+              hitos.id_project_plans_milestones,
+              hitos.nombre_hitos,
+              hitos.descripcion_hitos,
+              hitos.fecha_hito,
+              hitos.estado_hito
+            ];
+
+            valores.forEach(function(valor) {
+              const celda = document.createElement('td');
+              celda.className = 'text-center';
+              celda.textContent = valor ?? '';
+              fila.appendChild(celda);
+
+            });
+
+            tbody.appendChild(fila);
+
+          });
+
+        },
+
+        error: function(xhr) {
+
+          console.error('Error al consultar los recursos:', xhr.responseText);
+
+          tbody.innerHTML = `
+                <tr>
+                    <td colspan="10" class="text-center text-danger">
+                        Error al obtener los recursos.
+                    </td>
+                </tr>
+            `;
+
+        }
+
+      });
+
+    }
+  </script>
 
   <script>
     function cargarpresupuestosPlan(idPlan, idProyecto) {
@@ -2698,6 +2799,7 @@ if (!isset($_SESSION['id_usuario'])) {
           if (idModal === 'modalRecursosPresupuestoPlan') {
 
             cargarpresupuestosPlan(idPlan, idProyecto);
+            cargarrecursosPlan(idPlan);
 
           }
 
@@ -2817,6 +2919,20 @@ if (!isset($_SESSION['id_usuario'])) {
     document.addEventListener('DOMContentLoaded', function() {
       const checkbox = document.getElementById('check_form_actividades_tareas');
       const contenedor = document.getElementById('ver_form_act_tar_container');
+
+      function toggle() {
+        contenedor.style.display = checkbox.checked ? 'none' : 'block';
+      }
+
+      toggle(); // estado inicial
+      checkbox.addEventListener('change', toggle);
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const checkbox = document.getElementById('check_form_recursos_nuevos');
+      const contenedor = document.getElementById('ver_form_recursos_new_container');
 
       function toggle() {
         contenedor.style.display = checkbox.checked ? 'none' : 'block';
