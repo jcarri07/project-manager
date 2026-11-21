@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-11-2026 a las 01:45:14
+-- Tiempo de generación: 21-11-2026 a las 00:11:15
 -- Versión del servidor: 9.7.1
 -- Versión de PHP: 8.5.12
 
@@ -192,7 +192,6 @@ CREATE TABLE `project_plans` (
   `fecha_fin_plan` datetime DEFAULT NULL,
   `frecuencia_seguimiento` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `indicadores_seguimiento` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `tipo_moneda` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `id_responsable_reporte` int DEFAULT NULL,
   `recomendacion_manager` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `id_project_manager` int DEFAULT NULL,
@@ -207,8 +206,8 @@ CREATE TABLE `project_plans` (
 -- Volcado de datos para la tabla `project_plans`
 --
 
-INSERT INTO `project_plans` (`id_project_plans`, `id_proyecto`, `n_version_mayor`, `n_version_menor`, `estado_plan`, `resumen_ejecutivo`, `alcance_incluido`, `alcance_excluido`, `supuestos`, `restricciones`, `dependencias_externas`, `fecha_inicio_plan`, `fecha_fin_plan`, `frecuencia_seguimiento`, `indicadores_seguimiento`, `tipo_moneda`, `id_responsable_reporte`, `recomendacion_manager`, `id_project_manager`, `fecha_creacion_plan`, `fecha_modificacion_plan`, `fecha_envio_revision_plan`, `fecha_validacion_plan`, `fecha_autorizacion_plan`) VALUES
-(1, 4, '1', '0', 'Propuesto', 'svssdd', 'hola', NULL, 'sdds', 'ffff', 'ssss', '2026-11-18 00:00:00', '2026-12-01 00:00:00', NULL, NULL, NULL, NULL, NULL, 2, '2026-11-14 18:47:00', NULL, NULL, NULL, NULL);
+INSERT INTO `project_plans` (`id_project_plans`, `id_proyecto`, `n_version_mayor`, `n_version_menor`, `estado_plan`, `resumen_ejecutivo`, `alcance_incluido`, `alcance_excluido`, `supuestos`, `restricciones`, `dependencias_externas`, `fecha_inicio_plan`, `fecha_fin_plan`, `frecuencia_seguimiento`, `indicadores_seguimiento`, `id_responsable_reporte`, `recomendacion_manager`, `id_project_manager`, `fecha_creacion_plan`, `fecha_modificacion_plan`, `fecha_envio_revision_plan`, `fecha_validacion_plan`, `fecha_autorizacion_plan`) VALUES
+(1, 4, '1', '0', 'Propuesto', 'svssdd', 'hola', NULL, 'sdds', 'ffff', 'ssss', '2026-11-18 00:00:00', '2026-12-01 00:00:00', NULL, NULL, NULL, NULL, 2, '2026-11-14 18:47:00', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -231,6 +230,28 @@ CREATE TABLE `project_plans_milestones` (
 
 INSERT INTO `project_plans_milestones` (`id_project_plans_milestones`, `id_project_plans`, `nombre_hitos`, `descripcion_hitos`, `fecha_hito`, `estado_hito`) VALUES
 (1, 1, 'Modal funcional', 'Segundo modal listo', '2026-11-02 00:00:00', 'Pendiente');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `project_plan_budgets`
+--
+
+CREATE TABLE `project_plan_budgets` (
+  `id_project_plan_budgets` int NOT NULL,
+  `id_project_plans` int NOT NULL,
+  `categoria_presupuesto` varchar(100) NOT NULL,
+  `descripcion_presupuesto` varchar(300) NOT NULL,
+  `monto_presupuesto` varchar(100) NOT NULL,
+  `porcentaje_presupuesto` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `project_plan_budgets`
+--
+
+INSERT INTO `project_plan_budgets` (`id_project_plan_budgets`, `id_project_plans`, `categoria_presupuesto`, `descripcion_presupuesto`, `monto_presupuesto`, `porcentaje_presupuesto`) VALUES
+(1, 1, 'Recurso humano', 'Personal util', '343.36', '1.53');
 
 -- --------------------------------------------------------
 
@@ -565,6 +586,13 @@ ALTER TABLE `project_plans_milestones`
   ADD KEY `id_project_plans` (`id_project_plans`);
 
 --
+-- Indices de la tabla `project_plan_budgets`
+--
+ALTER TABLE `project_plan_budgets`
+  ADD PRIMARY KEY (`id_project_plan_budgets`),
+  ADD KEY `id_project_plans` (`id_project_plans`);
+
+--
 -- Indices de la tabla `project_plan_deliverables`
 --
 ALTER TABLE `project_plan_deliverables`
@@ -722,6 +750,12 @@ ALTER TABLE `project_plans_milestones`
   MODIFY `id_project_plans_milestones` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de la tabla `project_plan_budgets`
+--
+ALTER TABLE `project_plan_budgets`
+  MODIFY `id_project_plan_budgets` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `project_plan_deliverables`
 --
 ALTER TABLE `project_plan_deliverables`
@@ -840,6 +874,12 @@ ALTER TABLE `project_plans`
 --
 ALTER TABLE `project_plans_milestones`
   ADD CONSTRAINT `project_plans_milestones_ibfk_1` FOREIGN KEY (`id_project_plans`) REFERENCES `project_plans` (`id_project_plans`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Filtros para la tabla `project_plan_budgets`
+--
+ALTER TABLE `project_plan_budgets`
+  ADD CONSTRAINT `project_plan_budgets_ibfk_1` FOREIGN KEY (`id_project_plans`) REFERENCES `project_plans` (`id_project_plans`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Filtros para la tabla `project_plan_deliverables`
