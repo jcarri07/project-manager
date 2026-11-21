@@ -177,4 +177,45 @@ if ($_GET['act'] == 'insert_hitos_plan_proy') {
 	}
 }
 
+if ($_GET['act'] == 'insert_presupuestos_plan_proy') {
+
+	$d_id_proyecto = mysqli_real_escape_string($conn, trim($_POST['id_proyecto']));
+
+	$sql0 = ("SELECT presupuesto_est FROM projects WHERE id_proyecto = '$d_id_proyecto' LIMIT 1");
+	$result = mysqli_query($conn, $sql0);
+	$datos = array();
+
+	while ($row = mysqli_fetch_array($result)) {
+		$dato_presupuesto_est = $row['presupuesto_est'];
+	}
+
+	//echo ("Presupuesto: " . $dato_presupuesto_est);
+
+	$d_id_project_plans = mysqli_real_escape_string($conn, trim($_POST['id_project_plans']));
+	$d_categoria_presup_proy = mysqli_real_escape_string($conn, trim($_POST['categoria_presup_proy']));
+	$d_descripcion_presup_proy = mysqli_real_escape_string($conn, trim($_POST['descripcion_presup_proy']));
+	$d_monto_presup_proy = mysqli_real_escape_string($conn, trim($_POST['monto_presup_proy']));
+
+	$d_porcent_presup_proy = (($d_monto_presup_proy * 100) / $dato_presupuesto_est);
+	$d_porcent_presup_proy = round($d_porcent_presup_proy, 2);
+
+	//echo (" Porcentaje: " . $d_porcent_presup_proy);
+
+	$query = mysqli_query($conn, "INSERT INTO project_plan_budgets(id_project_plans, categoria_presupuesto, descripcion_presupuesto, monto_presupuesto, porcentaje_presupuesto)
+											VALUES('$d_id_project_plans', '$d_categoria_presup_proy', '$d_descripcion_presup_proy', '$d_monto_presup_proy', '$d_porcent_presup_proy')");
+
+	if ($query) {
+
+		if ($val_Type_User == 1) {
+			header("location: ../pages/project_indiv_tables_direct.php?alert=1");
+		}
+		if ($val_Type_User == 2) {
+			header("location: ../pages/project_gen_tables_jef.php?alert=1");
+		}
+		if ($val_Type_User == 3) {
+			header("location: ../pages/project_tables_trab.php?alert=1");
+		}
+	}
+}
+
 ?>

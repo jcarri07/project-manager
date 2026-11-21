@@ -752,6 +752,7 @@ if (!isset($_SESSION['id_usuario'])) {
         <div class="modal-body">
 
           <input type="hidden" id="id_project_plans_menu" name="id_project_plans_menu">
+          <input type="hidden" id="id_proyecto_menu" name="id_proyecto_menu">
 
           <div class="row g-3">
 
@@ -1385,6 +1386,8 @@ if (!isset($_SESSION['id_usuario'])) {
 
               <input type="hidden" id="id_project_plans_alcance" name="id_project_plans" value="">
 
+              <input type="hidden" name="id_proyecto" id="id_proyecto_recursos" value="">
+
               <div class="card-body">
                 <div class="row">
 
@@ -1393,7 +1396,7 @@ if (!isset($_SESSION['id_usuario'])) {
                     <input type="text" name="tipo_recurso_proy" id="tipo_recurso_proy" class="form-control border px-3" required>
                   </div>
 
-                  <div class="col-md-4 mb-3">
+                  <div class="col-md-12 mb-3">
                     <label class="form-label">Descripción del Recurso *</label>
                     <textarea name="descripcion_recurso_proy" id="descripcion_recurso_proy" class="form-control border px-3" maxlength="300" rows="3" required></textarea>
                     <div id="contador_descripcion_recurso_proy">300</div>
@@ -1412,7 +1415,7 @@ if (!isset($_SESSION['id_usuario'])) {
                   <div class="col-md-4 mb-3">
                     <label class="form-label">Disponibilidad *</label>
                     <select name="disponib_recur_plan_proy" id="disponib_recur_plan_proy" class="form-select border px-3" required>
-                      <option value="">Seleccione un tipo</option>
+                      <option value="" disabled>Seleccione</option>
                       <option value="Confirmados">Confirmados</option>
                       <option value="Por Confirmar">Por Confirmar</option>
                       <option value="No disponibles">No disponibles</option>
@@ -1440,7 +1443,7 @@ if (!isset($_SESSION['id_usuario'])) {
                 </div>
 
                 <div class="mb-4">
-                  <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar tarea </button>
+                  <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar recurso </button>
                 </div>
 
               </div>
@@ -1454,12 +1457,12 @@ if (!isset($_SESSION['id_usuario'])) {
           <div class="row g-3">
             <div class="col-md-12" style="color:black">
 
-              <label class="form-label">Hitos Planificados:</label>
+              <label class="form-label">Presupuesto Planificado:</label>
               <br>
               <div class="col-md-4" style="color:black">
                 <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" id="check_form_hitos_tareas" checked>
-                  <label class="form-check-label" for="check_form_hitos_tareas">Registrar nuevo hito</label>
+                  <input class="form-check-input" type="checkbox" id="check_form_nuevo_presupuesto" checked>
+                  <label class="form-check-label" for="check_form_nuevo_presupuesto">Agregar Categoria</label>
                 </div>
               </div>
               <br>
@@ -1469,18 +1472,18 @@ if (!isset($_SESSION['id_usuario'])) {
 
                   <thead class="table-light">
                     <tr>
-                      <th class="text-center">ID</th>
-                      <th class="text-center">Hitos</th>
+                      <th class="text-center">Categoría</th>
                       <th class="text-center">Descripción</th>
-                      <th class="text-center">Fecha del hito</th>
-                      <th class="text-center">Estado</th>
+                      <th class="text-center">Monto (USD)</th>
+                      <th class="text-center">% del total</th>
+                      <th class="text-center">Disponibilidad</th>
                     </tr>
                   </thead>
 
-                  <tbody id="tbody_hitos_ocurr_plan">
+                  <tbody id="tbody_presupuestos_plan">
                     <tr>
-                      <td colspan="5" class="text-center text-secondary">
-                        Seleccione una planificación para consultar sus hitos.
+                      <td colspan="6" class="text-center text-secondary">
+                        Seleccione una planificación para consultar sus categorias.
                       </td>
                     </tr>
                   </tbody>
@@ -1491,29 +1494,31 @@ if (!isset($_SESSION['id_usuario'])) {
             </div>
           </div>
 
-          <div class="row g-3" id="ver_form_nuevo_hito_container">
+          <div class="row g-3" id="ver_form_nuevo_presupuesto_container">
 
-            <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_hitos_plan_proy" method="POST">
+            <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_presupuestos_plan_proy" method="POST">
 
               <input type="hidden" id="id_project_plans_alcance" name="id_project_plans" value="">
+
+              <input type="hidden" id="id_proyecto_recursos" name="id_proyecto" value="">
 
               <div class="card-body">
                 <div class="row">
 
-                  <div class="col-md-12 mb-3">
-                    <label class="form-label">Hito *</label>
-                    <input type="text" name="nombre_hito_proy" id="nombre_hito_proy" class="form-control border px-3" required>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Categoría *</label>
+                    <input type="text" name="categoria_presup_proy" id="categoria_presup_proy" class="form-control border px-3" required>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Monto *</label>
+                    <input type="number" name="monto_presup_proy" id="monto_presup_proy" class="form-control border px-3" required>
                   </div>
 
                   <div class="col-md-12 mb-3">
-                    <label class="form-label">Descripción del hito *</label>
-                    <textarea name="descripcion_hito_proy" id="descripcion_hito_proy" class="form-control border px-3" maxlength="300" rows="3" required></textarea>
-                    <div id="contador_descripcion_hito_proy">300</div>
-                  </div>
-
-                  <div class="col-md-4 mb-3">
-                    <label class="form-label">Fecha de ocurrencia *</label>
-                    <input type="date" name="fecha_ocurren_hito_proy" id="fecha_ocurren_hito_proy" class="form-control border px-3" required>
+                    <label class="form-label">Descripción del presupuesto *</label>
+                    <textarea name="descripcion_presup_proy" id="descripcion_presup_proy" class="form-control border px-3" maxlength="300" rows="3" required></textarea>
+                    <div id="contador_descripcion_presup_proy">300</div>
                   </div>
 
                 </div>
@@ -1521,7 +1526,7 @@ if (!isset($_SESSION['id_usuario'])) {
                 <br>
 
                 <div class="mb-4">
-                  <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar hito </button>
+                  <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar categoria </button>
                 </div>
 
               </div>
@@ -1810,7 +1815,7 @@ if (!isset($_SESSION['id_usuario'])) {
               if (row.estado_plan === "Propuesto") {
                 buttonHTML = `
             <div class="btn-group" role="group">
-                <button type="button" onclick="abrirModal_menu_multiple(${row.id_project_plans})" class="btn-editar" title="Editar Datos"><i class="fa-solid fa-layer-group" style="color: rgb(35, 77, 217);"></i></button>
+                <button type="button" onclick="abrirModal_menu_multiple(${row.id_project_plans},${row.id_proyecto})" class="btn-editar" title="Editar Datos"><i class="fa-solid fa-layer-group" style="color: rgb(35, 77, 217);"></i></button>
             </div>
         `;
               };
@@ -2140,33 +2145,241 @@ if (!isset($_SESSION['id_usuario'])) {
     }
   </script>
 
-  <!-- ------------------ Codigo del script para ver las propuestas vigentes ------------------ -->
 
   <script>
-    $(document).ready(function() {
+    function cargarpresupuestosPlan(idPlan, idProyecto) {
 
-      $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function(e) {
+      const tbody = document.getElementById('tbody_presupuestos_plan');
 
-        const destino = e.target.getAttribute('data-bs-target');
-        const tabla = document.querySelector(destino + ' table');
+      tbody.innerHTML = `
+        <tr>
+            <td colspan="5" class="text-center text-secondary">
+                Cargando presupuesto...
+            </td>
+        </tr>
+    `;
 
-        if (
-          tabla &&
-          $.fn.DataTable.isDataTable(tabla)
-        ) {
-          const dt = $(tabla).DataTable();
+      $.ajax({
 
-          dt.columns.adjust();
-          if (dt.responsive) {
-            dt.responsive.recalc();
+        url: './consultas/consul_obtener_presupuestos_plan.php',
+
+        type: 'GET',
+
+        data: {
+          id_project_plans: idPlan,
+          id_proyecto: idProyecto
+        },
+
+        dataType: 'json',
+
+        success: function(respuesta) {
+
+          console.log('Presupuestos recibidos:', respuesta);
+
+          tbody.innerHTML = '';
+
+          if (!respuesta.success) {
+
+            tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center text-danger">
+                            ${respuesta.message}
+                        </td>
+                    </tr>
+                `;
+
+            return;
           }
+
+          const presupuestos = respuesta.data || [];
+          let totalPorcentaje = 0;
+
+          if (presupuestos.length === 0) {
+
+            tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center text-secondary">
+                            No hay presupuestos registrados.
+                        </td>
+                    </tr>
+                `;
+
+          } else {
+
+            presupuestos.forEach(function(presupuesto) {
+
+              const fila = document.createElement('tr');
+
+              const porcentaje = obtenerPorcentaje(
+                presupuesto.porcentaje_presupuesto
+              );
+
+              totalPorcentaje += porcentaje;
+
+              const celdaCategoria = document.createElement('td');
+
+              celdaCategoria.className = 'text-center';
+              celdaCategoria.textContent =
+                presupuesto.categoria_presupuesto ?? '';
+
+              const celdaDescripcion = document.createElement('td');
+
+              celdaDescripcion.className = 'text-center';
+              celdaDescripcion.textContent =
+                presupuesto.descripcion_presupuesto ?? '';
+
+              const celdaMonto = document.createElement('td');
+
+              celdaMonto.className = 'text-center';
+              celdaMonto.textContent =
+                formatearPresupuesto(
+                  presupuesto.monto_presupuesto
+                ) + ' $';
+
+              const celdaPorcentaje = document.createElement('td');
+
+              celdaPorcentaje.className = 'text-center';
+
+              celdaPorcentaje.textContent =
+                formatearPorcentaje(porcentaje);
+
+              const celdaAviso = document.createElement('td');
+
+              celdaAviso.className = 'text-center';
+
+              fila.appendChild(celdaCategoria);
+              fila.appendChild(celdaDescripcion);
+              fila.appendChild(celdaMonto);
+              fila.appendChild(celdaPorcentaje);
+              fila.appendChild(celdaAviso);
+
+              tbody.appendChild(fila);
+
+            });
+
+          }
+
+          const presupuestoTotal = respuesta.presupuesto_est === null ||
+            respuesta.presupuesto_est === undefined ||
+            respuesta.presupuesto_est === '' ?
+            null :
+            Number(respuesta.presupuesto_est);
+
+          let aviso = '';
+          let claseAviso = '';
+
+          if (totalPorcentaje > 100) {
+
+            const excedente = totalPorcentaje - 100;
+
+            aviso = 'No permitido: excede ' +
+              formatearPorcentaje(excedente);
+
+            claseAviso = 'text-danger';
+
+          } else {
+
+            const disponible = 100 - totalPorcentaje;
+
+            aviso = 'Disponible: ' +
+              formatearPorcentaje(disponible);
+
+            claseAviso = 'text-success';
+
+          }
+
+          const filaTotal = document.createElement('tr');
+
+          filaTotal.className = 'table-light fw-bold';
+
+          const celdaTotal = document.createElement('td');
+
+          celdaTotal.colSpan = 2;
+          celdaTotal.textContent = 'TOTAL DEL PRESUPUESTO';
+          celdaTotal.className = 'text-end';
+
+          const celdaValor = document.createElement('td');
+
+          celdaValor.className = 'text-center';
+
+          celdaValor.textContent =
+            presupuestoTotal === null || !Number.isFinite(presupuestoTotal) ?
+            'No definido' :
+            formatearPresupuesto(presupuestoTotal) + ' $';
+
+          const celdaPorcentajeTotal = document.createElement('td');
+
+          celdaPorcentajeTotal.className = 'text-center';
+
+          celdaPorcentajeTotal.textContent = formatearPorcentaje(totalPorcentaje);
+
+          const celdaAviso = document.createElement('td');
+
+          celdaAviso.className =
+            'text-center ' + claseAviso;
+
+          celdaAviso.textContent = aviso;
+
+          filaTotal.appendChild(celdaTotal);
+          filaTotal.appendChild(celdaValor);
+          filaTotal.appendChild(celdaPorcentajeTotal);
+          filaTotal.appendChild(celdaAviso);
+          tbody.appendChild(filaTotal);
+
+        },
+
+        error: function(xhr, estado, error) {
+
+          console.error('Error al consultar los presupuestos:');
+          console.error('Estado:', estado);
+          console.error('Error:', error);
+          console.error('Respuesta PHP:', xhr.responseText);
+
+          tbody.innerHTML = `
+                <tr>
+                    <td colspan="5" class="text-center text-danger">
+                        Error al obtener los presupuestos.
+                    </td>
+                </tr>
+            `;
+
         }
 
       });
 
-    });
-  </script>
+    }
 
+    function formatearPresupuesto(valor) {
+
+      return Number(valor || 0).toLocaleString('es-VE', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+
+    }
+
+    function obtenerPorcentaje(valor) {
+
+      const numero = Number(
+        String(valor ?? '0')
+        .replace('%', '')
+        .replace(',', '.')
+        .trim()
+      );
+
+      return Number.isFinite(numero) ? numero : 0;
+
+    }
+
+    function formatearPorcentaje(valor) {
+
+      return Number(valor).toLocaleString('es-VE', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+      }) + '%';
+
+    }
+  </script>
 
   <script>
     const modalValidElemento = document.getElementById('Modal_valid');
@@ -2271,6 +2484,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
   <script>
     let idProjectPlansSeleccionado = 0;
+    let idProyectoSeleccionado = 0;
 
     const modalMenuMultipleElemento = document.getElementById('modal_menu_multiple');
 
@@ -2319,26 +2533,29 @@ if (!isset($_SESSION['id_usuario'])) {
 
     });
 
-    function abrirModal_menu_multiple(id) {
+    function abrirModal_menu_multiple(idPlan, idProyecto) {
 
-      id = parseInt(id, 10);
+      idPlan = parseInt(idPlan, 10);
+      idProyecto = parseInt(idProyecto, 10);
 
-      if (!Number.isInteger(id) || id <= 0) {
+      if (!Number.isInteger(idPlan) || idPlan <= 0 || !Number.isInteger(idProyecto) || idProyecto <= 0) {
+        console.error('Identificadores inválidos:', {
+          idPlan,
+          idProyecto
+        });
 
-        console.error('Identificador de planificación inválido:', id);
-
-        alert('No se pudo identificar la planificación seleccionada.');
-
+        alert('No se pudo identificar la planificación o el proyecto.');
         return;
       }
 
-      console.log('ID de planificación seleccionado:', id);
+      console.log('ID de planificación seleccionado:', idPlan);
+      console.log('ID de proyecto seleccionado:', idProyecto);
 
-      idProjectPlansSeleccionado = id;
-
-      document.getElementById('id_project_plans_menu').value = id;
-
-      document.getElementById('numero_plan_seleccionado').textContent = id;
+      idProjectPlansSeleccionado = idPlan;
+      idProyectoSeleccionado = idProyecto;
+      document.getElementById('id_project_plans_menu').value = idPlan;
+      document.getElementById('numero_plan_seleccionado').textContent = idPlan;
+      document.getElementById('id_proyecto_menu').value = idProyecto;
 
       modalMenuMultiple.show();
 
@@ -2412,30 +2629,34 @@ if (!isset($_SESSION['id_usuario'])) {
       if (!submodal || !submodal.elemento) {
 
         console.error('El submodal no existe:', idModal);
-
         return;
       }
 
-
-      // Obtener ID desde el menú principal.
       const idPlan = parseInt(
         document.getElementById('id_project_plans_menu').value,
         10
       );
 
+      const idProyecto = parseInt(
+        document.getElementById('id_proyecto_menu').value,
+        10
+      );
 
-      if (!Number.isInteger(idPlan) || idPlan <= 0) {
+      if (
+        !Number.isInteger(idPlan) || idPlan <= 0 ||
+        !Number.isInteger(idProyecto) || idProyecto <= 0
+      ) {
 
-        alert('Primero debe seleccionar una planificación.');
-
+        alert('Primero debe seleccionar una planificación y un proyecto.');
         return;
       }
 
-
       console.log('ID de planificación:', idPlan);
+      console.log('ID de proyecto:', idProyecto);
 
 
       submodal.elemento.dataset.idProjectPlans = idPlan;
+      submodal.elemento.dataset.idProyecto = idProyecto;
 
       submodal.elemento.querySelectorAll(
         'input[name="id_project_plans"]'
@@ -2445,17 +2666,24 @@ if (!isset($_SESSION['id_usuario'])) {
 
       });
 
+      submodal.elemento.querySelectorAll(
+        'input[name="id_proyecto"]'
+      ).forEach(function(input) {
+
+        input.value = idProyecto;
+
+      });
+
+
       modalMenuMultipleElemento.addEventListener(
         'hidden.bs.modal',
         function() {
 
           submodal.instancia.show();
 
-          // Consultar entregables cuando se abra el modal de alcance.
           if (idModal === 'modalAlcancePlan') {
 
             cargarAlcancePlan(idPlan);
-
             cargarEntregablesPlan(idPlan);
 
           }
@@ -2469,13 +2697,14 @@ if (!isset($_SESSION['id_usuario'])) {
 
           if (idModal === 'modalRecursosPresupuestoPlan') {
 
+            cargarpresupuestosPlan(idPlan, idProyecto);
+
           }
 
         }, {
           once: true
         }
       );
-
 
       modalMenuMultiple.hide();
 
@@ -2588,6 +2817,20 @@ if (!isset($_SESSION['id_usuario'])) {
     document.addEventListener('DOMContentLoaded', function() {
       const checkbox = document.getElementById('check_form_actividades_tareas');
       const contenedor = document.getElementById('ver_form_act_tar_container');
+
+      function toggle() {
+        contenedor.style.display = checkbox.checked ? 'none' : 'block';
+      }
+
+      toggle(); // estado inicial
+      checkbox.addEventListener('change', toggle);
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const checkbox = document.getElementById('check_form_nuevo_presupuesto');
+      const contenedor = document.getElementById('ver_form_nuevo_presupuesto_container');
 
       function toggle() {
         contenedor.style.display = checkbox.checked ? 'none' : 'block';
@@ -2754,6 +2997,7 @@ if (!isset($_SESSION['id_usuario'])) {
     limitarTextarea("descripcion_actividad_proy", "contador_descripcion_actividad_proy", 300);
     limitarTextarea("observacion_actividad_proy", "contador_observacion_actividad_proy", 300);
     limitarTextarea("descripcion_hito_proy", "contador_descripcion_hito_proy", 300);
+    limitarTextarea("descripcion_presup_proy", "contador_descripcion_presup_proy", 300);
     limitarTextarea("descripcion_recurso_proy", "contador_descripcion_recurso_proy", 300);
     limitarTextarea("edit_descripcion_proy_2", "contador_edit_descripcion_proy_2", 300);
     limitarTextarea("edit_problema_proy_2", "contador_edit_problema_proy_2", 300);

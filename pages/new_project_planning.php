@@ -283,7 +283,7 @@ $versionInicial = '1.0';
                         <div class="lifecycle-step completed"><i class="material-icons-round">check_circle</i><br>Evaluación</div>
                         <div class="lifecycle-step completed"><i class="material-icons-round">check_circle</i><br>Aprobado</div>
                         <div class="lifecycle-step active"><i class="material-icons-round">edit_calendar</i><br>Planificación</div>
-                       <!-- <div class="lifecycle-step"><i class="material-icons-round">play_circle</i><br>Ejecución</div> -->
+                        <!-- <div class="lifecycle-step"><i class="material-icons-round">play_circle</i><br>Ejecución</div> -->
                     </div>
                 </div>
             </section>
@@ -358,7 +358,7 @@ $versionInicial = '1.0';
                         </div>
                         <div class="col-md-4">
                             <label class="form-label">Presupuesto estimado inicial</label>
-                            <div class="readonly-info"><?php echo ($proyecto['presupuesto_est']); ?></div>
+                            <div class="readonly-info"><?php echo ($proyecto['presupuesto_est'] . "$"); ?></div>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label">Inicio estimado inicial</label>
