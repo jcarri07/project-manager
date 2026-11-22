@@ -1361,7 +1361,6 @@ if (!isset($_SESSION['id_usuario'])) {
                       <th class="text-center">Periodo</th>
                       <th class="text-center">Disponibilidad</th>
                       <th class="text-center">Responsable</th>
-                      <th class="text-center">Estado</th>
                       <th class="text-center">Acciones</th>
                     </tr>
                   </thead>
@@ -2202,16 +2201,18 @@ if (!isset($_SESSION['id_usuario'])) {
             return;
           }
 
-          respuesta.data.forEach(function(hitos) {
+          respuesta.data.forEach(function(recursos) {
 
             const fila = document.createElement('tr');
 
             const valores = [
-              hitos.id_project_plans_milestones,
-              hitos.nombre_hitos,
-              hitos.descripcion_hitos,
-              hitos.fecha_hito,
-              hitos.estado_hito
+              recursos.id_project_resources,
+              recursos.tipo_recurso,
+              recursos.descripcion_recurso,
+              recursos.cantidad_recurso,
+              recursos.periodo_recurso,
+              recursos.disponibilidad_recurso,
+              recursos.nom_apell_resp
             ];
 
             valores.forEach(function(valor) {

@@ -177,6 +177,33 @@ if ($_GET['act'] == 'insert_hitos_plan_proy') {
 	}
 }
 
+if ($_GET['act'] == 'insert_recurso_plan_proy') {
+
+	$d_id_project_plans = mysqli_real_escape_string($conn, trim($_POST['id_project_plans']));
+	$d_tipo_recurso_proy = mysqli_real_escape_string($conn, trim($_POST['tipo_recurso_proy']));
+	$d_descripcion_recurso_proy = mysqli_real_escape_string($conn, trim($_POST['descripcion_recurso_proy']));
+	$d_cant_dedic_recurso_proy = mysqli_real_escape_string($conn, trim($_POST['cant_dedic_recurso_proy']));
+	$d_periodo_recur_plan_proy = mysqli_real_escape_string($conn, trim($_POST['periodo_recur_plan_proy']));
+	$d_id_respon_recurso_tarea = mysqli_real_escape_string($conn, trim($_POST['id_respon_recurso_tarea']));
+	$d_disponib_recur_plan_proy = mysqli_real_escape_string($conn, trim($_POST['disponib_recur_plan_proy']));
+
+	$query = mysqli_query($conn, "INSERT INTO project_plan_resources(id_project_plans, tipo_recurso, descripcion_recurso, cantidad_recurso, periodo_recurso, id_responsable_recurso, disponibilidad_recurso)
+											VALUES('$d_id_project_plans', '$d_tipo_recurso_proy', '$d_descripcion_recurso_proy', '$d_cant_dedic_recurso_proy', '$d_periodo_recur_plan_proy', '$d_id_respon_recurso_tarea', '$d_disponib_recur_plan_proy')");
+
+	if ($query) {
+
+		if ($val_Type_User == 1) {
+			header("location: ../pages/project_indiv_tables_direct.php?alert=1");
+		}
+		if ($val_Type_User == 2) {
+			header("location: ../pages/project_gen_tables_jef.php?alert=1");
+		}
+		if ($val_Type_User == 3) {
+			header("location: ../pages/project_tables_trab.php?alert=1");
+		}
+	}
+}
+
 if ($_GET['act'] == 'insert_presupuestos_plan_proy') {
 
 	$d_id_proyecto = mysqli_real_escape_string($conn, trim($_POST['id_proyecto']));

@@ -20,7 +20,7 @@ if (!$idPlan || $idPlan <= 0) {
     exit;
 }
 
-$sql = "SELECT * FROM project_plan_resources WHERE id_project_plans = ?";
+$sql = "SELECT id_project_resources, tipo_recurso, descripcion_recurso, cantidad_recurso, periodo_recurso, CONCAT(users.nombre_user,' ',users.apellido_user) AS nom_apell_resp, disponibilidad_recurso FROM project_plan_resources, users WHERE project_plan_resources.id_responsable_recurso = users.id_usuario AND project_plan_resources.id_project_plans = ?";
 
 
 $stmt = mysqli_prepare($conn, $sql);
@@ -44,11 +44,11 @@ mysqli_stmt_execute($stmt);
 
 $resultado = mysqli_stmt_get_result($stmt);
 
-$hitos = [];
+$recursos = [];
 
 while ($fila = mysqli_fetch_assoc($resultado)) {
 
-    $hitos[] = $fila;
+    $recursos[] = $fila;
 }
 
 
@@ -56,7 +56,7 @@ mysqli_stmt_close($stmt);
 
 echo json_encode([
     'success' => true,
-    'data' => $hitos
+    'data' => $recursos
 ], JSON_UNESCAPED_UNICODE);
 
 exit;
