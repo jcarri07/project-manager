@@ -43,6 +43,8 @@ if (!isset($_SESSION['id_usuario'])) {
   <!-- 6. DataTables -->
   <link rel="stylesheet" href="../assets/DataTable/datatables.min.css">
   <link rel="stylesheet" href="../assets/css/code_tables_miemb_users.css">
+
+  <link rel="stylesheet" href="../assets/css/material-project_gen_tables_jef.css">
 </head>
 
 
@@ -960,7 +962,7 @@ if (!isset($_SESSION['id_usuario'])) {
                   <br>
 
                   <div class="table-responsive">
-                    <table class="table table-hover table-striped align-middle">
+                    <table id="tabla_data_entregables_plan" class="table table-hover table-striped align-middle">
 
                       <thead class="table-light">
                         <tr>
@@ -969,16 +971,28 @@ if (!isset($_SESSION['id_usuario'])) {
                           <th class="text-center">Crit. Aceptacion</th>
                           <th class="text-center">Fecha Estimada</th>
                           <th class="text-center">Responsable</th>
+                          <th class="text-center">Acciones</th>
                         </tr>
                       </thead>
 
                       <tbody id="tbody_entregables_plan">
                         <tr>
-                          <td colspan="5" class="text-center text-secondary">
+                          <td colspan="6" class="text-center text-secondary">
                             Seleccione una planificación para consultar sus entregables.
                           </td>
                         </tr>
                       </tbody>
+
+                      <tfoot>
+                        <tr class="table-primary fw-bold">
+                          <td class="text-center">—</td>
+                          <td class="text-center"></td>
+                          <td class="text-center">—</td>
+                          <td class="text-center">—</td>
+                          <td class="text-center">—</td>
+                          <td class="text-center">—</td>
+                        </tr>
+                      </tfoot>
 
                     </table>
                   </div>
@@ -1111,7 +1125,7 @@ if (!isset($_SESSION['id_usuario'])) {
               <br>
 
               <div class="table-responsive">
-                <table class="table table-hover table-striped align-middle">
+                <table id="tabla_data_actividades_tareas_plan" class="table table-hover table-striped align-middle">
 
                   <thead class="table-light">
                     <tr>
@@ -1234,7 +1248,7 @@ if (!isset($_SESSION['id_usuario'])) {
               <br>
 
               <div class="table-responsive">
-                <table class="table table-hover table-striped align-middle">
+                <table id="tabla_data_hitos_plan" class="table table-hover table-striped align-middle">
 
                   <thead class="table-light">
                     <tr>
@@ -1321,7 +1335,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
   <div class="modal fade" id="modalRecursosPresupuestoPlan" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="titulo_modal_alcance" aria-hidden="true">
 
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg modal-recursos-presupuesto-dialog">
       <div class="modal-content">
         <div class="w3-container w3-teal modal-header">
           <div>
@@ -1336,47 +1350,116 @@ if (!isset($_SESSION['id_usuario'])) {
 
         <div class="modal-body">
 
-          <div class="row g-3">
-            <div class="col-md-12" style="color:black">
 
-              <label class="form-label">Recursos registrados:</label>
-              <br>
-              <div class="col-md-4" style="color:black">
-                <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" id="check_form_recursos_nuevos" checked>
-                  <label class="form-check-label" for="check_form_recursos_nuevos">Registrar recurso</label>
+          <div class="row g-3 align-items-stretch mb-3">
+
+            <!-- TABLA DE RECURSOS: 75% -->
+            <div class="col-12 col-xl-8">
+
+              <div class="card h-100 mb-0">
+
+                <div class="card-header pb-2 d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+                  <div>
+                    <h6 class="mb-1">
+                      <i class="fa-solid fa-gears text-primary me-2"></i>
+                      Recursos necesarios
+                    </h6>
+
+                    <small class="text-secondary">
+                      Defina los recursos requeridos para la ejecución del proyecto.
+                    </small>
+                  </div>
+
+                  <div class="form-check form-switch mb-0">
+                    <input class="form-check-input" type="checkbox" id="check_form_recursos_nuevos" checked>
+                    <label class="form-check-label" for="check_form_recursos_nuevos"> Registrar recurso</label>
+                  </div>
+
                 </div>
-              </div>
-              <br>
 
-              <div class="table-responsive">
-                <table class="table table-hover table-striped align-middle">
+                <div class="card-body pt-2">
 
-                  <thead class="table-light">
-                    <tr>
-                      <th class="text-center">ID</th>
-                      <th class="text-center">Tipo de recurso</th>
-                      <th class="text-center">Descripción</th>
-                      <th class="text-center">Cantidad/Dedicación</th>
-                      <th class="text-center">Periodo</th>
-                      <th class="text-center">Disponibilidad</th>
-                      <th class="text-center">Responsable</th>
-                      <th class="text-center">Acciones</th>
-                    </tr>
-                  </thead>
+                  <div class="table-responsive">
 
-                  <tbody id="tbody_recursos_regist_plan">
-                    <tr>
-                      <td colspan="10" class="text-center text-secondary">
-                        Seleccione una planificación para consultar sus recursos.
-                      </td>
-                    </tr>
-                  </tbody>
+                    <table id="tabla_data_recursos_plan" class="table table-hover table-striped align-middle">
 
-                </table>
+                      <thead class="table-light">
+                        <tr>
+                          <th class="text-center">ID</th>
+                          <th class="text-center">Tipo de recurso</th>
+                          <th class="text-center">Descripción</th>
+                          <th class="text-center">Cantidad / Dedicación</th>
+                          <th class="text-center">Periodo</th>
+                          <th class="text-center">Disponibilidad</th>
+                          <th class="text-center">Responsable</th>
+                          <th class="text-center">Acciones</th>
+                        </tr>
+                      </thead>
+
+                      <tbody id="tbody_recursos_regist_plan">
+
+                        <tr>
+                          <td colspan="8" class="text-center text-secondary">
+                            Seleccione una planificación para consultar sus recursos.
+                          </td>
+                        </tr>
+
+                      </tbody>
+
+                      <tfoot>
+                        <tr class="table-primary fw-bold">
+                          <td class="text-center">—</td>
+                          <td class="text-center"></td>
+                          <td class="text-center">—</td>
+                          <td class="text-center">—</td>
+                          <td class="text-center">—</td>
+                        </tr>
+                      </tfoot>
+
+                    </table>
+
+                  </div>
+
+                </div>
+
               </div>
 
             </div>
+
+
+            <!-- GRÁFICA DE DISPONIBILIDAD: 25% -->
+            <div class="col-12 col-xl-4">
+
+              <div class="card grafica-presupuesto-card mb-0">
+
+                <div class="card-header pb-1">
+
+                  <h6 class="mb-1">
+                    <i class="fa-solid fa-anchor text-primary me-2"></i>
+                    Disponibilidad de recursos
+                  </h6>
+
+                  <small class="text-secondary">
+                    Estado de los recursos principales.
+                  </small>
+
+                </div>
+
+                <div class="card-body d-flex align-items-center">
+
+                  <div class="grafica-presupuesto-container">
+
+                    <canvas id="chart_disponibilidad_recursos" class="chart-canvas"></canvas>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
           </div>
 
           <div class="row g-3" id="ver_form_recursos_new_container">
@@ -1453,45 +1536,114 @@ if (!isset($_SESSION['id_usuario'])) {
 
           <br><br>
 
-          <div class="row g-3">
-            <div class="col-md-12" style="color:black">
+          <div class="row g-3 align-items-stretch mb-3">
 
-              <label class="form-label">Presupuesto Planificado:</label>
-              <br>
-              <div class="col-md-4" style="color:black">
-                <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" id="check_form_nuevo_presupuesto" checked>
-                  <label class="form-check-label" for="check_form_nuevo_presupuesto">Agregar Categoria</label>
+            <!-- TABLA DE PRESUPUESTO: 66,7% -->
+            <div class="col-12 col-xl-7">
+
+              <div class="card h-100 mb-0">
+
+                <div class="card-header pb-2 d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+                  <div>
+                    <h6 class="mb-1">
+                      <i class="fa-solid fa-file-invoice-dollar text-primary me-2"></i>
+                      Presupuesto planificado
+                    </h6>
+                  </div>
+
+                  <div class="form-check form-switch mb-0">
+                    <input class="form-check-input" type="checkbox" id="check_form_nuevo_presupuesto" checked>
+
+                    <label class="form-check-label" for="check_form_nuevo_presupuesto">Agregar categoría</label>
+                  </div>
+
                 </div>
-              </div>
-              <br>
 
-              <div class="table-responsive">
-                <table class="table table-hover table-striped align-middle">
+                <div class="card-body pt-2">
 
-                  <thead class="table-light">
-                    <tr>
-                      <th class="text-center">Categoría</th>
-                      <th class="text-center">Descripción</th>
-                      <th class="text-center">Monto (USD)</th>
-                      <th class="text-center">% del total</th>
-                      <th class="text-center">Disponibilidad</th>
-                    </tr>
-                  </thead>
+                  <div class="table-responsive">
 
-                  <tbody id="tbody_presupuestos_plan">
-                    <tr>
-                      <td colspan="6" class="text-center text-secondary">
-                        Seleccione una planificación para consultar sus categorias.
-                      </td>
-                    </tr>
-                  </tbody>
+                    <table id="tabla_data_presupuestos_plan" class="table table-hover table-striped align-middle">
 
-                </table>
+                      <thead class="table-light">
+
+                        <tr>
+                          <th class="text-center">Categoría</th>
+                          <th class="text-center">Descripción</th>
+                          <th class="text-center">Monto (USD)</th>
+                          <th class="text-center">% del total</th>
+                          <th class="text-center">Acciones</th>
+                        </tr>
+
+                      </thead>
+
+                      <tbody id="tbody_presupuestos_plan">
+
+                        <tr>
+                          <td colspan="5" class="text-center text-secondary">
+                            Seleccione una planificación para consultar sus categorías.
+                          </td>
+                        </tr>
+
+                      </tbody>
+
+                      <tfoot>
+                        <tr class="table-primary fw-bold">
+                          <td class="text-center">—</td>
+                          <td class="text-center"></td>
+                          <td class="text-center">—</td>
+                          <td class="text-center">—</td>
+                          <td class="text-center">—</td>
+                        </tr>
+                      </tfoot>
+
+                    </table>
+
+                  </div>
+
+                </div>
+
               </div>
 
             </div>
+
+
+            <!-- GRÁFICA DE DISTRIBUCIÓN: 33,3% -->
+            <div class="col-12 col-xl-5">
+
+              <div class="card grafica-presupuesto-card mb-0">
+
+                <div class="card-header pb-1">
+
+                  <h6 class="mb-1">
+                    <i class="fa-solid fa-file-invoice-dollar text-primary me-2"></i>
+                    Distribución del presupuesto
+                  </h6>
+
+                  <small class="text-secondary">
+                    Distribución de los montos por categoría.
+                  </small>
+
+                </div>
+
+                <div class="card-body d-flex align-items-center">
+
+                  <div class="grafica-presupuesto-container">
+
+                    <canvas id="chart_distribucion_presupuesto" class="chart-canvas"></canvas>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
           </div>
+
+
 
           <div class="row g-3" id="ver_form_nuevo_presupuesto_container">
 
@@ -1565,6 +1717,7 @@ if (!isset($_SESSION['id_usuario'])) {
   <script src="../assets/jqery/jquery.js"></script>
   <script src="../assets/DataTable/datatables.min.js"></script>
   <script src="../assets/js/sweetalert2.js"></script>
+  <script src="../assets/js/plugins/chartjs.min.js"></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -1837,73 +1990,66 @@ if (!isset($_SESSION['id_usuario'])) {
 
   <script>
     function cargarEntregablesPlan(idPlan) {
-
+      const tabla = $('#tabla_data_entregables_plan');
       const tbody = document.getElementById('tbody_entregables_plan');
+
+      // Destruir instancia previa si existe
+      if ($.fn.DataTable.isDataTable('#tabla_data_entregables_plan')) {
+        tabla.DataTable().destroy();
+      }
 
       tbody.innerHTML = `
         <tr>
-            <td colspan="5" class="text-center text-secondary">
-                Cargando entregables...
-            </td>
+          <td colspan="6" class="text-center text-secondary">
+            Cargando entregables...
+          </td>
         </tr>
-    `;
+      `;
+
       $.ajax({
-
         url: './consultas/consul_obtener_entregables_plan.php',
-
         type: 'GET',
-
         data: {
           id_project_plans: idPlan
         },
-
         dataType: 'json',
-
         success: function(respuesta) {
-
           console.log('Entregables recibidos:', respuesta);
-
           tbody.innerHTML = '';
 
           if (!respuesta.success) {
-
             tbody.innerHTML = `
-                    <tr>
-                        <td colspan="5" class="text-center text-danger">
-                            ${respuesta.message}
-                        </td>
-                    </tr>
-                `;
-
+              <tr>
+                <td colspan="6" class="text-center text-danger">
+                  ${respuesta.message}
+                </td>
+              </tr>
+            `;
             return;
           }
 
+          const entregables = respuesta.data || [];
 
-          if (respuesta.data.length === 0) {
-
+          if (entregables.length === 0) {
             tbody.innerHTML = `
-                    <tr>
-                        <td colspan="5" class="text-center text-secondary">
-                            No hay entregables registrados.
-                        </td>
-                    </tr>
-                `;
-
+              <tr>
+                <td colspan="6" class="text-center text-secondary">
+                  No hay entregables registrados.
+                </td>
+              </tr>
+            `;
             return;
           }
 
-
-          // Recorrer los entregables recibidos.
-          respuesta.data.forEach(function(entregable) {
-
+          entregables.forEach(function(entregable) {
             const fila = document.createElement('tr');
 
             const valores = [
               entregable.id_project_deliverables,
               entregable.nombre_entregable,
-              entregable.descripcion_entregable,
               entregable.criterio_aceptacion_entregable,
-              entregable.fecha_objetivo_entregable
+              entregable.fecha_objetivo_entregable,
+              entregable.nom_apell_resp ?? entregable.responsable_entregable ?? ''
             ];
 
             valores.forEach(function(valor) {
@@ -1911,93 +2057,112 @@ if (!isset($_SESSION['id_usuario'])) {
               celda.className = 'text-center';
               celda.textContent = valor ?? '';
               fila.appendChild(celda);
-
             });
 
-            tbody.appendChild(fila);
+            // Celda de Acciones — agregar botones aquí cuando sea necesario
+            const celdaAcciones = document.createElement('td');
+            celdaAcciones.className = 'text-center';
+            /* BOTONES: celdaAcciones.innerHTML = `...`; */
+            fila.appendChild(celdaAcciones);
 
+            tbody.appendChild(fila);
           });
 
+          tabla.DataTable({
+            autoWidth: false,
+            pageLength: 5,
+            lengthMenu: [
+              [5, 10, 25],
+              [5, 10, 25]
+            ],
+            language: {
+              url: '../assets/js/DataEsp.json'
+            },
+            columnDefs: [{
+              targets: 5,
+              orderable: false,
+              searchable: false
+            }]
+          });
+
+          setTimeout(function() {
+            if ($.fn.DataTable.isDataTable('#tabla_data_entregables_plan')) {
+              tabla.DataTable().columns.adjust();
+            }
+          }, 100);
         },
-
-        error: function(xhr) {
-
-          console.error('Error al consultar entregables:', xhr.responseText);
+        error: function(xhr, estado, error) {
+          console.error('Error al consultar los entregables:');
+          console.error('Estado:', estado);
+          console.error('Error:', error);
+          console.error('Respuesta PHP:', xhr.responseText);
 
           tbody.innerHTML = `
-                <tr>
-                    <td colspan="5" class="text-center text-danger">
-                        Error al obtener los entregables.
-                    </td>
-                </tr>
-            `;
-
+            <tr>
+              <td colspan="6" class="text-center text-danger">
+                Error al obtener los entregables.
+              </td>
+            </tr>
+          `;
         }
-
       });
-
     }
   </script>
 
   <script>
     function cargaractividadestareasPlan(idPlan) {
-
+      const tabla = $('#tabla_data_actividades_tareas_plan');
       const tbody = document.getElementById('tbody_actividades_tareas_plan');
+
+      // Destruir instancia previa si existe
+      if ($.fn.DataTable.isDataTable('#tabla_data_actividades_tareas_plan')) {
+        tabla.DataTable().destroy();
+      }
 
       tbody.innerHTML = `
         <tr>
-            <td colspan="6" class="text-center text-secondary">
-                Cargando Actividades...
-            </td>
+          <td colspan="7" class="text-center text-secondary">
+            Cargando actividades...
+          </td>
         </tr>
-    `;
+      `;
+
       $.ajax({
-
         url: './consultas/consul_obtener_actividades_plan.php',
-
         type: 'GET',
-
         data: {
           id_project_plans: idPlan
         },
-
         dataType: 'json',
-
         success: function(respuesta) {
-
-          console.log('Actividades recibidos:', respuesta);
-
+          console.log('Actividades recibidas:', respuesta);
           tbody.innerHTML = '';
 
           if (!respuesta.success) {
-
             tbody.innerHTML = `
-                    <tr>
-                        <td colspan="5" class="text-center text-danger">
-                            ${respuesta.message}
-                        </td>
-                    </tr>
-                `;
-
+              <tr>
+                <td colspan="7" class="text-center text-danger">
+                  ${respuesta.message}
+                </td>
+              </tr>
+            `;
             return;
           }
 
+          const actividades = respuesta.data || [];
 
-          if (respuesta.data.length === 0) {
-
+          if (actividades.length === 0) {
             tbody.innerHTML = `
-                    <tr>
-                        <td colspan="6" class="text-center text-secondary">
-                            No hay entregables registrados.
-                        </td>
-                    </tr>
-                `;
-
+              <tr>
+                <td colspan="7" class="text-center text-secondary">
+                  No hay actividades registradas.
+                </td>
+              </tr>
+            `;
             return;
           }
 
-          respuesta.data.forEach(function(actividad) {
-
+          actividades.forEach(function(actividad) {
             const fila = document.createElement('tr');
 
             const valores = [
@@ -2014,101 +2179,120 @@ if (!isset($_SESSION['id_usuario'])) {
               celda.className = 'text-center';
               celda.textContent = valor ?? '';
               fila.appendChild(celda);
-
             });
 
-            tbody.appendChild(fila);
+            // Celda de Acciones — agregar botones aquí cuando sea necesario
+            const celdaAcciones = document.createElement('td');
+            celdaAcciones.className = 'text-center';
+            /* BOTONES: celdaAcciones.innerHTML = `...`; */
+            fila.appendChild(celdaAcciones);
 
+            tbody.appendChild(fila);
           });
 
+          tabla.DataTable({
+            autoWidth: false,
+            pageLength: 5,
+            lengthMenu: [
+              [5, 10, 25],
+              [5, 10, 25]
+            ],
+            language: {
+              url: '../assets/js/DataEsp.json'
+            },
+            columnDefs: [{
+              targets: 6,
+              orderable: false,
+              searchable: false
+            }]
+          });
+
+          setTimeout(function() {
+            if ($.fn.DataTable.isDataTable('#tabla_data_actividades_tareas_plan')) {
+              tabla.DataTable().columns.adjust();
+            }
+          }, 100);
         },
-
-        error: function(xhr) {
-
-          console.error('Error al consultar actividades:', xhr.responseText);
+        error: function(xhr, estado, error) {
+          console.error('Error al consultar las actividades:');
+          console.error('Estado:', estado);
+          console.error('Error:', error);
+          console.error('Respuesta PHP:', xhr.responseText);
 
           tbody.innerHTML = `
-                <tr>
-                    <td colspan="5" class="text-center text-danger">
-                        Error al obtener las Actividades.
-                    </td>
-                </tr>
-            `;
-
+            <tr>
+              <td colspan="7" class="text-center text-danger">
+                Error al obtener las actividades.
+              </td>
+            </tr>
+          `;
         }
-
       });
-
     }
   </script>
 
   <script>
     function cargarhitosPlan(idPlan) {
-
+      const tabla = $('#tabla_data_hitos_plan');
       const tbody = document.getElementById('tbody_hitos_ocurr_plan');
+
+      // Destruir instancia previa si existe
+      if ($.fn.DataTable.isDataTable('#tabla_data_hitos_plan')) {
+        tabla.DataTable().destroy();
+      }
 
       tbody.innerHTML = `
         <tr>
-            <td colspan="5" class="text-center text-secondary">
-                Cargando hitos...
-            </td>
+          <td colspan="6" class="text-center text-secondary">
+            Cargando hitos...
+          </td>
         </tr>
-    `;
+      `;
+
       $.ajax({
-
         url: './consultas/consul_obtener_hitos_plan.php',
-
         type: 'GET',
-
         data: {
           id_project_plans: idPlan
         },
-
         dataType: 'json',
-
         success: function(respuesta) {
-
           console.log('Hitos recibidos:', respuesta);
-
           tbody.innerHTML = '';
 
           if (!respuesta.success) {
-
             tbody.innerHTML = `
-                    <tr>
-                        <td colspan="5" class="text-center text-danger">
-                            ${respuesta.message}
-                        </td>
-                    </tr>
-                `;
-
+              <tr>
+                <td colspan="6" class="text-center text-danger">
+                  ${respuesta.message}
+                </td>
+              </tr>
+            `;
             return;
           }
 
+          const hitos = respuesta.data || [];
 
-          if (respuesta.data.length === 0) {
-
+          if (hitos.length === 0) {
             tbody.innerHTML = `
-                    <tr>
-                        <td colspan="5" class="text-center text-secondary">
-                            No hay hitos registrados.
-                        </td>
-                    </tr>
-                `;
-
+              <tr>
+                <td colspan="6" class="text-center text-secondary">
+                  No hay hitos registrados.
+                </td>
+              </tr>
+            `;
             return;
           }
 
-          respuesta.data.forEach(function(hitos) {
-
+          hitos.forEach(function(hito) {
             const fila = document.createElement('tr');
 
             const valores = [
-              hitos.id_project_plans_milestones,
-              hitos.nombre_hitos,
-              hitos.descripcion_hitos,
-              hitos.fecha_hito,
-              hitos.estado_hito
+              hito.id_project_plans_milestones,
+              hito.nombre_hitos,
+              hito.descripcion_hitos,
+              hito.fecha_hito,
+              hito.estado_hito
             ];
 
             valores.forEach(function(valor) {
@@ -2116,50 +2300,80 @@ if (!isset($_SESSION['id_usuario'])) {
               celda.className = 'text-center';
               celda.textContent = valor ?? '';
               fila.appendChild(celda);
-
             });
 
-            tbody.appendChild(fila);
+            // Celda de Acciones — agregar botones aquí cuando sea necesario
+            const celdaAcciones = document.createElement('td');
+            celdaAcciones.className = 'text-center';
+            /* BOTONES: celdaAcciones.innerHTML = `...`; */
+            fila.appendChild(celdaAcciones);
 
+            tbody.appendChild(fila);
           });
 
+          tabla.DataTable({
+            autoWidth: false,
+            pageLength: 5,
+            lengthMenu: [
+              [5, 10, 25],
+              [5, 10, 25]
+            ],
+            language: {
+              url: '../assets/js/DataEsp.json'
+            },
+            columnDefs: [{
+              targets: 5,
+              orderable: false,
+              searchable: false
+            }]
+          });
+
+          setTimeout(function() {
+            if ($.fn.DataTable.isDataTable('#tabla_data_hitos_plan')) {
+              tabla.DataTable().columns.adjust();
+            }
+          }, 100);
         },
-
-        error: function(xhr) {
-
-          console.error('Error al consultar los hitos:', xhr.responseText);
+        error: function(xhr, estado, error) {
+          console.error('Error al consultar los hitos:');
+          console.error('Estado:', estado);
+          console.error('Error:', error);
+          console.error('Respuesta PHP:', xhr.responseText);
 
           tbody.innerHTML = `
-                <tr>
-                    <td colspan="5" class="text-center text-danger">
-                        Error al obtener los hitos.
-                    </td>
-                </tr>
-            `;
-
+            <tr>
+              <td colspan="6" class="text-center text-danger">
+                Error al obtener los hitos.
+              </td>
+            </tr>
+          `;
         }
-
       });
-
     }
   </script>
+
 
   <script>
     function cargarrecursosPlan(idPlan) {
 
+      const tabla = $('#tabla_data_recursos_plan');
       const tbody = document.getElementById('tbody_recursos_regist_plan');
 
+      if ($.fn.DataTable.isDataTable('#tabla_data_recursos_plan')) {
+        tabla.DataTable().destroy();
+      }
+
       tbody.innerHTML = `
-        <tr>
-            <td colspan="10" class="text-center text-secondary">
-                Cargando recursos...
-            </td>
-        </tr>
+      <tr>
+        <td colspan="8" class="text-center text-secondary">
+          Cargando recursos...
+        </td>
+      </tr>
     `;
+
       $.ajax({
 
         url: './consultas/consul_obtener_recursos_plan.php',
-
         type: 'GET',
 
         data: {
@@ -2177,69 +2391,104 @@ if (!isset($_SESSION['id_usuario'])) {
           if (!respuesta.success) {
 
             tbody.innerHTML = `
-                    <tr>
-                        <td colspan="10" class="text-center text-danger">
-                            ${respuesta.message}
-                        </td>
-                    </tr>
-                `;
+            <tr>
+              <td colspan="8" class="text-center text-danger">
+                ${respuesta.message}
+              </td>
+            </tr>
+          `;
 
             return;
           }
 
+          const recursos = respuesta.data || [];
 
-          if (respuesta.data.length === 0) {
-
-            tbody.innerHTML = `
-                    <tr>
-                        <td colspan="10" class="text-center text-secondary">
-                            No hay recursos registrados.
-                        </td>
-                    </tr>
-                `;
-
-            return;
-          }
-
-          respuesta.data.forEach(function(recursos) {
+          recursos.forEach(function(recurso) {
 
             const fila = document.createElement('tr');
 
             const valores = [
-              recursos.id_project_resources,
-              recursos.tipo_recurso,
-              recursos.descripcion_recurso,
-              recursos.cantidad_recurso,
-              recursos.periodo_recurso,
-              recursos.disponibilidad_recurso,
-              recursos.nom_apell_resp
+              recurso.id_project_resources,
+              recurso.tipo_recurso,
+              recurso.descripcion_recurso,
+              recurso.cantidad_recurso,
+              recurso.periodo_recurso,
+              recurso.disponibilidad_recurso,
+              recurso.nom_apell_resp
             ];
 
             valores.forEach(function(valor) {
+
               const celda = document.createElement('td');
+
               celda.className = 'text-center';
               celda.textContent = valor ?? '';
+
               fila.appendChild(celda);
 
             });
+
+            const celdaAcciones = document.createElement('td');
+
+            celdaAcciones.className = 'text-center';
+
+            fila.appendChild(celdaAcciones);
 
             tbody.appendChild(fila);
 
           });
 
+          tabla.DataTable({
+
+            autoWidth: false,
+
+            // Cantidad de registros por página.
+            pageLength: 5,
+
+            lengthMenu: [
+              [5, 10, 25],
+              [5, 10, 25]
+            ],
+
+            language: {
+              url: '../assets/js/DataEsp.json',
+            },
+
+            columnDefs: [{
+              targets: 7,
+              orderable: false,
+              searchable: false
+            }]
+
+          });
+
+          // Ajustar columnas si la tabla está dentro de un modal.
+          setTimeout(function() {
+
+            if ($.fn.DataTable.isDataTable('#tabla_data_recursos_plan')) {
+
+              tabla.DataTable().columns.adjust();
+
+            }
+
+          }, 100);
+
         },
 
-        error: function(xhr) {
+        error: function(xhr, estado, error) {
 
-          console.error('Error al consultar los recursos:', xhr.responseText);
+          console.error('Error al consultar los recursos:');
+          console.error('Estado:', estado);
+          console.error('Error:', error);
+          console.error('Respuesta PHP:', xhr.responseText);
 
           tbody.innerHTML = `
-                <tr>
-                    <td colspan="10" class="text-center text-danger">
-                        Error al obtener los recursos.
-                    </td>
-                </tr>
-            `;
+          <tr>
+            <td colspan="8" class="text-center text-danger">
+              Error al obtener los recursos.
+            </td>
+          </tr>
+        `;
 
         }
 
@@ -2248,208 +2497,178 @@ if (!isset($_SESSION['id_usuario'])) {
     }
   </script>
 
+
   <script>
     function cargarpresupuestosPlan(idPlan, idProyecto) {
 
-      const tbody = document.getElementById('tbody_presupuestos_plan');
+      const tablaSelector = '#tabla_data_presupuestos_plan';
+      const $tabla        = $(tablaSelector);
 
+      // ── 1. Destruir instancia anterior de forma segura ──────────────────
+      if ($.fn.DataTable.isDataTable(tablaSelector)) {
+        $tabla.DataTable().destroy();
+      }
+
+      // ── 2. Restaurar tbody al estado original antes de reinicializar ─────
+      //    DataTables con la opción `data:` gestiona el tbody internamente;
+      //    hay que vaciarlo para que no colisione con filas previas.
+      const tbody = document.getElementById('tbody_presupuestos_plan');
       tbody.innerHTML = `
         <tr>
-            <td colspan="5" class="text-center text-secondary">
-                Cargando presupuesto...
-            </td>
+          <td colspan="5" class="text-center text-secondary py-3">
+            <i class="fa-solid fa-spinner fa-spin me-2"></i>Cargando presupuestos...
+          </td>
         </tr>
-    `;
+      `;
 
       $.ajax({
 
-        url: './consultas/consul_obtener_presupuestos_plan.php',
-
-        type: 'GET',
-
-        data: {
-          id_project_plans: idPlan,
-          id_proyecto: idProyecto
-        },
-
+        url:      './consultas/consul_obtener_presupuestos_plan.php',
+        type:     'GET',
+        data:     { id_project_plans: idPlan, id_proyecto: idProyecto },
         dataType: 'json',
 
         success: function(respuesta) {
 
           console.log('Presupuestos recibidos:', respuesta);
 
-          tbody.innerHTML = '';
-
+          // ── Error de negocio devuelto por el backend ───────────────────
           if (!respuesta.success) {
-
             tbody.innerHTML = `
-                    <tr>
-                        <td colspan="5" class="text-center text-danger">
-                            ${respuesta.message}
-                        </td>
-                    </tr>
-                `;
-
+              <tr>
+                <td colspan="5" class="text-center text-danger py-3">
+                  <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                  ${respuesta.message || 'Error al obtener los presupuestos.'}
+                </td>
+              </tr>
+            `;
             return;
           }
 
           const presupuestos = respuesta.data || [];
+
+          // ── 3. Calcular totales ANTES de tocar el DOM ──────────────────
           let totalPorcentaje = 0;
+          presupuestos.forEach(function(p) {
+            totalPorcentaje += obtenerPorcentaje(p.porcentaje_presupuesto);
+          });
 
-          if (presupuestos.length === 0) {
+          const presupuestoTotal =
+            (respuesta.presupuesto_est === null  ||
+             respuesta.presupuesto_est === undefined ||
+             respuesta.presupuesto_est === '')
+              ? null
+              : Number(respuesta.presupuesto_est);
 
-            tbody.innerHTML = `
-                    <tr>
-                        <td colspan="5" class="text-center text-secondary">
-                            No hay presupuestos registrados.
-                        </td>
-                    </tr>
-                `;
+          const excedente  = totalPorcentaje - 100;
+          const disponible = 100 - totalPorcentaje;
+          const aviso      = totalPorcentaje > 100
+            ? 'No permitido: excede ' + formatearPorcentaje(excedente)
+            : 'Disponible: '          + formatearPorcentaje(disponible);
+          const claseAviso = totalPorcentaje > 100 ? 'text-danger' : 'text-success';
 
-          } else {
-
-            presupuestos.forEach(function(presupuesto) {
-
-              const fila = document.createElement('tr');
-
-              const porcentaje = obtenerPorcentaje(
-                presupuesto.porcentaje_presupuesto
-              );
-
-              totalPorcentaje += porcentaje;
-
-              const celdaCategoria = document.createElement('td');
-
-              celdaCategoria.className = 'text-center';
-              celdaCategoria.textContent =
-                presupuesto.categoria_presupuesto ?? '';
-
-              const celdaDescripcion = document.createElement('td');
-
-              celdaDescripcion.className = 'text-center';
-              celdaDescripcion.textContent =
-                presupuesto.descripcion_presupuesto ?? '';
-
-              const celdaMonto = document.createElement('td');
-
-              celdaMonto.className = 'text-center';
-              celdaMonto.textContent =
-                formatearPresupuesto(
-                  presupuesto.monto_presupuesto
-                ) + ' $';
-
-              const celdaPorcentaje = document.createElement('td');
-
-              celdaPorcentaje.className = 'text-center';
-
-              celdaPorcentaje.textContent =
-                formatearPorcentaje(porcentaje);
-
-              const celdaAviso = document.createElement('td');
-
-              celdaAviso.className = 'text-center';
-
-              fila.appendChild(celdaCategoria);
-              fila.appendChild(celdaDescripcion);
-              fila.appendChild(celdaMonto);
-              fila.appendChild(celdaPorcentaje);
-              fila.appendChild(celdaAviso);
-
-              tbody.appendChild(fila);
-
-            });
-
+          // ── 4. Actualizar tfoot CON GUARDA (fix del bug principal) ─────
+          //    document.querySelector devolvía null porque <tfoot> no existía
+          //    en el HTML original; ahora existe, pero igual se protege.
+          const pie = document.querySelector(tablaSelector + ' tfoot tr');
+          if (pie && pie.cells.length >= 5) {
+            pie.cells[0].textContent = 'TOTAL DEL PRESUPUESTO';
+            pie.cells[1].textContent = '';
+            pie.cells[2].textContent = (presupuestoTotal === null || !Number.isFinite(presupuestoTotal))
+              ? 'No definido'
+              : formatearPresupuesto(presupuestoTotal) + ' $';
+            pie.cells[3].textContent = formatearPorcentaje(totalPorcentaje);
+            pie.cells[4].textContent = aviso;
+            pie.cells[4].className   = 'text-center fw-bold ' + claseAviso;
           }
 
-          const presupuestoTotal = respuesta.presupuesto_est === null ||
-            respuesta.presupuesto_est === undefined ||
-            respuesta.presupuesto_est === '' ?
-            null :
-            Number(respuesta.presupuesto_est);
+          // ── 5. Vaciar tbody antes de que DataTables lo gestione ────────
+          //    Con la opción `data:` DataTables REEMPLAZA el tbody;
+          //    si quedan filas del mensaje "Cargando…" puede quedar
+          //    desincronizado en algunas versiones de DT 1.x.
+          tbody.innerHTML = '';
 
-          let aviso = '';
-          let claseAviso = '';
+          // ── 6. Inicializar DataTable con `data:` (modo client-side) ────
+          $tabla.DataTable({
 
-          if (totalPorcentaje > 100) {
+            data: presupuestos,
 
-            const excedente = totalPorcentaje - 100;
+            language: { url: '../assets/js/DataEsp.json' },
 
-            aviso = 'No permitido: excede ' +
-              formatearPorcentaje(excedente);
+            pageLength: 5,
+            lengthMenu: [[5, 10, 25, 50], [5, 10, 25, 50]],
 
-            claseAviso = 'text-danger';
+            // Impide que DT intente leer filas HTML existentes
+            retrieve: false,
 
-          } else {
+            columns: [
+              {
+                data: 'categoria_presupuesto',
+                className: 'text-center',
+                defaultContent: '—'
+              },
+              {
+                data: 'descripcion_presupuesto',
+                className: 'text-center',
+                defaultContent: '—'
+              },
+              {
+                data: 'monto_presupuesto',
+                className: 'text-center',
+                defaultContent: '0',
+                render: function(data, type) {
+                  if (type === 'sort' || type === 'type') return Number(data) || 0;
+                  return formatearPresupuesto(data) + ' $';
+                }
+              },
+              {
+                data: 'porcentaje_presupuesto',
+                className: 'text-center',
+                defaultContent: '0',
+                render: function(data, type) {
+                  const pct = obtenerPorcentaje(data);
+                  if (type === 'sort' || type === 'type') return pct;
+                  return formatearPorcentaje(pct);
+                }
+              },
+              {
+                data: null,
+                className: 'text-center',
+                orderable:  false,
+                searchable: false,
+                defaultContent: '',
+                render: function() { return ''; }
+              }
+            ],
 
-            const disponible = 100 - totalPorcentaje;
+            order: [[0, 'asc']],
 
-            aviso = 'Disponible: ' +
-              formatearPorcentaje(disponible);
+            columnDefs: [{ targets: '_all', defaultContent: '' }]
 
-            claseAviso = 'text-success';
-
-          }
-
-          const filaTotal = document.createElement('tr');
-
-          filaTotal.className = 'table-light fw-bold';
-
-          const celdaTotal = document.createElement('td');
-
-          celdaTotal.colSpan = 2;
-          celdaTotal.textContent = 'TOTAL DEL PRESUPUESTO';
-          celdaTotal.className = 'text-end';
-
-          const celdaValor = document.createElement('td');
-
-          celdaValor.className = 'text-center';
-
-          celdaValor.textContent =
-            presupuestoTotal === null || !Number.isFinite(presupuestoTotal) ?
-            'No definido' :
-            formatearPresupuesto(presupuestoTotal) + ' $';
-
-          const celdaPorcentajeTotal = document.createElement('td');
-
-          celdaPorcentajeTotal.className = 'text-center';
-
-          celdaPorcentajeTotal.textContent = formatearPorcentaje(totalPorcentaje);
-
-          const celdaAviso = document.createElement('td');
-
-          celdaAviso.className =
-            'text-center ' + claseAviso;
-
-          celdaAviso.textContent = aviso;
-
-          filaTotal.appendChild(celdaTotal);
-          filaTotal.appendChild(celdaValor);
-          filaTotal.appendChild(celdaPorcentajeTotal);
-          filaTotal.appendChild(celdaAviso);
-          tbody.appendChild(filaTotal);
+          });
 
         },
 
         error: function(xhr, estado, error) {
 
           console.error('Error al consultar los presupuestos:');
-          console.error('Estado:', estado);
-          console.error('Error:', error);
+          console.error('Estado:', estado, '| Error:', error);
           console.error('Respuesta PHP:', xhr.responseText);
 
           tbody.innerHTML = `
-                <tr>
-                    <td colspan="5" class="text-center text-danger">
-                        Error al obtener los presupuestos.
-                    </td>
-                </tr>
-            `;
-
+            <tr>
+              <td colspan="5" class="text-center text-danger py-3">
+                <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                Error al obtener los presupuestos. Intente nuevamente.
+              </td>
+            </tr>
+          `;
         }
 
       });
 
     }
+
 
     function formatearPresupuesto(valor) {
 
@@ -2459,6 +2678,7 @@ if (!isset($_SESSION['id_usuario'])) {
       });
 
     }
+
 
     function obtenerPorcentaje(valor) {
 
@@ -2472,6 +2692,7 @@ if (!isset($_SESSION['id_usuario'])) {
       return Number.isFinite(numero) ? numero : 0;
 
     }
+
 
     function formatearPorcentaje(valor) {
 
@@ -2792,8 +3013,12 @@ if (!isset($_SESSION['id_usuario'])) {
 
           if (idModal === 'modalActividadesPlan') {
 
-            cargaractividadestareasPlan(idPlan);
-            cargarhitosPlan(idPlan);
+            submodal.elemento.addEventListener('shown.bs.modal', function() {
+              cargaractividadestareasPlan(idPlan);
+              cargarhitosPlan(idPlan);
+            }, {
+              once: true
+            });
 
           }
 
@@ -2801,6 +3026,13 @@ if (!isset($_SESSION['id_usuario'])) {
 
             cargarpresupuestosPlan(idPlan, idProyecto);
             cargarrecursosPlan(idPlan);
+
+            submodal.elemento.addEventListener('shown.bs.modal', function() {
+              cargarGraficaDistribucionPresupuesto(idPlan);
+              cargarGraficaViabilidadRecursos(idPlan)
+            }, {
+              once: true
+            });
 
           }
 
@@ -3121,6 +3353,369 @@ if (!isset($_SESSION['id_usuario'])) {
     limitarTextarea("edit_objetivos_proy_2", "contador_edit_objetivos_proy_2", 300);
     limitarTextarea("edit_beneficios_proy_2", "contador_edit_beneficios_proy_2", 300);
   </script>
+
+  <script>
+    let graficaViabilidadRecursos = null;
+
+    function cargarGraficaViabilidadRecursos(idPlan) {
+
+      $.ajax({
+
+        url: "./consultas/consul_graf_recursos.php",
+
+        type: "GET",
+
+        dataType: "json",
+
+        data: {
+          id_project_plans: idPlan
+        },
+
+        success: function(respuesta) {
+
+          console.log("Respuesta de consul_graf_recursos.php:");
+          console.log(respuesta);
+
+          if (!respuesta.success) {
+            console.error(respuesta.message);
+            return;
+          }
+
+          const estados = [];
+          const cantidades = [];
+
+          respuesta.data.forEach(function(item) {
+
+            estados.push(item.estatus);
+            cantidades.push(parseInt(item.Cantidad, 10) || 0);
+
+          });
+
+          const canvas = document.getElementById(
+            "chart_disponibilidad_recursos"
+          );
+
+          if (!canvas) {
+            console.error("No se encontró el canvas de recursos.");
+            return;
+          }
+
+          // Destruir gráfica anterior antes de crear otra.
+          if (graficaViabilidadRecursos) {
+            graficaViabilidadRecursos.destroy();
+          }
+
+          const colores = [
+            'rgba(22, 163, 74, 0.85)',
+            'rgba(255, 193, 7, 0.85)',
+            'rgba(220, 53, 69, 0.85)'
+          ];
+
+          graficaViabilidadRecursos = new Chart(
+            canvas.getContext('2d'), {
+              type: 'doughnut',
+
+              data: {
+                labels: estados,
+
+                datasets: [{
+                  label: 'Cantidad de recursos',
+                  data: cantidades,
+                  backgroundColor: colores,
+                  borderColor: '#ffffff',
+                  borderWidth: 2,
+                  borderRadius: 5
+                }]
+              },
+
+              options: {
+
+                responsive: true,
+                maintainAspectRatio: false,
+
+                plugins: {
+
+                  legend: {
+                    position: 'right',
+
+                    labels: {
+                      font: {
+                        size: 12
+                      },
+                      usePointStyle: true,
+                      padding: 15
+                    }
+                  },
+
+                  tooltip: {
+                    callbacks: {
+                      label: function(context) {
+                        return context.label + ': ' +
+                          context.raw + ' recursos';
+                      }
+                    }
+                  }
+
+                }
+
+              }
+
+            }
+          );
+
+          console.log('Gráfica de disponibilidad actualizada.');
+
+        },
+
+        error: function(xhr, estado, error) {
+
+          console.error("Error al cargar la gráfica de recursos:");
+          console.error("Estado:", estado);
+          console.error("Error:", error);
+          console.error("Respuesta PHP:", xhr.responseText);
+
+        }
+
+      });
+
+    }
+  </script>
+
+  <script>
+    let graficaDistribucionPresupuesto = null;
+
+    function cargarGraficaDistribucionPresupuesto(idPlan) {
+
+      const canvas = document.getElementById(
+        'chart_distribucion_presupuesto'
+      );
+
+      if (!canvas) {
+        console.error('No se encontró el canvas de distribución del presupuesto.');
+        return;
+      }
+
+      const id = Number(idPlan);
+
+      if (!Number.isInteger(id) || id <= 0) {
+        console.error('Identificador de planificación inválido:', idPlan);
+        return;
+      }
+
+      // Destruir gráfica anterior si ya existe.
+      if (graficaDistribucionPresupuesto) {
+        graficaDistribucionPresupuesto.destroy();
+        graficaDistribucionPresupuesto = null;
+      }
+
+      $.ajax({
+
+        url: './consultas/consul_graf_presupuesto.php',
+
+        type: 'GET',
+
+        data: {
+          id_project_plans: idPlan
+        },
+
+        dataType: 'json',
+
+        success: function(respuesta) {
+
+          console.log('Respuesta de distribución del presupuesto:');
+          console.log(respuesta);
+
+          if (!respuesta.success) {
+
+            console.error(respuesta.message);
+            return;
+          }
+
+          const presupuestos = respuesta.data || [];
+
+          const presupuestoTotal = Number(
+            respuesta.valor_total_presupuesto
+          ) || 0;
+
+          const categorias = presupuestos.map(function(item) {
+            return item.categoria_presupuesto;
+          });
+
+          const porcentajes = presupuestos.map(function(item) {
+            return Number(item.porcentaje_presupuesto) || 0;
+          });
+
+          console.log('Categorías:', categorias);
+          console.log('Porcentajes:', porcentajes);
+          console.log('Presupuesto global:', presupuestoTotal);
+
+
+          if (presupuestos.length === 0) {
+
+            console.warn('No hay categorías de presupuesto registradas.');
+
+            return;
+          }
+
+          const colores = [
+            'rgba(37, 99, 235, 1)',
+            'rgba(54, 191, 166, 1)',
+            'rgba(255, 193, 7, 1)',
+            'rgba(239, 68, 68, 1)',
+            'rgba(96, 165, 250, 1)',
+            'rgba(139, 92, 246, 1)',
+            'rgba(249, 115, 22, 1)',
+            'rgba(20, 184, 166, 1)'
+          ];
+
+          const coloresGrafica = categorias.map(function(categoria, index) {
+            return colores[index % colores.length];
+          });
+
+          const formatoMoneda = presupuestoTotal.toLocaleString('en-US', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
+          });
+          const textoCentroPresupuesto = {
+
+            id: 'textoCentroPresupuesto',
+
+            afterDraw: function(chart) {
+
+              const ctx = chart.ctx;
+
+              const centroX =
+                (chart.chartArea.left + chart.chartArea.right) / 2;
+
+              const centroY =
+                (chart.chartArea.top + chart.chartArea.bottom) / 2;
+
+              ctx.save();
+
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'middle';
+              ctx.font = 'bold 19px Arial';
+              ctx.fillStyle = '#0b1648';
+
+              ctx.fillText(
+                '$ ' + formatoMoneda,
+                centroX,
+                centroY - 7
+              );
+              ctx.font = '12px Arial';
+              ctx.fillStyle = '#0b1648';
+
+              ctx.fillText(
+                'USD',
+                centroX,
+                centroY + 15
+              );
+
+              ctx.restore();
+
+            }
+
+          };
+
+          graficaDistribucionPresupuesto = new Chart(
+            canvas.getContext('2d'), {
+              type: 'doughnut',
+
+              data: {
+
+                labels: categorias,
+
+                datasets: [{
+
+                  label: 'Distribución del presupuesto',
+                  data: porcentajes,
+                  backgroundColor: coloresGrafica,
+                  borderColor: '#ffffff',
+                  borderWidth: 2,
+                  borderRadius: 3,
+                  hoverOffset: 6
+
+                }]
+
+              },
+
+              plugins: [
+                textoCentroPresupuesto
+              ],
+
+              options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                cutout: '62%',
+
+                plugins: {
+
+                  legend: {
+
+                    position: 'right',
+
+                    labels: {
+
+                      usePointStyle: true,
+
+                      pointStyle: 'circle',
+
+                      padding: 15,
+
+                      font: {
+                        size: 12
+                      }
+
+                    }
+
+                  },
+
+                  tooltip: {
+
+                    callbacks: {
+
+                      label: function(context) {
+
+                        const porcentaje = Number(context.raw);
+
+                        return ' ' +
+                          context.label + ': ' +
+                          porcentaje.toLocaleString('es-VE') + '%';
+
+                      }
+
+                    }
+
+                  }
+
+                }
+
+              }
+
+            }
+          );
+
+          console.log('Gráfica de distribución creada correctamente.');
+
+        },
+
+        error: function(xhr, estado, error) {
+
+          console.error('Error al consultar la distribución del presupuesto:');
+          console.error('Estado:', estado);
+          console.error('Error:', error);
+          console.error('Respuesta PHP:', xhr.responseText);
+
+        }
+
+      });
+
+    }
+  </script>
+
 </body>
 
 </html>

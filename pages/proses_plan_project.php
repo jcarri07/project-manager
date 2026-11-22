@@ -222,14 +222,15 @@ if ($_GET['act'] == 'insert_presupuestos_plan_proy') {
 	$d_categoria_presup_proy = mysqli_real_escape_string($conn, trim($_POST['categoria_presup_proy']));
 	$d_descripcion_presup_proy = mysqli_real_escape_string($conn, trim($_POST['descripcion_presup_proy']));
 	$d_monto_presup_proy = mysqli_real_escape_string($conn, trim($_POST['monto_presup_proy']));
+	$d_valor_total_presupuesto = $dato_presupuesto_est;
 
 	$d_porcent_presup_proy = (($d_monto_presup_proy * 100) / $dato_presupuesto_est);
 	$d_porcent_presup_proy = round($d_porcent_presup_proy, 2);
 
 	//echo (" Porcentaje: " . $d_porcent_presup_proy);
 
-	$query = mysqli_query($conn, "INSERT INTO project_plan_budgets(id_project_plans, categoria_presupuesto, descripcion_presupuesto, monto_presupuesto, porcentaje_presupuesto)
-											VALUES('$d_id_project_plans', '$d_categoria_presup_proy', '$d_descripcion_presup_proy', '$d_monto_presup_proy', '$d_porcent_presup_proy')");
+	$query = mysqli_query($conn, "INSERT INTO project_plan_budgets(id_project_plans, categoria_presupuesto, descripcion_presupuesto, monto_presupuesto, porcentaje_presupuesto, valor_total_presupuesto)
+											VALUES('$d_id_project_plans', '$d_categoria_presup_proy', '$d_descripcion_presup_proy', '$d_monto_presup_proy', '$d_porcent_presup_proy', '$d_valor_total_presupuesto')");
 
 	if ($query) {
 

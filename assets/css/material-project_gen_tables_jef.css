@@ -1,0 +1,21 @@
+#modalRecursosPresupuestoPlan .modal-recursos-presupuesto-dialog {
+    max-width: 950px;
+}
+
+.grafica-presupuesto-container {
+    position: relative;
+    width: 100%;
+    height: 260px;
+}
+
+.grafica-presupuesto-card {
+    height: 100%;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+}
+
+@media (max-width: 1199.98px) {
+    .grafica-presupuesto-container {
+        height: 300px;
+    }
+}
