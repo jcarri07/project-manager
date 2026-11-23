@@ -466,7 +466,7 @@ if (!isset($_SESSION['id_usuario'])) {
                   <br>
 
                   <div class="table-responsive">
-                    <table class="table table-hover table-striped align-middle">
+                    <table id="tabla_riesgos_seleccion" class="table table-hover table-striped align-middle">
 
                       <thead class="table-light">
                         <tr>
@@ -474,6 +474,7 @@ if (!isset($_SESSION['id_usuario'])) {
                           <th class="text-center">Riesgo</th>
                           <th class="text-center">Probabilidad</th>
                           <th class="text-center">Impacto</th>
+                          <th class="text-center">Nivel</th>
                           <th class="text-center">Acciones</th>
                         </tr>
                       </thead>
@@ -491,16 +492,18 @@ if (!isset($_SESSION['id_usuario'])) {
                             $nombre_riesgo = htmlspecialchars($riesgo['riesgo']);
                             $probabilidad = htmlspecialchars($riesgo['probabilidad']);
                             $impacto = htmlspecialchars($riesgo['impacto']);
+                            $nivel = htmlspecialchars($riesgo['nivel_risk']);
                             $acciones = htmlspecialchars($riesgo['acciones']);
                         ?>
 
                             <tr>
-                              <td>
-                                <input type="checkbox" class="form-check-input" id="riesgos_proy_valid" name="riesgos_proy_valid[]" value="<?php echo $id_riesgo; ?>">
+                              <td class="text-center">
+                                <input type="checkbox" class="form-check-input chk_riesgo_seleccion" name="riesgos_proy_valid[]" value="<?php echo $id_riesgo; ?>">
                               </td>
                               <td class="text-center"><?php echo $nombre_riesgo; ?></td>
                               <td class="text-center"><?php echo $probabilidad; ?></td>
                               <td class="text-center"><?php echo $impacto; ?></td>
+                              <td class="text-center"><?php echo $nivel; ?></td>
                               <td class="text-center"><?php echo $acciones; ?></td>
                             </tr>
 
@@ -510,7 +513,7 @@ if (!isset($_SESSION['id_usuario'])) {
                           ?>
 
                           <tr>
-                            <td colspan="5" class="text-center text-secondary">
+                            <td colspan="6" class="text-center text-secondary">
                               No hay riesgos registrados.
                             </td>
                           </tr>
@@ -684,6 +687,22 @@ if (!isset($_SESSION['id_usuario'])) {
                 <label class="form-label">Impacto *</label>
 
                 <select class="form-select" name="new_riesgo_impacto" id="new_riesgo_impacto" required>
+
+                  <option value="">Seleccione</option>
+                  <option value="Baja">Baja</option>
+                  <option value="Media">Media</option>
+                  <option value="Alta">Alta</option>
+                  <option value="Crítica">Crítica</option>
+
+                </select>
+
+              </div>
+
+              <div class="col-md-6 mb-3">
+
+                <label class="form-label">Nivel *</label>
+
+                <select class="form-select" name="new_riesgo_nivel" id="new_riesgo_nivel" required>
 
                   <option value="">Seleccione</option>
                   <option value="Baja">Baja</option>
@@ -1436,7 +1455,7 @@ if (!isset($_SESSION['id_usuario'])) {
                 <div class="card-header pb-1">
 
                   <h6 class="mb-1">
-                    <i class="fa-solid fa-anchor text-primary me-2"></i>
+                    <i class="fa-solid fa-boxes-packing text-primary me-2"></i>
                     Disponibilidad de recursos
                   </h6>
 
@@ -1461,6 +1480,8 @@ if (!isset($_SESSION['id_usuario'])) {
             </div>
 
           </div>
+
+          <br>
 
           <div class="row g-3" id="ver_form_recursos_new_container">
 
@@ -1643,7 +1664,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
           </div>
 
-
+          <br>
 
           <div class="row g-3" id="ver_form_nuevo_presupuesto_container">
 
@@ -2502,7 +2523,7 @@ if (!isset($_SESSION['id_usuario'])) {
     function cargarpresupuestosPlan(idPlan, idProyecto) {
 
       const tablaSelector = '#tabla_data_presupuestos_plan';
-      const $tabla        = $(tablaSelector);
+      const $tabla = $(tablaSelector);
 
       // ── 1. Destruir instancia anterior de forma segura ──────────────────
       if ($.fn.DataTable.isDataTable(tablaSelector)) {
@@ -2523,9 +2544,12 @@ if (!isset($_SESSION['id_usuario'])) {
 
       $.ajax({
 
-        url:      './consultas/consul_obtener_presupuestos_plan.php',
-        type:     'GET',
-        data:     { id_project_plans: idPlan, id_proyecto: idProyecto },
+        url: './consultas/consul_obtener_presupuestos_plan.php',
+        type: 'GET',
+        data: {
+          id_project_plans: idPlan,
+          id_proyecto: idProyecto
+        },
         dataType: 'json',
 
         success: function(respuesta) {
@@ -2554,17 +2578,17 @@ if (!isset($_SESSION['id_usuario'])) {
           });
 
           const presupuestoTotal =
-            (respuesta.presupuesto_est === null  ||
-             respuesta.presupuesto_est === undefined ||
-             respuesta.presupuesto_est === '')
-              ? null
-              : Number(respuesta.presupuesto_est);
+            (respuesta.presupuesto_est === null ||
+              respuesta.presupuesto_est === undefined ||
+              respuesta.presupuesto_est === '') ?
+            null :
+            Number(respuesta.presupuesto_est);
 
-          const excedente  = totalPorcentaje - 100;
+          const excedente = totalPorcentaje - 100;
           const disponible = 100 - totalPorcentaje;
-          const aviso      = totalPorcentaje > 100
-            ? 'No permitido: excede ' + formatearPorcentaje(excedente)
-            : 'Disponible: '          + formatearPorcentaje(disponible);
+          const aviso = totalPorcentaje > 100 ?
+            'No permitido: excede ' + formatearPorcentaje(excedente) :
+            'Disponible: ' + formatearPorcentaje(disponible);
           const claseAviso = totalPorcentaje > 100 ? 'text-danger' : 'text-success';
 
           // ── 4. Actualizar tfoot CON GUARDA (fix del bug principal) ─────
@@ -2574,12 +2598,12 @@ if (!isset($_SESSION['id_usuario'])) {
           if (pie && pie.cells.length >= 5) {
             pie.cells[0].textContent = 'TOTAL DEL PRESUPUESTO';
             pie.cells[1].textContent = '';
-            pie.cells[2].textContent = (presupuestoTotal === null || !Number.isFinite(presupuestoTotal))
-              ? 'No definido'
-              : formatearPresupuesto(presupuestoTotal) + ' $';
+            pie.cells[2].textContent = (presupuestoTotal === null || !Number.isFinite(presupuestoTotal)) ?
+              'No definido' :
+              formatearPresupuesto(presupuestoTotal) + ' $';
             pie.cells[3].textContent = formatearPorcentaje(totalPorcentaje);
             pie.cells[4].textContent = aviso;
-            pie.cells[4].className   = 'text-center fw-bold ' + claseAviso;
+            pie.cells[4].className = 'text-center fw-bold ' + claseAviso;
           }
 
           // ── 5. Vaciar tbody antes de que DataTables lo gestione ────────
@@ -2593,16 +2617,20 @@ if (!isset($_SESSION['id_usuario'])) {
 
             data: presupuestos,
 
-            language: { url: '../assets/js/DataEsp.json' },
+            language: {
+              url: '../assets/js/DataEsp.json'
+            },
 
             pageLength: 5,
-            lengthMenu: [[5, 10, 25, 50], [5, 10, 25, 50]],
+            lengthMenu: [
+              [5, 10, 25, 50],
+              [5, 10, 25, 50]
+            ],
 
             // Impide que DT intente leer filas HTML existentes
             retrieve: false,
 
-            columns: [
-              {
+            columns: [{
                 data: 'categoria_presupuesto',
                 className: 'text-center',
                 defaultContent: '—'
@@ -2634,16 +2662,23 @@ if (!isset($_SESSION['id_usuario'])) {
               {
                 data: null,
                 className: 'text-center',
-                orderable:  false,
+                orderable: false,
                 searchable: false,
                 defaultContent: '',
-                render: function() { return ''; }
+                render: function() {
+                  return '';
+                }
               }
             ],
 
-            order: [[0, 'asc']],
+            order: [
+              [0, 'asc']
+            ],
 
-            columnDefs: [{ targets: '_all', defaultContent: '' }]
+            columnDefs: [{
+              targets: '_all',
+              defaultContent: ''
+            }]
 
           });
 
@@ -2702,6 +2737,54 @@ if (!isset($_SESSION['id_usuario'])) {
       }) + '%';
 
     }
+  </script>
+
+  <!-- ------------------ Codigo JS del DataTables, tabla de selección de riesgos ------------------ -->
+
+  <script>
+    (function() {
+      var selectedRiesgos = new Set();
+
+      $(document).ready(function() {
+        var tablaRiesgos = $('#tabla_riesgos_seleccion');
+
+        if (!$.fn.DataTable.isDataTable('#tabla_riesgos_seleccion')) {
+          tablaRiesgos.DataTable({
+            autoWidth: false,
+            pageLength: 5,
+            lengthMenu: [
+              [5, 10, 25],
+              [5, 10, 25]
+            ],
+            language: {
+              url: '../assets/js/DataEsp.json'
+            },
+            columnDefs: [{
+              targets: 0,
+              orderable: false,
+              searchable: false,
+              className: 'text-center'
+            }],
+            // Restaurar estado visual de checkboxes al dibujar cada página
+            drawCallback: function() {
+              $('#tabla_riesgos_seleccion tbody .chk_riesgo_seleccion').each(function() {
+                var val = $(this).val();
+                $(this).prop('checked', selectedRiesgos.has(val));
+              });
+            }
+          });
+        }
+
+        $('#tabla_riesgos_seleccion tbody').on('change', '.chk_riesgo_seleccion', function() {
+          var val = $(this).val();
+          if ($(this).is(':checked')) {
+            selectedRiesgos.add(val);
+          } else {
+            selectedRiesgos.delete(val);
+          }
+        });
+      });
+    })();
   </script>
 
   <script>

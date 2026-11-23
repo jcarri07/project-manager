@@ -244,9 +244,10 @@ if ($_GET['act'] == 'insert_init_dir') {
 	$d_new_riesgo = mysqli_real_escape_string($conn, trim($_POST['new_riesgo']));
 	$d_new_riesgo_probabilidad = mysqli_real_escape_string($conn, trim($_POST['new_riesgo_probabilidad']));
 	$d_new_riesgo_impacto  = mysqli_real_escape_string($conn, trim($_POST['new_riesgo_impacto']));
+	$d_new_riesgo_nivel  = mysqli_real_escape_string($conn, trim($_POST['new_riesgo_nivel']));
 	$d_new_riesgo_acciones = mysqli_real_escape_string($conn, trim($_POST['new_riesgo_acciones']));
 
-	$query = mysqli_query($conn, "INSERT INTO risk(riesgo, probabilidad, impacto, acciones) VALUES ('$d_new_riesgo','$d_new_riesgo_probabilidad','$d_new_riesgo_impacto','$d_new_riesgo_acciones')");
+	$query = mysqli_query($conn, "INSERT INTO risk(riesgo, probabilidad, impacto, nivel_risk, acciones) VALUES ('$d_new_riesgo','$d_new_riesgo_probabilidad','$d_new_riesgo_impacto','$d_new_riesgo_nivel','$d_new_riesgo_acciones')");
 
 	if ($query) {
 

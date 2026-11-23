@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-11-2026 a las 00:11:15
+-- Tiempo de generación: 23-11-2026 a las 15:01:04
 -- Versión del servidor: 9.7.1
 -- Versión de PHP: 8.5.12
 
@@ -243,15 +243,16 @@ CREATE TABLE `project_plan_budgets` (
   `categoria_presupuesto` varchar(100) NOT NULL,
   `descripcion_presupuesto` varchar(300) NOT NULL,
   `monto_presupuesto` varchar(100) NOT NULL,
-  `porcentaje_presupuesto` varchar(100) NOT NULL
+  `porcentaje_presupuesto` varchar(100) NOT NULL,
+  `valor_total_presupuesto` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `project_plan_budgets`
 --
 
-INSERT INTO `project_plan_budgets` (`id_project_plan_budgets`, `id_project_plans`, `categoria_presupuesto`, `descripcion_presupuesto`, `monto_presupuesto`, `porcentaje_presupuesto`) VALUES
-(1, 1, 'Recurso humano', 'Personal util', '343.36', '1.53');
+INSERT INTO `project_plan_budgets` (`id_project_plan_budgets`, `id_project_plans`, `categoria_presupuesto`, `descripcion_presupuesto`, `monto_presupuesto`, `porcentaje_presupuesto`, `valor_total_presupuesto`) VALUES
+(1, 1, 'Recurso humano', 'Personal util', '343.36', '1.53', '22442');
 
 -- --------------------------------------------------------
 
@@ -266,10 +267,17 @@ CREATE TABLE `project_plan_deliverables` (
   `descripcion_entregable` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `criterio_aceptacion_entregable` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `id_user_responsable` int NOT NULL,
-  `fecha_objetivo_entregable` datetime NOT NULL,
+  `fecha_objetivo_entregable` date NOT NULL,
   `estado_entregable` varchar(100) NOT NULL DEFAULT 'Pendiente',
-  `fecha_creacion_entregable` datetime NOT NULL
+  `fecha_creacion_entregable` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `project_plan_deliverables`
+--
+
+INSERT INTO `project_plan_deliverables` (`id_project_deliverables`, `id_project_plans`, `nombre_entregable`, `descripcion_entregable`, `criterio_aceptacion_entregable`, `id_user_responsable`, `fecha_objetivo_entregable`, `estado_entregable`, `fecha_creacion_entregable`) VALUES
+(1, 1, 'Gato', 'Herramienta de taller', 'Es importante', 2, '2026-11-19', 'Pendiente', '2026-11-23');
 
 -- --------------------------------------------------------
 
@@ -287,6 +295,13 @@ CREATE TABLE `project_plan_resources` (
   `id_responsable_recurso` int DEFAULT NULL,
   `disponibilidad_recurso` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `project_plan_resources`
+--
+
+INSERT INTO `project_plan_resources` (`id_project_resources`, `id_project_plans`, `tipo_recurso`, `descripcion_recurso`, `cantidad_recurso`, `periodo_recurso`, `id_responsable_recurso`, `disponibilidad_recurso`) VALUES
+(1, 1, 'Humano', 'Personal', '2 personas', '2 dias', 3, 'Confirmados');
 
 -- --------------------------------------------------------
 
@@ -339,6 +354,7 @@ CREATE TABLE `risk` (
   `riesgo` varchar(300) DEFAULT NULL,
   `probabilidad` varchar(300) DEFAULT NULL,
   `impacto` varchar(300) DEFAULT NULL,
+  `nivel_risk` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `acciones` varchar(300) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -346,27 +362,27 @@ CREATE TABLE `risk` (
 -- Volcado de datos para la tabla `risk`
 --
 
-INSERT INTO `risk` (`id_risk`, `riesgo`, `probabilidad`, `impacto`, `acciones`) VALUES
-(1, 'Retraso en el cronograma de actividades.', 'Alta', 'Alta', 'Establecer fechas de control, supervisar avances y reorganizar las actividades pendientes.'),
-(2, 'Falta de presupuesto', 'Media', 'Bajo', 'Investigar alternativas de financiamiento'),
-(3, 'Insuficiencia de presupuesto para completar el proyecto.', 'Media', 'Alta', 'Revisar los costos, priorizar actividades y gestionar recursos financieros adicionales.'),
-(4, 'Falta de personal técnico especializado.', 'Media', 'Alta', 'Identificar las competencias necesarias, capacitar al personal o contratar especialistas.'),
-(5, 'Cambios frecuentes en los requerimientos del proyecto.', 'Alta', 'Alta', 'Establecer un alcance definido y formalizar cualquier solicitud de cambio.'),
-(6, 'Fallas en equipos, herramientas o infraestructura.', 'Media', 'Alta', 'Realizar mantenimiento preventivo, disponer de equipos de respaldo y establecer protocolos de contingencia.'),
-(7, 'Retraso en la adquisición de materiales o equipos.', 'Media', 'Media', 'Planificar las compras con anticipación, evaluar proveedores alternativos y hacer seguimiento a los pedidos.'),
-(8, 'Falta de comunicación entre los integrantes del equipo.', 'Media', 'Alta', 'Establecer canales oficiales de comunicación, reuniones periódicas y responsables por actividad.'),
-(9, 'Bajo rendimiento o incumplimiento de responsabilidades del personal.', 'Media', 'Media', 'Definir responsabilidades, establecer indicadores de desempeño y realizar evaluaciones periódicas.'),
-(10, 'Problemas técnicos durante la implementación.', 'Media', 'Alta', 'Realizar pruebas preliminares, documentar procedimientos y disponer de un plan de contingencia.'),
-(11, 'Resultados que no cumplen con los requisitos establecidos.', 'Media', 'Alta', 'Definir criterios de aceptación, ejecutar controles de calidad y realizar pruebas de validación.'),
-(12, 'Dependencia de proveedores externos.', 'Media', 'Alta', 'Identificar proveedores alternativos, establecer acuerdos de servicio y supervisar los tiempos de entrega.'),
-(13, 'Falta de aprobación o autorización para continuar con el proyecto.', 'Media', 'Alta', 'Identificar a los responsables de aprobación, presentar la documentación requerida y realizar seguimiento a las solicitudes.'),
-(14, 'Pérdida o corrupción de información del proyecto.', 'Baja', 'Alta', 'Implementar copias de seguridad, controlar los accesos y establecer procedimientos de recuperación.'),
-(15, 'Accidentes laborales o incidentes durante la ejecución.', 'Baja', 'Alta', 'Aplicar protocolos de seguridad, capacitar al personal y suministrar los equipos de protección necesarios.'),
-(16, 'Condiciones externas que afectan la ejecución del proyecto.', 'Media', 'Media', 'Identificar factores externos, monitorear su evolución y preparar alternativas de ejecución.'),
-(17, 'Falta de seguimiento y supervisión del proyecto.', 'Media', 'Alta', 'Establecer reuniones de seguimiento, informes periódicos e indicadores de avance.'),
-(18, 'Conflictos entre las áreas involucradas.', 'Media', 'Media', 'Definir responsables, establecer acuerdos de trabajo y gestionar oportunamente los desacuerdos.'),
-(19, 'Entrega de resultados fuera de los estándares de calidad.', 'Media', 'Alta', 'Aplicar controles de calidad, inspecciones y pruebas antes de la entrega final.'),
-(20, 'Equipo quemado', 'Baja', 'Alta', 'Solicitar equipo nuevo.');
+INSERT INTO `risk` (`id_risk`, `riesgo`, `probabilidad`, `impacto`, `nivel_risk`, `acciones`) VALUES
+(1, 'Retraso en el cronograma de actividades.', 'Alta', 'Alta', 'Alta', 'Establecer fechas de control, supervisar avances y reorganizar las actividades pendientes.'),
+(2, 'Falta de presupuesto', 'Media', 'Bajo', 'Alta', 'Investigar alternativas de financiamiento'),
+(3, 'Insuficiencia de presupuesto para completar el proyecto.', 'Media', 'Alta', 'Alta', 'Revisar los costos, priorizar actividades y gestionar recursos financieros adicionales.'),
+(4, 'Falta de personal técnico especializado.', 'Media', 'Alta', 'Alta', 'Identificar las competencias necesarias, capacitar al personal o contratar especialistas.'),
+(5, 'Cambios frecuentes en los requerimientos del proyecto.', 'Alta', 'Alta', 'Alta', 'Establecer un alcance definido y formalizar cualquier solicitud de cambio.'),
+(6, 'Fallas en equipos, herramientas o infraestructura.', 'Media', 'Alta', 'Alta', 'Realizar mantenimiento preventivo, disponer de equipos de respaldo y establecer protocolos de contingencia.'),
+(7, 'Retraso en la adquisición de materiales o equipos.', 'Media', 'Media', 'Alta', 'Planificar las compras con anticipación, evaluar proveedores alternativos y hacer seguimiento a los pedidos.'),
+(8, 'Falta de comunicación entre los integrantes del equipo.', 'Media', 'Alta', 'Alta', 'Establecer canales oficiales de comunicación, reuniones periódicas y responsables por actividad.'),
+(9, 'Bajo rendimiento o incumplimiento de responsabilidades del personal.', 'Media', 'Media', 'Media', 'Definir responsabilidades, establecer indicadores de desempeño y realizar evaluaciones periódicas.'),
+(10, 'Problemas técnicos durante la implementación.', 'Media', 'Alta', 'Media', 'Realizar pruebas preliminares, documentar procedimientos y disponer de un plan de contingencia.'),
+(11, 'Resultados que no cumplen con los requisitos establecidos.', 'Media', 'Alta', 'Media', 'Definir criterios de aceptación, ejecutar controles de calidad y realizar pruebas de validación.'),
+(12, 'Dependencia de proveedores externos.', 'Media', 'Alta', 'Media', 'Identificar proveedores alternativos, establecer acuerdos de servicio y supervisar los tiempos de entrega.'),
+(13, 'Falta de aprobación o autorización para continuar con el proyecto.', 'Media', 'Alta', 'Media', 'Identificar a los responsables de aprobación, presentar la documentación requerida y realizar seguimiento a las solicitudes.'),
+(14, 'Pérdida o corrupción de información del proyecto.', 'Baja', 'Alta', 'Media', 'Implementar copias de seguridad, controlar los accesos y establecer procedimientos de recuperación.'),
+(15, 'Accidentes laborales o incidentes durante la ejecución.', 'Baja', 'Alta', 'Media', 'Aplicar protocolos de seguridad, capacitar al personal y suministrar los equipos de protección necesarios.'),
+(16, 'Condiciones externas que afectan la ejecución del proyecto.', 'Media', 'Media', 'Baja', 'Identificar factores externos, monitorear su evolución y preparar alternativas de ejecución.'),
+(17, 'Falta de seguimiento y supervisión del proyecto.', 'Media', 'Alta', 'Media', 'Establecer reuniones de seguimiento, informes periódicos e indicadores de avance.'),
+(18, 'Conflictos entre las áreas involucradas.', 'Media', 'Media', 'Baja', 'Definir responsables, establecer acuerdos de trabajo y gestionar oportunamente los desacuerdos.'),
+(19, 'Entrega de resultados fuera de los estándares de calidad.', 'Media', 'Alta', 'Baja', 'Aplicar controles de calidad, inspecciones y pruebas antes de la entrega final.'),
+(20, 'Equipo quemado', 'Baja', 'Alta', 'Baja', 'Solicitar equipo nuevo.');
 
 -- --------------------------------------------------------
 
@@ -759,13 +775,13 @@ ALTER TABLE `project_plan_budgets`
 -- AUTO_INCREMENT de la tabla `project_plan_deliverables`
 --
 ALTER TABLE `project_plan_deliverables`
-  MODIFY `id_project_deliverables` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_project_deliverables` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `project_plan_resources`
 --
 ALTER TABLE `project_plan_resources`
-  MODIFY `id_project_resources` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_project_resources` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `project_plan_reviews`
