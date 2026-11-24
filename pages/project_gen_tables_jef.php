@@ -1724,6 +1724,316 @@ if (!isset($_SESSION['id_usuario'])) {
 
   </div>
 
+  <!--  MODAL: RIESGOS Y SUPUESTOS -->
+
+  <div class="modal fade" id="modalRiesgosPlan" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="titulo_modal_alcance" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg modal-recursos-presupuesto-dialog">
+      <div class="modal-content">
+        <div class="w3-container w3-teal modal-header">
+          <div>
+            <h5 class="modal-title" id="titulo_modal_alcance">
+              <i class="fa-solid fa-triangle-exclamation text-primary me-2"></i>
+              Riesgos y Supuestos
+            </h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"> </button>
+
+        </div>
+
+        <div class="modal-body">
+
+
+          <div class="row g-3 align-items-stretch mb-3">
+
+            <div class="col-12 col-xl-12">
+
+              <div class="card h-100 mb-0">
+
+                <div class="card-header pb-2 d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+                  <div>
+                    <h6 class="mb-1">
+                      Riesgos Registrados
+                    </h6>
+                  </div>
+
+                  <div class="form-check form-switch mb-0">
+                    <input class="form-check-input" type="checkbox" id="check_form_riesgos_nuevos" checked>
+                    <label class="form-check-label" for="check_form_riesgos_nuevos"> Registrar riesgo</label>
+                  </div>
+
+                </div>
+
+                <div class="card-body pt-2">
+
+                  <div class="table-responsive">
+
+                    <table id="tabla_data_riesgos_plan" class="table table-hover table-striped align-middle">
+
+                      <thead class="table-light">
+                        <tr>
+                          <th class="text-center">ID</th>
+                          <th class="text-center">Riesgo</th>
+                          <th class="text-center">Solución</th>
+                          <th class="text-center">Probabilidad</th>
+                          <th class="text-center">Impacto</th>
+                          <th class="text-center">Nivel</th>
+                          <th class="text-center">Responsable</th>
+                          <th class="text-center">Estado</th>
+                          <th class="text-center">Acciones</th>
+                        </tr>
+                      </thead>
+
+                      <tbody id="tbody_riesgos_regist_plan">
+
+                        <tr>
+                          <td colspan="9" class="text-center text-secondary">
+                            Seleccione una planificación para consultar sus riesgos.
+                          </td>
+                        </tr>
+
+                      </tbody>
+
+                      <tfoot>
+                        <tr class="table-primary fw-bold">
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                        </tr>
+                      </tfoot>
+
+                    </table>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <br>
+
+          <div class="row g-3" id="ver_form_recursos_new_container">
+
+            <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_recurso_plan_proy" method="POST">
+
+              <input type="hidden" id="id_project_plans_alcance" name="id_project_plans" value="">
+
+              <input type="hidden" name="id_proyecto" id="id_proyecto_recursos" value="">
+
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Tipo de Recurso *</label>
+                    <input type="text" name="tipo_recurso_proy" id="tipo_recurso_proy" class="form-control border px-3" required>
+                  </div>
+
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label">Descripción del Recurso *</label>
+                    <textarea name="descripcion_recurso_proy" id="descripcion_recurso_proy" class="form-control border px-3" maxlength="300" rows="3" required></textarea>
+                    <div id="contador_descripcion_recurso_proy">300</div>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Cantidad/Dedicación *</label>
+                    <input type="text" name="cant_dedic_recurso_proy" id="cant_dedic_recurso_proy" class="form-control border px-3" required>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Periodo *</label>
+                    <input type="text" name="periodo_recur_plan_proy" id="periodo_recur_plan_proy" class="form-control border px-3" required>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Disponibilidad *</label>
+                    <select name="disponib_recur_plan_proy" id="disponib_recur_plan_proy" class="form-select border px-3" required>
+                      <option value="" disabled>Seleccione</option>
+                      <option value="Confirmados">Confirmados</option>
+                      <option value="Por Confirmar">Por Confirmar</option>
+                      <option value="No disponibles">No disponibles</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label for="fecha" class="form-label">Asignar responsable: </label>
+                    <select class="form-select" id="id_respon_recurso_tarea" name="id_respon_recurso_tarea" required>
+                      <option value="" disabled>Seleccione un Responsable</option>
+                      <?php
+                      $query_data = mysqli_query($conn, "SELECT * FROM users");
+
+                      while ($miembro = mysqli_fetch_assoc($query_data)) {
+                        $id = $miembro['id_usuario'];
+                        $nombre = ($miembro['nombre_user']);
+                        $apell = ($miembro['apellido_user']);
+                        $esp = ($miembro['especialidad']);
+                        echo "<option value=\"$id\">$nombre $apell | Especialidad: $esp</option>";
+                      }
+                      ?>
+                    </select>
+                  </div>
+
+                </div>
+
+                <div class="mb-4">
+                  <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar recurso </button>
+                </div>
+
+              </div>
+
+            </form>
+
+          </div>
+
+          <br><br>
+
+          <div class="row g-3 align-items-stretch mb-3">
+
+            <div class="col-12 col-xl-12">
+
+              <div class="card h-100 mb-0">
+
+                <div class="card-header pb-2 d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+                  <div>
+                    <h6 class="mb-1">
+                      Riesgos Registrados
+                    </h6>
+                  </div>
+
+                  <div class="form-check form-switch mb-0">
+                    <input class="form-check-input" type="checkbox" id="check_form_riesgos_nuevos" checked>
+                    <label class="form-check-label" for="check_form_riesgos_nuevos"> Registrar riesgo</label>
+                  </div>
+
+                </div>
+
+                <div class="card-body pt-2">
+
+                  <div class="table-responsive">
+
+                    <table id="tabla_data_recursos_plan" class="table table-hover table-striped align-middle">
+
+                      <thead class="table-light">
+                        <tr>
+                          <th class="text-center">ID</th>
+                          <th class="text-center">Riesgo</th>
+                          <th class="text-center">Descripción</th>
+                          <th class="text-center">Probabilidad</th>
+                          <th class="text-center">Impacto</th>
+                          <th class="text-center">Nivel</th>
+                          <th class="text-center">Solución</th>
+                          <th class="text-center">Responsable</th>
+                          <th class="text-center">Acciones</th>
+                        </tr>
+                      </thead>
+
+                      <tbody id="tbody_recursos_regist_plan">
+
+                        <tr>
+                          <td colspan="9" class="text-center text-secondary">
+                            Seleccione una planificación para consultar sus riesgos.
+                          </td>
+                        </tr>
+
+                      </tbody>
+
+                      <tfoot>
+                        <tr class="table-primary fw-bold">
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                        </tr>
+                      </tfoot>
+
+                    </table>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <br>
+
+          <div class="row g-3" id="ver_form_nuevo_presupuesto_container">
+
+            <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_presupuestos_plan_proy" method="POST">
+
+              <input type="hidden" id="id_project_plans_alcance" name="id_project_plans" value="">
+
+              <input type="hidden" id="id_proyecto_recursos" name="id_proyecto" value="">
+
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Categoría *</label>
+                    <input type="text" name="categoria_presup_proy" id="categoria_presup_proy" class="form-control border px-3" required>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Monto *</label>
+                    <input type="number" name="monto_presup_proy" id="monto_presup_proy" class="form-control border px-3" required>
+                  </div>
+
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label">Descripción del presupuesto *</label>
+                    <textarea name="descripcion_presup_proy" id="descripcion_presup_proy" class="form-control border px-3" maxlength="300" rows="3" required></textarea>
+                    <div id="contador_descripcion_presup_proy">300</div>
+                  </div>
+
+                </div>
+
+                <br>
+
+                <div class="mb-4">
+                  <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar categoria </button>
+                </div>
+
+              </div>
+
+            </form>
+
+          </div>
+
+          <br><br>
+
+          <div class="modal-footer">
+
+            <br><br><br>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
   </div>
 
 
@@ -2014,7 +2324,6 @@ if (!isset($_SESSION['id_usuario'])) {
       const tabla = $('#tabla_data_entregables_plan');
       const tbody = document.getElementById('tbody_entregables_plan');
 
-      // Destruir instancia previa si existe
       if ($.fn.DataTable.isDataTable('#tabla_data_entregables_plan')) {
         tabla.DataTable().destroy();
       }
@@ -2135,7 +2444,6 @@ if (!isset($_SESSION['id_usuario'])) {
       const tabla = $('#tabla_data_actividades_tareas_plan');
       const tbody = document.getElementById('tbody_actividades_tareas_plan');
 
-      // Destruir instancia previa si existe
       if ($.fn.DataTable.isDataTable('#tabla_data_actividades_tareas_plan')) {
         tabla.DataTable().destroy();
       }
@@ -2202,10 +2510,8 @@ if (!isset($_SESSION['id_usuario'])) {
               fila.appendChild(celda);
             });
 
-            // Celda de Acciones — agregar botones aquí cuando sea necesario
             const celdaAcciones = document.createElement('td');
             celdaAcciones.className = 'text-center';
-            /* BOTONES: celdaAcciones.innerHTML = `...`; */
             fila.appendChild(celdaAcciones);
 
             tbody.appendChild(fila);
@@ -2257,7 +2563,6 @@ if (!isset($_SESSION['id_usuario'])) {
       const tabla = $('#tabla_data_hitos_plan');
       const tbody = document.getElementById('tbody_hitos_ocurr_plan');
 
-      // Destruir instancia previa si existe
       if ($.fn.DataTable.isDataTable('#tabla_data_hitos_plan')) {
         tabla.DataTable().destroy();
       }
@@ -2323,10 +2628,8 @@ if (!isset($_SESSION['id_usuario'])) {
               fila.appendChild(celda);
             });
 
-            // Celda de Acciones — agregar botones aquí cuando sea necesario
             const celdaAcciones = document.createElement('td');
             celdaAcciones.className = 'text-center';
-            /* BOTONES: celdaAcciones.innerHTML = `...`; */
             fila.appendChild(celdaAcciones);
 
             tbody.appendChild(fila);
@@ -2525,14 +2828,10 @@ if (!isset($_SESSION['id_usuario'])) {
       const tablaSelector = '#tabla_data_presupuestos_plan';
       const $tabla = $(tablaSelector);
 
-      // ── 1. Destruir instancia anterior de forma segura ──────────────────
       if ($.fn.DataTable.isDataTable(tablaSelector)) {
         $tabla.DataTable().destroy();
       }
 
-      // ── 2. Restaurar tbody al estado original antes de reinicializar ─────
-      //    DataTables con la opción `data:` gestiona el tbody internamente;
-      //    hay que vaciarlo para que no colisione con filas previas.
       const tbody = document.getElementById('tbody_presupuestos_plan');
       tbody.innerHTML = `
         <tr>
@@ -2736,6 +3035,129 @@ if (!isset($_SESSION['id_usuario'])) {
         maximumFractionDigits: 2
       }) + '%';
 
+    }
+  </script>
+
+  <script>
+    function cargarRiesgosPlan(idPlan, idProyecto) {
+      const tabla = $('#tabla_data_riesgos_plan');
+      const tbody = document.getElementById('tbody_riesgos_regist_plan');
+
+      if ($.fn.DataTable.isDataTable('#tabla_data_riesgos_plan')) {
+        tabla.DataTable().destroy();
+      }
+
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="9" class="text-center text-secondary">
+            Cargando riesgos...
+          </td>
+        </tr>
+      `;
+
+      $.ajax({
+        url: './consultas/consul_obtener_riesgos_regist_plan.php',
+        type: 'GET',
+        data: {
+          id_proyecto: idProyecto
+        },
+        dataType: 'json',
+        success: function(respuesta) {
+          console.log('Riesgos recibidos:', respuesta);
+          tbody.innerHTML = '';
+
+          if (!respuesta.success) {
+            tbody.innerHTML = `
+              <tr>
+                <td colspan="9" class="text-center text-danger">
+                  ${respuesta.message}
+                </td>
+              </tr>
+            `;
+            return;
+          }
+
+          const riesgos_plan = respuesta.data || [];
+
+          if (riesgos_plan.length === 0) {
+            tbody.innerHTML = `
+              <tr>
+                <td colspan="9" class="text-center text-secondary">
+                  No hay riesgos registrados.
+                </td>
+              </tr>
+            `;
+            return;
+          }
+
+          riesgos_plan.forEach(function(riesgos_plan) {
+            const fila = document.createElement('tr');
+
+            const valores = [
+              riesgos_plan.id_projects_risk,
+              riesgos_plan.riesgo,
+              riesgos_plan.acciones,
+              riesgos_plan.probabilidad,
+              riesgos_plan.impacto,
+              riesgos_plan.nivel_risk,
+              riesgos_plan.responsable_risk,
+              riesgos_plan.estado_risk
+            ];
+
+            console.log("Hola " + valores);
+
+            valores.forEach(function(valor) {
+              const celda = document.createElement('td');
+              celda.className = 'text-center';
+              celda.textContent = valor ?? '';
+              fila.appendChild(celda);
+            });
+
+            const celdaAcciones = document.createElement('td');
+            celdaAcciones.className = 'text-center';
+            fila.appendChild(celdaAcciones);
+
+            tbody.appendChild(fila);
+          });
+
+          tabla.DataTable({
+            autoWidth: false,
+            pageLength: 5,
+            lengthMenu: [
+              [5, 10, 25],
+              [5, 10, 25]
+            ],
+            language: {
+              url: '../assets/js/DataEsp.json'
+            },
+            columnDefs: [{
+              targets: 5,
+              orderable: false,
+              searchable: false
+            }]
+          });
+
+          setTimeout(function() {
+            if ($.fn.DataTable.isDataTable('#tabla_data_riesgos_plan')) {
+              tabla.DataTable().columns.adjust();
+            }
+          }, 100);
+        },
+        error: function(xhr, estado, error) {
+          console.error('Error al consultar los riesgos:');
+          console.error('Estado:', estado);
+          console.error('Error:', error);
+          console.error('Respuesta PHP:', xhr.responseText);
+
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="6" class="text-center text-danger">
+                Error al obtener los riesgos.
+              </td>
+            </tr>
+          `;
+        }
+      });
     }
   </script>
 
@@ -3116,6 +3538,12 @@ if (!isset($_SESSION['id_usuario'])) {
             }, {
               once: true
             });
+
+          }
+
+          if (idModal === 'modalRiesgosPlan') {
+
+            cargarRiesgosPlan(idPlan, idProyecto);
 
           }
 

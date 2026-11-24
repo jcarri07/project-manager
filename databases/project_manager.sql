@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-11-2026 a las 15:01:04
+-- Tiempo de generación: 24-11-2026 a las 01:33:50
 -- Versión del servidor: 9.7.1
 -- Versión de PHP: 8.5.12
 
@@ -96,20 +96,22 @@ INSERT INTO `projects` (`id_proyecto`, `id_solicitante`, `id_manager`, `id_valid
 CREATE TABLE `projects_risk` (
   `id_projects_risk` int NOT NULL,
   `id_proyecto` int NOT NULL,
-  `id_risk` int NOT NULL
+  `id_risk` int NOT NULL,
+  `estado_risk` varchar(100) NOT NULL DEFAULT 'Abierto',
+  `responsable_risk` varchar(100) NOT NULL DEFAULT 'Sin asignar'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `projects_risk`
 --
 
-INSERT INTO `projects_risk` (`id_projects_risk`, `id_proyecto`, `id_risk`) VALUES
-(1, 4, 10),
-(2, 4, 14),
-(3, 4, 15),
-(4, 4, 16),
-(5, 1, 1),
-(6, 1, 2);
+INSERT INTO `projects_risk` (`id_projects_risk`, `id_proyecto`, `id_risk`, `estado_risk`, `responsable_risk`) VALUES
+(1, 4, 10, 'Abierto', 'Sin asignar'),
+(2, 4, 14, 'Abierto', 'Sin asignar'),
+(3, 4, 15, 'Abierto', 'Sin asignar'),
+(4, 4, 16, 'Abierto', 'Sin asignar'),
+(5, 1, 1, 'Abierto', 'Sin asignar'),
+(6, 1, 2, 'Abierto', 'Sin asignar');
 
 -- --------------------------------------------------------
 
@@ -316,18 +318,6 @@ CREATE TABLE `project_plan_reviews` (
   `accion_reseña` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `observaciones_reseña` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `fecha_reseña` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `project_plan_risks`
---
-
-CREATE TABLE `project_plan_risks` (
-  `id_project_plan_risks` int NOT NULL,
-  `id_project_plans` int NOT NULL,
-  `id_risk` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -633,14 +623,6 @@ ALTER TABLE `project_plan_reviews`
   ADD KEY `id_user_reviews` (`id_user_reviews`);
 
 --
--- Indices de la tabla `project_plan_risks`
---
-ALTER TABLE `project_plan_risks`
-  ADD PRIMARY KEY (`id_project_plan_risks`),
-  ADD KEY `id_project_plans` (`id_project_plans`),
-  ADD KEY `id_risk` (`id_risk`);
-
---
 -- Indices de la tabla `responsibility`
 --
 ALTER TABLE `responsibility`
@@ -790,12 +772,6 @@ ALTER TABLE `project_plan_reviews`
   MODIFY `id_project_plan_reviews` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `project_plan_risks`
---
-ALTER TABLE `project_plan_risks`
-  MODIFY `id_project_plan_risks` int NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `responsibility`
 --
 ALTER TABLE `responsibility`
@@ -917,13 +893,6 @@ ALTER TABLE `project_plan_resources`
 ALTER TABLE `project_plan_reviews`
   ADD CONSTRAINT `project_plan_reviews_ibfk_1` FOREIGN KEY (`id_project_plans`) REFERENCES `project_plans` (`id_project_plans`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `project_plan_reviews_ibfk_2` FOREIGN KEY (`id_user_reviews`) REFERENCES `users` (`id_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Filtros para la tabla `project_plan_risks`
---
-ALTER TABLE `project_plan_risks`
-  ADD CONSTRAINT `project_plan_risks_ibfk_1` FOREIGN KEY (`id_project_plans`) REFERENCES `project_plans` (`id_project_plans`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `project_plan_risks_ibfk_2` FOREIGN KEY (`id_risk`) REFERENCES `risk` (`id_risk`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Filtros para la tabla `users_projects`
