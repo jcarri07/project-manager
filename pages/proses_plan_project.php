@@ -246,4 +246,30 @@ if ($_GET['act'] == 'insert_presupuestos_plan_proy') {
 	}
 }
 
+if ($_GET['act'] == 'insert_new_riesg_respon_proy') {
+
+	$d_id_proyecto = mysqli_real_escape_string($conn, trim($_POST['id_proyecto']));
+	$d_respon_riesgo_proy = mysqli_real_escape_string($conn, trim($_POST['respon_riesgo_proy']));
+	$d_estado_risg_plan_proy = mysqli_real_escape_string($conn, trim($_POST['estado_risg_plan_proy']));
+
+	foreach ($_POST['list_riesgo_proy'] as $id_riesgo_list) {
+		$id_riesgo_list = intval($id_riesgo_list);
+		$query = mysqli_query($conn, "INSERT INTO projects_risk(id_proyecto, id_risk, estado_risk, responsable_risk)
+											VALUES('$d_id_proyecto', '$id_riesgo_list', '$d_estado_risg_plan_proy', '$d_respon_riesgo_proy')");
+	}
+
+	if ($query) {
+
+		if ($val_Type_User == 1) {
+			header("location: ../pages/project_indiv_tables_direct.php?alert=1");
+		}
+		if ($val_Type_User == 2) {
+			header("location: ../pages/project_gen_tables_jef.php?alert=1");
+		}
+		if ($val_Type_User == 3) {
+			header("location: ../pages/project_tables_trab.php?alert=1");
+		}
+	}
+}
+
 ?>

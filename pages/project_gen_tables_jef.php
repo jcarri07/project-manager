@@ -1372,7 +1372,6 @@ if (!isset($_SESSION['id_usuario'])) {
 
           <div class="row g-3 align-items-stretch mb-3">
 
-            <!-- TABLA DE RECURSOS: 75% -->
             <div class="col-12 col-xl-8">
 
               <div class="card h-100 mb-0">
@@ -1825,7 +1824,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
           <div class="row g-3" id="ver_form_recursos_new_container">
 
-            <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_recurso_plan_proy" method="POST">
+            <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_new_riesg_respon_proy" method="POST">
 
               <input type="hidden" id="id_project_plans_alcance" name="id_project_plans" value="">
 
@@ -1834,41 +1833,27 @@ if (!isset($_SESSION['id_usuario'])) {
               <div class="card-body">
                 <div class="row">
 
-                  <div class="col-md-4 mb-3">
-                    <label class="form-label">Tipo de Recurso *</label>
-                    <input type="text" name="tipo_recurso_proy" id="tipo_recurso_proy" class="form-control border px-3" required>
-                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Riesgos *</label>
 
-                  <div class="col-md-12 mb-3">
-                    <label class="form-label">Descripción del Recurso *</label>
-                    <textarea name="descripcion_recurso_proy" id="descripcion_recurso_proy" class="form-control border px-3" maxlength="300" rows="3" required></textarea>
-                    <div id="contador_descripcion_recurso_proy">300</div>
-                  </div>
+                    <select class="form-multi-select" id="list_riesgo_proy" name="list_riesgo_proy[]" multiple data-coreui-search="global">
+                      <?php
+                      $query_data = mysqli_query($conn, "SELECT * FROM risk");
 
-                  <div class="col-md-4 mb-3">
-                    <label class="form-label">Cantidad/Dedicación *</label>
-                    <input type="text" name="cant_dedic_recurso_proy" id="cant_dedic_recurso_proy" class="form-control border px-3" required>
-                  </div>
-
-                  <div class="col-md-4 mb-3">
-                    <label class="form-label">Periodo *</label>
-                    <input type="text" name="periodo_recur_plan_proy" id="periodo_recur_plan_proy" class="form-control border px-3" required>
-                  </div>
-
-                  <div class="col-md-4 mb-3">
-                    <label class="form-label">Disponibilidad *</label>
-                    <select name="disponib_recur_plan_proy" id="disponib_recur_plan_proy" class="form-select border px-3" required>
-                      <option value="" disabled>Seleccione</option>
-                      <option value="Confirmados">Confirmados</option>
-                      <option value="Por Confirmar">Por Confirmar</option>
-                      <option value="No disponibles">No disponibles</option>
+                      while ($miembro = mysqli_fetch_assoc($query_data)) {
+                        $id = $miembro['id_risk'];
+                        $nombre = ($miembro['riesgo']);
+                        $esp = ($miembro['probabilidad']);
+                        echo "<option value=\"$id\">$nombre | Probabilidad: $esp</option>";
+                      }
+                      ?>
                     </select>
+
                   </div>
 
-                  <div class="col-md-4 mb-3">
-                    <label for="fecha" class="form-label">Asignar responsable: </label>
-                    <select class="form-select" id="id_respon_recurso_tarea" name="id_respon_recurso_tarea" required>
-                      <option value="" disabled>Seleccione un Responsable</option>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Asignar Responsable *</label>
+                    <select class="form-select" id="respon_riesgo_proy" name="respon_riesgo_proy">
                       <?php
                       $query_data = mysqli_query($conn, "SELECT * FROM users");
 
@@ -1877,9 +1862,20 @@ if (!isset($_SESSION['id_usuario'])) {
                         $nombre = ($miembro['nombre_user']);
                         $apell = ($miembro['apellido_user']);
                         $esp = ($miembro['especialidad']);
-                        echo "<option value=\"$id\">$nombre $apell | Especialidad: $esp</option>";
+                        $NombreComp = ("$nombre" . " " . "$apell");
+                        echo "<option value=\"$NombreComp\">$nombre $apell | Especialidad: $esp</option>";
                       }
                       ?>
+                    </select>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Estado *</label>
+                    <select name="estado_risg_plan_proy" id="estado_risg_plan_proy" class="form-select border px-3" required>
+                      <option value="" disabled>Seleccione</option>
+                      <option value="Abierto">Abierto</option>
+                      <option value="Identificados">Identificados</option>
+                      <option value="Cerrado">Cerrado</option>
                     </select>
                   </div>
 
