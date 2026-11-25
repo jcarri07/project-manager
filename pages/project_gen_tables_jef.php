@@ -1822,7 +1822,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
           <br>
 
-          <div class="row g-3" id="ver_form_recursos_new_container">
+          <div class="row g-3" id="ver_form_nuevos_riesgos_container">
 
             <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_new_riesg_respon_proy" method="POST">
 
@@ -1908,8 +1908,8 @@ if (!isset($_SESSION['id_usuario'])) {
                   </div>
 
                   <div class="form-check form-switch mb-0">
-                    <input class="form-check-input" type="checkbox" id="check_form_riesgos_nuevos" checked>
-                    <label class="form-check-label" for="check_form_riesgos_nuevos"> Registrar riesgo</label>
+                    <input class="form-check-input" type="checkbox" id="check_form_situ_nuevos" checked>
+                    <label class="form-check-label" for="check_form_situ_nuevos"> Registrar riesgo</label>
                   </div>
 
                 </div>
@@ -2817,7 +2817,6 @@ if (!isset($_SESSION['id_usuario'])) {
     }
   </script>
 
-
   <script>
     function cargarpresupuestosPlan(idPlan, idProyecto) {
 
@@ -2851,7 +2850,6 @@ if (!isset($_SESSION['id_usuario'])) {
 
           console.log('Presupuestos recibidos:', respuesta);
 
-          // ── Error de negocio devuelto por el backend ───────────────────
           if (!respuesta.success) {
             tbody.innerHTML = `
               <tr>
@@ -2866,7 +2864,6 @@ if (!isset($_SESSION['id_usuario'])) {
 
           const presupuestos = respuesta.data || [];
 
-          // ── 3. Calcular totales ANTES de tocar el DOM ──────────────────
           let totalPorcentaje = 0;
           presupuestos.forEach(function(p) {
             totalPorcentaje += obtenerPorcentaje(p.porcentaje_presupuesto);
@@ -2886,9 +2883,6 @@ if (!isset($_SESSION['id_usuario'])) {
             'Disponible: ' + formatearPorcentaje(disponible);
           const claseAviso = totalPorcentaje > 100 ? 'text-danger' : 'text-success';
 
-          // ── 4. Actualizar tfoot CON GUARDA (fix del bug principal) ─────
-          //    document.querySelector devolvía null porque <tfoot> no existía
-          //    en el HTML original; ahora existe, pero igual se protege.
           const pie = document.querySelector(tablaSelector + ' tfoot tr');
           if (pie && pie.cells.length >= 5) {
             pie.cells[0].textContent = 'TOTAL DEL PRESUPUESTO';
@@ -2901,13 +2895,8 @@ if (!isset($_SESSION['id_usuario'])) {
             pie.cells[4].className = 'text-center fw-bold ' + claseAviso;
           }
 
-          // ── 5. Vaciar tbody antes de que DataTables lo gestione ────────
-          //    Con la opción `data:` DataTables REEMPLAZA el tbody;
-          //    si quedan filas del mensaje "Cargando…" puede quedar
-          //    desincronizado en algunas versiones de DT 1.x.
           tbody.innerHTML = '';
 
-          // ── 6. Inicializar DataTable con `data:` (modo client-side) ────
           $tabla.DataTable({
 
             data: presupuestos,
@@ -2922,7 +2911,6 @@ if (!isset($_SESSION['id_usuario'])) {
               [5, 10, 25, 50]
             ],
 
-            // Impide que DT intente leer filas HTML existentes
             retrieve: false,
 
             columns: [{
@@ -3582,7 +3570,6 @@ if (!isset($_SESSION['id_usuario'])) {
     });
   </script>
 
-
   <script>
     const asignSelect = document.getElementById('Asign');
     const estadoSelect = document.getElementById('estado');
@@ -3701,6 +3688,20 @@ if (!isset($_SESSION['id_usuario'])) {
     document.addEventListener('DOMContentLoaded', function() {
       const checkbox = document.getElementById('check_form_hitos_tareas');
       const contenedor = document.getElementById('ver_form_nuevo_hito_container');
+
+      function toggle() {
+        contenedor.style.display = checkbox.checked ? 'none' : 'block';
+      }
+
+      toggle(); // estado inicial
+      checkbox.addEventListener('change', toggle);
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const checkbox = document.getElementById('check_form_riesgos_nuevos');
+      const contenedor = document.getElementById('ver_form_nuevos_riesgos_container');
 
       function toggle() {
         contenedor.style.display = checkbox.checked ? 'none' : 'block';
