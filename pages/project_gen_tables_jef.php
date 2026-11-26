@@ -1383,10 +1383,6 @@ if (!isset($_SESSION['id_usuario'])) {
                       <i class="fa-solid fa-gears text-primary me-2"></i>
                       Recursos necesarios
                     </h6>
-
-                    <small class="text-secondary">
-                      Defina los recursos requeridos para la ejecución del proyecto.
-                    </small>
                   </div>
 
                   <div class="form-check form-switch mb-0">
@@ -1445,8 +1441,6 @@ if (!isset($_SESSION['id_usuario'])) {
 
             </div>
 
-
-            <!-- GRÁFICA DE DISPONIBILIDAD: 25% -->
             <div class="col-12 col-xl-4">
 
               <div class="card grafica-presupuesto-card mb-0">
@@ -1558,7 +1552,6 @@ if (!isset($_SESSION['id_usuario'])) {
 
           <div class="row g-3 align-items-stretch mb-3">
 
-            <!-- TABLA DE PRESUPUESTO: 66,7% -->
             <div class="col-12 col-xl-7">
 
               <div class="card h-100 mb-0">
@@ -1729,6 +1722,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg modal-recursos-presupuesto-dialog">
       <div class="modal-content">
+
         <div class="w3-container w3-teal modal-header">
           <div>
             <h5 class="modal-title" id="titulo_modal_alcance">
@@ -1753,7 +1747,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
                   <div>
                     <h6 class="mb-1">
-                      Riesgos Registrados
+                      Riesgos del Proyecto
                     </h6>
                   </div>
 
@@ -1882,7 +1876,7 @@ if (!isset($_SESSION['id_usuario'])) {
                 </div>
 
                 <div class="mb-4">
-                  <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar recurso </button>
+                  <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar el riesgo </button>
                 </div>
 
               </div>
@@ -1903,13 +1897,13 @@ if (!isset($_SESSION['id_usuario'])) {
 
                   <div>
                     <h6 class="mb-1">
-                      Riesgos Registrados
+                      Supuestos del Proyecto
                     </h6>
                   </div>
 
                   <div class="form-check form-switch mb-0">
-                    <input class="form-check-input" type="checkbox" id="check_form_situ_nuevos" checked>
-                    <label class="form-check-label" for="check_form_situ_nuevos"> Registrar riesgo</label>
+                    <input class="form-check-input" type="checkbox" id="check_form_supuestos_nuevos" checked>
+                    <label class="form-check-label" for="check_form_supuestos_nuevos"> Agregar supuestos</label>
                   </div>
 
                 </div>
@@ -1918,27 +1912,24 @@ if (!isset($_SESSION['id_usuario'])) {
 
                   <div class="table-responsive">
 
-                    <table id="tabla_data_recursos_plan" class="table table-hover table-striped align-middle">
+                    <table id="tabla_data_supuestos_plan" class="table table-hover table-striped align-middle">
 
                       <thead class="table-light">
                         <tr>
                           <th class="text-center">ID</th>
-                          <th class="text-center">Riesgo</th>
+                          <th class="text-center">Supuesto</th>
                           <th class="text-center">Descripción</th>
-                          <th class="text-center">Probabilidad</th>
-                          <th class="text-center">Impacto</th>
-                          <th class="text-center">Nivel</th>
-                          <th class="text-center">Solución</th>
-                          <th class="text-center">Responsable</th>
+                          <th class="text-center">Impacto si no se cumple</th>
+                          <th class="text-center">Estado</th>
                           <th class="text-center">Acciones</th>
                         </tr>
                       </thead>
 
-                      <tbody id="tbody_recursos_regist_plan">
+                      <tbody id="tbody_supestos_regist_proy">
 
                         <tr>
                           <td colspan="9" class="text-center text-secondary">
-                            Seleccione una planificación para consultar sus riesgos.
+                            Seleccione una planificación para consultar sus supuestos.
                           </td>
                         </tr>
 
@@ -1946,9 +1937,6 @@ if (!isset($_SESSION['id_usuario'])) {
 
                       <tfoot>
                         <tr class="table-primary fw-bold">
-                          <td class="text-center"></td>
-                          <td class="text-center"></td>
-                          <td class="text-center"></td>
                           <td class="text-center"></td>
                           <td class="text-center"></td>
                           <td class="text-center"></td>
@@ -1972,39 +1960,48 @@ if (!isset($_SESSION['id_usuario'])) {
 
           <br>
 
-          <div class="row g-3" id="ver_form_nuevo_presupuesto_container">
+          <div class="row g-3" id="ver_form_nuevos_supuestos_container">
 
-            <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_presupuestos_plan_proy" method="POST">
+            <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_new_supuestos_proy" method="POST">
 
               <input type="hidden" id="id_project_plans_alcance" name="id_project_plans" value="">
 
-              <input type="hidden" id="id_proyecto_recursos" name="id_proyecto" value="">
+              <input type="hidden" name="id_proyecto" id="id_proyecto_recursos" value="">
 
               <div class="card-body">
                 <div class="row">
 
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label">Categoría *</label>
-                    <input type="text" name="categoria_presup_proy" id="categoria_presup_proy" class="form-control border px-3" required>
-                  </div>
-
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label">Monto *</label>
-                    <input type="number" name="monto_presup_proy" id="monto_presup_proy" class="form-control border px-3" required>
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Supuestos *</label>
+                    <input type="text" name="nom_supuestos_proy" id="nom_supuestos_proy" class="form-control border px-3" required>
                   </div>
 
                   <div class="col-md-12 mb-3">
-                    <label class="form-label">Descripción del presupuesto *</label>
-                    <textarea name="descripcion_presup_proy" id="descripcion_presup_proy" class="form-control border px-3" maxlength="300" rows="3" required></textarea>
-                    <div id="contador_descripcion_presup_proy">300</div>
+                    <label class="form-label">Descripción del Supuestos *</label>
+                    <textarea name="descripcion_supuesto_nuevo_proy" id="descripcion_supuesto_nuevo_proy" class="form-control border px-3" maxlength="300" rows="3" required></textarea>
+                    <div id="contador_descripcion_supuesto_nuevo_proy">300</div>
+                  </div>
+
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label">Impacto si NO se cumple el Supuestos *</label>
+                    <textarea name="impacto_supest_proy" id="impacto_supest_proy" class="form-control border px-3" maxlength="300" rows="3" required></textarea>
+                    <div id="contador_impacto_supest_proy">300</div>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Estado *</label>
+                    <select name="estado_supest_proy" id="estado_supest_proy" class="form-select border px-3" required>
+                      <option value="" disabled>Seleccione</option>
+                      <option value="Vigente">Vigente</option>
+                      <option value="Identificados">Identificados</option>
+                      <option value="Cerrado">Cerrado</option>
+                    </select>
                   </div>
 
                 </div>
 
-                <br>
-
                 <div class="mb-4">
-                  <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar categoria </button>
+                  <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar el supuesto </button>
                 </div>
 
               </div>
@@ -2013,20 +2010,138 @@ if (!isset($_SESSION['id_usuario'])) {
 
           </div>
 
-          <br><br>
+          <br>
 
-          <div class="modal-footer">
+          <div class="row g-3 align-items-stretch mb-3">
 
-            <br><br><br>
+            <div class="col-12 col-xl-12">
+
+              <div class="card h-100 mb-0">
+
+                <div class="card-header pb-2 d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+                  <div>
+                    <h6 class="mb-1">
+                      Restricciones del Proyecto
+                    </h6>
+                  </div>
+
+                  <div class="form-check form-switch mb-0">
+                    <input class="form-check-input" type="checkbox" id="check_form_resticciones_nuevos" checked>
+                    <label class="form-check-label" for="check_form_resticciones_nuevos"> Agregar restricción</label>
+                  </div>
+
+                </div>
+
+                <div class="card-body pt-2">
+
+                  <div class="table-responsive">
+
+                    <table id="tabla_data_restricciones_plan" class="table table-hover table-striped align-middle">
+
+                      <thead class="table-light">
+                        <tr>
+                          <th class="text-center">ID</th>
+                          <th class="text-center">Restricción</th>
+                          <th class="text-center">Descripción</th>
+                          <th class="text-center">Impacto</th>
+                          <th class="text-center">Acciones</th>
+                        </tr>
+                      </thead>
+
+                      <tbody id="tbody_restricciones_regist_proy">
+
+                        <tr>
+                          <td colspan="9" class="text-center text-secondary">
+                            Seleccione una planificación para consultar sus restricciones.
+                          </td>
+                        </tr>
+
+                      </tbody>
+
+                      <tfoot>
+                        <tr class="table-primary fw-bold">
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                        </tr>
+                      </tfoot>
+
+                    </table>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <br>
+
+          <div class="row g-3" id="ver_form_nuevos_restricc_container">
+
+            <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_new_restricciones_proy" method="POST">
+
+              <input type="hidden" id="id_project_plans_alcance" name="id_project_plans" value="">
+
+              <input type="hidden" name="id_proyecto" id="id_proyecto_recursos" value="">
+
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Restriccines *</label>
+                    <input type="text" name="nom_restricc_proy" id="nom_restricc_proy" class="form-control border px-3" required>
+                  </div>
+
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label">Descripción de la restricción *</label>
+                    <textarea name="descripcion_restricc_nuevo_proy" id="descripcion_restricc_nuevo_proy" class="form-control border px-3" maxlength="300" rows="3" required></textarea>
+                    <div id="contador_descripcion_restricc_nuevo_proy">300</div>
+                  </div>
+
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label">Impacto de la restricción *</label>
+                    <textarea name="impacto_restricc_proy" id="impacto_restricc_proy" class="form-control border px-3" maxlength="300" rows="3" required></textarea>
+                    <div id="contador_impacto_restricc_proy">300</div>
+                  </div>
+
+                </div>
+
+                <div class="mb-4">
+                  <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar la restricción </button>
+                </div>
+
+              </div>
+
+            </form>
 
           </div>
 
         </div>
 
+        <div class="modal-footer">
+
+          <br><br><br>
+
+        </div>
 
       </div>
 
+
+
     </div>
+
+
+  </div>
+
+  </div>
 
   </div>
 
@@ -3088,7 +3203,7 @@ if (!isset($_SESSION['id_usuario'])) {
               riesgos_plan.estado_risk
             ];
 
-            console.log("Hola " + valores);
+            //console.log("Hola " + valores);
 
             valores.forEach(function(valor) {
               const celda = document.createElement('td');
@@ -3137,6 +3252,247 @@ if (!isset($_SESSION['id_usuario'])) {
             <tr>
               <td colspan="6" class="text-center text-danger">
                 Error al obtener los riesgos.
+              </td>
+            </tr>
+          `;
+        }
+      });
+    }
+  </script>
+
+  <script>
+    function cargarSupuestosPlan(idPlan, idProyecto) {
+      const tabla = $('#tabla_data_supuestos_plan');
+      const tbody = document.getElementById('tbody_supestos_regist_proy');
+
+      if ($.fn.DataTable.isDataTable('#tabla_data_supuestos_plan')) {
+        tabla.DataTable().destroy();
+      }
+
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="9" class="text-center text-secondary">
+            Cargando supuestos...
+          </td>
+        </tr>
+      `;
+
+      $.ajax({
+        url: './consultas/consul_obtener_supuestos_regist_plan.php',
+        type: 'GET',
+        data: {
+          id_project_plans: idPlan,
+          id_proyecto: idProyecto
+        },
+        dataType: 'json',
+        success: function(respuesta) {
+          console.log('Riesgos recibidos:', respuesta);
+          tbody.innerHTML = '';
+
+          if (!respuesta.success) {
+            tbody.innerHTML = `
+              <tr>
+                <td colspan="9" class="text-center text-danger">
+                  ${respuesta.message}
+                </td>
+              </tr>
+            `;
+            return;
+          }
+
+          const plan_supuestos = respuesta.data || [];
+
+          if (plan_supuestos.length === 0) {
+            tbody.innerHTML = `
+              <tr>
+                <td colspan="9" class="text-center text-secondary">
+                  No hay supuestos registrados.
+                </td>
+              </tr>
+            `;
+            return;
+          }
+
+          plan_supuestos.forEach(function(plan_supuestos) {
+            const fila = document.createElement('tr');
+
+            const valores = [
+              plan_supuestos.id_project_plans_assumptions,
+              plan_supuestos.nombre_supuesto,
+              plan_supuestos.descripcion_supuesto,
+              plan_supuestos.impacto_supuestos,
+              plan_supuestos.estado_supuestos
+            ];
+
+            //console.log("Hola " + valores);
+
+            valores.forEach(function(valor) {
+              const celda = document.createElement('td');
+              celda.className = 'text-center';
+              celda.textContent = valor ?? '';
+              fila.appendChild(celda);
+            });
+
+            const celdaAcciones = document.createElement('td');
+            celdaAcciones.className = 'text-center';
+            fila.appendChild(celdaAcciones);
+
+            tbody.appendChild(fila);
+          });
+
+          tabla.DataTable({
+            autoWidth: false,
+            pageLength: 5,
+            lengthMenu: [
+              [5, 10, 25],
+              [5, 10, 25]
+            ],
+            language: {
+              url: '../assets/js/DataEsp.json'
+            },
+            columnDefs: [{
+              targets: 5,
+              orderable: false,
+              searchable: false
+            }]
+          });
+
+          setTimeout(function() {
+            if ($.fn.DataTable.isDataTable('#tabla_data_supuestos_plan')) {
+              tabla.DataTable().columns.adjust();
+            }
+          }, 100);
+        },
+        error: function(xhr, estado, error) {
+          console.error('Error al consultar los supuestos:');
+          console.error('Estado:', estado);
+          console.error('Error:', error);
+          console.error('Respuesta PHP:', xhr.responseText);
+
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="6" class="text-center text-danger">
+                Error al obtener los supuestos.
+              </td>
+            </tr>
+          `;
+        }
+      });
+    }
+  </script>
+
+  <script>
+    function cargarRestriccionesPlan(idPlan, idProyecto) {
+      const tabla = $('#tabla_data_restricciones_plan');
+      const tbody = document.getElementById('tbody_restricciones_regist_proy');
+
+      if ($.fn.DataTable.isDataTable('#tabla_data_restricciones_plan')) {
+        tabla.DataTable().destroy();
+      }
+
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="9" class="text-center text-secondary">
+            Cargando restricciones...
+          </td>
+        </tr>
+      `;
+
+      $.ajax({
+        url: './consultas/consul_obtener_restricciones_regist_plan.php',
+        type: 'GET',
+        data: {
+          id_project_plans: idPlan,
+          id_proyecto: idProyecto
+        },
+        dataType: 'json',
+        success: function(respuesta) {
+          console.log('Restricciones recibidos:', respuesta);
+          tbody.innerHTML = '';
+
+          if (!respuesta.success) {
+            tbody.innerHTML = `
+              <tr>
+                <td colspan="9" class="text-center text-danger">
+                  ${respuesta.message}
+                </td>
+              </tr>
+            `;
+            return;
+          }
+
+          const ver_restricc_plan = respuesta.data || [];
+
+          if (ver_restricc_plan.length === 0) {
+            tbody.innerHTML = `
+              <tr>
+                <td colspan="5" class="text-center text-secondary">
+                  No hay restricciones registrados.
+                </td>
+              </tr>
+            `;
+            return;
+          }
+
+          ver_restricc_plan.forEach(function(ver_restricc_plan) {
+            const fila = document.createElement('tr');
+
+            const valores = [
+              ver_restricc_plan.project_plans_restriction,
+              ver_restricc_plan.nombre_restriccion,
+              ver_restricc_plan.descripcion_restriccion,
+              ver_restricc_plan.impacto_restriccion
+            ];
+
+            //console.log("Hola " + valores);
+
+            valores.forEach(function(valor) {
+              const celda = document.createElement('td');
+              celda.className = 'text-center';
+              celda.textContent = valor ?? '';
+              fila.appendChild(celda);
+            });
+
+            const celdaAcciones = document.createElement('td');
+            celdaAcciones.className = 'text-center';
+            fila.appendChild(celdaAcciones);
+
+            tbody.appendChild(fila);
+          });
+
+          tabla.DataTable({
+            autoWidth: false,
+            pageLength: 5,
+            lengthMenu: [
+              [5, 10, 25],
+              [5, 10, 25]
+            ],
+            language: {
+              url: '../assets/js/DataEsp.json'
+            },
+            columnDefs: [{
+              targets: 5,
+              orderable: false,
+              searchable: false
+            }]
+          });
+
+          setTimeout(function() {
+            if ($.fn.DataTable.isDataTable('#tabla_data_restricciones_plan')) {
+              tabla.DataTable().columns.adjust();
+            }
+          }, 100);
+        },
+        error: function(xhr, estado, error) {
+          console.error('Error al consultar las restricciones:');
+          console.error('Estado:', estado);
+          console.error('Error:', error);
+          console.error('Respuesta PHP:', xhr.responseText);
+
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="5" class="text-center text-danger">
+                Error al obtener las restricciones.
               </td>
             </tr>
           `;
@@ -3528,6 +3884,8 @@ if (!isset($_SESSION['id_usuario'])) {
           if (idModal === 'modalRiesgosPlan') {
 
             cargarRiesgosPlan(idPlan, idProyecto);
+            cargarSupuestosPlan(idPlan, idProyecto);
+            cargarRestriccionesPlan(idPlan, idProyecto);
 
           }
 
@@ -3714,6 +4072,34 @@ if (!isset($_SESSION['id_usuario'])) {
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      const checkbox = document.getElementById('check_form_supuestos_nuevos');
+      const contenedor = document.getElementById('ver_form_nuevos_supuestos_container');
+
+      function toggle() {
+        contenedor.style.display = checkbox.checked ? 'none' : 'block';
+      }
+
+      toggle(); // estado inicial
+      checkbox.addEventListener('change', toggle);
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const checkbox = document.getElementById('check_form_resticciones_nuevos');
+      const contenedor = document.getElementById('ver_form_nuevos_restricc_container');
+
+      function toggle() {
+        contenedor.style.display = checkbox.checked ? 'none' : 'block';
+      }
+
+      toggle(); // estado inicial
+      checkbox.addEventListener('change', toggle);
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
 
       const fechaInicio = document.getElementById('fecha_ini_actividad_proy');
       const fechaFin = document.getElementById('fecha_fin_actividad_proy');
@@ -3860,6 +4246,42 @@ if (!isset($_SESSION['id_usuario'])) {
     limitarTextarea("edit_problema_proy_2", "contador_edit_problema_proy_2", 300);
     limitarTextarea("edit_objetivos_proy_2", "contador_edit_objetivos_proy_2", 300);
     limitarTextarea("edit_beneficios_proy_2", "contador_edit_beneficios_proy_2", 300);
+    limitarTextarea("impacto_supest_proy", "contador_impacto_supest_proy", 300);
+    limitarTextarea("descripcion_supuesto_nuevo_proy", "contador_descripcion_supuesto_nuevo_proy", 300);
+  </script>
+
+  <script>
+    function limitarTextarea(idTextarea, idContador, maximoCaracteres = 300) {
+      const textarea = document.getElementById(idTextarea);
+      const contador = document.getElementById(idContador);
+
+      const mensajeError = document.createElement('p');
+      mensajeError.classList.add('text-danger');
+      mensajeError.textContent = 'Has superado el límite de caracteres (Reiniciar el Registro).';
+      mensajeError.style.display = 'none';
+      textarea.parentNode.appendChild(mensajeError);
+
+      const actualizarContador = () => {
+        const restantes = maximoCaracteres - textarea.value.length;
+        contador.textContent = restantes;
+
+        if (restantes < 0) {
+          mensajeError.style.display = 'block';
+          textarea.disabled = true;
+        } else {
+          mensajeError.style.display = 'none';
+          textarea.disabled = false;
+        }
+      };
+
+      textarea.addEventListener('input', actualizarContador);
+      actualizarContador();
+    }
+
+    limitarTextarea("impacto_supest_proy", "contador_impacto_supest_proy", 300);
+    limitarTextarea("descripcion_supuesto_nuevo_proy", "contador_descripcion_supuesto_nuevo_proy", 300);
+    limitarTextarea("descripcion_restricc_nuevo_proy", "contador_descripcion_restricc_nuevo_proy", 300);
+    limitarTextarea("impacto_restricc_proy", "contador_impacto_restricc_proy", 300);
   </script>
 
   <script>
@@ -4010,7 +4432,6 @@ if (!isset($_SESSION['id_usuario'])) {
         return;
       }
 
-      // Destruir gráfica anterior si ya existe.
       if (graficaDistribucionPresupuesto) {
         graficaDistribucionPresupuesto.destroy();
         graficaDistribucionPresupuesto = null;

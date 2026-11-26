@@ -272,4 +272,56 @@ if ($_GET['act'] == 'insert_new_riesg_respon_proy') {
 	}
 }
 
+if ($_GET['act'] == 'insert_new_supuestos_proy') {
+
+	$d_id_proyecto = mysqli_real_escape_string($conn, trim($_POST['id_proyecto']));
+	$d_id_project_plans = mysqli_real_escape_string($conn, trim($_POST['id_project_plans']));
+	$d_nom_supuestos_proy = mysqli_real_escape_string($conn, trim($_POST['nom_supuestos_proy']));
+	$d_descripcion_supuesto_nuevo_proy = mysqli_real_escape_string($conn, trim($_POST['descripcion_supuesto_nuevo_proy']));
+	$d_impacto_supest_proy = mysqli_real_escape_string($conn, trim($_POST['impacto_supest_proy']));
+	$d_estado_supest_proy = mysqli_real_escape_string($conn, trim($_POST['estado_supest_proy']));
+
+	$query = mysqli_query($conn, "INSERT INTO project_plans_assumptions(id_proyecto, id_project_plan, nombre_supuesto, descripcion_supuesto, impacto_supuestos, estado_supuestos)
+											VALUES('$d_id_proyecto', '$d_id_project_plans', '$d_nom_supuestos_proy', '$d_descripcion_supuesto_nuevo_proy', '$d_impacto_supest_proy', '$d_estado_supest_proy')");
+
+
+	if ($query) {
+
+		if ($val_Type_User == 1) {
+			header("location: ../pages/project_indiv_tables_direct.php?alert=1");
+		}
+		if ($val_Type_User == 2) {
+			header("location: ../pages/project_gen_tables_jef.php?alert=1");
+		}
+		if ($val_Type_User == 3) {
+			header("location: ../pages/project_tables_trab.php?alert=1");
+		}
+	}
+}
+
+if ($_GET['act'] == 'insert_new_restricciones_proy') {
+
+	$d_id_proyecto = mysqli_real_escape_string($conn, trim($_POST['id_proyecto']));
+	$d_id_project_plans = mysqli_real_escape_string($conn, trim($_POST['id_project_plans']));
+	$d_nom_restricc_proy = mysqli_real_escape_string($conn, trim($_POST['nom_restricc_proy']));
+	$d_descripcion_restricc_nuevo_proy = mysqli_real_escape_string($conn, trim($_POST['descripcion_restricc_nuevo_proy']));
+	$d_impacto_restricc_proy = mysqli_real_escape_string($conn, trim($_POST['impacto_restricc_proy']));
+
+	$query = mysqli_query($conn, "INSERT INTO project_plans_restriction(id_proyecto, id_project_plan, nombre_restriccion, descripcion_restriccion, impacto_restriccion)
+											VALUES('$d_id_proyecto', '$d_id_project_plans', '$d_nom_restricc_proy', '$d_descripcion_restricc_nuevo_proy', '$d_impacto_restricc_proy')");
+
+	if ($query) {
+
+		if ($val_Type_User == 1) {
+			header("location: ../pages/project_indiv_tables_direct.php?alert=1");
+		}
+		if ($val_Type_User == 2) {
+			header("location: ../pages/project_gen_tables_jef.php?alert=1");
+		}
+		if ($val_Type_User == 3) {
+			header("location: ../pages/project_tables_trab.php?alert=1");
+		}
+	}
+}
+
 ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-11-2026 a las 01:33:50
+-- Tiempo de generación: 26-11-2026 a las 21:50:15
 -- Versión del servidor: 9.7.1
 -- Versión de PHP: 8.5.12
 
@@ -111,7 +111,9 @@ INSERT INTO `projects_risk` (`id_projects_risk`, `id_proyecto`, `id_risk`, `esta
 (3, 4, 15, 'Abierto', 'Sin asignar'),
 (4, 4, 16, 'Abierto', 'Sin asignar'),
 (5, 1, 1, 'Abierto', 'Sin asignar'),
-(6, 1, 2, 'Abierto', 'Sin asignar');
+(6, 1, 2, 'Abierto', 'Sin asignar'),
+(7, 4, 3, 'Identificados', 'Miguel Bencomo'),
+(8, 4, 11, 'Identificados', 'Miguel Bencomo');
 
 -- --------------------------------------------------------
 
@@ -214,6 +216,29 @@ INSERT INTO `project_plans` (`id_project_plans`, `id_proyecto`, `n_version_mayor
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `project_plans_assumptions`
+--
+
+CREATE TABLE `project_plans_assumptions` (
+  `id_project_plans_assumptions` int NOT NULL,
+  `id_proyecto` int NOT NULL,
+  `id_project_plan` int NOT NULL,
+  `nombre_supuesto` varchar(100) NOT NULL,
+  `descripcion_supuesto` varchar(300) NOT NULL,
+  `impacto_supuestos` varchar(300) NOT NULL,
+  `estado_supuestos` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `project_plans_assumptions`
+--
+
+INSERT INTO `project_plans_assumptions` (`id_project_plans_assumptions`, `id_proyecto`, `id_project_plan`, `nombre_supuesto`, `descripcion_supuesto`, `impacto_supuestos`, `estado_supuestos`) VALUES
+(1, 4, 1, 'Hay sobre recursos', 'Hay exceso de materiales', 'Disponibilidad de equipo', 'Vigente');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `project_plans_milestones`
 --
 
@@ -232,6 +257,28 @@ CREATE TABLE `project_plans_milestones` (
 
 INSERT INTO `project_plans_milestones` (`id_project_plans_milestones`, `id_project_plans`, `nombre_hitos`, `descripcion_hitos`, `fecha_hito`, `estado_hito`) VALUES
 (1, 1, 'Modal funcional', 'Segundo modal listo', '2026-11-02 00:00:00', 'Pendiente');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `project_plans_restriction`
+--
+
+CREATE TABLE `project_plans_restriction` (
+  `project_plans_restriction` int NOT NULL,
+  `id_proyecto` int NOT NULL,
+  `id_project_plan` int NOT NULL,
+  `nombre_restriccion` varchar(100) NOT NULL,
+  `descripcion_restriccion` varchar(300) NOT NULL,
+  `impacto_restriccion` varchar(300) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `project_plans_restriction`
+--
+
+INSERT INTO `project_plans_restriction` (`project_plans_restriction`, `id_proyecto`, `id_project_plan`, `nombre_restriccion`, `descripcion_restriccion`, `impacto_restriccion`) VALUES
+(1, 4, 1, 'Sin almacén', 'Falta una recamara', 'Aumenta la inseguridad');
 
 -- --------------------------------------------------------
 
@@ -585,11 +632,27 @@ ALTER TABLE `project_plans`
   ADD KEY `id_project_manager` (`id_project_manager`);
 
 --
+-- Indices de la tabla `project_plans_assumptions`
+--
+ALTER TABLE `project_plans_assumptions`
+  ADD PRIMARY KEY (`id_project_plans_assumptions`),
+  ADD KEY `id_proyecto` (`id_proyecto`),
+  ADD KEY `id_project_plan` (`id_project_plan`);
+
+--
 -- Indices de la tabla `project_plans_milestones`
 --
 ALTER TABLE `project_plans_milestones`
   ADD PRIMARY KEY (`id_project_plans_milestones`),
   ADD KEY `id_project_plans` (`id_project_plans`);
+
+--
+-- Indices de la tabla `project_plans_restriction`
+--
+ALTER TABLE `project_plans_restriction`
+  ADD PRIMARY KEY (`project_plans_restriction`),
+  ADD KEY `id_proyecto` (`id_proyecto`),
+  ADD KEY `id_project_plan` (`id_project_plan`);
 
 --
 -- Indices de la tabla `project_plan_budgets`
@@ -715,7 +778,7 @@ ALTER TABLE `projects`
 -- AUTO_INCREMENT de la tabla `projects_risk`
 --
 ALTER TABLE `projects_risk`
-  MODIFY `id_projects_risk` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_projects_risk` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `project_activities`
@@ -742,10 +805,22 @@ ALTER TABLE `project_plans`
   MODIFY `id_project_plans` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de la tabla `project_plans_assumptions`
+--
+ALTER TABLE `project_plans_assumptions`
+  MODIFY `id_project_plans_assumptions` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `project_plans_milestones`
 --
 ALTER TABLE `project_plans_milestones`
   MODIFY `id_project_plans_milestones` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `project_plans_restriction`
+--
+ALTER TABLE `project_plans_restriction`
+  MODIFY `project_plans_restriction` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `project_plan_budgets`
@@ -862,10 +937,24 @@ ALTER TABLE `project_plans`
   ADD CONSTRAINT `project_plans_ibfk_2` FOREIGN KEY (`id_project_manager`) REFERENCES `users` (`id_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
+-- Filtros para la tabla `project_plans_assumptions`
+--
+ALTER TABLE `project_plans_assumptions`
+  ADD CONSTRAINT `project_plans_assumptions_ibfk_1` FOREIGN KEY (`id_proyecto`) REFERENCES `projects` (`id_proyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `project_plans_assumptions_ibfk_2` FOREIGN KEY (`id_project_plan`) REFERENCES `project_plans` (`id_project_plans`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Filtros para la tabla `project_plans_milestones`
 --
 ALTER TABLE `project_plans_milestones`
   ADD CONSTRAINT `project_plans_milestones_ibfk_1` FOREIGN KEY (`id_project_plans`) REFERENCES `project_plans` (`id_project_plans`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Filtros para la tabla `project_plans_restriction`
+--
+ALTER TABLE `project_plans_restriction`
+  ADD CONSTRAINT `project_plans_restriction_ibfk_1` FOREIGN KEY (`id_proyecto`) REFERENCES `projects` (`id_proyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `project_plans_restriction_ibfk_2` FOREIGN KEY (`id_project_plan`) REFERENCES `project_plans` (`id_project_plans`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Filtros para la tabla `project_plan_budgets`
