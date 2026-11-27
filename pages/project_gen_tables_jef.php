@@ -2052,7 +2052,7 @@ if (!isset($_SESSION['id_usuario'])) {
                       <tbody id="tbody_restricciones_regist_proy">
 
                         <tr>
-                          <td colspan="9" class="text-center text-secondary">
+                          <td colspan="5" class="text-center text-secondary">
                             Seleccione una planificación para consultar sus restricciones.
                           </td>
                         </tr>
@@ -2061,7 +2061,6 @@ if (!isset($_SESSION['id_usuario'])) {
 
                       <tfoot>
                         <tr class="table-primary fw-bold">
-                          <td class="text-center"></td>
                           <td class="text-center"></td>
                           <td class="text-center"></td>
                           <td class="text-center"></td>
@@ -3434,17 +3433,16 @@ if (!isset($_SESSION['id_usuario'])) {
             return;
           }
 
-          ver_restricc_plan.forEach(function(ver_restricc_plan) {
+          ver_restricc_plan.forEach(function(restriccion) {
+
             const fila = document.createElement('tr');
 
             const valores = [
-              ver_restricc_plan.project_plans_restriction,
-              ver_restricc_plan.nombre_restriccion,
-              ver_restricc_plan.descripcion_restriccion,
-              ver_restricc_plan.impacto_restriccion
+              restriccion.project_plans_restriction,
+              restriccion.nombre_restriccion,
+              restriccion.descripcion_restriccion,
+              restriccion.impacto_restriccion
             ];
-
-            //console.log("Hola " + valores);
 
             valores.forEach(function(valor) {
               const celda = document.createElement('td');
@@ -3455,9 +3453,19 @@ if (!isset($_SESSION['id_usuario'])) {
 
             const celdaAcciones = document.createElement('td');
             celdaAcciones.className = 'text-center';
-            fila.appendChild(celdaAcciones);
+            const botonPlanificacion = document.createElement('a');
 
+            botonPlanificacion.href = `./new_project_planning.php?id=${encodeURIComponent(restriccion.project_plans_restriction)}`;
+
+            botonPlanificacion.className = 'btn-editar';
+            botonPlanificacion.title = 'Editar la restriccion';
+
+            botonPlanificacion.innerHTML = `<i class="material-icons-round">edit_calendar</i>`;
+
+            celdaAcciones.appendChild(botonPlanificacion);
+            fila.appendChild(celdaAcciones);
             tbody.appendChild(fila);
+
           });
 
           tabla.DataTable({
@@ -3471,7 +3479,7 @@ if (!isset($_SESSION['id_usuario'])) {
               url: '../assets/js/DataEsp.json'
             },
             columnDefs: [{
-              targets: 5,
+              targets: 4,
               orderable: false,
               searchable: false
             }]
