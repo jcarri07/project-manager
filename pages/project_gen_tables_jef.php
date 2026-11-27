@@ -2140,6 +2140,317 @@ if (!isset($_SESSION['id_usuario'])) {
 
   </div>
 
+  <!--  MODAL: SEGUIMIENTO Y CALENDARIO -->
+
+  <div class="modal fade" id="modalSeguimientoPlan" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="titulo_modal_alcance" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg modal-recursos-presupuesto-dialog">
+      <div class="modal-content">
+
+        <div class="w3-container w3-teal modal-header">
+          <div>
+            <h5 class="modal-title" id="titulo_modal_alcance">
+              <i class="fa-solid fa-chart-line fa-xl text-primary me-2"></i>
+              Seguimiento y Calendario
+            </h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"> </button>
+
+        </div>
+
+        <div class="modal-body">
+
+
+          <div class="row g-3 align-items-stretch mb-3">
+
+            <div class="col-12 col-xl-12">
+
+              <div class="card h-100 mb-0">
+
+                <div class="card-header pb-2 d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+                  <div>
+                    <h6 class="mb-1">
+                      Seguimiento del Proyecto
+                    </h6>
+                  </div>
+
+                  <div class="form-check form-switch mb-0">
+                    <input class="form-check-input" type="checkbox" id="check_form_seguimiento_nuevos" checked>
+                    <label class="form-check-label" for="check_form_seguimiento_nuevos"> Guardar seguimiento</label>
+                  </div>
+
+                </div>
+
+                <div class="card-body pt-2">
+
+                  <div class="table-responsive">
+
+                    <table id="tabla_data_seguimiento_plan" class="table table-hover table-striped align-middle">
+
+                      <thead class="table-light">
+                        <tr>
+                          <th class="text-center">ID</th>
+                          <th class="text-center">Indicador</th>
+                          <th class="text-center">Descripción</th>
+                          <th class="text-center">Tipo</th>
+                          <th class="text-center">Meta</th>
+                          <th class="text-center">Peridiocidad</th>
+                          <th class="text-center">Responsable</th>
+                          <th class="text-center">Acciones</th>
+                        </tr>
+                      </thead>
+
+                      <tbody id="tbody_seguimiento_regist_plan">
+
+                        <tr>
+                          <td colspan="9" class="text-center text-secondary">
+                            Seleccione una planificación para consultar sus seguimientos.
+                          </td>
+                        </tr>
+
+                      </tbody>
+
+                      <tfoot>
+                        <tr class="table-primary fw-bold">
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                        </tr>
+                      </tfoot>
+
+                    </table>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <br>
+
+          <div class="row g-3" id="ver_form_nuevos_seguimiento_container">
+
+            <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_new_riesg_respon_proy" method="POST">
+
+              <input type="hidden" id="id_project_plans_alcance" name="id_project_plans" value="">
+
+              <input type="hidden" name="id_proyecto" id="id_proyecto_recursos" value="">
+
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Riesgos *</label>
+
+                    <select class="form-multi-select" id="list_riesgo_proy" name="list_riesgo_proy[]" multiple data-coreui-search="global">
+                      <?php
+                      $query_data = mysqli_query($conn, "SELECT * FROM risk");
+
+                      while ($miembro = mysqli_fetch_assoc($query_data)) {
+                        $id = $miembro['id_risk'];
+                        $nombre = ($miembro['riesgo']);
+                        $esp = ($miembro['probabilidad']);
+                        echo "<option value=\"$id\">$nombre | Probabilidad: $esp</option>";
+                      }
+                      ?>
+                    </select>
+
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Asignar Responsable *</label>
+                    <select class="form-select" id="respon_riesgo_proy" name="respon_riesgo_proy">
+                      <?php
+                      $query_data = mysqli_query($conn, "SELECT * FROM users");
+
+                      while ($miembro = mysqli_fetch_assoc($query_data)) {
+                        $id = $miembro['id_usuario'];
+                        $nombre = ($miembro['nombre_user']);
+                        $apell = ($miembro['apellido_user']);
+                        $esp = ($miembro['especialidad']);
+                        $NombreComp = ("$nombre" . " " . "$apell");
+                        echo "<option value=\"$NombreComp\">$nombre $apell | Especialidad: $esp</option>";
+                      }
+                      ?>
+                    </select>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Estado *</label>
+                    <select name="estado_risg_plan_proy" id="estado_risg_plan_proy" class="form-select border px-3" required>
+                      <option value="" disabled>Seleccione</option>
+                      <option value="Abierto">Abierto</option>
+                      <option value="Identificados">Identificados</option>
+                      <option value="Cerrado">Cerrado</option>
+                    </select>
+                  </div>
+
+                </div>
+
+                <div class="mb-4">
+                  <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar el riesgo </button>
+                </div>
+
+              </div>
+
+            </form>
+
+          </div>
+
+          <br><br>
+
+          <div class="row g-3 align-items-stretch mb-3">
+
+            <div class="col-12 col-xl-12">
+
+              <div class="card h-100 mb-0">
+
+                <div class="card-header pb-2 d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+                  <div>
+                    <h6 class="mb-1">
+                      Supuestos del Proyecto
+                    </h6>
+                  </div>
+
+                  <div class="form-check form-switch mb-0">
+                    <input class="form-check-input" type="checkbox" id="check_form_supuestos_nuevos" checked>
+                    <label class="form-check-label" for="check_form_supuestos_nuevos"> Agregar supuestos</label>
+                  </div>
+
+                </div>
+
+                <div class="card-body pt-2">
+
+                  <div class="table-responsive">
+
+                    <table id="tabla_data_fech_calend_plan" class="table table-hover table-striped align-middle">
+
+                      <thead class="table-light">
+                        <tr>
+                          <th class="text-center">ID</th>
+                          <th class="text-center">Periodo</th>
+                          <th class="text-center">Fecha de corte</th>
+                          <th class="text-center">Fecha de entrega</th>
+                          <th class="text-center">Estado</th>
+                          <th class="text-center">Acciones</th>
+                        </tr>
+                      </thead>
+
+                      <tbody id="tbody_fech_calend_regist_proy">
+
+                        <tr>
+                          <td colspan="9" class="text-center text-secondary">
+                            Seleccione una planificación para consultar su calendario.
+                          </td>
+                        </tr>
+
+                      </tbody>
+
+                      <tfoot>
+                        <tr class="table-primary fw-bold">
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                          <td class="text-center"></td>
+                        </tr>
+                      </tfoot>
+
+                    </table>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <br>
+
+          <div class="row g-3" id="ver_form_nuevos_supuestos_container">
+
+            <form id="formAlcancePlan" action="./proses_plan_project.php?act=insert_new_supuestos_proy" method="POST">
+
+              <input type="hidden" id="id_project_plans_alcance" name="id_project_plans" value="">
+
+              <input type="hidden" name="id_proyecto" id="id_proyecto_recursos" value="">
+
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Supuestos *</label>
+                    <input type="text" name="nom_supuestos_proy" id="nom_supuestos_proy" class="form-control border px-3" required>
+                  </div>
+
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label">Descripción del Supuestos *</label>
+                    <textarea name="descripcion_supuesto_nuevo_proy" id="descripcion_supuesto_nuevo_proy" class="form-control border px-3" maxlength="300" rows="3" required></textarea>
+                    <div id="contador_descripcion_supuesto_nuevo_proy">300</div>
+                  </div>
+
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label">Impacto si NO se cumple el Supuestos *</label>
+                    <textarea name="impacto_supest_proy" id="impacto_supest_proy" class="form-control border px-3" maxlength="300" rows="3" required></textarea>
+                    <div id="contador_impacto_supest_proy">300</div>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Estado *</label>
+                    <select name="estado_supest_proy" id="estado_supest_proy" class="form-select border px-3" required>
+                      <option value="" disabled>Seleccione</option>
+                      <option value="Vigente">Vigente</option>
+                      <option value="Identificados">Identificados</option>
+                      <option value="Cerrado">Cerrado</option>
+                    </select>
+                  </div>
+
+                </div>
+
+                <div class="mb-4">
+                  <button type="submit" class="btn btn-primary mb-0" id="btnGuardarAlcance"> <i class="fa-solid fa-floppy-disk me-1"></i> Guardar el supuesto </button>
+                </div>
+
+              </div>
+
+            </form>
+
+          </div>
+
+          <br>
+
+        </div>
+
+        <div class="modal-footer">
+
+          <br><br><br>
+
+        </div>
+
+      </div>
+
+
+
+    </div>
+
+
+  </div>
+
   </div>
 
   </div>
@@ -3455,12 +3766,12 @@ if (!isset($_SESSION['id_usuario'])) {
             celdaAcciones.className = 'text-center';
             const botonPlanificacion = document.createElement('a');
 
-            botonPlanificacion.href = `./new_project_planning.php?id=${encodeURIComponent(restriccion.project_plans_restriction)}`;
+            botonPlanificacion.href = `./#?id=${encodeURIComponent(restriccion.project_plans_restriction)}`;
 
             botonPlanificacion.className = 'btn-editar';
             botonPlanificacion.title = 'Editar la restriccion';
 
-            botonPlanificacion.innerHTML = `<i class="material-icons-round">edit_calendar</i>`;
+            botonPlanificacion.innerHTML = `<i class="fa-solid fa-pen-to-square" style="color: rgb(35, 77, 217);"></i>`;
 
             celdaAcciones.appendChild(botonPlanificacion);
             fila.appendChild(celdaAcciones);
@@ -3890,6 +4201,14 @@ if (!isset($_SESSION['id_usuario'])) {
           }
 
           if (idModal === 'modalRiesgosPlan') {
+
+            cargarRiesgosPlan(idPlan, idProyecto);
+            cargarSupuestosPlan(idPlan, idProyecto);
+            cargarRestriccionesPlan(idPlan, idProyecto);
+
+          }
+
+          if (idModal === 'modalSeguimientoPlan') {
 
             cargarRiesgosPlan(idPlan, idProyecto);
             cargarSupuestosPlan(idPlan, idProyecto);
