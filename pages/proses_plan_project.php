@@ -324,4 +324,29 @@ if ($_GET['act'] == 'insert_new_restricciones_proy') {
 	}
 }
 
+if ($_GET['act'] == 'insert_new_seguimiento_proy') {
+
+	//$d_id_proyecto = mysqli_real_escape_string($conn, trim($_POST['id_proyecto']));
+	$d_id_project_plans = mysqli_real_escape_string($conn, trim($_POST['id_project_plans']));
+	$d_nom_restricc_proy = mysqli_real_escape_string($conn, trim($_POST['nom_restricc_proy']));
+	$d_descripcion_restricc_nuevo_proy = mysqli_real_escape_string($conn, trim($_POST['descripcion_restricc_nuevo_proy']));
+	$d_impacto_restricc_proy = mysqli_real_escape_string($conn, trim($_POST['impacto_restricc_proy']));
+
+	$query = mysqli_query($conn, "INSERT INTO project_plans_tracing(id_project_plans, indicador_tracing, descripcion_tracing, tipo_tracing, meta_tracing, periodicidad_tracing, responsable_tracing)
+											VALUES('$d_id_project_plans', '$', '$', '$', '$')");
+
+	if ($query) {
+
+		if ($val_Type_User == 1) {
+			header("location: ../pages/project_indiv_tables_direct.php?alert=1");
+		}
+		if ($val_Type_User == 2) {
+			header("location: ../pages/project_gen_tables_jef.php?alert=1");
+		}
+		if ($val_Type_User == 3) {
+			header("location: ../pages/project_tables_trab.php?alert=1");
+		}
+	}
+}
+
 ?>
